@@ -16,6 +16,9 @@ export class InicioComponent implements OnInit {
 
   //closeResult: string;
 
+  mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
+  aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías."
+
 
   constructor(config: NgbCarouselConfig, private offcanvasService: NgbOffcanvas) {
     // customize default values of carousels used by this component tree

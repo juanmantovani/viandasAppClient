@@ -425,7 +425,8 @@ button:focus{
 }
 
 .heading-title{
-	margin-bottom: 50px;
+	margin-bottom: 10px;
+    margin-top: 10px;
 }
 .heading-title h2{
 	color: #010101;
@@ -439,7 +440,6 @@ button:focus{
 	margin: 0px;
 }
 
-.inner-menu-box{}
 .inner-menu-box .nav-pills .nav-link.active{
 	background: #E3AE06;
 }
@@ -610,10 +610,12 @@ button:focus{
 	background: #E3AE06;
 	padding: 30px 0;
 	border-radius: 100px;
+    margin-top: 10px;
 }
 
 .overflow-hidden {
     overflow: hidden;
+    text-align: center;
 }
 
 .contact-imfo-box i{
