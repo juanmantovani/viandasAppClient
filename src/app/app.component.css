@@ -208,6 +208,10 @@ button:focus{
 	border-radius: 4px;
 }
 
+.nav-item a{
+    cursor: pointer;
+}
+
 
 
 .btn-primary{
