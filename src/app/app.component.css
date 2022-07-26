@@ -662,7 +662,7 @@ button:focus{
 	padding-bottom: 0px;
 }
 .bg-f{
-	
+	background-image: url("../assets/footer-bg.jpg");
 	background-attachment: scroll;
 	background-clip: initial;
 	background-color: rgba(0, 0, 0, 0);
@@ -798,7 +798,7 @@ button:focus{
 	position: relative;
 	display: block;
 	background-color: #010101;
-	border-top: 1px solid rgba(207, 166, 113);
+	border-top: 1px solid rgb(255, 145, 0);
 	padding: 30px 0;
 	z-index: 1;
 }
