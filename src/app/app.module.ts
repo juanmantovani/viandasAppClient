@@ -11,8 +11,22 @@ import { HeaderComponent } from './components/header/header.component';
 import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
 import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavComponent } from './components/administracion/sidenav/sidenav.component';
+
+//material
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule} from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+ 
 
 @NgModule({
   declarations: [
@@ -24,6 +38,7 @@ import { SidenavComponent } from './components/administracion/sidenav/sidenav.co
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -32,7 +47,17 @@ import { SidenavComponent } from './components/administracion/sidenav/sidenav.co
     NgbPaginationModule,
     NgbAlertModule,
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSidenavModule,
+    MatListModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule
 
   ],
   providers: [],
