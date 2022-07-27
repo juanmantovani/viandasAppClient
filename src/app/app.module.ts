@@ -8,6 +8,11 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
+import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { SidenavComponent } from './components/administracion/sidenav/sidenav.component';
 
 @NgModule({
   declarations: [
@@ -15,14 +20,19 @@ import { HeaderComponent } from './components/header/header.component';
     InicioComponent,
     MenuComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    CarrouselComponent,
+    InicioAdminComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    BrowserAnimationsModule,
+    MatSidenavModule
 
   ],
   providers: [],
