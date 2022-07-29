@@ -4,4 +4,5 @@ export class Banner {
     fechaDesde: Date;
     fechaHasta: Date;
     //imagen: File;
+ 
 }

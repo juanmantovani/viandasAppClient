@@ -1,0 +1,17 @@
+.mat-dialog-content{
+    width: 500px;
+    text-align: center;
+}
+.mat-form-field{ 
+    width:75%
+}
+
+.inputFile{
+    margin-bottom: 5px;
+}
+
+.error-input{
+    color:red;
+}
+
+
