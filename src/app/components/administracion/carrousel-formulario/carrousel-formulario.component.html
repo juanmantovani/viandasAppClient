@@ -1,7 +1,7 @@
 <h4>{{data.accionFormulario}}</h4>
 <mat-dialog-content>
 
-    <form [formGroup]="this.formulario" (ngSubmit)="onClickAceptar()" id="myform" #f="ngForm">
+    <form [formGroup]="this.formulario" (ngSubmit)="onClickGuardar()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
         <mat-form-field appearance="standard" #titulo>
@@ -33,16 +33,16 @@
                 name="fechaHasta" id="fechaHasta" placeholder="Seleccione fecha hasta" required />
             <mat-datepicker-toggle matSuffix [for]="pickerFechaHasta"></mat-datepicker-toggle>
             <mat-datepicker #pickerFechaHasta></mat-datepicker>
-            <mat-hint *ngIf="formulario!.controls['fechaDesde']!.touched && formulario!.controls['fechaDesde']!.invalid"
+            <mat-hint *ngIf="formulario!.controls['fechaHasta']!.touched && formulario!.controls['fechaHasta']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
         <div class="inputFile">
             <button type="button" mat-raised-button (click)="fileInput.click()">Subir imagen</button>
-            <input hidden #fileInput type="file" id="file">
+            <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
+            <p *ngIf="nombreImagen != ''">{{nombreImagen}}</p>
         </div>
-
     </form>
 </mat-dialog-content>
 
@@ -50,9 +50,8 @@
     <button mat-button color="primary" (click)="onClickCancelar()">
         <mat-icon>clear</mat-icon> CANCELAR
     </button>
-    <button mat-raised-button color="primary" (click)="onClickAceptar()" type="submit" class="btn-primary btn-azul"
-        [disabled]="this.formulario.status == 'INVALID'"
->
+    <button mat-raised-button color="primary" (click)="onClickGuardar()" type="submit" class="btn-primary btn-azul"
+        [disabled]="this.formulario.status == 'INVALID' || nombreImagen ==''">
         <mat-icon>save</mat-icon> GUARDAR
     </button>
 
