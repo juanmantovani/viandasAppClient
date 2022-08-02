@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-
-
-import { LoginI } from 'src/app/models/login.interface';
-import { ResponseI } from 'src/app/models/response.interface';
-
-import { LoginService } from 'src/app/services/login/login.service';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { LoginRequest } from 'src/app/shared/dto/Login/LoginRequest';
 
 
 @Component({
@@ -36,7 +31,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLogin(form: LoginI) {
+  onLogin(request: LoginRequest) {
     /*this.loginService.loginByEmail(form).subscribe((data) => {
       console.log(data);
       let dataRsponse: ResponseI = data;
@@ -45,7 +40,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['dashboard']);
       }
     });*/
-    console.log(form);
+    console.log(request);
   }
 
 }

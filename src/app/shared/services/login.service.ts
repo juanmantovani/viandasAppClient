@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginI } from 'src/app/models/login.interface';
-import { ResponseI } from 'src/app/models/response.interface';
 import { Observable } from 'rxjs';
+import { LoginRequest } from '../dto/Login/LoginRequest';
+import { LoginResponse } from '../dto/Login/LoginResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  loginByEmail(form: LoginI): Observable<ResponseI> {
+  loginByEmail(form: LoginRequest): Observable<LoginResponse> {
     let direccion = this.url + 'login';
-    return this.http.post<ResponseI>(direccion, form);
+    return this.http.post<LoginResponse>(direccion, form);
   }
 
 }

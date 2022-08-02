@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbAlertModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
@@ -13,7 +10,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
 import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,7 +40,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MenuComponent,
     FooterComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,

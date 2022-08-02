@@ -5,7 +5,7 @@ export class AgregarBannerResponse extends BaseResponse{
     banner: Banner;
     constructor(data:any) {
       super(data);
-      if (data?.parametrosCredito)
+      if (data?.Banner)
         this.banner = new Banner(data.Banner);
     }
 }
