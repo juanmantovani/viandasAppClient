@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { LoginRequest } from 'src/app/shared/dto/Login/LoginRequest';
+import { LoginResponse } from 'src/app/shared/dto/Login/LoginResponse';
 
 
 @Component({
@@ -32,15 +33,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(request: LoginRequest) {
-    /*this.loginService.loginByEmail(form).subscribe((data) => {
-      console.log(data);
-      let dataRsponse: ResponseI = data;
+    this.loginService.loginByEmail(request).subscribe((data) => {
+      let dataRsponse: LoginResponse = data;
       if (dataRsponse.status == null) {
-        localStorage.setItem('token', dataRsponse.result);
-        this.router.navigate(['dashboard']);
+        localStorage.setItem('token', dataRsponse.token);
+        this.router.navigate(['administracion']);
       }
-    });*/
-    console.log(request);
+    }, err => {
+      console.log(err.error);
+    });
+    //console.log(request);
   }
 
 }
