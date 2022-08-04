@@ -1,7 +1,7 @@
 <h4>{{data.accionFormulario}}</h4>
 <mat-dialog-content>
 
-    <form [formGroup]="this.formulario" (ngSubmit)="onClickGuardar()" id="myform" #f="ngForm">
+    <form [formGroup]="formulario" (ngSubmit)="onClickGuardar()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
         <mat-form-field appearance="standard" #titulo>
@@ -38,12 +38,14 @@
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <div class="inputFile">
-            <button type="button" mat-raised-button (click)="fileInput.click()">Subir imagen</button>
-            <input hidden (change)="onFileSelected($event)" #fileInput type="file" id="file">
-            <p *ngIf="nombreImagen != ''">{{nombreImagen}}</p>
-        </div>
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngIf="imagen != null" [removable]="true" (removed)="onRemove(f)" >
+              <ngx-dropzone-label>{{ imagen.name }} ({{ imagen.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
     </form>
+
 </mat-dialog-content>
 
 <mat-dialog-actions align="center">
@@ -51,7 +53,7 @@
         <mat-icon>clear</mat-icon> CANCELAR
     </button>
     <button mat-raised-button color="primary" (click)="onClickGuardar()" type="submit" class="btn-primary btn-azul"
-        [disabled]="this.formulario.status == 'INVALID' || nombreImagen ==''">
+        [disabled]="formulario.status == 'INVALID' || imagen == null">
         <mat-icon>save</mat-icon> GUARDAR
     </button>
 

@@ -19,8 +19,12 @@ export class CarrouselFormularioComponent implements OnInit {
   result: Banner;
   formulario: FormGroup;
   minDateFechaHasta: Date;
-  imagen :File;
+  imagen?:File | null;;
   nombreImagen: string;
+
+  title = 'dropzone';
+  
+    files: File[] = [];
 
   @Output() onSubmit: EventEmitter<Banner | null>;
 
@@ -71,10 +75,11 @@ export class CarrouselFormularioComponent implements OnInit {
     if (date) this.minDateFechaHasta = date;
   }
 
-  onFileSelected(coso:any) {
-         Array.from(coso.target.files).forEach((file: any) => {
-        this.imagen = file
-        this.nombreImagen += file.name ;
-      });
+    onSelect(event: any) {
+      this.imagen = event.addedFiles[0];
     }
+
+    onRemove(event : any) {
+      this.imagen = null;
+  }
 }

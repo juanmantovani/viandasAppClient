@@ -27,6 +27,7 @@
     "boxicons": "^2.1.2",
     "cjs": "^0.0.11",
     "mdb-angular-ui-kit": "^2.3.0",
+    "ngx-dropzone": "^3.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

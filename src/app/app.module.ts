@@ -14,6 +14,7 @@ import { CarrouselComponent } from './components/administracion/carrousel/carrou
 import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './components/administracion/sidenav/sidenav.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 //material
 import { MatTableModule } from '@angular/material/table';
@@ -75,7 +76,8 @@ import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxDropzoneModule
 
   ],
   providers: [
