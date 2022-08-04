@@ -9,7 +9,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
 import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarrouselFormularioComponent } from './components/administracion/carrousel-formulario/carrousel-formulario.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
 
 
 @NgModule({
@@ -44,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
-    CarrouselFormularioComponent
+    CarrouselFormularioComponent,
+    SpinnerComponent
     
   ],
   imports: [
@@ -76,7 +79,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 
   ],
   providers: [
-    MatDatepickerModule
+    MatDatepickerModule,
+    {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
