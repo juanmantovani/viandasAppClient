@@ -32,6 +32,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarrouselFormularioComponent } from './components/administracion/carrousel-formulario/carrousel-formulario.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
-    CarrouselFormularioComponent
+    CarrouselFormularioComponent,
+    MatConfirmDialogComponent
     
   ],
   imports: [

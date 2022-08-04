@@ -2,3 +2,52 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/*myConfirm dialog*/
+.myconfirm-dialog-container > mat-dialog-container {
+    padding: 0mm !important;
+    border-radius: 7px;
+  }
+
+  .myconfirm-dialog-content {
+    margin: 0mm !important;
+    padding: 0mm !important;
+  }
+  .d-flex.justify-content-end {
+    display: flex !important;
+    justify-content: end !important
+  }
+  .myconfirm-dialog-msg {
+    background-color: #f7f9fd;
+    padding: 8% 2% 8% 5% !important;
+  }
+  .myconfirm-dialog-footer {
+    padding-top: 0mm !important;
+    margin-bottom: 1px !important;
+    padding-bottom: 1mm !important;
+    border-top: solid 1px !important;
+    border-top-color: #f1f3f7 !important;
+    background-color: #eef0f3;
+  }
+  .myconfirm-dialog-btn-yes {
+    color: white !important
+  }
+
+  .myconfirm-dialog-btn-no {
+    background-color: #706565;
+    color: white !important;
+  }
+
+  .myconfirm-dialog-btn-actions {
+    padding-top: 2%;
+    padding-right: 2%;
+    min-width: 100% !important;
+  }
+
+  .myconfirm-dialog-title {
+    background-color: #706565 !important;
+    color: white;
+    font-weight: bolder;
+  }
+/**/

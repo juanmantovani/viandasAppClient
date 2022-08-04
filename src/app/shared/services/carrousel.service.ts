@@ -4,6 +4,8 @@ import { map } from 'rxjs';
 import { Utils } from 'src/app/utils';
 import { AgregarBannerRequest } from '../dto/Carrousel/AgregarBannerRequest';
 import { AgregarBannerResponse } from '../dto/Carrousel/AgregarBannerResponse';
+import { BorrarBannerRequest } from '../dto/Carrousel/BorrarBannerRequest';
+import { BorrarBannerResponse } from '../dto/Carrousel/BorrarBannerResponse';
 import { EditarBannerRequest } from '../dto/Carrousel/EditarBannerRequest';
 import { EditarBannerResponse } from '../dto/Carrousel/EditarBannerResponse';
 import { Banner } from '../models/Banner';
@@ -21,7 +23,6 @@ export class CarrouselService {
 
   obtenerBanners() {
     var fecha = new Date();
-
 
     var aux: Array<Banner> = [
       { id: 1, titulo: 'promo 1', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
@@ -71,6 +72,26 @@ editarBanner(request: EditarBannerRequest){
         return response
       })
     ).toPromise<EditarBannerResponse>().catch(Utils.handleError);
+  }
+  */
+
+  borrar(request:BorrarBannerRequest){
+    let borrarBannerResponse : BorrarBannerResponse = {
+      valido : true,
+      mensaje: "todo bien",
+      accion: "Borrar"
+    }
+    return borrarBannerResponse;
+  }
+
+  /*
+ eliminar(request: EliminarParametroCreditoRequest): any {
+    const endpoint = this.urlService.urlEliminarParametroCredito;
+    return this.authHttpService.post<EliminarParametroCreditoResponse>(endpoint, request).pipe(
+      map((res: any) => {
+        return new EliminarParametroCreditoResponse(res);
+      })
+    ).toPromise<EliminarParametroCreditoResponse>().catch(Utils.handleError);
   }
   */
 }
