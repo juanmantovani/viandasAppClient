@@ -31,11 +31,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: #eef0f3;
   }
   .myconfirm-dialog-btn-yes {
+    background-color: lightgreen;
     color: white !important
   }
 
   .myconfirm-dialog-btn-no {
-    background-color: #706565;
+    background-color: lightcoral;
     color: white !important;
   }
 
@@ -46,8 +47,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   }
 
   .myconfirm-dialog-title {
-    background-color: #706565 !important;
-    color: white;
+    background-color: lightgray !important;
+    color: black;
     font-weight: bolder;
   }
 /**/

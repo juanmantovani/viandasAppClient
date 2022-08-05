@@ -76,6 +76,7 @@ editarBanner(request: EditarBannerRequest){
   */
 
   borrar(request:BorrarBannerRequest){
+    console.log(request)
     let borrarBannerResponse : BorrarBannerResponse = {
       valido : true,
       mensaje: "todo bien",
