@@ -9,14 +9,28 @@ body{
     
     background-image:  url(../assets/test.png);
     background-repeat: repeat-x;
-
 }
+
+
+
 
 /*------------------------------------------------------------------
     IMPORT FONTS
 -------------------------------------------------------------------*/
 
+/*------------------------------------------------------------------
+    SnackBar
+-------------------------------------------------------------------*/
 
+.mat-snack-bar-container {
+    background-color: red;
+    color: white;    
+}
+
+.snackbarError button {
+    background-color:orangered;
+    color: white;
+}
 
 /*------------------------------------------------------------------
     IMPORT FILES

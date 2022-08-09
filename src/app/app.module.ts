@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbAlertModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,11 @@ import { InicioAdminComponent } from './components/administracion/inicio-admin/i
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidenavComponent } from './components/administracion/sidenav/sidenav.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { SpinnerComponent } from './shared/components/spinner/spinner.component';
+import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { ServerErrorInterceptor } from './shared/interceptors/server-error.interceptor';
+import { GlobalErrorHandler } from './shared/global-error-handler';
 
 //material
 import { MatTableModule } from '@angular/material/table';
@@ -32,8 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarrouselFormularioComponent } from './components/administracion/carrousel-formulario/carrousel-formulario.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
+import { MatNotificationComponent } from './shared/components/mat-notification/mat-notification.component';
+
 
 
 @NgModule({
@@ -48,8 +53,8 @@ import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
     InicioAdminComponent,
     SidenavComponent,
     CarrouselFormularioComponent,
-    SpinnerComponent
-    
+    SpinnerComponent,
+    MatNotificationComponent    
   ],
   imports: [
     BrowserModule,
@@ -77,12 +82,17 @@ import { SpinnerInterceptor } from './shared/spinner/spinner.interceptor';
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDropzoneModule
-
+    NgxDropzoneModule,
+    
+    
   ],
   providers: [
     MatDatepickerModule,
-    {provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true},
+    { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+
   ],
   bootstrap: [AppComponent]
 })
