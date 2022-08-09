@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core';
+import { Router } from '@angular/router';
+import {NgbOffcanvas, OffcanvasDismissReasons, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './shared/services/auth.service';
+
+
 
 @Component({
   selector: 'app-root',
@@ -6,5 +11,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'viandasApp';
+
+  constructor(private authService : AuthService, private router: Router) {}
+  
+  ngOnInit() {
+    if (!this.authService.isAutenticated()) {
+      this.router.navigate(['login'])
+    };
+
+  }
 }

@@ -1,0 +1,43 @@
+
+<div style="position: relative;">
+    <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <!-- Remind Passowrd -->
+      <div id="formHeader">
+        <h1>Iniciar sesión</h1>
+      </div>
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="assets/integral_sin_fondo.png" id="icon" alt="User Icon" />
+        <h2>¡Hola! Completá tus datos</h2>
+      </div>
+  
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+        <div class="form-group">
+        <input type="text" class="fadeIn third form-control" id="login" formControlName="email" placeholder="Usuario"/>
+        <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['required']">Este campo es requerido</div>
+        <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['pattern']">El formato de mail no es corecto</div>
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" class="fadeIn third form-control" formControlName="password" placeholder="Contraseña"/>
+        <div class="error" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+        <div class="error" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['required']">Este campo es requerido</div>
+      </div>
+        <input type="submit" class="fadeIn fourth" value="Ingresar" [disabled]="!loginForm.valid"/>
+      </form>
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="#">Olvidé mi contraseña</a>
+        <br>
+        <a class="underlineHover" href="#">Deseo registrarme</a>
+      </div>
+    </div>
+  </div>
+
+<div class="fondo">
+</div>		
+
+</div>
