@@ -11,6 +11,9 @@ import { Utils } from '../../../utils';
 import { AgregarBannerResponse } from 'src/app/shared/dto/Carrousel/AgregarBannerResponse';
 import { AgregarBannerRequest } from 'src/app/shared/dto/Carrousel/AgregarBannerRequest';
 import { EditarBannerRequest } from 'src/app/shared/dto/Carrousel/EditarBannerRequest';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { BorrarBannerRequest } from 'src/app/shared/dto/Carrousel/BorrarBannerRequest';
+import { BorrarBannerResponse } from 'src/app/shared/dto/Carrousel/BorrarBannerResponse';
 
 
 @Component({
@@ -29,6 +32,7 @@ export class CarrouselComponent implements OnInit {
   constructor(
     private carrouselService: CarrouselService,
     public dialog: MatDialog,
+    private dialogService: DialogService
   ) {}
 
   async ngOnInit() {
@@ -64,6 +68,25 @@ export class CarrouselComponent implements OnInit {
       banner: banner
     };
     this.gestionarFormulario(dataForm);
+  }
+
+  async onClickBorrar(banner:any){
+      if (await this.generarConfirmacion("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+        await this.borrarBanner(banner);
+        await this.obtenerBanners();
+      }
+  }
+
+  async borrarBanner(banner: Banner) {
+    const request: BorrarBannerRequest = {
+      banner: banner
+    }
+    let resultado: BorrarBannerResponse;
+      resultado = await this.carrouselService.borrar(request);
+  }
+
+  async generarConfirmacion(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
   }
 
   async gestionarFormulario(dataFormulario: DataFormularioCarrousel) {

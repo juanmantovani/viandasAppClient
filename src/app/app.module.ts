@@ -37,8 +37,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarrouselFormularioComponent } from './components/administracion/carrousel-formulario/carrousel-formulario.component'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MatNotificationComponent } from './shared/components/mat-notification/mat-notification.component';
-
 
 
 @NgModule({
@@ -52,9 +50,8 @@ import { MatNotificationComponent } from './shared/components/mat-notification/m
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
-    CarrouselFormularioComponent,
-    SpinnerComponent,
-    MatNotificationComponent    
+    CarrouselFormularioComponent
+    
   ],
   imports: [
     BrowserModule,
