@@ -8,8 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { CarrouselFormularioComponent } from '../carrousel-formulario/carrousel-formulario.component';
 import { DataFormularioCarrousel } from '../../../shared/dto/Carrousel/DataFormularioCarrousel';
 import { Utils } from '../../../utils';
-import { AgregarBannerResponse } from 'src/app/shared/dto/Carrousel/AgregarBannerResponse';
-import { AgregarBannerRequest } from 'src/app/shared/dto/Carrousel/AgregarBannerRequest';
+import { AddBannerResponse } from 'src/app/shared/dto/Carrousel/AgregarBannerResponse';
+import { AddBannerRequest } from 'src/app/shared/dto/Carrousel/AgregarBannerRequest';
 import { EditarBannerRequest } from 'src/app/shared/dto/Carrousel/EditarBannerRequest';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { BorrarBannerRequest } from 'src/app/shared/dto/Carrousel/BorrarBannerRequest';
@@ -102,7 +102,7 @@ export class CarrouselComponent implements OnInit {
         return false;
       }
 
-      let resultado: AgregarBannerResponse = await this.onSubmit(datos);
+      let resultado: AddBannerResponse = await this.onSubmit(datos);
 
       if (!resultado.valido) {
         return false;
@@ -116,23 +116,23 @@ export class CarrouselComponent implements OnInit {
 
   }
 
-  async onSubmit(banner: Banner) : Promise<AgregarBannerResponse> { 
-    let resultadoOperacion: AgregarBannerResponse;
+  async onSubmit(banner: Banner) : Promise<AddBannerResponse> { 
+    let resultadoOperacion: AddBannerResponse;
     
     resultadoOperacion = this.accionFormulario == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
    
     return resultadoOperacion;
   }
   
-  async agregarBanner(banner: Banner): Promise<AgregarBannerResponse> {
-    const agregarBannerRequest: AgregarBannerRequest = {
+  async agregarBanner(banner: Banner): Promise<AddBannerResponse> {
+    const agregarBannerRequest: AddBannerRequest = {
       banner: banner
     }
-    const resultado = await this.carrouselService.agregarBanner(agregarBannerRequest);
+    const resultado = await this.carrouselService.addBanner(agregarBannerRequest);
     return resultado;
   }
 
-  async editarbanner(banner: Banner): Promise<AgregarBannerResponse> {
+  async editarbanner(banner: Banner): Promise<AddBannerResponse> {
     const editarBannerRequest: EditarBannerRequest = {
       banner: banner
     }

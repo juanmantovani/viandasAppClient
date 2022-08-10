@@ -1,5 +1,5 @@
 import { Banner } from "../../models/Banner";
 
-export class AgregarBannerRequest{
+export class AddBannerRequest{
     banner:Banner;
 }

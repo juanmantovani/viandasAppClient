@@ -1,4 +1,4 @@
-import { Injectable, NgZone, TemplateRef } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, TemplateRef } from '@angular/core';
 import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -12,16 +12,24 @@ export class NotificationService {
   toasts: any[] = [];
 
   show(textOrTpl: string | TemplateRef<any>, options: any = {}) {
-    this.toasts.push({ textOrTpl, ...options });
+    this.zone.run(
+      () => {this.toasts.push({ textOrTpl, ...options });
+    });
   }
 
   remove(toast: any) {
+    this.zone.run(() => {
     this.toasts = this.toasts.filter(t => t !== toast);
+    })
   }
 
   clear() {
     this.toasts.splice(0, this.toasts.length);
   }
+
+  // ngOnDestroy(): void {
+  //   this.clear();
+  // }
 
 
   // showSuccess(message: string): void {

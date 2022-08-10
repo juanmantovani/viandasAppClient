@@ -2,14 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Utils } from 'src/app/utils';
-import { AgregarBannerRequest } from '../dto/Carrousel/AgregarBannerRequest';
-import { AgregarBannerResponse } from '../dto/Carrousel/AgregarBannerResponse';
+import { AddBannerRequest } from '../dto/Carrousel/AgregarBannerRequest';
+import { AddBannerResponse } from '../dto/Carrousel/AgregarBannerResponse';
 import { BorrarBannerRequest } from '../dto/Carrousel/BorrarBannerRequest';
 import { BorrarBannerResponse } from '../dto/Carrousel/BorrarBannerResponse';
 import { EditarBannerRequest } from '../dto/Carrousel/EditarBannerRequest';
 import { EditarBannerResponse } from '../dto/Carrousel/EditarBannerResponse';
 import { Banner } from '../models/Banner';
 import { UrlService } from './url.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +19,7 @@ export class CarrouselService {
   imagen:any;
   constructor(
     private urlService: UrlService,
-    //private http: HttpClient
+    private http: HttpClient
   ) {}
 
   obtenerBanners() {
@@ -34,8 +35,18 @@ export class CarrouselService {
     return aux;
   }
 
-  agregarBanner(request: AgregarBannerRequest){
-    let agregarBannerResponse : AgregarBannerResponse = {
+  url = environment.url;
+
+  addBanner(request: AddBannerRequest){
+
+    const endpoint = this.url + 'uploadBanner';
+    console.log(endpoint)
+    this.http.post<AddBannerResponse>(endpoint, request).subscribe(
+      (res) => {console.log(res)}
+    );
+
+
+    let agregarBannerResponse : AddBannerResponse = {
       banner : new Banner(null),
       valido : true,
       mensaje: "todo bien",
