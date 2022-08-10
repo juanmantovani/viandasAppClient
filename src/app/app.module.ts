@@ -39,6 +39,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 
+import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
+import { MatNotificationComponent } from './shared/components/mat-notification/mat-notification.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +53,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
-    CarrouselFormularioComponent
+    CarrouselFormularioComponent,
+    MatConfirmDialogComponent,
+    MatNotificationComponent,
+    SpinnerComponent
     
   ],
   imports: [
@@ -81,9 +87,12 @@ import { MatNativeDateModule } from '@angular/material/core';
     ReactiveFormsModule,
     NgxDropzoneModule,
     
+
+    
     
   ],
   providers: [
+    MatNotificationComponent,
     MatDatepickerModule,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },

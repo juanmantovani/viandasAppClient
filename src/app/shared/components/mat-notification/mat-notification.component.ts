@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { NotificationService } from '../../services/notification.service';
 
 
@@ -6,9 +6,9 @@ import { NotificationService } from '../../services/notification.service';
   selector: 'app-mat-notification',
   templateUrl: './mat-notification.component.html',
   styleUrls: ['./mat-notification.component.css'],
-  host: {'[class.ngb-toasts]': 'true'}
+  host: {'class': 'toast-container position-fixed top-0 end-0 p-3', 'style': 'z-index: 1200'}
 })
-export class MatNotificationComponent {
+export class MatNotificationComponent implements OnDestroy{
 
   constructor(public notificationService : NotificationService) { }
 
@@ -20,12 +20,21 @@ export class MatNotificationComponent {
     this.notificationService.show('I am a standard toast');
   }
 
-  showSuccess() {
-    this.notificationService.show('I am a success toast', { classname: 'bg-success text-light', delay: 10000 });
+  showSuccess(message: string) {
+    this.notificationService.show(message, {
+      classname: 'bg-success text-light', 
+      delay: 7000,
+      autohide: true, 
+    });
   }
 
-  showDanger(dangerTpl: string) {
-    this.notificationService.show(dangerTpl, { classname: 'bg-danger text-light', delay: 15000 });
+  showDanger(message: string) {
+    console.log(message);
+    this.notificationService.show(message, { 
+      classname: 'bg-danger text-light', 
+      delay: 7000,
+      autohide: true, 
+    });
   }
 
   ngOnDestroy(): void {

@@ -20,8 +20,6 @@ export class SpinnerInterceptor implements HttpInterceptor {
     this.beginRequest();
 
     return next.handle(request).pipe(
-      delay(3000),//para probarlo y que demore
-
       finalize(() => this.endRequest()));
   }
 

@@ -8,12 +8,12 @@ import { MatNotificationComponent } from './components/mat-notification/mat-noti
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private injector: Injector) { }
+  constructor(private injector: Injector, private notifier: MatNotificationComponent) { }
   
   handleError(error: Error | HttpErrorResponse) {
     const errorService = this.injector.get(ErrorService);
     //const logger = this.injector.get(LoggingService);
-    const notifier = this.injector.get(MatNotificationComponent);
+    //const notifier = this.injector.get(MatNotificationComponent);
 
     let message;
     //let stackTrace;
@@ -21,11 +21,11 @@ export class GlobalErrorHandler implements ErrorHandler {
       // Server error
       message = errorService.getServerMessage(error);
       //stackTrace = errorService.getServerErrorStackTrace(error);
-      notifier.showDanger(message);
+      this.notifier.showDanger(message);
     } else {
       // Client Error
       message = errorService.getClientMessage(error);
-      notifier.showDanger(message);
+      this.notifier.showDanger(message);
     }
     // Always log errors
     //logger.logError(message, stackTrace);
