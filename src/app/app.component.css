@@ -179,7 +179,7 @@ button:focus{
 
 .top-navbar .navbar{
 	padding: 10px 5px;
-	/*position: fixed;*/
+	/* position: fixed; */
 	width: 100%;
 	border-radius: 0px 0px 100px 100px;
 	transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
@@ -758,20 +758,7 @@ button:focus{
     transition: all 0.5s ease-in-out;
 }
 
-.subscribe_form .submit {
-    background-color: #E3AE06;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 50px;
-    display: inline-block;
-    padding: 0 10px;
-    float: left;
-    width: 100%;
-	border: none;
-	cursor: pointer;
-    transition: all 0.5s ease-in-out;
-}
+
 .subscribe_form .submit:hover{
 	background: #010101;
 }
@@ -1150,14 +1137,14 @@ blockquote {
     font-weight: 400;
     font-size: 12px;
 }
-.line-left-social ul li a:hover {
+ .line-left-social ul li a:hover {
     background: #E3AE06;
     color: #ffffff;
 }
 .line-right-social ul li a:hover {
     background: #E3AE06;
     color: #ffffff;
-}
+} 
 .line-right-social h5 {
     font-size: 18px;
     font-weight: 600;
