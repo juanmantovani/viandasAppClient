@@ -2,12 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Utils } from 'src/app/utils';
-import { AddBannerRequest } from '../dto/Carrousel/AgregarBannerRequest';
-import { AddBannerResponse } from '../dto/Carrousel/AgregarBannerResponse';
-import { BorrarBannerRequest } from '../dto/Carrousel/BorrarBannerRequest';
-import { BorrarBannerResponse } from '../dto/Carrousel/BorrarBannerResponse';
-import { EditarBannerRequest } from '../dto/Carrousel/EditarBannerRequest';
-import { EditarBannerResponse } from '../dto/Carrousel/EditarBannerResponse';
+import { AddBannerRequest } from '../dto/Carrousel/AddBannerRequest';
+import { AddBannerResponse } from '../dto/Carrousel/AddBannerResponse';
+import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest'; 
+import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
+import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
+import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
 import { Banner } from '../models/Banner';
 import { UrlService } from './url.service';
 import { environment } from 'src/environments/environment';
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class CarrouselService {
-  imagen:any;
+  image:any;
   constructor(
     private urlService: UrlService,
     private http: HttpClient
@@ -27,10 +27,10 @@ export class CarrouselService {
     var fecha = new Date();
 
     var aux: Array<Banner> = [
-      { id: 1, titulo: 'promo 1', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 2, titulo: 'promo 2', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 3, titulo: 'promo 3', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 4, titulo: 'promo 4', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
+      { id: 1, tittle: 'promo 1', dateStart: fecha, dateEnd: fecha, image : this.image },
+      { id: 2, tittle: 'promo 2', dateStart: fecha, dateEnd: fecha, image : this.image },
+      { id: 3, tittle: 'promo 3', dateStart: fecha, dateEnd: fecha, image : this.image },
+      { id: 4, tittle: 'promo 4', dateStart: fecha, dateEnd: fecha, image : this.image },
     ];
 
     return aux;
@@ -66,15 +66,15 @@ export class CarrouselService {
   }
 */
 
-editarBanner(request: EditarBannerRequest){
+editarBanner(request: EditBannerRequest){
 
   const endpoint = this.url + 'uploadBanner';
 
   var formData = new FormData();
-  formData.append("banner", request.banner.imagen);
-  formData.append("fechaDesde", request.banner.fechaDesde.toDateString());
-  formData.append("fechaHasta", request.banner.fechaHasta.toDateString());
-  formData.append("titulo", request.banner.titulo);
+  formData.append("banner", request.banner.image);
+  formData.append("fechaDesde", request.banner.dateStart.toDateString());
+  formData.append("fechaHasta", request.banner.dateEnd.toDateString());
+  formData.append("titulo", request.banner.tittle);
 
     
   this.http.post<AddBannerResponse>(endpoint, formData).subscribe(
@@ -82,7 +82,7 @@ editarBanner(request: EditarBannerRequest){
   );
 
 
- let editarBannerResponse : EditarBannerResponse = {
+ let editarBannerResponse : EditBannerResponse = {
   banner : new Banner(null),
   valido : true,
   mensaje: "todo bien",
@@ -102,9 +102,9 @@ editarBanner(request: EditarBannerRequest){
   }
   */
 
-  borrar(request:BorrarBannerRequest){
+  borrar(request:DeleteBannerRequest){
     console.log(request)
-    let borrarBannerResponse : BorrarBannerResponse = {
+    let borrarBannerResponse : DeleteBannerResponse = {
       valido : true,
       mensaje: "todo bien",
       accion: "Borrar"

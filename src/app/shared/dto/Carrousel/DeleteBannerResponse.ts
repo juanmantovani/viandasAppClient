@@ -1,6 +1,6 @@
 import { BaseResponse } from "../BaseResponse";
 
-export class BorrarBannerResponse extends BaseResponse {
+export class DeleteBannerResponse extends BaseResponse {
     constructor(data:any) {
       super(data);
     }

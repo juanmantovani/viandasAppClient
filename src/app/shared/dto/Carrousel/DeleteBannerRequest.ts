@@ -1,6 +1,6 @@
 import { Banner } from "../../models/Banner";
 
-export class BorrarBannerRequest{
+export class DeleteBannerRequest{
     public banner: Banner;
   //public legajoUsuario: number;
   constructor(data: any) {

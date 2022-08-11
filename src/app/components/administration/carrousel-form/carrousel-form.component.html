@@ -1,0 +1,60 @@
+<h4>{{data.actionForm}}</h4>
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="standard" #tittle>
+            <mat-label>Titulo</mat-label>
+            <input type="text" matInput (focus)="tittle.appearance='outline'" formControlName="tittle" name="tittle"
+                id="tittle" #tittle placeholder="Ingrese un tittle" required />
+            <mat-hint *ngIf="form!.controls['tittle']!.touched && form!.controls['titulo']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" #dateStart>
+            <mat-label>Fecha desde</mat-label>
+            <input type="text" matInput (focus)="dateStart.appearance='outline'" formControlName="dateStart"
+                [matDatepicker]="pickerdateStart" (dateChange)="onChangeDateStart($event)"
+                (click)="pickerdateStart.open()" name="dateStart" id="dateStart"
+                placeholder="Seleccione fecha de desde" required />
+            <mat-datepicker-toggle matSuffix [for]="pickerdateStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerdateStart></mat-datepicker>
+            <mat-hint *ngIf="form!.controls['dateStart']!.touched && form!.controls['dateStart']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" #dateEnd>
+            <mat-label>Fecha hasta</mat-label>
+            <input type="text" matInput [matDatepicker]="pickerdateEnd" [min]="minDateEnd"
+                (click)="pickerdateEnd.open()" formControlName="dateEnd" (focus)="dateEnd.appearance='outline'"
+                name="dateEnd" id="dateEnd" placeholder="Seleccione fecha hasta" required />
+            <mat-datepicker-toggle matSuffix [for]="pickerdateEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerdateEnd></mat-datepicker>
+            <mat-hint *ngIf="form!.controls['dateEnd']!.touched && form!.controls['dateEnd']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <ngx-dropzone (change)="onSelect($event)">
+            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+            <ngx-dropzone-preview *ngIf="image != null" [removable]="true" (removed)="onRemove(f)" >
+              <ngx-dropzone-label>{{ image | json}} ({{ image.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID' || image == null">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

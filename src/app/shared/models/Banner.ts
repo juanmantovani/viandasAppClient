@@ -1,18 +1,18 @@
 export class Banner {
     id: number;
-    titulo: string;
-    fechaDesde: Date;
-    fechaHasta: Date;
-    imagen: Blob;
+    tittle: string;
+    dateStart: Date;
+    dateEnd: Date;
+    image: Blob;
  
 
     constructor(data:any) {
         if (data) {
           this.id = data.id;
-          this.titulo = data.titulo;
-          this.fechaDesde = new Date(data.fechaDesde);
-          this.fechaHasta = new Date(data.fechaHasta);
-          this.imagen = data.imagen;
+          this.tittle = data.titulo;
+          this.dateStart = new Date(data.fechaDesde);
+          this.dateEnd = new Date(data.fechaHasta);
+          this.image = data.imagen;
         }
       }
 }

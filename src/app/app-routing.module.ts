@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
-import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
+import { CarrouselComponent } from './components/administration/carrousel/carrousel.component';
+import { InicioAdminComponent } from './components/administration/inicio-admin/inicio-admin.component';
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 

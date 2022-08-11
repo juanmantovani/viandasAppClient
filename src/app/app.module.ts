@@ -10,10 +10,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { CarrouselComponent } from './components/administracion/carrousel/carrousel.component';
-import { InicioAdminComponent } from './components/administracion/inicio-admin/inicio-admin.component';
+import { CarrouselComponent } from './components/administration/carrousel/carrousel.component'; 
+import { InicioAdminComponent } from './components/administration/inicio-admin/inicio-admin.component'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SidenavComponent } from './components/administracion/sidenav/sidenav.component';
+import { SidenavComponent } from './components/administration/sidenav/sidenav.component'; 
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
@@ -34,7 +34,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import { CarrouselFormularioComponent } from './components/administracion/carrousel-formulario/carrousel-formulario.component'
+import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
@@ -53,7 +53,7 @@ import { MatNotificationComponent } from './shared/components/mat-notification/m
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
-    CarrouselFormularioComponent,
+    CarrouselFormComponent,
     MatConfirmDialogComponent,
     MatNotificationComponent,
     SpinnerComponent

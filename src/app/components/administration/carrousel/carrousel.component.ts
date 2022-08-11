@@ -5,15 +5,15 @@ import { MatSort } from '@angular/material/sort';
 import { Banner } from 'src/app/shared/models/Banner';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CarrouselFormularioComponent } from '../carrousel-formulario/carrousel-formulario.component';
-import { DataFormularioCarrousel } from '../../../shared/dto/Carrousel/DataFormularioCarrousel';
+import { CarrouselFormComponent } from '../carrousel-form/carrousel-form.component';
+import { DataFormCarrousel } from '../../../shared/dto/Carrousel/DataFormularioCarrousel';
 import { Utils } from '../../../utils';
-import { AddBannerResponse } from 'src/app/shared/dto/Carrousel/AgregarBannerResponse';
-import { AddBannerRequest } from 'src/app/shared/dto/Carrousel/AgregarBannerRequest';
-import { EditarBannerRequest } from 'src/app/shared/dto/Carrousel/EditarBannerRequest';
+import { AddBannerResponse } from 'src/app/shared/dto/Carrousel/AddBannerResponse';
+import { AddBannerRequest } from 'src/app/shared/dto/Carrousel/AddBannerRequest';
+import { EditBannerRequest } from 'src/app/shared/dto/Carrousel/EditBannerRequest';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { BorrarBannerRequest } from 'src/app/shared/dto/Carrousel/BorrarBannerRequest';
-import { BorrarBannerResponse } from 'src/app/shared/dto/Carrousel/BorrarBannerResponse';
+import { DeleteBannerRequest } from 'src/app/shared/dto/Carrousel/DeleteBannerRequest';
+import { DeleteBannerResponse } from 'src/app/shared/dto/Carrousel/DeleteBannerResponse';
 
 
 @Component({
@@ -22,9 +22,9 @@ import { BorrarBannerResponse } from 'src/app/shared/dto/Carrousel/BorrarBannerR
   styleUrls: ['./carrousel.component.css'],
 })
 export class CarrouselComponent implements OnInit {
-  displayedColumns: string[] = ['titulo', 'desde', 'hasta', 'acciones'];
+  displayedColumns: string[] = ['tittle', 'start', 'end', 'actions'];
   dataSource!: MatTableDataSource<Banner>;
-  accionFormulario:string;
+  actionForm:string;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -36,64 +36,64 @@ export class CarrouselComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    await this.obtenerBanners();
+    await this.getBanners();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
-  async obtenerBanners() {
+  async getBanners() {
     const data = await this.carrouselService.obtenerBanners();
     this.dataSource = new MatTableDataSource(data);
   }
 
-  onBuscar(event: Event) {
+  onSearch(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onClickAgregar() {
-    this.accionFormulario = 'Crear';
-    const dataForm: DataFormularioCarrousel = {
-      accionFormulario: "Crear",
+  onClickAdd() {
+    this.actionForm = 'Crear';
+    const dataForm: DataFormCarrousel = {
+      actionForm: "Crear",
       banner: new Banner(null)
     };
-    this.gestionarFormulario(dataForm);
+    this.gestionateForm(dataForm);
     };
 
-  onClickEditar(banner: any) {
-    this.accionFormulario = 'Editar';
-    const dataForm: DataFormularioCarrousel = {
-      accionFormulario: "Editar",
+  onClickEdit(banner: any) {
+    this.actionForm = 'Editar';
+    const dataForm: DataFormCarrousel = {
+      actionForm: "Editar",
       banner: banner
     };
-    this.gestionarFormulario(dataForm);
+    this.gestionateForm(dataForm);
   }
 
-  async onClickBorrar(banner:any){
-      if (await this.generarConfirmacion("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+  async onClickDelete(banner:any){
+      if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
         await this.borrarBanner(banner);
-        await this.obtenerBanners();
+        await this.getBanners();
       }
   }
 
   async borrarBanner(banner: Banner) {
-    const request: BorrarBannerRequest = {
+    const request: DeleteBannerRequest = {
       banner: banner
     }
-    let resultado: BorrarBannerResponse;
+    let resultado: DeleteBannerResponse;
       resultado = await this.carrouselService.borrar(request);
   }
 
-  async generarConfirmacion(msg: string) {
+  async generateConfirm(msg: string) {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  async gestionarFormulario(dataFormulario: DataFormularioCarrousel) {
+  async gestionateForm(dataFormulario: DataFormCarrousel) {
     const dialogConfig = Utils.matDialogConfigPorDefecto();
     dialogConfig.data = dataFormulario;
 
-    const dialogRef = this.dialog.open(CarrouselFormularioComponent, dialogConfig);
+    const dialogRef = this.dialog.open(CarrouselFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 
     componentInstance.onSubmit.subscribe(async (datos) => {
@@ -109,7 +109,7 @@ export class CarrouselComponent implements OnInit {
       }
       else {
         dialogRef.close();
-        await this.obtenerBanners();
+        await this.getBanners();
         return true;
       }
     })
@@ -119,7 +119,7 @@ export class CarrouselComponent implements OnInit {
   async onSubmit(banner: Banner) : Promise<AddBannerResponse> { 
     let resultadoOperacion: AddBannerResponse;
     
-    resultadoOperacion = this.accionFormulario == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
+    resultadoOperacion = this.actionForm == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
    
     return resultadoOperacion;
   }
@@ -133,7 +133,7 @@ export class CarrouselComponent implements OnInit {
   }
 
   async editarbanner(banner: Banner): Promise<AddBannerResponse> {
-    const editarBannerRequest: EditarBannerRequest = {
+    const editarBannerRequest: EditBannerRequest = {
       banner: banner
     }
     const resultado = await this.carrouselService.editarBanner(editarBannerRequest);

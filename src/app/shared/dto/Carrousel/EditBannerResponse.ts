@@ -1,7 +1,7 @@
 import { Banner } from "../../models/Banner";
 import { BaseResponse } from "../BaseResponse";
 
-export class EditarBannerResponse extends BaseResponse {
+export class EditBannerResponse extends BaseResponse {
     banner: Banner;
     constructor(data : any) {
       super(data);
