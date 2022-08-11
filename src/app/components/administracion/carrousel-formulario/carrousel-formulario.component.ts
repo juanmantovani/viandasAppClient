@@ -19,7 +19,7 @@ export class CarrouselFormularioComponent implements OnInit {
   result: Banner;
   formulario: FormGroup;
   minDateFechaHasta: Date;
-  imagen?:File | null;;
+  imagen: Blob;
   nombreImagen: string;
 
   title = 'dropzone';
@@ -80,6 +80,6 @@ export class CarrouselFormularioComponent implements OnInit {
     }
 
     onRemove(event : any) {
-      this.imagen = null;
+      this.imagen = new Blob();
   }
 }

@@ -3,6 +3,7 @@ mat-sidenav-container{
 }
 
 mat-sidenav{
+    display: flex;
     width: 200px;
     background-color: #f2d26b5a; 
 }
@@ -13,4 +14,10 @@ a{
 
 mat-toolbar{
     background-color: #E3AE06;
+}
+
+mat-toolbar .closeSesion {
+    display: flex;
+    float: right;
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -9,9 +10,13 @@ export class SidenavComponent implements OnInit {
 
   opened = false;
 
-  constructor() { }
+  constructor( private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  closeSesion (){
+    this.authService.logout();
   }
 
 }

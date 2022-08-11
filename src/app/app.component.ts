@@ -16,7 +16,7 @@ export class AppComponent {
   
   ngOnInit() {
     if (!this.authService.isAutenticated()) {
-      this.router.navigate(['login'])
+      //this.router.navigate(['login'])
     };
 
   }

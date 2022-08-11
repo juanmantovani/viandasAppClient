@@ -41,7 +41,7 @@
         <ngx-dropzone (change)="onSelect($event)">
             <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
             <ngx-dropzone-preview *ngIf="imagen != null" [removable]="true" (removed)="onRemove(f)" >
-              <ngx-dropzone-label>{{ imagen.name }} ({{ imagen.type }})</ngx-dropzone-label>
+              <ngx-dropzone-label>{{ imagen | json}} ({{ imagen.type }})</ngx-dropzone-label>
             </ngx-dropzone-preview>
           </ngx-dropzone>
     </form>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 import { Utils } from 'src/app/utils';
@@ -11,6 +11,7 @@ import { EditarBannerResponse } from '../dto/Carrousel/EditarBannerResponse';
 import { Banner } from '../models/Banner';
 import { UrlService } from './url.service';
 import { environment } from 'src/environments/environment';
+//import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +41,7 @@ export class CarrouselService {
   addBanner(request: AddBannerRequest){
 
     const endpoint = this.url + 'uploadBanner';
-    console.log(endpoint)
+    console.log("request" + request);
     this.http.post<AddBannerResponse>(endpoint, request).subscribe(
       (res) => {console.log(res)}
     );
@@ -66,6 +67,21 @@ export class CarrouselService {
 */
 
 editarBanner(request: EditarBannerRequest){
+
+  const endpoint = this.url + 'uploadBanner';
+
+  var formData = new FormData();
+  formData.append("banner", request.banner.imagen);
+  formData.append("fechaDesde", request.banner.fechaDesde.toDateString());
+  formData.append("fechaHasta", request.banner.fechaHasta.toDateString());
+  formData.append("titulo", request.banner.titulo);
+
+    
+  this.http.post<AddBannerResponse>(endpoint, formData).subscribe(
+    (res) => {console.log(res)}
+  );
+
+
  let editarBannerResponse : EditarBannerResponse = {
   banner : new Banner(null),
   valido : true,

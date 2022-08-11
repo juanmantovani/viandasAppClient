@@ -1,5 +1,4 @@
 import { Injectable, NgZone, OnDestroy, TemplateRef } from '@angular/core';
-import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Injectable({
@@ -26,25 +25,5 @@ export class NotificationService {
   clear() {
     this.toasts.splice(0, this.toasts.length);
   }
-
-  // ngOnDestroy(): void {
-  //   this.clear();
-  // }
-
-
-  // showSuccess(message: string): void {
-  //   this.zone.run(() => {
-  //   this.toast.show();
-  //   });
-  // }
-
-  // showError(message: string): void {
-  //   // The second parameter is the text in the button. 
-  //   // In the third, we send in the css class for the snack bar.
-  //   this.zone.run(() => {
-  //   this.toast.show();
-  //     //this.snackBar.open(message, 'X', {panelClass: ['snackbarError']});
-  //   });
-  // }
   
 }

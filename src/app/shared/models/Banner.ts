@@ -3,7 +3,7 @@ export class Banner {
     titulo: string;
     fechaDesde: Date;
     fechaHasta: Date;
-    imagen?: File | null;;
+    imagen: Blob;
  
 
     constructor(data:any) {

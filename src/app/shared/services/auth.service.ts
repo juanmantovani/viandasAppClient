@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { catchError, Observable, of, shareReplay, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,7 +14,7 @@ export class AuthService {
 
   url = environment.url;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   public loginByEmail(form: LoginRequest): Observable<LoginResponse>{
     let direction = this.url + 'login';
@@ -33,6 +34,8 @@ export class AuthService {
   public logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("expires_at");
+    this.router.navigate(['login']);
+
   }
 
   // public isLoggedIn() {
