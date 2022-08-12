@@ -14,6 +14,7 @@ import { EditBannerRequest } from 'src/app/shared/dto/Carrousel/EditBannerReques
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { DeleteBannerRequest } from 'src/app/shared/dto/Carrousel/DeleteBannerRequest';
 import { DeleteBannerResponse } from 'src/app/shared/dto/Carrousel/DeleteBannerResponse';
+import { EditBannerResponse } from 'src/app/shared/dto/Carrousel/EditBannerResponse';
 
 
 @Component({
@@ -72,17 +73,16 @@ export class CarrouselComponent implements OnInit {
 
   async onClickDelete(banner:any){
       if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
-        await this.borrarBanner(banner);
+        await this.deleteBanner(banner);
         await this.getBanners();
       }
   }
 
-  async borrarBanner(banner: Banner) {
+  async deleteBanner(banner: Banner) {
     const request: DeleteBannerRequest = {
       banner: banner
     }
-    let resultado: DeleteBannerResponse;
-      resultado = await this.carrouselService.borrar(request);
+    const resultado = await this.carrouselService.deleteBanner(request);
   }
 
   async generateConfirm(msg: string) {
@@ -129,15 +129,15 @@ export class CarrouselComponent implements OnInit {
       banner: banner
     }
     const resultado = await this.carrouselService.addBanner(agregarBannerRequest);
-    return resultado;
+    return new AddBannerResponse(resultado);
   }
 
-  async editarbanner(banner: Banner): Promise<AddBannerResponse> {
+  async editarbanner(banner: Banner): Promise<EditBannerResponse> {
     const editarBannerRequest: EditBannerRequest = {
       banner: banner
     }
-    const resultado = await this.carrouselService.editarBanner(editarBannerRequest);
-    return resultado;
+    const resultado = await this.carrouselService.editBanner(editarBannerRequest);
+    return new EditBannerResponse(resultado);
   }
 
 

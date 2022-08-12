@@ -3,21 +3,18 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { catchError, Observable, of, shareReplay, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { LoginRequest } from '../dto/Login/LoginRequest';
 import { LoginResponse } from '../dto/Login/LoginResponse';
+import { UrlService } from './url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  url = environment.url;
-
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router:Router, private urlService:UrlService) { }
 
   public loginByEmail(form: LoginRequest): Observable<LoginResponse>{
-    let direction = this.url + 'login';
+    let direction = this.urlService.urlLogin;
     return this.http.post<LoginResponse>(direction, form).pipe(
       tap (res => this.setSession(res)),
       shareReplay(),
