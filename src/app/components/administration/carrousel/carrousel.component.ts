@@ -102,7 +102,9 @@ export class CarrouselComponent implements OnInit {
         return false;
       }
 
-      let resultado: AddBannerResponse = await this.onSubmit(datos);
+      var resultado : any  = await this.onSubmit(datos);
+
+      console.log(resultado)
 
       if (!resultado.valido) {
         return false;
@@ -116,29 +118,28 @@ export class CarrouselComponent implements OnInit {
 
   }
 
-  async onSubmit(banner: Banner) : Promise<AddBannerResponse> { 
-    let resultadoOperacion: AddBannerResponse;
-    
-    resultadoOperacion = this.actionForm == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
-   
+  async onSubmit(banner: Banner){ 
+    const resultadoOperacion = this.actionForm == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
+  
     return resultadoOperacion;
   }
   
-  async agregarBanner(banner: Banner): Promise<AddBannerResponse> {
+  async agregarBanner(banner: Banner) {
     const agregarBannerRequest: AddBannerRequest = {
       banner: banner
     }
-    const resultado = await this.carrouselService.addBanner(agregarBannerRequest);
-    return new AddBannerResponse(resultado);
+    await this.carrouselService.addBanner(agregarBannerRequest).subscribe((res: AddBannerResponse) => {
+      return res
+    }
+ );;
   }
 
-  async editarbanner(banner: Banner): Promise<EditBannerResponse> {
+  async editarbanner(banner: Banner) {
     const editarBannerRequest: EditBannerRequest = {
       banner: banner
     }
-    const resultado = await this.carrouselService.editBanner(editarBannerRequest);
-    return new EditBannerResponse(resultado);
+    await this.carrouselService.editBanner(editarBannerRequest).subscribe((res: EditBannerResponse) => {
+      return res
+    })
   }
-
-
 }

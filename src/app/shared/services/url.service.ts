@@ -9,7 +9,7 @@ export class UrlService {
   private readonly url: string = environment.urlApi;
 
   //Autorizacion
-  readonly urlLogin: string = this.url + "/Login"
+  readonly urlLogin: string = this.url + "/login"
 
    //Carrousel
    readonly urlUploadBanner: string = this.url + "/uploadBanner";

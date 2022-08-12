@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Utils } from 'src/app/utils';
 import { AddBannerRequest } from '../dto/Carrousel/AddBannerRequest';
 import { AddBannerResponse } from '../dto/Carrousel/AddBannerResponse';
@@ -57,7 +57,7 @@ export class CarrouselService {
     return aux;
   }
 
-  addBanner(request: AddBannerRequest) {
+  addBanner(request: AddBannerRequest) : Observable<AddBannerResponse> {
     const endpoint = this.urlService.urlUploadBanner;
 
     var formData = new FormData();
@@ -66,14 +66,12 @@ export class CarrouselService {
     formData.append('fechaHasta', request.banner.dateEnd.toDateString());
     formData.append('titulo', request.banner.tittle);
 
-    return this.http.post<AddBannerResponse>(endpoint, formData).subscribe((res) => {
-      console.log(res);
-      const response = new AddBannerResponse(res);
-      return response
-    });
+    return this.http.post<AddBannerResponse>(endpoint, request).pipe(
+      tap (res => new AddBannerResponse(res))
+    );
   }
 
-  editBanner(request: EditBannerRequest) {
+  editBanner(request: EditBannerRequest) : Observable<EditBannerResponse> {
     const endpoint = this.urlService.urlEditBanner;
 
     var formData = new FormData();
@@ -82,11 +80,9 @@ export class CarrouselService {
     formData.append('fechaHasta', request.banner.dateEnd.toDateString());
     formData.append('titulo', request.banner.tittle);
 
-    return this.http.post<EditBannerResponse>(endpoint, formData).subscribe((res) => {
-      console.log(res);
-      const response = new EditBannerResponse(res);
-      return response
-    });
+    return this.http.post<EditBannerResponse>(endpoint, request).pipe(
+      tap (res => new EditBannerResponse(res))
+    );
   }
 
   deleteBanner(request: DeleteBannerRequest) {

@@ -29,7 +29,6 @@ export class MatNotificationComponent implements OnDestroy{
   }
 
   showDanger(message: string) {
-    console.log(message);
     this.notificationService.show(message, { 
       classname: 'bg-danger text-light', 
       delay: 7000,

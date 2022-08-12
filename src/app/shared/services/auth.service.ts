@@ -13,9 +13,10 @@ import { UrlService } from './url.service';
 export class AuthService {
   constructor(private http: HttpClient, private router:Router, private urlService:UrlService) { }
 
-  public loginByEmail(form: LoginRequest): Observable<LoginResponse>{
-    let direction = this.urlService.urlLogin;
-    return this.http.post<LoginResponse>(direction, form).pipe(
+  public loginByEmail(request: LoginRequest): Observable<LoginResponse>{
+    const endpoint = this.urlService.urlLogin;
+    console.log(endpoint)
+    return this.http.post<LoginResponse>(endpoint, request).pipe(
       tap (res => this.setSession(res)),
       shareReplay(),
     );
