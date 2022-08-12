@@ -20,6 +20,7 @@ export class CarrouselFormComponent implements OnInit {
   form: FormGroup;
   minDateEnd: Date;
   image: Blob;
+  nameImage?: string | null;
 
   @Output() onSubmit: EventEmitter<Banner | null>;
 
@@ -28,9 +29,7 @@ export class CarrouselFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.onSubmit = new EventEmitter<Banner | null>();
-    this.minDateEnd = this.data?.dateStart
-      ? this.data.dateStart
-      : new Date();
+    this.minDateEnd = this.data?.dateStart ? this.data.dateStart : new Date();
     this.form = this.generateForm();
   }
 
@@ -39,18 +38,12 @@ export class CarrouselFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.banner?.id),
-      tittle: new FormControl(
-        this.data.banner?.tittle,
-        Validators.required
-      ),
+      tittle: new FormControl(this.data.banner?.tittle, Validators.required),
       dateStart: new FormControl(
         this.data.banner?.dateStart,
         Validators.required
       ),
-      dateEnd: new FormControl(
-        this.data.banner?.dateEnd,
-        Validators.required
-      )
+      dateEnd: new FormControl(this.data.banner?.dateEnd, Validators.required),
     });
   }
 
@@ -68,11 +61,12 @@ export class CarrouselFormComponent implements OnInit {
     if (date) this.minDateEnd = date;
   }
 
-    onSelect(event: any) {
-      this.image = event.addedFiles[0];
-    }
+  onSelect(event: any) {
+    this.image = event.addedFiles[0];
+    this.nameImage = event.addedFiles[0].name;
+  }
 
-    onRemove(event : any) {
-      this.image = new Blob();
+  onRemove(event: any) {
+    this.nameImage = null;
   }
 }

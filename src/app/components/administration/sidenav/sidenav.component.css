@@ -8,16 +8,20 @@ mat-sidenav{
     background-color: #f2d26b5a; 
 }
 
-a{
-    text-decoration:none
-}
-
 mat-toolbar{
     background-color: #E3AE06;
 }
 
-mat-toolbar .closeSesion {
-    display: flex;
-    float: right;
+.nav-link:hover{
+	background: #E3AE06;
+	color: #ffffff;
+    font-weight: 600;
+}
+
+a.nav-link{
+    display: inline;
+    font-weight: 500;
+    text-decoration: none !important;
+
 
 }

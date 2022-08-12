@@ -15,7 +15,6 @@ export class AuthService {
 
   public loginByEmail(request: LoginRequest): Observable<LoginResponse>{
     const endpoint = this.urlService.urlLogin;
-    console.log(endpoint)
     return this.http.post<LoginResponse>(endpoint, request).pipe(
       tap (res => this.setSession(res)),
       shareReplay(),
