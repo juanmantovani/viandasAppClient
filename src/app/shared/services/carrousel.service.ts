@@ -62,8 +62,8 @@ export class CarrouselService {
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
-    formData.append('fechaDesde', request.banner.dateStart.toDateString());
-    formData.append('fechaHasta', request.banner.dateEnd.toDateString());
+    formData.append('fechaDesde', request.banner.dateStart.toString());
+    formData.append('fechaHasta', request.banner.dateEnd.toString());
     formData.append('titulo', request.banner.tittle);
 
     return this.http.post<AddBannerResponse>(endpoint, formData).pipe(
@@ -76,8 +76,8 @@ export class CarrouselService {
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
-    formData.append('fechaDesde', request.banner.dateStart.toDateString());
-    formData.append('fechaHasta', request.banner.dateEnd.toDateString());
+    formData.append('fechaDesde', request.banner.dateStart.toString());
+    formData.append('fechaHasta', request.banner.dateEnd.toString());
     formData.append('titulo', request.banner.tittle);
 
     return this.http.post<EditBannerResponse>(endpoint, formData).pipe(
