@@ -66,7 +66,7 @@ export class CarrouselService {
     formData.append('fechaHasta', request.banner.dateEnd.toDateString());
     formData.append('titulo', request.banner.tittle);
 
-    return this.http.post<AddBannerResponse>(endpoint, request).pipe(
+    return this.http.post<AddBannerResponse>(endpoint, formData).pipe(
       tap (res => new AddBannerResponse(res))
     );
   }
@@ -80,7 +80,7 @@ export class CarrouselService {
     formData.append('fechaHasta', request.banner.dateEnd.toDateString());
     formData.append('titulo', request.banner.tittle);
 
-    return this.http.post<EditBannerResponse>(endpoint, request).pipe(
+    return this.http.post<EditBannerResponse>(endpoint, formData).pipe(
       tap (res => new EditBannerResponse(res))
     );
   }
