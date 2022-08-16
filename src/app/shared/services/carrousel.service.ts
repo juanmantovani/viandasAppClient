@@ -1,17 +1,15 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { Utils } from 'src/app/utils';
 import { AddBannerRequest } from '../dto/Carrousel/AddBannerRequest';
 import { AddBannerResponse } from '../dto/Carrousel/AddBannerResponse';
 import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest';
 import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
 import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
 import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
-import { Banner } from '../models/Banner';
 import { UrlService } from './url.service';
-import { environment } from 'src/environments/environment';
-//import { stringify } from 'querystring';
+import { GetBanneRequest } from '../dto/Carrousel/GetBannerRequest';
+import { GetBannerResponse } from '../dto/Carrousel/GetBannerResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -20,41 +18,18 @@ export class CarrouselService {
   image: any;
   constructor(private urlService: UrlService, private http: HttpClient) {}
 
-  obtenerBanners() {
-    var fecha = new Date();
+  getBanners(request: GetBanneRequest): Observable<GetBannerResponse> {
+    const endpoint = this.urlService.urlGetBanner;
 
-    var aux: Array<Banner> = [
-      {
-        id: 1,
-        tittle: 'promo 1',
-        dateStart: fecha,
-        dateEnd: fecha,
-        image: this.image,
-      },
-      {
-        id: 2,
-        tittle: 'promo 2',
-        dateStart: fecha,
-        dateEnd: fecha,
-        image: this.image,
-      },
-      {
-        id: 3,
-        tittle: 'promo 3',
-        dateStart: fecha,
-        dateEnd: fecha,
-        image: this.image,
-      },
-      {
-        id: 4,
-        tittle: 'promo 4',
-        dateStart: fecha,
-        dateEnd: fecha,
-        image: this.image,
-      },
-    ];
+    let params = new HttpParams();
+    
+    params = params.set('onlyActive', request.onlyActive);
 
-    return aux;
+    return this.http.get<GetBannerResponse>(endpoint, {params}).pipe(
+      map((res: any) => {
+        return new GetBannerResponse(res);
+      })
+    )
   }
 
   addBanner(request: AddBannerRequest) : Observable<AddBannerResponse> {
@@ -62,12 +37,13 @@ export class CarrouselService {
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
-    formData.append('fechaDesde', request.banner.dateStart.toLocaleDateString("en-US"));
-    formData.append('fechaHasta', request.banner.dateEnd.toLocaleDateString("en-US"));
-    formData.append('titulo', request.banner.tittle);
+    formData.append('dateStart', request.banner.dateStart.toUTCString());
+    formData.append('dateEnd', request.banner.dateEnd.toUTCString());
+    formData.append('title', request.banner.title);
 
     return this.http.post<AddBannerResponse>(endpoint, formData).pipe(
-      tap (res => new AddBannerResponse(res))
+      tap (res => 
+        new AddBannerResponse(res))
     );
   }
 
@@ -76,9 +52,9 @@ export class CarrouselService {
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
-    formData.append('fechaDesde', request.banner.dateStart.toLocaleDateString("en-US"));
-    formData.append('fechaHasta', request.banner.dateEnd.toLocaleDateString("en-US"));
-    formData.append('titulo', request.banner.tittle);
+    formData.append('dateStart', request.banner.dateStart.toUTCString());
+    formData.append('dateEnd', request.banner.dateEnd.toUTCString());
+    formData.append('title', request.banner.title);
 
     return this.http.post<EditBannerResponse>(endpoint, formData).pipe(
       tap (res => new EditBannerResponse(res))

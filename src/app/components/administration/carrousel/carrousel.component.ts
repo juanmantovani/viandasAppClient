@@ -13,8 +13,9 @@ import { AddBannerRequest } from 'src/app/shared/dto/Carrousel/AddBannerRequest'
 import { EditBannerRequest } from 'src/app/shared/dto/Carrousel/EditBannerRequest';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { DeleteBannerRequest } from 'src/app/shared/dto/Carrousel/DeleteBannerRequest';
-import { DeleteBannerResponse } from 'src/app/shared/dto/Carrousel/DeleteBannerResponse';
 import { EditBannerResponse } from 'src/app/shared/dto/Carrousel/EditBannerResponse';
+import { GetBanneRequest } from 'src/app/shared/dto/Carrousel/GetBannerRequest';
+import { GetBannerResponse } from 'src/app/shared/dto/Carrousel/GetBannerResponse';
 
 
 @Component({
@@ -44,8 +45,12 @@ export class CarrouselComponent implements OnInit {
   }
 
   async getBanners() {
-    const data = await this.carrouselService.obtenerBanners();
-    this.dataSource = new MatTableDataSource(data);
+    const getBanneRequest: GetBanneRequest = {
+      onlyActive : false
+    }
+    await this.carrouselService.getBanners(getBanneRequest).subscribe((res: GetBannerResponse) => {
+      this.dataSource = new MatTableDataSource(res.banners);
+    })
   }
 
   onSearch(event: Event) {
@@ -82,7 +87,7 @@ export class CarrouselComponent implements OnInit {
     const request: DeleteBannerRequest = {
       banner: banner
     }
-    const resultado = await this.carrouselService.deleteBanner(request);
+    await this.carrouselService.deleteBanner(request);
   }
 
   async generateConfirm(msg: string) {
@@ -90,21 +95,20 @@ export class CarrouselComponent implements OnInit {
   }
 
   async gestionateForm(dataFormulario: DataFormCarrousel) {
-    const dialogConfig = Utils.matDialogConfigPorDefecto();
+    const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataFormulario;
 
     const dialogRef = this.dialog.open(CarrouselFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 
-    componentInstance.onSubmit.subscribe(async (datos) => {
-      if (!datos) {
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
         dialogRef.close();
         return false;
       }
 
-      var resultado : any  = await this.onSubmit(datos);
-
-      if (!resultado.valido) {
+      var result : any  = await this.onSubmit(data);
+      if (result) {
         return false;
       }
       else {
@@ -113,30 +117,29 @@ export class CarrouselComponent implements OnInit {
         return true;
       }
     })
-
   }
 
   async onSubmit(banner: Banner){ 
-    const resultadoOperacion = this.actionForm == "Crear" ? await this.agregarBanner(banner) : await this.editarbanner(banner);
+    const resultOperation = this.actionForm == "Crear" ? await this.addBanner(banner) : await this.editbanner(banner);
   
-    return resultadoOperacion;
+    return resultOperation;
   }
   
-  async agregarBanner(banner: Banner) {
-    const agregarBannerRequest: AddBannerRequest = {
+  async addBanner(banner: Banner) {
+    const addBannerRequest: AddBannerRequest = {
       banner: banner
     }
-    await this.carrouselService.addBanner(agregarBannerRequest).subscribe((res: AddBannerResponse) => {
+    await this.carrouselService.addBanner(addBannerRequest).subscribe((res: AddBannerResponse) => {
       return res
     }
- );;
+ );
   }
 
-  async editarbanner(banner: Banner) {
-    const editarBannerRequest: EditBannerRequest = {
+  async editbanner(banner: Banner) {
+    const editBannerRequest: EditBannerRequest = {
       banner: banner
     }
-    await this.carrouselService.editBanner(editarBannerRequest).subscribe((res: EditBannerResponse) => {
+    await this.carrouselService.editBanner(editBannerRequest).subscribe((res: EditBannerResponse) => {
       return res
     })
   }

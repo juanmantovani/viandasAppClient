@@ -1,13 +1,9 @@
 export class BaseResponse {
-    public valido: boolean;
-    public mensaje: string;
-    public accion: string;
+    public message: string;
   
     constructor(data:any) {
       if (data) {
-        this.valido = data.valido;
-        this.mensaje = data.mensaje;
-        this.accion = data.accion;
+        this.message = data.mensaje;
       }
     }
   }
