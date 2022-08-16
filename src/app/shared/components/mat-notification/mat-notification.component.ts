@@ -20,8 +20,8 @@ export class MatNotificationComponent implements OnDestroy{
     this.notificationService.show(message);
   }
 
-  showSuccess(message: string) {
-    this.notificationService.show(message, {
+  showSuccess() {
+    this.notificationService.show("Procesado con éxito", {
       classname: 'bg-success text-light', 
       delay: 7000,
       autohide: true, 
