@@ -10,7 +10,7 @@ export class ErrorService {
   
   getClientMessage(error: Error): string {
     if (!navigator.onLine) {
-      return 'No Internet Connection';
+      return 'No hay conexión a internet';
     }
     return error.message ? error.message : error.toString();
 }
