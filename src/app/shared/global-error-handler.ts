@@ -25,7 +25,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     } else {
       // Client Error
       message = errorService.getClientMessage(error);
-      this.notifier.showDanger(message);
+      this.notifier.showStandard("Ocurrió algo inesperado: " + message);
     }
     // Always log errors
     //logger.logError(message, stackTrace);

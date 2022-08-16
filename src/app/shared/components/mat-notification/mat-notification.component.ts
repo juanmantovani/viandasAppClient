@@ -16,8 +16,8 @@ export class MatNotificationComponent implements OnDestroy{
     return notif.textOrTpl instanceof TemplateRef; 
   }
 
-  showStandard() {
-    this.notificationService.show('I am a standard toast');
+  showStandard(message: string) {
+    this.notificationService.show(message);
   }
 
   showSuccess(message: string) {

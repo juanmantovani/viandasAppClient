@@ -7,7 +7,7 @@
         <mat-form-field appearance="standard" #tittle>
             <mat-label>Titulo</mat-label>
             <input type="text" matInput (focus)="tittle.appearance='outline'" formControlName="tittle" name="tittle"
-                id="tittle" #tittle placeholder="Ingrese un tittle" required />
+                id="tittle" #tittle placeholder="Ingrese un titulo" required />
             <mat-hint *ngIf="form!.controls['tittle']!.touched && form!.controls['tittle']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>

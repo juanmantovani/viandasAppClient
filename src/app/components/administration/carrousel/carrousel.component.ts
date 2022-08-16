@@ -104,8 +104,6 @@ export class CarrouselComponent implements OnInit {
 
       var resultado : any  = await this.onSubmit(datos);
 
-      console.log(resultado)
-
       if (!resultado.valido) {
         return false;
       }
