@@ -23,7 +23,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
 
       tap((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse && event.status === 200) {
+        if (event instanceof HttpResponse && event.status === 201) {
           this.notifier.showSuccess();
         }
       }),
@@ -40,12 +40,5 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         )
       })
     );
-      //retry(2),
-      // catchError((error: HttpErrorResponse) => {
-      //   if (error.status === 401) {
-      //     // refresh token
-      //   } else {
-      //   }
-      // })
   }
 }

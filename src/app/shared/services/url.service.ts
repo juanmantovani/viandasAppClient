@@ -10,6 +10,8 @@ export class UrlService {
 
   //Autorizacion
   readonly urlLogin: string = this.url + "/login"
+  readonly urlIsAuth: string = this.url + "/isAuthorizated"
+
 
    //Carrousel
    readonly urlUploadBanner: string = this.url + "/uploadBanner";

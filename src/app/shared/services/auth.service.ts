@@ -49,13 +49,18 @@ export class AuthService {
     return moment(expiresAt);
   }    
 
-  isAutenticated(){
+
+  // Esta funcion deberia consumir una API que devuelva true o false si el token es valido
+  isAuthenticated() : any {
     const token = localStorage.getItem("token");
-    if (token){
-      return true;
-    } else {
-        return false;
-    }
+
+    if (!token)
+    return false;
+    
+    const endpoint = this.urlService.urlIsAuth;
+    return this.http.get<any>(endpoint).subscribe(resp => {
+      return resp.resp;
+    });
   }
 
 

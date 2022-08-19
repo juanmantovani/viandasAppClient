@@ -32,9 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.loginService.isAutenticated()) {
-      this.router.navigate(['inicio']);
-    }
+
   }
 
   //al hacer click en el boton login
