@@ -14,6 +14,7 @@ export class UrlService {
 
 
    //Carrousel
+   readonly urlGetBanner: string = this.url + "/getBanners";
    readonly urlUploadBanner: string = this.url + "/uploadBanner";
    readonly urlEditBanner: string = this.url + "/editBanner";
    readonly urlDeleteBanner: string = this.url + "/deleteBanner";

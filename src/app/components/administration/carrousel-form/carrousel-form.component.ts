@@ -38,7 +38,7 @@ export class CarrouselFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.banner?.id),
-      tittle: new FormControl(this.data.banner?.tittle, Validators.required),
+      title: new FormControl(this.data.banner?.title, Validators.required),
       dateStart: new FormControl(
         this.data.banner?.dateStart,
         Validators.required

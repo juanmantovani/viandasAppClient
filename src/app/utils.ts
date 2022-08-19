@@ -12,7 +12,7 @@ export class Utils {
     return Promise.reject(error.message || error);
   }
 
-  public static matDialogConfigPorDefecto(): MatDialogConfig {
+  public static matDialogConfigDefault(): MatDialogConfig {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;

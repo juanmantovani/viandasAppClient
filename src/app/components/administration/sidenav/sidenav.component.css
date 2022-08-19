@@ -12,16 +12,18 @@ mat-toolbar{
     background-color: #E3AE06;
 }
 
-.nav-link:hover{
+.nav-link:hover  {
 	background: #E3AE06;
 	color: #ffffff;
     font-weight: 600;
 }
 
 a.nav-link{
-    display: inline;
     font-weight: 500;
-    text-decoration: none !important;
+    color: black;
+    cursor: pointer;
+}
 
-
+a.nav-link.closeSession{
+    color: red;
 }

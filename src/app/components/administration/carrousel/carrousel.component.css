@@ -10,8 +10,11 @@ table{
 .button-container {
     padding-bottom: 16px;
     margin-top: 10px;
-  }
+}
+
+.button:hover  {
+	background: #E3AE06;
+	color: #ffffff;
+    font-weight: 600;
+}
   
-  .button + .button {
-    margin-left: 8px;
-  }

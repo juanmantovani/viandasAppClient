@@ -4,11 +4,11 @@
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
-        <mat-form-field appearance="standard" #tittle>
+        <mat-form-field appearance="standard" #title>
             <mat-label>Titulo</mat-label>
-            <input type="text" matInput (focus)="tittle.appearance='outline'" formControlName="tittle" name="tittle"
-                id="tittle" #tittle placeholder="Ingrese un titulo" required />
-            <mat-hint *ngIf="form!.controls['tittle']!.touched && form!.controls['tittle']!.invalid"
+            <input type="text" matInput (focus)="title.appearance='outline'" formControlName="title" name="title"
+                id="title" #title placeholder="Ingrese un titulo" required />
+            <mat-hint *ngIf="form!.controls['title']!.touched && form!.controls['title']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>

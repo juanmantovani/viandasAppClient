@@ -1,11 +1,6 @@
-
-
 <header class="top-navbar">
-<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
   <div class="container">
-    <!-- Navbar brand -->
     <a class="navbar-brand me-2" href="">
       <img
         
@@ -17,20 +12,15 @@
       />
     </a>
 
-    <!-- Toggle button -->
-  
-
-    <!-- Collapsible wrapper -->
     <div
       class="collapse navbar-collapse"
       id="navbarButtonsExample"
       mdbCollapse
       
     >
-      <!-- Left links -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Integral Viandas App</a>
+          <a  href="#">Integral Viandas App</a>
         </li>
       </ul>
       
@@ -41,27 +31,22 @@
         <a class="nav-link navbar-botones" onclick="location.href='inicio#tipos'" fragment="features">Tipos</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#nos'">Nosotros</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#galeria'" tabindex="-1" aria-disabled="true">Galería</a>
-        <a class="nav-link active navbar-botones"[routerLink]="['/administracion']">Admin</a>
-
         </div>
         </div>
       </ul>
       </div>
-      <!-- Left links -->
 
 
       <div class="d-flex align-items-center">
         <div class="row">
           <div class="col">
             <div ngbDropdown class="d-inline-block">
-              <!-- <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button> -->
               <figure  class="nav__logo" id="dropdownBasic1" ngbDropdownToggle>
                 <img src="../../../assets/menu.svg"  class="nav__img" alt="">
               </figure>
               
 
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <!-- <button ngbDropdownItem [routerLink]="['/inicio']">Home</button> -->
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#tipos'">Tipos</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#nos'">Nosotros</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#galeria'">Galería</button>
@@ -69,25 +54,8 @@
             </div>
           </div>        
         </div>
-        <a class="btn btn-link px-2 me-2" href="/login">Login</a>
-     
-        <!-- <button type="button" class="btn btn-primary me-3">
-          Login
-        </button> -->
-
-        
-        
-      
-      
-
+        <button ngbDropdownItem class="drowdownitem login"><a  href="/login">Login</a> </button>
       </div>
-
-      
-    
-    <!-- Collapsible wrapper -->
   </div>
-  <!-- Container wrapper -->
 </nav>
-<!-- Navbar -->
-
 </header>
