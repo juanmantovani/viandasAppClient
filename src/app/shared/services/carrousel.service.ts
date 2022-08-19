@@ -21,11 +21,7 @@ export class CarrouselService {
   getBanners(request: GetBanneRequest): Observable<GetBannerResponse> {
     const endpoint = this.urlService.urlGetBanner;
 
-    let params = new HttpParams();
-    
-    params = params.set('onlyActive', request.onlyActive);
-
-    return this.http.get<GetBannerResponse>(endpoint, {params}).pipe(
+       return this.http.post<GetBannerResponse>(endpoint, request).pipe(
       map((res: any) => {
         return new GetBannerResponse(res);
       })

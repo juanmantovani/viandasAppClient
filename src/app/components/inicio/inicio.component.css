@@ -4,45 +4,36 @@
     display: flex;
     max-width: 1500px;
     border-radius: 10%;
-    
-     
 }
+
 .about-section-box{
     margin-top: 50px;
 }
+
 .der{
     
     text-align: right  !important;      
 }
 
 @media(max-width:992px){
- 
-
     .img-carousel{
         height: 60vh;
     }
 }
 
 .container-carousel{
-    
-    
     background: #f2d26b5a; 
-     
     width: auto;
-    
     align-items: center;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
-    
     position: relative;
     display: flex;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 5%;
-    
 }
 
 .btn-primary{
@@ -61,12 +52,8 @@
     border-radius: 100px;
 }
 
-
-
 body{
     font-family: Roboto;
-    
     background-image:  url(../../../assets/test.png);
     background-repeat: repeat-x;
-
 }

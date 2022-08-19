@@ -10,9 +10,9 @@ export class Banner {
     constructor(data:any) {
         if (data) {
           this.id = data.id;
-          this.title = data.titulo;
-          this.dateStart = new Date(data.fechaDesde);
-          this.dateEnd = new Date(data.fechaHasta);
+          this.title = data.title;
+          this.dateStart = new Date(data.dateStart);
+          this.dateEnd = new Date(data.dateEnd);
           this.urlImage= data.urlImage;
         }
       }

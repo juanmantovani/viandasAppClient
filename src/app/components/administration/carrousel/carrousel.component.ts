@@ -24,7 +24,7 @@ import { GetBannerResponse } from 'src/app/shared/dto/Carrousel/GetBannerRespons
   styleUrls: ['./carrousel.component.css'],
 })
 export class CarrouselComponent implements OnInit {
-  displayedColumns: string[] = ['tittle', 'start', 'end', 'actions'];
+  displayedColumns: string[] = ['title', 'start', 'end', 'actions'];
   dataSource!: MatTableDataSource<Banner>;
   actionForm:string;
 
@@ -35,7 +35,9 @@ export class CarrouselComponent implements OnInit {
     private carrouselService: CarrouselService,
     public dialog: MatDialog,
     private dialogService: DialogService
-  ) {}
+  ) {
+    this.dataSource = new MatTableDataSource<Banner>();
+  }
 
   async ngOnInit() {
     await this.getBanners();
