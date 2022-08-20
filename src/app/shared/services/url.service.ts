@@ -20,5 +20,9 @@ export class UrlService {
    readonly urlDeleteBanner: string = this.url + "/deleteBanner";
 
 
+   //Inicio
+   readonly urlInicio: string = this.url + "/inicio";
+
+
   constructor() { }
 }

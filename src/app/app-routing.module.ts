@@ -5,13 +5,22 @@ import { InicioAdminComponent } from './components/administration/inicio-admin/i
 import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/services/auth.guard';
+import { NoAuthGuard } from './shared/services/no-auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: "/inicio", pathMatch: 'full' },
-  {path: 'login', component: LoginComponent },
+  
+  {
+    path: 'login', 
+    component: LoginComponent,
+    canActivate: [ NoAuthGuard ]
+  },
+
   {path: 'inicio', component: InicioComponent  },
  // {path: '**', redirectTo: '/'},
-  { path: 'administracion', 
+  
+ { 
+    path: 'administracion', 
     component: InicioAdminComponent, 
     children:[{path: 'carrousel', component: CarrouselComponent }],
     canActivate: [ AuthGuard ]
