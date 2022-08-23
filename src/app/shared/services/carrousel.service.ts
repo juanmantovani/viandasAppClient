@@ -7,29 +7,28 @@ import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest';
 import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
 import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
 import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
-import { UrlService } from './url.service';
 import { GetBanneRequest } from '../dto/Carrousel/GetBannerRequest';
 import { GetBannerResponse } from '../dto/Carrousel/GetBannerResponse';
+import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarrouselService {
   image: any;
-  constructor(private urlService: UrlService, private http: HttpClient) {}
+  
+  constructor(private http: HttpClient) {}
 
   getBanners(request: GetBanneRequest): Observable<GetBannerResponse> {
-    const endpoint = this.urlService.urlGetBanner;
-
-       return this.http.post<GetBannerResponse>(endpoint, request).pipe(
+       return this.http.post<GetBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERS, request).pipe(
       map((res: any) => {
+        
         return new GetBannerResponse(res);
       })
     )
   }
 
   addBanner(request: AddBannerRequest) : Observable<AddBannerResponse> {
-    const endpoint = this.urlService.urlUploadBanner;
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
@@ -37,14 +36,13 @@ export class CarrouselService {
     formData.append('dateEnd', request.banner.dateEnd.toUTCString());
     formData.append('title', request.banner.title);
 
-    return this.http.post<AddBannerResponse>(endpoint, formData).pipe(
+    return this.http.post<AddBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.UPLOADBANNER, formData).pipe(
       tap (res => 
         new AddBannerResponse(res))
     );
   }
 
   editBanner(request: EditBannerRequest) : Observable<EditBannerResponse> {
-    const endpoint = this.urlService.urlEditBanner;
 
     var formData = new FormData();
     formData.append('banner', request.banner.image);
@@ -52,15 +50,14 @@ export class CarrouselService {
     formData.append('dateEnd', request.banner.dateEnd.toUTCString());
     formData.append('title', request.banner.title);
 
-    return this.http.post<EditBannerResponse>(endpoint, formData).pipe(
+    return this.http.post<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
       tap (res => new EditBannerResponse(res))
     );
   }
 
   deleteBanner(request: DeleteBannerRequest) {
-    const endpoint = this.urlService.urlDeleteBanner;
 
-    this.http.put<DeleteBannerResponse>(endpoint, request).subscribe((res) => {
+    this.http.put<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, request).subscribe((res) => {
       console.log(res);
       const response = new DeleteBannerResponse(res);
       return response

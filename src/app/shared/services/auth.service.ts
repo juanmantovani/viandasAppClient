@@ -5,17 +5,16 @@ import * as moment from 'moment';
 import { catchError, Observable, of, shareReplay, tap } from 'rxjs';
 import { LoginRequest } from '../dto/Login/LoginRequest';
 import { LoginResponse } from '../dto/Login/LoginResponse';
-import { UrlService } from './url.service';
+import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private http: HttpClient, private router:Router, private urlService:UrlService) { }
+  constructor(private http: HttpClient, private router:Router) { }
 
   public loginByEmail(request: LoginRequest): Observable<LoginResponse>{
-    const endpoint = this.urlService.urlLogin;
-    return this.http.post<LoginResponse>(endpoint, request).pipe(
+    return this.http.post<LoginResponse>(ROUTES.API_ROUTES.LOGIN, request).pipe(
       tap (res => this.setSession(res)),
       shareReplay(),
     );
@@ -56,9 +55,7 @@ export class AuthService {
 
     if (!token)
     return false;
-    
-    const endpoint = this.urlService.urlIsAuth;
-    return this.http.get<any>(endpoint).subscribe(resp => {
+        return this.http.get<any>(ROUTES.API_ROUTES.ISAUTHORIZATED).subscribe(resp => {
       return resp.resp;
     });
   }

@@ -4,6 +4,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoginRequest } from 'src/app/shared/dto/Login/LoginRequest';
 import { LoginResponse } from 'src/app/shared/dto/Login/LoginResponse';
+import  * as ROUTES  from '../../shared/routes/index.routes'
+
 
 
 @Component({
@@ -38,7 +40,7 @@ export class LoginComponent implements OnInit {
   //al hacer click en el boton login
   onLogin(request: LoginRequest) {
     this.loginService.loginByEmail(request).subscribe(() => {
-        this.router.navigate(['administracion']);
+        this.router.navigate([ROUTES.INTERNAL_ROUTES.ADMINISTRATION]);
       }
    );
   }

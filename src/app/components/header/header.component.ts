@@ -1,4 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import  * as ROUTES  from '../../shared/routes/index.routes'
+
 
 
 @Component({
@@ -11,8 +13,7 @@ export class HeaderComponent implements OnInit {
   @ViewChild("myNameElem") myNameElem: ElementRef;
   @ViewChild("myNameElem2") myNameElem2: ElementRef;
   
- // @ViewChild('hello', { static: false }) divHello: ElementRef;
-
+  LOGIN = ROUTES.INTERNAL_ROUTES.LOGIN
   constructor() { }
 
   ngOnInit(): void {

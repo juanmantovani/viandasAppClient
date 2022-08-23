@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="container-fluid">
+<div class="container-fluid imagenBody">
 	<div class="row flex-xl-nowrap">
 		<div class="col-12 col-lg-2"></div>
 
@@ -12,7 +12,7 @@
 							<ngb-carousel>
 								<ng-template ngbSlide *ngFor="let banner of listBanner">
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="{{banner.urlImage}}"
+										<img class="img-carousel" src="../../../assets/{{banner.urlImage}}"
 											alt="Random first slide">
 									</div>
 									<div class="carousel-caption">

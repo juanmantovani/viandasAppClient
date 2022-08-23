@@ -54,6 +54,10 @@
 
 body{
     font-family: Roboto;
+}
+.imagenBody{
     background-image:  url(../../../assets/test.png);
     background-repeat: repeat-x;
+    margin-top: -50px;
+
 }

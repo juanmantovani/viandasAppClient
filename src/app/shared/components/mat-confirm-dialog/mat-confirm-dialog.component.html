@@ -1,21 +1,13 @@
 <div class="myconfirm-dialog-div-container"> 
-
-    <mat-dialog-content class="mat-typography myconfirm-dialog-content">
-      <header style="background-color: #f6f7f9 !important">
-        <div class="panel panel-inverse" style="margin: 0mm !important;  background-color: #808080 !important;">
-          <div class="panel-heading text-center panel-title myconfirm-dialog-title"> CONFIRMAR</div>
-        </div>
-      </header>
-      <div class="myconfirm-dialog-msg text-start">
-        <p style="margin-bottom: 0mm" >   {{data.message}}   </p>
-      </div>
+  <h1 mat-dialog-title>CONFIRMAR</h1>
+  <hr>
+    <mat-dialog-content>
+        <p>   {{data.message}}   </p>
     </mat-dialog-content>
 
-    <mat-dialog-actions class="myconfirm-dialog-footer">
-      <div class="d-flex justify-content-center myconfirm-dialog-btn-actions">
-        <button mat-raised-button class="myconfirm-dialog-btn-no" (click)="onCancel()" >NO</button>
-        <button mat-raised-button class="myconfirm-dialog-btn-yes"(click)="onConfirm()"  cdkFocusInitial > SÍ </button>
-      </div>
+    <mat-dialog-actions class="myconfirm-dialog-footer" align="center">
+        <button mat-raised-button  (click)="onCancel()" >NO</button>
+        <button mat-raised-button cdkFocusInitial (click)="onConfirm()" > SÍ </button>
     </mat-dialog-actions>
   </div>
 

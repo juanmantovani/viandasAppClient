@@ -6,23 +6,26 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/services/auth.guard';
 import { NoAuthGuard } from './shared/services/no-auth.guard';
+import  * as ROUTES  from './shared/routes/index.routes'
+
 
 const routes: Routes = [
-  {path: '', redirectTo: "/inicio", pathMatch: 'full' },
+  {path: '', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO, pathMatch: 'full' },
   
   {
-    path: 'login', 
+    path: ROUTES.INTERNAL_ROUTES.LOGIN, 
     component: LoginComponent,
     canActivate: [ NoAuthGuard ]
   },
 
-  {path: 'inicio', component: InicioComponent  },
+  { path: ROUTES.INTERNAL_ROUTES.INICIO
+    , component: InicioComponent  },
  // {path: '**', redirectTo: '/'},
   
  { 
-    path: 'administracion', 
+    path: ROUTES.INTERNAL_ROUTES.ADMINISTRATION, 
     component: InicioAdminComponent, 
-    children:[{path: 'carrousel', component: CarrouselComponent }],
+    children:[{path: ROUTES.INTERNAL_ROUTES.CARROUSEL, component: CarrouselComponent }],
     canActivate: [ AuthGuard ]
   },
   

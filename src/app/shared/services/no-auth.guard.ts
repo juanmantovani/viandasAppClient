@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { UrlService } from './url.service';
+import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ export class NoAuthGuard implements CanActivate {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private urlService: UrlService,
   ) {}
   
   canActivate(
@@ -20,8 +19,7 @@ export class NoAuthGuard implements CanActivate {
     state: RouterStateSnapshot
     ): boolean {
      if(this.authService.isAuthenticated()){
-      console.log("NOauth "+this.urlService.urlInicio);
-      this.router.navigateByUrl(this.urlService.urlInicio);
+      this.router.navigateByUrl(ROUTES.INTERNAL_ROUTES.INICIO);
       return false;
      }
      return true;

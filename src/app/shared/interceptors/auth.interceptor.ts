@@ -3,7 +3,7 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { UrlService } from '../services/url.service';
+import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -11,7 +11,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     public router: Router, 
     private authService: AuthService,
-    private urlService: UrlService,
     ) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -23,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(cloned)
     } else {
-      this.router.navigateByUrl(this.urlService.urlInicio);
+      this.router.navigateByUrl(ROUTES.INTERNAL_ROUTES.LOGIN);
 
     }
     return next.handle(request);
