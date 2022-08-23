@@ -47,10 +47,7 @@ export class CarrouselComponent implements OnInit {
   }
 
   async getBanners() {
-    const getBanneRequest: GetBanneRequest = {
-      onlyActive : false
-    }
-    await this.carrouselService.getBanners(getBanneRequest).subscribe((res: GetBannerResponse) => {
+    await this.carrouselService.getBanners().subscribe((res: GetBannerResponse) => {
       this.dataSource = new MatTableDataSource(res.banners);
     })
   }

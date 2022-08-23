@@ -7,6 +7,7 @@ import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest';
 import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
 import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
 import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
+import { GetBannerIndexResponse } from '../dto/Carrousel/GetBannerIndexResponse';
 import { GetBanneRequest } from '../dto/Carrousel/GetBannerRequest';
 import { GetBannerResponse } from '../dto/Carrousel/GetBannerResponse';
 import  * as ROUTES  from '../routes/index.routes'
@@ -19,11 +20,20 @@ export class CarrouselService {
   
   constructor(private http: HttpClient) {}
 
-  getBanners(request: GetBanneRequest): Observable<GetBannerResponse> {
-       return this.http.post<GetBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERS, request).pipe(
+  getBanners(): Observable<GetBannerResponse> {
+       return this.http.get<GetBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERS).pipe(
       map((res: any) => {
         
         return new GetBannerResponse(res);
+      })
+    )
+  }
+
+  getBannersIndex():Observable<GetBannerIndexResponse>{
+    return this.http.get<GetBannerIndexResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERSINDEX).pipe(
+      map((res: any) => {
+        
+        return new GetBannerIndexResponse(res);
       })
     )
   }

@@ -1,12 +1,7 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
-import { GetBanneRequest } from 'src/app/shared/dto/Carrousel/GetBannerRequest';
-import { GetBannerResponse } from 'src/app/shared/dto/Carrousel/GetBannerResponse';
-import { Banner } from 'src/app/shared/models/Banner';
+import { GetBannerIndexResponse } from 'src/app/shared/dto/Carrousel/GetBannerIndexResponse';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
-
-
-
 
 @Component({
   selector: 'app-inicio',
@@ -18,7 +13,7 @@ import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 })
 export class InicioComponent implements OnInit {
 
-  listBanner: Banner[];
+  listUrlImage: string[];
 
   mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
   aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías."
@@ -33,7 +28,7 @@ export class InicioComponent implements OnInit {
     config.pauseOnHover = true;
     config.showNavigationIndicators = false;
     config.animation = false;
-    this.listBanner = [];   
+    this.listUrlImage = [];   
   }
 
   openEnd(content: TemplateRef<any>) {
@@ -41,15 +36,12 @@ export class InicioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getBanners();
+    this.getBannersIndex();
   }
   
-  async getBanners() {
-    const getBanneRequest: GetBanneRequest = {
-      onlyActive : true
-    }
-    await this.carrouselService.getBanners(getBanneRequest).subscribe((res: GetBannerResponse) => {
-      this.listBanner = res.banners;
+  async getBannersIndex() {
+    await this.carrouselService.getBannersIndex().subscribe((res: GetBannerIndexResponse) => {
+      this.listUrlImage = res.urlImage;
     })
   }
 

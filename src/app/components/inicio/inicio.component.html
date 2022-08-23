@@ -10,9 +10,9 @@
 					<div class="container-carousel">
 						<div class="card-body">
 							<ngb-carousel>
-								<ng-template ngbSlide *ngFor="let banner of listBanner">
+								<ng-template ngbSlide *ngFor="let url of listUrlImage">
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="../../../assets/{{banner.urlImage}}"
+										<img class="img-carousel" src="../../../assets/{{url}}"
 											alt="Random first slide">
 									</div>
 									<div class="carousel-caption">
