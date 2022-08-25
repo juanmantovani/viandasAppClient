@@ -31,6 +31,8 @@
         <a class="nav-link navbar-botones" onclick="location.href='inicio#tipos'" fragment="features">Tipos</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#nos'">Nosotros</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#galeria'" tabindex="-1" aria-disabled="true">Galería</a>
+        <a class="nav-link navbar-botones"  href="{{REGISTER}}" aria-disabled="true">Registro</a>
+
         </div>
         </div>
       </ul>
@@ -50,11 +52,13 @@
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#tipos'">Tipos</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#nos'">Nosotros</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#galeria'">Galería</button>
+                <button ngbDropdownItem class="drowdownitem"> <a href="{{REGISTER}}">Registro</a></button>
               </div>
             </div>
           </div>        
         </div>
-        <button ngbDropdownItem class="drowdownitem login"><a  href="{{LOGIN}}">Login</a> </button>
+        <button *ngIf="loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{INICIO}}">Bienvenido</a> </button>
+        <button *ngIf="!loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{LOGIN}}">Login</a> </button>
       </div>
   </div>
 </nav>

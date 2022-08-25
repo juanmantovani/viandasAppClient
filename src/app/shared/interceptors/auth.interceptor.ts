@@ -22,9 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
       });
       return next.handle(cloned)
     } else {
-      this.router.navigateByUrl(ROUTES.INTERNAL_ROUTES.LOGIN);
-
+      return next.handle(request);
     }
-    return next.handle(request);
   }
 }
