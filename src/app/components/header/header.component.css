@@ -1,54 +1,30 @@
 .nav-link:hover{
 	background: #E3AE06;
 	color: #ffffff;
-    
     font-weight: 600;
-    
 }
 
 .nav-link{
     display: inline;
     font-weight: 500;
     text-decoration: none;
-
-
-}
-
-.navbar-brand img{
-    animation: 5s 0s forwards linear  giraCody;
 }
 
 .drowdownitem:hover{
     background: #E3AE06;
-
 }
 
-/* @keyframes giraCody {
+.drowdownitem.login a{
+   color:#E3AE06;
+   font-size: large;
+   font-weight: 600
+}
 
-    10%{
-        transform: translate(200px, 200px);
-        
-        z-index: 1;
-        
-        
-        
-        
-        
-    }
-    50%{
-        transform: scale(5);
-        opacity: .3;
-    }
-    80%{
-        opacity: 0;
-        transform: translate(0px, 0px);
-    }
-    100%{
-        opacity: 1;
-    } 
-} */
+.drowdownitem.login:hover a{
+    color:#ffffff;
+}
 
-figure{
+ figure{
     margin: 7px 5px 0rem
 }
 
@@ -98,11 +74,6 @@ figure{
     transition: transform .5s;
 }
 
-.whas {
-    width: 48px;
-    height: 48px;
-}
-
 .list--show{
     transform: translate(0);
 }
@@ -129,17 +100,7 @@ figure{
 
     .nav__logo{
         display: none;
-        
     }
-}
-
-
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
-  }
   
   /* Tooltip text */
   .tooltip .tooltiptext {
@@ -154,9 +115,4 @@ figure{
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 1;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-  }
+}

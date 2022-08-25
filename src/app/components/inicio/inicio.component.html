@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="container-fluid">
+<div class="container-fluid imagenBody">
 	<div class="row flex-xl-nowrap">
 		<div class="col-12 col-lg-2"></div>
 
@@ -10,9 +10,9 @@
 					<div class="container-carousel">
 						<div class="card-body">
 							<ngb-carousel>
-								<ng-template ngbSlide>
+								<ng-template ngbSlide *ngFor="let url of listUrlImage">
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="assets/general.jpg"
+										<img class="img-carousel" src="../../../assets/general.jpg"
 											alt="Random first slide">
 									</div>
 									<div class="carousel-caption">
@@ -21,7 +21,7 @@
 								</ng-template>
 								<ng-template ngbSlide>
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="assets/liviano.jpg"
+										<img class="img-carousel" src="../../../assets/liviano.jpg"
 											alt="Random second slide">
 									</div>
 									<div class="carousel-caption">
@@ -30,7 +30,7 @@
 								</ng-template>
 								<ng-template ngbSlide>
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="assets/proteico.jpg"
+										<img class="img-carousel" src="../../../assets/proteico.jpg"
 											alt="Random third slide">
 									</div>
 									<div class="carousel-caption">
@@ -39,7 +39,7 @@
 								</ng-template>
 								<ng-template ngbSlide>
 									<div class="picsum-img-wrapper">
-										<img class="img-carousel" src="assets/veggie.jpg"
+										<img class="img-carousel" src="../../../assets/veggie.jpg"
 											alt="Random fourth slide">
 									</div>
 									<div class="carousel-caption">

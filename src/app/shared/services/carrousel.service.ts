@@ -1,98 +1,76 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
-import { Utils } from 'src/app/utils';
-import { AgregarBannerRequest } from '../dto/Carrousel/AgregarBannerRequest';
-import { AgregarBannerResponse } from '../dto/Carrousel/AgregarBannerResponse';
-import { BorrarBannerRequest } from '../dto/Carrousel/BorrarBannerRequest';
-import { BorrarBannerResponse } from '../dto/Carrousel/BorrarBannerResponse';
-import { EditarBannerRequest } from '../dto/Carrousel/EditarBannerRequest';
-import { EditarBannerResponse } from '../dto/Carrousel/EditarBannerResponse';
-import { Banner } from '../models/Banner';
-import { UrlService } from './url.service';
+import { map, Observable, tap } from 'rxjs';
+import { AddBannerRequest } from '../dto/Carrousel/AddBannerRequest';
+import { AddBannerResponse } from '../dto/Carrousel/AddBannerResponse';
+import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest';
+import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
+import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
+import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
+import { GetBannerIndexResponse } from '../dto/Carrousel/GetBannerIndexResponse';
+import { GetBanneRequest } from '../dto/Carrousel/GetBannerRequest';
+import { GetBannerResponse } from '../dto/Carrousel/GetBannerResponse';
+import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarrouselService {
-  imagen:any;
-  constructor(
-    private urlService: UrlService,
-    //private http: HttpClient
-  ) {}
+  image: any;
+  
+  constructor(private http: HttpClient) {}
 
-  obtenerBanners() {
-    var fecha = new Date();
-
-    var aux: Array<Banner> = [
-      { id: 1, titulo: 'promo 1', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 2, titulo: 'promo 2', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 3, titulo: 'promo 3', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-      { id: 4, titulo: 'promo 4', fechaDesde: fecha, fechaHasta: fecha, imagen : this.imagen },
-    ];
-
-    return aux;
-  }
-
-  agregarBanner(request: AgregarBannerRequest){
-    let agregarBannerResponse : AgregarBannerResponse = {
-      banner : new Banner(null),
-      valido : true,
-      mensaje: "todo bien",
-      accion: "Editar"
-     }
-     return agregarBannerResponse;
-  }
-  /*
-  agregarBanner(request: AgregarBannerRequest): Promise<AgregarBannerResponse> {
-    const endpoint = "" // this.urlService.urlAgregarBanner;
-    return this.http.post<AgregarBannerResponse>(endpoint, request).pipe(
+  getBanners(): Observable<GetBannerResponse> {
+       return this.http.get<GetBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERS).pipe(
       map((res: any) => {
-        return new AgregarBannerResponse(res);
+        
+        return new GetBannerResponse(res);
       })
-    ).toPromise<AgregarBannerResponse>().catch(Utils.handleError);
+    )
   }
-*/
 
-editarBanner(request: EditarBannerRequest){
- let editarBannerResponse : EditarBannerResponse = {
-  banner : new Banner(null),
-  valido : true,
-  mensaje: "todo bien",
-  accion: "Editar"
- }
- return editarBannerResponse;
-}
-/*
-  editarBanner(request: EditarBannerRequest): Promise<EditarBannerResponse> {
-    const endpoint = "" //this.urlService.urlEditarBanner;
-    return this.http.put<EditarBannerResponse>(endpoint, request).pipe(
+  getBannersIndex():Observable<GetBannerIndexResponse>{
+    return this.http.get<GetBannerIndexResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERSINDEX).pipe(
       map((res: any) => {
-        const response = new EditarBannerResponse(res);
-        return response
+        
+        return new GetBannerIndexResponse(res);
       })
-    ).toPromise<EditarBannerResponse>().catch(Utils.handleError);
-  }
-  */
-
-  borrar(request:BorrarBannerRequest){
-    console.log(request)
-    let borrarBannerResponse : BorrarBannerResponse = {
-      valido : true,
-      mensaje: "todo bien",
-      accion: "Borrar"
-    }
-    return borrarBannerResponse;
+    )
   }
 
-  /*
- eliminar(request: EliminarParametroCreditoRequest): any {
-    const endpoint = this.urlService.urlEliminarParametroCredito;
-    return this.authHttpService.post<EliminarParametroCreditoResponse>(endpoint, request).pipe(
-      map((res: any) => {
-        return new EliminarParametroCreditoResponse(res);
-      })
-    ).toPromise<EliminarParametroCreditoResponse>().catch(Utils.handleError);
+  addBanner(request: AddBannerRequest) : Observable<AddBannerResponse> {
+
+    var formData = new FormData();
+    formData.append('banner', request.banner.image);
+    formData.append('dateStart', request.banner.dateStart.toUTCString());
+    formData.append('dateEnd', request.banner.dateEnd.toUTCString());
+    formData.append('title', request.banner.title);
+
+    return this.http.post<AddBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.UPLOADBANNER, formData).pipe(
+      tap (res => 
+        new AddBannerResponse(res))
+    );
   }
-  */
+
+  editBanner(request: EditBannerRequest) : Observable<EditBannerResponse> {
+
+    var formData = new FormData();
+    formData.append('banner', request.banner.image);
+    formData.append('dateStart', request.banner.dateStart.toUTCString());
+    formData.append('dateEnd', request.banner.dateEnd.toUTCString());
+    formData.append('title', request.banner.title);
+
+    return this.http.post<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
+      tap (res => new EditBannerResponse(res))
+    );
+  }
+
+  deleteBanner(request: DeleteBannerRequest) {
+
+    this.http.put<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, request).subscribe((res) => {
+      console.log(res);
+      const response = new DeleteBannerResponse(res);
+      return response
+    });
+  }
 }

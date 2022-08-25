@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { LoginService } from 'src/app/shared/services/login.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoginRequest } from 'src/app/shared/dto/Login/LoginRequest';
 import { LoginResponse } from 'src/app/shared/dto/Login/LoginResponse';
+import  * as ROUTES  from '../../shared/routes/index.routes'
+
 
 
 @Component({
@@ -15,13 +17,15 @@ export class LoginComponent implements OnInit {
  
   loginForm: FormGroup;
   
-  constructor(private router: Router, private loginService: LoginService) { 
+  constructor(private router: Router, private loginService: AuthService) { 
+    
+    //declaro el form del login
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl('test@viandasintegral.com', [
         Validators.required,
         Validators.pattern(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/),      
       ]),
-      password: new FormControl('', [
+      password: new FormControl('123456789', [
         Validators.required,
         Validators.minLength(6),
       ]),
@@ -30,19 +34,15 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
+  //al hacer click en el boton login
   onLogin(request: LoginRequest) {
-    this.loginService.loginByEmail(request).subscribe((data) => {
-      let dataRsponse: LoginResponse = data;
-      if (dataRsponse.status == null) {
-        localStorage.setItem('token', dataRsponse.token);
-        this.router.navigate(['administracion']);
+    this.loginService.loginByEmail(request).subscribe(() => {
+        this.router.navigate([ROUTES.INTERNAL_ROUTES.ADMINISTRATION]);
       }
-    }, err => {
-      console.log(err.error);
-    });
-    //console.log(request);
+   );
   }
 
 }

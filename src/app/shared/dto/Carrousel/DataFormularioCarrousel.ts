@@ -1,8 +1,8 @@
 import { Banner } from '../../models/Banner';
 
-export class DataFormularioCarrousel {
+export class DataFormCarrousel {
 
   banner: Banner = new Banner(null);
-  accionFormulario: string;
+  actionForm: string;
 
 }

@@ -6,7 +6,7 @@ header{
 
 body{
     font-family: Roboto;
-    
+
     background-image:  url(../assets/test.png);
     background-repeat: repeat-x;
 
@@ -116,12 +116,6 @@ a {
     color: #1f1f1f;
     text-decoration: none;
     outline: none;
-}
-
-a,
-.btn {
-    text-decoration: none !important;
-    outline: none !important;
     -webkit-transition: all .3s ease-in-out;
     -moz-transition: all .3s ease-in-out;
     -ms-transition: all .3s ease-in-out;
@@ -129,29 +123,7 @@ a,
     transition: all .3s ease-in-out;
 }
 
-.btn-custom {
-    margin-top: 20px;
-    background-color: transparent !important;
-    border: 2px solid #ddd;
-    padding: 12px 40px;
-    font-size: 16px;
-}
-
-.lead {
-    font-size: 18px;
-    line-height: 30px;
-    color: #767676;
-    margin: 0;
-    padding: 0;
-}
-
-blockquote {
-    margin: 20px 0 20px;
-    padding: 30px;
-}
-
 ul, li, ol{
-	list-style: none;
 	margin: 0px;
 	padding: 0px;
 }
@@ -198,170 +170,6 @@ button:focus{
 	text-transform: uppercase;
 }
 
-.top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover{
-	background: #E3AE06;
-	color: #ffffff;
-}
-.top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link{
-	background: #E3AE06;
-	color: #ffffff;
-	border-radius: 4px;
-}
-
-.nav-item a{
-    cursor: pointer;
-}
-
-
-
-.btn-primary{
-    background: #E3AE06;
-}
-
-.btn-link{
-    color: #E3AE06;
-}
-
-
-
-.navbar-expand-lg .navbar-nav .dropdown-menu{
-	border: none;
-	border-radius: 0px;
-	padding: 10px;
-	box-shadow: 2px 5px 6px rgba(0,0,0,0.5);
-}
-.navbar-expand-lg .navbar-nav .dropdown-menu a{
-	padding: 10px 10px;
-	text-transform: uppercase;
-}
-
-.navbar-expand-lg .navbar-nav .dropdown-menu a.dropdown-item:hover{
-	background: #E3AE06;
-	color: #ffffff;
-}
-.navbar-light .navbar-toggler:hover{
-	background: #E3AE06;
-}
-
-/*------------------------------------------------------------------
-    Slider
--------------------------------------------------------------------*/
-
-.cover-slides{
-	height: 100vh;
-}
-.slides-navigation a {
-	background: #E3AE06;
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    top: 50%;
-    font-size: 20px;
-    display: block;
-    color: #fff;
-	border-radius: 4px;
-	line-height: 63px;
-	text-align: center;
-    transition: all .3s ease-in-out;
-}
-.slides-navigation a i{
-	font-size: 40px;
-}
-.slides-navigation a:hover {
-	background: #010101;
-}
-.cover-slides .container{
-	height: 100%;
-	position: relative;
-	z-index: 2;
-}
-.cover-slides .container > .row {
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-}
-.cover-slides .container > .row {
-    height: 100%;
-}
-
-.btn{
-	text-transform: uppercase;
-	padding: 19px 36px;
-}
-.btn{
-	display: inline-block;
-	font-weight: 600;
-	text-align: center;
-	white-space: nowrap;
-	vertical-align: middle;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	border: 2px solid transparent;
-	padding: 12px 30px;
-	font-size: 16px;
-	line-height: 1.5;
-	border-radius: .1875rem;
-	transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-}
-.btn-outline-new-white {
-    color: #fff;
-    background-color: #E3AE06;
-    background-image: none;
-    border-color: #E3AE06;
-}
-.btn-outline-new-white:hover {
-    color: #ffffff;
-    background-color: #333333;
-    border-color: #333333;
-}
-
-.overlay-background {
-    background: #333;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    top: 0;
-	opacity: 0.5;
-}
-
-.cover-slides h1{
-	font-family: 'Rubik', sans-serif;
-	font-weight: 500;
-	font-size: 64px;
-	color: #fff;
-}
-.cover-slides p{
-	font-size: 18px;
-	color: #fff;
-}
-.slides-pagination a{
-	border: 2px solid #ffffff;
-}
-.slides-pagination a.current{
-	background: #E3AE06;
-	border: 2px solid #E3AE06;
-}
-
-/*------------------------------------------------------------------
-    About
--------------------------------------------------------------------*/
-
-.logo{
-    width: 10%;
-    height: 10%;
-}
-
-.about-section-box{
-	padding: 70px 0px;
-	background: #ffffff  no-repeat bottom center;
-	background-size: cover;
-}
-.about-section-box .img-fluid{
-	box-shadow: 20px 20px 0px #E3AE06;
-}
 .inner-column{
 	text-align: left;
 }
@@ -503,10 +311,6 @@ button:focus{
 }
 
 
-/*------------------------------------------------------------------
-    Gallery
--------------------------------------------------------------------*/
-
 .gallery-box{
 	padding: 70px 0px;
 }
@@ -552,7 +356,7 @@ button:focus{
 }
 
 .text-warning{
-	color: #E3AE06 !important;
+	color: #E3AE06;
 	font-size: 24px;
 }
 
@@ -647,19 +451,14 @@ button:focus{
 	font-weight: 500;
 	line-height: 24px;
 }
-.contact-imfo-box p {
-    margin: 0px;
-	color: #ffffff;
-	font-weight: 300;
-}
 
 /*------------------------------------------------------------------
     Footer
 -------------------------------------------------------------------*/
 
 .footer-area{
-	padding-top: 50px;
-	padding-bottom: 0px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 .bg-f{
 	background-image: url("../assets/footer-bg.jpg");
@@ -703,33 +502,6 @@ button:focus{
 	padding-bottom: 10px;
 }
 
-.arrow-right{
-	position: relative;
-}
-.arrow-right::before {
-    content: "\f101";
-	font-family: 'FontAwesome';	
-	position: absolute;
-	right: 0px;
-	top: 0;
-	color: #fff;
-	font-size: 60px;
-	line-height: 60px;
-}
-
-
-.footer-area p.lead{
-	font-size: 19px;
-	color: #ffffff;
-	margin-bottom: 0px;
-}
-.footer-area p.lead a{
-	color: #ffffff;
-	margin-bottom: 15px;
-}
-.footer-area p.lead a:hover{
-	color: #E3AE06;
-}
 .footer-area p a{
 	font-size: 18px;
 	color: #ffffff;
@@ -737,6 +509,7 @@ button:focus{
 .footer-area p a:hover{
 	color: #E3AE06;
 }
+<<<<<<< HEAD
 
 .subscribe_form {
     display: block;
@@ -758,7 +531,20 @@ button:focus{
     transition: all 0.5s ease-in-out;
 }
 
-
+.subscribe_form .submit {
+    background-color: #E3AE06;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 50px;
+    display: inline-block;
+    padding: 0 10px;
+    float: left;
+    width: 100%;
+	border: none;
+	cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
 .subscribe_form .submit:hover{
 	background: #010101;
 }
@@ -1137,14 +923,14 @@ blockquote {
     font-weight: 400;
     font-size: 12px;
 }
- .line-left-social ul li a:hover {
+.line-left-social ul li a:hover {
     background: #E3AE06;
     color: #ffffff;
 }
 .line-right-social ul li a:hover {
     background: #E3AE06;
     color: #ffffff;
-} 
+}
 .line-right-social h5 {
     font-size: 18px;
     font-weight: 600;

@@ -1,5 +1,7 @@
 import { Component, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core';
+import { Router } from '@angular/router';
 import {NgbOffcanvas, OffcanvasDismissReasons, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from './shared/services/auth.service';
 
 
 
@@ -10,6 +12,9 @@ import {NgbOffcanvas, OffcanvasDismissReasons, NgbCarouselConfig } from '@ng-boo
 })
 export class AppComponent {
 
-  constructor() {}
-
+  constructor(private authService : AuthService, private router: Router) {}
+  
+  ngOnInit() {
+ 
+  }
 }
