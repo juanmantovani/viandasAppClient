@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import  * as ROUTES  from '../../shared/routes/index.routes'
 
 
@@ -13,11 +14,19 @@ export class HeaderComponent implements OnInit {
   @ViewChild("myNameElem") myNameElem: ElementRef;
   @ViewChild("myNameElem2") myNameElem2: ElementRef;
   
-  LOGIN = ROUTES.INTERNAL_ROUTES.LOGIN
-  constructor() { }
+  LOGIN = ROUTES.INTERNAL_ROUTES.LOGIN;
+  INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
+  REGISTER = ROUTES.INTERNAL_ROUTES.REGISTER;
+
+  loginDisabled: boolean;
+
+  constructor(private authService : AuthService) {
+    this.loginDisabled = false;
+   }
 
   ngOnInit(): void {
-    
+     this.authService.isAuthenticated()? this.loginDisabled = true : this.loginDisabled = false;
+   
   }
 
   mostrarMenu(){

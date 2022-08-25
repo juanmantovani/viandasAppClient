@@ -4,7 +4,7 @@
     <a class="navbar-brand me-2" href="">
       <img
         
-        src="assets/integral_sin.png"
+        src="../../../assets/integral_sin.png"
         height="48"
         alt=""
         loading="lazy"
@@ -12,10 +12,6 @@
       />
     </a>
 
-    <!-- Toggle button -->
-  
-
-    <!-- Collapsible wrapper -->
     <div
       class="collapse navbar-collapse"
       id="navbarButtonsExample"
@@ -24,10 +20,9 @@
     >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="#">Integral Viandas App</a>
+          <a  href="#">Integral Viandas App</a>
         </li>
       </ul>
-      </div>
       
       <ul #myNameElem2 class="nav-item">
         <div class="row flex-xl-nowrap">
@@ -36,48 +31,35 @@
         <a class="nav-link navbar-botones" onclick="location.href='inicio#tipos'" fragment="features">Tipos</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#nos'">Nosotros</a>
         <a class="nav-link navbar-botones" onclick="location.href='inicio#galeria'" tabindex="-1" aria-disabled="true">Galería</a>
+        <a class="nav-link navbar-botones"  href="{{REGISTER}}" aria-disabled="true">Registro</a>
+
         </div>
         </div>
       </ul>
       </div>
 
-      
+
       <div class="d-flex align-items-center">
-        
-        <figure title="Contactanos" _ngcontent-vix-c107="" id="dropdownBasic1" ngbdropdowntoggle="" class="dropdown-toggle nav__logo" aria-expanded="false">
-          <ul _ngcontent-vix-c107="" class="d-inline-block dropdown">
-            <li _ngcontent-vix-c107="" class="nav-item lead">
-              <a target="_blank" class="" href="https://api.whatsapp.com/send?phone=5493434549868&amp;text=Buenas!%20%20Quiero%20conocer%20las%20viandas%20que%20ofrecen">
-                <img _ngcontent-vix-c107="" src="assets/whas.svg" alt="">
-              </a>
-                
-              </li>
-            </ul>
-          </figure>
         <div class="row">
-          
           <div class="col">
             <div ngbDropdown class="d-inline-block">
-              <!-- <button type="button" class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button> -->
               <figure  class="nav__logo" id="dropdownBasic1" ngbDropdownToggle>
-           
-                <img src="assets/menu.svg"  class="nav__img" alt="">
+                <img src="../../../assets/menu.svg"  class="nav__img" alt="">
               </figure>
               
-              
+
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#tipos'">Tipos</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#nos'">Nosotros</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#galeria'">Galería</button>
+                <button ngbDropdownItem class="drowdownitem"> <a href="{{REGISTER}}">Registro</a></button>
               </div>
             </div>
           </div>        
         </div>
-        <a class="btn btn-link px-2 me-2" href="/login">Login</a>
-     
-        <!-- <button type="button" class="btn btn-primary me-3">
-          Login
-        </button> -->
+        <button *ngIf="loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{INICIO}}">Bienvenido</a> </button>
+        <button *ngIf="!loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{LOGIN}}">Login</a> </button>
       </div>
+  </div>
 </nav>
 </header>

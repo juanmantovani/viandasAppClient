@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './shared/services/auth.guard';
 import { NoAuthGuard } from './shared/services/no-auth.guard';
 import  * as ROUTES  from './shared/routes/index.routes'
+import { RegisterComponent } from './components/register/register.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,12 @@ const routes: Routes = [
   {
     path: ROUTES.INTERNAL_ROUTES.LOGIN, 
     component: LoginComponent,
+    canActivate: [ NoAuthGuard ]
+  },
+
+  {
+    path: ROUTES.INTERNAL_ROUTES.REGISTER, 
+    component: RegisterComponent,
     canActivate: [ NoAuthGuard ]
   },
 

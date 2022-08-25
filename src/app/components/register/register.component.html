@@ -1,0 +1,54 @@
+
+<div style="position: relative;">
+    <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <!-- Remind Passowrd -->
+      <div id="formHeader">
+        <h1>Registro</h1>
+      </div>
+  
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="assets/integral_sin_fondo.png" id="icon" alt="User Icon" />
+        <h2>¡Hola! Completá tus datos para registrarte y comenzar a usar nuestro sistema</h2>
+      </div>
+  
+      <!-- Login Form -->
+      <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
+        <div class="form-group">
+            <input type="text" class="fadeIn third form-control" id="login" formControlName="nombre" placeholder="Nombre"/>
+            <div class="error" *ngIf="loginForm.controls['nombre'].touched && loginForm.controls['nombre'].errors?.['required']">Este campo es requerido</div>
+            <div class="error" *ngIf="loginForm.controls['nombre'].touched && loginForm.controls['nombre'].errors?.['pattern']">El formato de nombre no es corecto</div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="fadeIn third form-control" id="login" formControlName="apellido" placeholder="Apellido"/>
+            <div class="error" *ngIf="loginForm.controls['apellido'].touched && loginForm.controls['apellido'].errors?.['required']">Este campo es requerido</div>
+            <div class="error" *ngIf="loginForm.controls['apellido'].touched && loginForm.controls['apellido'].errors?.['pattern']">El formato de apellido no es corecto</div>
+        </div>
+        <div class="form-group">
+        <input type="text" class="fadeIn third form-control" id="login" formControlName="email" placeholder="Email"/>
+            <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['required']">Este campo es requerido</div>
+            <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['pattern']">El formato de mail no es corecto</div>
+        </div>
+        <div class="form-group">
+            <input type="password" id="password" class="fadeIn third form-control" formControlName="password" placeholder="Contraseña"/>
+            <div class="error" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+            <div class="error" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].errors?.['required']">Este campo es requerido</div>
+        </div>
+        <input type="submit" class="fadeIn fourth" value="Ingresar" [disabled]="!loginForm.valid"/>
+      </form>
+      <!-- Remind Passowrd -->
+      <div id="formFooter">
+        <a class="underlineHover" href="{{LOGIN}}">Iniciá sesión</a>
+        <br>
+        <a class="underlineHover" href="{{INICIO}}">Regresar al inicio</a>
+      </div>
+    </div>
+  </div>
+  <app-mat-notification></app-mat-notification>
+
+<div class="fondo">
+</div>		
+
+</div>
