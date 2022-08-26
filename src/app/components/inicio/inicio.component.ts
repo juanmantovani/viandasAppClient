@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
-import { GetBannerIndexResponse } from 'src/app/shared/dto/Carrousel/GetBannerIndexResponse';
+import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 
 @Component({

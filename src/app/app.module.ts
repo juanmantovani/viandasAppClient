@@ -42,7 +42,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
 import { MatNotificationComponent } from './shared/components/mat-notification/mat-notification.component';
 import { RegisterComponent } from './components/register/register.component';
-import { FoodComponent } from './administration/food/food.component';
+import { FoodComponent } from './components/administration/food/food.component';
+import { FoodFormComponent } from './components/administration/food-form/food-form.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { FoodComponent } from './administration/food/food.component';
     MatNotificationComponent,
     SpinnerComponent,
     RegisterComponent,
-    FoodComponent
+    FoodComponent,
+    FoodFormComponent
     
   ],
   imports: [
