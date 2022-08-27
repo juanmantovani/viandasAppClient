@@ -37,6 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
@@ -92,10 +94,7 @@ import { FoodFormComponent } from './components/administration/food-form/food-fo
     FormsModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
-    
-
-    
-    
+    MatSelectModule
   ],
   providers: [
     MatNotificationComponent,

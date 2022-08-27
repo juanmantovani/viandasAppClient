@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Category } from 'src/app/shared/models/Category';
 import { Food } from 'src/app/shared/models/Food';
 
 @Component({
@@ -19,8 +20,16 @@ export class FoodFormComponent implements OnInit {
 
   result: Food;
   form: FormGroup;
-  image: Blob;
+  image: File;
   nameImage?: string | null;
+  listCategories: Category[];
+
+  categories: Category[] = [
+    {id: 0, description: 'General'},
+    {id: 1, description: 'Proteico'},
+    {id: 2,  description: 'Veggie'},
+  ];
+
 
   @Output() onSubmit: EventEmitter<Food | null>;
 
@@ -32,15 +41,22 @@ export class FoodFormComponent implements OnInit {
     this.form = this.generateForm();
   }
 
-  ngOnInit(): void {}
+  async ngOnInit() {
+    await this.getCategories();
+
+  }
 
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.food?.id),
       title: new FormControl(this.data.food?.title, Validators.required),
       description: new FormControl(this.data.food?.description),
-      category: new FormControl(this.data.food?.category, Validators.required),
+      category: new FormControl(this.data.food?.category,Validators.required),
     });
+  }
+
+  getCategories(){
+
   }
 
   onClickCancel() {
@@ -49,7 +65,9 @@ export class FoodFormComponent implements OnInit {
   onClickSave() {
     this.result = this.form.getRawValue();
     this.result.image = this.image;
-    this.onSubmit.emit(this.result);
+    console.log(this.result)
+
+    //this.onSubmit.emit(this.result);
   }
 
   onChangeDateStart(e: any) {

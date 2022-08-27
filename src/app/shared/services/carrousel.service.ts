@@ -57,13 +57,16 @@ export class CarrouselService {
     formData.append('id', request.banner.id.toString());
 
 
-    return this.http.post<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
+    return this.http.put<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
       tap (res => new EditBannerResponse(res))
     );
   }
 
   deleteBanner(request: DeleteBannerRequest) {
-    this.http.put<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, request).subscribe((res) => {
+     let params = new HttpParams();
+     params = params.set('idBanner', request.idBanner?.toString());
+
+    this.http.delete<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, {params}).subscribe((res) => {
       const response = new DeleteBannerResponse(res);
       return response
     });

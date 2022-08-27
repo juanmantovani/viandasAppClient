@@ -19,7 +19,7 @@ export class CarrouselFormComponent implements OnInit {
   result: Banner;
   form: FormGroup;
   minDateEnd: Date;
-  image: Blob;
+  image: File;
   nameImage?: string | null;
 
   @Output() onSubmit: EventEmitter<Banner | null>;
