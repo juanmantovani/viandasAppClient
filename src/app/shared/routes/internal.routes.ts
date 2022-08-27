@@ -4,6 +4,7 @@ export const INTERNAL_ROUTES = {
     CARROUSEL:'carrousel',
     ADMINISTRATION:'administration',
     INICIO: 'inicio',
-    FOOD:'food'
+    FOOD:'food',
+    CATEGORY: 'category'
 }
 

@@ -24,13 +24,6 @@ export class FoodFormComponent implements OnInit {
   nameImage?: string | null;
   listCategories: Category[];
 
-  categories: Category[] = [
-    {id: 0, description: 'General'},
-    {id: 1, description: 'Proteico'},
-    {id: 2,  description: 'Veggie'},
-  ];
-
-
   @Output() onSubmit: EventEmitter<Food | null>;
 
   constructor(
@@ -41,9 +34,14 @@ export class FoodFormComponent implements OnInit {
     this.form = this.generateForm();
   }
 
-  async ngOnInit() {
-    await this.getCategories();
-
+  ngOnInit() {
+  //this.listCategories = this.data.listCategories;
+  
+  this.listCategories = [
+    {id: 0, description: 'General'},
+    {id: 1, description: 'Proteico'},
+    {id: 2,  description: 'Veggie'},
+  ];
   }
 
   generateForm(): FormGroup {
@@ -51,12 +49,8 @@ export class FoodFormComponent implements OnInit {
       id: new FormControl(this.data.food?.id),
       title: new FormControl(this.data.food?.title, Validators.required),
       description: new FormControl(this.data.food?.description),
-      category: new FormControl(this.data.food?.category,Validators.required),
+      category: new FormControl(this.data.food?.category),
     });
-  }
-
-  getCategories(){
-
   }
 
   onClickCancel() {
@@ -64,9 +58,8 @@ export class FoodFormComponent implements OnInit {
   }
   onClickSave() {
     this.result = this.form.getRawValue();
-    this.result.image = this.image;
     console.log(this.result)
-
+    this.result.image = this.image;
     //this.onSubmit.emit(this.result);
   }
 

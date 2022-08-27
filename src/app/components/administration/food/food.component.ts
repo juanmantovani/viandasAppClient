@@ -15,6 +15,8 @@ import { EditFoodResponse } from 'src/app/shared/dto/food/EditFoodResponse';
 import { DeleteFoodRequest } from 'src/app/shared/dto/food/DeleteFoodRequest';
 import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
 import { Food } from 'src/app/shared/models/Food';
+import { Category } from 'src/app/shared/models/Category';
+import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 
 @Component({
   selector: 'app-food',
@@ -25,6 +27,8 @@ export class FoodComponent implements OnInit {
   displayedColumns: string[] = ['title', 'description', 'category', 'actions'];
   dataSource!: MatTableDataSource<Food>;
   actionForm:string;
+  listCategories: Category[];
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -37,8 +41,9 @@ export class FoodComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Food>();
   }
 
-  async ngOnInit() {
-    await this.getFood();
+   ngOnInit() {
+    this.getFood();
+    this.getCategories();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
@@ -47,6 +52,11 @@ export class FoodComponent implements OnInit {
   async getFood() {
     await this.foodService.getFood().subscribe((res: GetFoodResponse) => {
       this.dataSource = new MatTableDataSource(res.food);
+    })
+  }
+  async getCategories() {
+    await this.foodService.getCategories().subscribe((res: GetCategoryResponse) => {
+      this.listCategories = res.listCategories;
     })
   }
 
@@ -59,7 +69,8 @@ export class FoodComponent implements OnInit {
     this.actionForm = 'Crear';
     const dataForm: DataFormFood = {
       actionForm: "Crear",
-      food: new Food(null)
+      food: new Food(null),
+      listCategories: this.listCategories
     };
     this.gestionateForm(dataForm);
     };
@@ -68,7 +79,9 @@ export class FoodComponent implements OnInit {
       this.actionForm = 'Editar';
       const dataForm: DataFormFood = {
         actionForm: "Editar",
-        food: food
+        food: food,
+        listCategories: this.listCategories
+
       };
       this.gestionateForm(dataForm);
     }
