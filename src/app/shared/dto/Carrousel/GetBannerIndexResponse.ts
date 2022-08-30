@@ -6,7 +6,6 @@ export class GetBannerIndexResponse extends BaseResponse{
     constructor(data : any) {
         super(data);
         if(data)
-            this.urlImage = data;
-
+            this.urlImage = data.map((b:any) => b.urlImage);
       }
 }

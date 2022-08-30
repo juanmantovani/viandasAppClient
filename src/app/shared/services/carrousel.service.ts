@@ -29,7 +29,6 @@ export class CarrouselService {
   getBannersIndex():Observable<GetBannerIndexResponse>{
     return this.http.get<GetBannerIndexResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERSINDEX).pipe(
       map((res: any) => {
-        
         return new GetBannerIndexResponse(res);
       })
     )

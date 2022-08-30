@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
-
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -14,6 +14,7 @@ import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 export class InicioComponent implements OnInit {
 
   listUrlImage: string[];
+  URLAPI = environment.urlApi;
 
   mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
   aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías."

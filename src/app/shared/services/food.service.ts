@@ -29,7 +29,7 @@ export class FoodService {
   }
 
   getCategories(): Observable<GetCategoryResponse> {
-    return this.http.get<GetCategoryResponse>(ROUTES.API_ROUTES.FOOD.GETFOOD).pipe(
+    return this.http.get<GetCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.GETCATEGORY).pipe(
    map((res: any) => {
      
      return new GetCategoryResponse(res);
