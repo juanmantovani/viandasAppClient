@@ -1,4 +1,4 @@
-<h4>{{data.actionForm}}</h4>
+<h1 mat-dialog-title>{{data.actionForm}} banner</h1>
 <mat-dialog-content>
 
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
@@ -6,7 +6,7 @@
 
         <mat-form-field appearance="standard" #title>
             <mat-label>Titulo</mat-label>
-            <input type="text" matInput (focus)="title.appearance='outline'" formControlName="title" name="title"
+            <input type="text" matInput formControlName="title" name="title"
                 id="title" #title placeholder="Ingrese un titulo" required />
             <mat-hint *ngIf="form!.controls['title']!.touched && form!.controls['title']!.invalid"
                 class="error-input">
@@ -15,7 +15,7 @@
 
         <mat-form-field appearance="standard" #dateStart>
             <mat-label>Fecha desde</mat-label>
-            <input type="text" matInput (focus)="dateStart.appearance='outline'" formControlName="dateStart"
+            <input type="text" matInput formControlName="dateStart"
                 [matDatepicker]="pickerdateStart" (dateChange)="onChangeDateStart($event)"
                 (click)="pickerdateStart.open()" name="dateStart" id="dateStart"
                 placeholder="Seleccione fecha de desde" required />
@@ -29,7 +29,7 @@
         <mat-form-field appearance="standard" #dateEnd>
             <mat-label>Fecha hasta</mat-label>
             <input type="text" matInput [matDatepicker]="pickerdateEnd" [min]="minDateEnd"
-                (click)="pickerdateEnd.open()" formControlName="dateEnd" (focus)="dateEnd.appearance='outline'"
+                (click)="pickerdateEnd.open()" formControlName="dateEnd"
                 name="dateEnd" id="dateEnd" placeholder="Seleccione fecha hasta" required />
             <mat-datepicker-toggle matSuffix [for]="pickerdateEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerdateEnd></mat-datepicker>
@@ -38,11 +38,10 @@
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <ngx-dropzone (change)="onSelect($event)" [accept]="'image/jpeg,image/jpg,image/png,image/gif'">
+        <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
             <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
-            <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ nameImage }} ({{ image.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [file]="image" [removable]="true" (removed)="onRemove(f)">
+            </ngx-dropzone-image-preview>
           </ngx-dropzone>
     </form>
 

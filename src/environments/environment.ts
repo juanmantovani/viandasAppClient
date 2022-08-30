@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   urlApi: 'http://localhost:8080'
   //urlApi: 'http://ec2-44-201-117-35.compute-1.amazonaws.com'
 };

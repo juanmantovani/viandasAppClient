@@ -3,6 +3,8 @@ export const INTERNAL_ROUTES = {
     REGISTER: 'register',
     CARROUSEL:'carrousel',
     ADMINISTRATION:'administration',
-    INICIO: 'inicio'
+    INICIO: 'inicio',
+    FOOD:'food',
+    CATEGORY: 'category'
 }
 

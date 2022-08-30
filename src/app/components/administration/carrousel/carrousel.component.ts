@@ -6,16 +6,15 @@ import { Banner } from 'src/app/shared/models/Banner';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CarrouselFormComponent } from '../carrousel-form/carrousel-form.component';
-import { DataFormCarrousel } from '../../../shared/dto/Carrousel/DataFormularioCarrousel';
+import { DataFormCarrousel } from '../../../shared/dto/carrousel/DataFormCarrousel';
 import { Utils } from '../../../utils';
-import { AddBannerResponse } from 'src/app/shared/dto/Carrousel/AddBannerResponse';
-import { AddBannerRequest } from 'src/app/shared/dto/Carrousel/AddBannerRequest';
-import { EditBannerRequest } from 'src/app/shared/dto/Carrousel/EditBannerRequest';
+import { AddBannerResponse } from 'src/app/shared/dto/carrousel/AddBannerResponse';
+import { AddBannerRequest } from 'src/app/shared/dto/carrousel/AddBannerRequest';
+import { EditBannerRequest } from 'src/app/shared/dto/carrousel/EditBannerRequest';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { DeleteBannerRequest } from 'src/app/shared/dto/Carrousel/DeleteBannerRequest';
-import { EditBannerResponse } from 'src/app/shared/dto/Carrousel/EditBannerResponse';
-import { GetBanneRequest } from 'src/app/shared/dto/Carrousel/GetBannerRequest';
-import { GetBannerResponse } from 'src/app/shared/dto/Carrousel/GetBannerResponse';
+import { DeleteBannerRequest } from 'src/app/shared/dto/carrousel/DeleteBannerRequest';
+import { EditBannerResponse } from 'src/app/shared/dto/carrousel/EditBannerResponse';
+import { GetBannerResponse } from 'src/app/shared/dto/carrousel/GetBannerResponse';
 
 
 @Component({
@@ -84,7 +83,7 @@ export class CarrouselComponent implements OnInit {
 
   async deleteBanner(banner: Banner) {
     const request: DeleteBannerRequest = {
-      banner: banner
+      idBanner: banner.id
     }
     await this.carrouselService.deleteBanner(request);
   }
@@ -93,9 +92,9 @@ export class CarrouselComponent implements OnInit {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  async gestionateForm(dataFormulario: DataFormCarrousel) {
+  async gestionateForm(dataForm: DataFormCarrousel) {
     const dialogConfig = Utils.matDialogConfigDefault();
-    dialogConfig.data = dataFormulario;
+    dialogConfig.data = dataForm;
 
     const dialogRef = this.dialog.open(CarrouselFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
@@ -119,7 +118,7 @@ export class CarrouselComponent implements OnInit {
   }
 
   async onSubmit(banner: Banner){ 
-    const resultOperation = this.actionForm == "Crear" ? await this.addBanner(banner) : await this.editbanner(banner);
+    const resultOperation = this.actionForm == "Crear" ? await this.addBanner(banner) : await this.editBanner(banner);
   
     return resultOperation;
   }
@@ -134,7 +133,7 @@ export class CarrouselComponent implements OnInit {
  );
   }
 
-  async editbanner(banner: Banner) {
+  async editBanner(banner: Banner) {
     const editBannerRequest: EditBannerRequest = {
       banner: banner
     }

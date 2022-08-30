@@ -12,6 +12,14 @@ export const API_ROUTES ={
         UPLOADBANNER : `${ENV.urlApi}/${INTERNAL_ROUTES.CARROUSEL}/uploadBanner`,
         EDITBANNER : `${ENV.urlApi}/${INTERNAL_ROUTES.CARROUSEL}/editBanner`,
         DELETEBANNER : `${ENV.urlApi}/${INTERNAL_ROUTES.CARROUSEL}/deleteBanner`,
-
+    },
+    FOOD:{
+        GETFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/getFood`,
+        UPLOADFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/uploadFood`,
+        EDITFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/editFood`,
+        DELETEFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/deleteFood`,
+    },
+    CATEGORY:{
+        GETCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/getCategory`,
     }
 }

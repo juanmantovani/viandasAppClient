@@ -1,23 +1,20 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { AddBannerRequest } from '../dto/Carrousel/AddBannerRequest';
-import { AddBannerResponse } from '../dto/Carrousel/AddBannerResponse';
-import { DeleteBannerRequest } from '../dto/Carrousel/DeleteBannerRequest';
-import { DeleteBannerResponse } from '../dto/Carrousel/DeleteBannerResponse';
-import { EditBannerRequest } from '../dto/Carrousel/EditBannerRequest';
-import { EditBannerResponse } from '../dto/Carrousel/EditBannerResponse';
-import { GetBannerIndexResponse } from '../dto/Carrousel/GetBannerIndexResponse';
-import { GetBanneRequest } from '../dto/Carrousel/GetBannerRequest';
-import { GetBannerResponse } from '../dto/Carrousel/GetBannerResponse';
+import { AddBannerRequest } from '../dto/carrousel/AddBannerRequest';
+import { AddBannerResponse } from '../dto/carrousel/AddBannerResponse';
+import { DeleteBannerRequest } from '../dto/carrousel/DeleteBannerRequest';
+import { DeleteBannerResponse } from '../dto/carrousel/DeleteBannerResponse';
+import { EditBannerRequest } from '../dto/carrousel/EditBannerRequest';
+import { EditBannerResponse } from '../dto/carrousel/EditBannerResponse';
+import { GetBannerIndexResponse } from '../dto/carrousel/GetBannerIndexResponse';
+import { GetBannerResponse } from '../dto/carrousel/GetBannerResponse';
 import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarrouselService {
-  image: any;
-  
   constructor(private http: HttpClient) {}
 
   getBanners(): Observable<GetBannerResponse> {
@@ -32,14 +29,12 @@ export class CarrouselService {
   getBannersIndex():Observable<GetBannerIndexResponse>{
     return this.http.get<GetBannerIndexResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERSINDEX).pipe(
       map((res: any) => {
-        
         return new GetBannerIndexResponse(res);
       })
     )
   }
 
   addBanner(request: AddBannerRequest) : Observable<AddBannerResponse> {
-
     var formData = new FormData();
     formData.append('banner', request.banner.image);
     formData.append('dateStart', request.banner.dateStart.toUTCString());
@@ -53,22 +48,24 @@ export class CarrouselService {
   }
 
   editBanner(request: EditBannerRequest) : Observable<EditBannerResponse> {
-
     var formData = new FormData();
     formData.append('banner', request.banner.image);
     formData.append('dateStart', request.banner.dateStart.toUTCString());
     formData.append('dateEnd', request.banner.dateEnd.toUTCString());
     formData.append('title', request.banner.title);
+    formData.append('id', request.banner.id.toString());
 
-    return this.http.post<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
+
+    return this.http.put<EditBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.EDITBANNER, formData).pipe(
       tap (res => new EditBannerResponse(res))
     );
   }
 
   deleteBanner(request: DeleteBannerRequest) {
+     let params = new HttpParams();
+     params = params.set('idBanner', request.idBanner?.toString());
 
-    this.http.put<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, request).subscribe((res) => {
-      console.log(res);
+    this.http.delete<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, {params}).subscribe((res) => {
       const response = new DeleteBannerResponse(res);
       return response
     });

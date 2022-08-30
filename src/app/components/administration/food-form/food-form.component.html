@@ -1,0 +1,60 @@
+<h1 mat-dialog-title>{{data.actionForm}} plato</h1>
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="standard" #title>
+            <mat-label>Titulo</mat-label>
+            <input type="text" matInput formControlName="title" name="title"
+                id="title" #title placeholder="Ingrese un titulo" required />
+            <mat-hint *ngIf="form!.controls['title']!.touched && form!.controls['title']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard" #description>
+            <mat-label>Descripción</mat-label>
+            <textarea type="text" matInput formControlName="description" name="description"
+                id="description" #description placeholder="Ingrese una descripción" rows="3" ></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="category" name="category">
+              <mat-option *ngFor="let category of listCategories" [value]="category">
+                {{category.description}}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form!.controls['category']!.touched && form!.controls['category']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+          </mat-form-field>
+
+        <!--<ngx-dropzone (change)="onSelect($event)" [accept]="'image/jpeg,image/jpg,image/png,image/gif'">
+            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+            <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [removable]="true" (removed)="onRemove(f)">
+              <ngx-dropzone-label>{{ nameImage }} ({{ image.type }})</ngx-dropzone-label>
+            </ngx-dropzone-preview>
+          </ngx-dropzone>
+        -->
+          <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'">
+            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [file]="image" [removable]="true" (removed)="onRemove(f)">
+            </ngx-dropzone-image-preview>
+          </ngx-dropzone>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID' || image == null">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

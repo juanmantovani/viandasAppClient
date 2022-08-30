@@ -5,6 +5,7 @@ export class Banner {
     dateEnd: Date;
     image: Blob;
     urlImage: string;
+    active: boolean
  
 
     constructor(data:any) {
@@ -13,7 +14,8 @@ export class Banner {
           this.title = data.title;
           this.dateStart = new Date(data.dateStart);
           this.dateEnd = new Date(data.dateEnd);
-          this.urlImage= data.urlImage;
+          this.urlImage = data.urlImage;
+          this.active = data.active;
         }
       }
 }
