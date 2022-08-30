@@ -28,6 +28,7 @@ html {
     padding: 20px;
     position: absolute;
     z-index: 3;
+    margin-top: 20px
 
   }
   
@@ -151,9 +152,31 @@ html {
     -webkit-border-radius: 5px 5px 5px 5px;
     border-radius: 5px 5px 5px 5px;
   }
+
+  input[type="email"] {
+    background-color: #f6f6f6;
+    border: none;
+    color: #0d0d0d;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px;
+    width: 85%;
+    border: 2px solid #f6f6f6;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    border-radius: 5px 5px 5px 5px;
+  }
   
   input[type="text"]:focus,
-  input[type="password"]:focus {
+  input[type="password"]:focus
+  input[type="email"]:focus {
     background-color: #fff;
     border-bottom: 2px solid #5fbae9;
   }
@@ -329,3 +352,70 @@ input.ng-invalid.ng-touched {
   font-size: 12px;
 }
   
+
+.task_alt {
+  color: lightgreen;
+  font-size: 900%;
+  margin: 10px;
+}
+
+.highlight_off {
+  color:tomato;
+ font-size: 900%;
+  margin: 10px;
+}
+
+/* Cargando */
+.loader:before,
+.loader:after,
+.loader {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  margin: 8em auto;
+  font-size: 8px;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-animation-delay: 0.16s;
+  animation-delay: 0.16s;
+}
+.loader:before {
+  left: -3.5em;
+}
+.loader:after {
+  left: 3.5em;
+  -webkit-animation-delay: 0.32s;
+  animation-delay: 0.32s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em lightgrey;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 lightgrey;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em lightgrey;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 lightgrey;
+  }
+}

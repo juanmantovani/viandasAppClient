@@ -20,6 +20,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
 
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+
     return next.handle(request).pipe(
 
       tap((event: HttpEvent<any>) => {
@@ -33,8 +34,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           mergeMap((error, index) => {
             if (index < maxRetries && error.status == 500) {
               return of(error).pipe(delay(delayMs));
-            }
-            
+            }            
             throw error;
           })
         )
