@@ -10,6 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/shared/models/Category';
 import { Food } from 'src/app/shared/models/Food';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-food-form',
@@ -23,6 +24,10 @@ export class FoodFormComponent implements OnInit {
   image: File;
   nameImage?: string | null;
   listCategories: Category[];
+  idCatSelected: number;
+  urlImage: string;
+  URLAPI = environment.urlApi;
+  changeImage: boolean;
 
   @Output() onSubmit: EventEmitter<Food | null>;
 
@@ -35,13 +40,11 @@ export class FoodFormComponent implements OnInit {
   }
 
   ngOnInit() {
-  //this.listCategories = this.data.listCategories;
-  
-  this.listCategories = [
-    {id: 0, description: 'General'},
-    {id: 1, description: 'Proteico'},
-    {id: 2,  description: 'Veggie'},
-  ];
+  this.listCategories = this.data.listCategories;
+  this.idCatSelected = this.data.food?.category?.id;
+  this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+  this.nameImage =  this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+
   }
 
   generateForm(): FormGroup {
@@ -58,9 +61,10 @@ export class FoodFormComponent implements OnInit {
   }
   onClickSave() {
     this.result = this.form.getRawValue();
-    console.log(this.result)
-    this.result.image = this.image;
-    //this.onSubmit.emit(this.result);
+    if(this.nameImage != null)
+      this.result.image = this.image;
+    this.result.category = this.listCategories.find(c => c.id == this.idCatSelected)
+    this.onSubmit.emit(this.result);
   }
 
   onChangeDateStart(e: any) {
@@ -74,5 +78,11 @@ export class FoodFormComponent implements OnInit {
 
   onRemove(event: any) {
     this.nameImage = null;
+  }
+
+  onChangeImagen(){
+    this.changeImage = true;
+    this.nameImage = null;
+    return false;
   }
 }

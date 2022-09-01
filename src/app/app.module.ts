@@ -38,6 +38,7 @@ import { CarrouselFormComponent } from './components/administration/carrousel-fo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -94,7 +95,9 @@ import { FoodFormComponent } from './components/administration/food-form/food-fo
     FormsModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
+
   ],
   providers: [
     MatNotificationComponent,

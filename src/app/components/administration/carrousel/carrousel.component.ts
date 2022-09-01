@@ -128,8 +128,10 @@ export class CarrouselComponent implements OnInit {
       banner: banner
     }
     await this.carrouselService.addBanner(addBannerRequest).subscribe((res: AddBannerResponse) => {
-      return res
+      this.getBanners();
+      return res;
     }
+    
  );
   }
 
@@ -138,7 +140,8 @@ export class CarrouselComponent implements OnInit {
       banner: banner
     }
     await this.carrouselService.editBanner(editBannerRequest).subscribe((res: EditBannerResponse) => {
-      return res
+      this.getBanners();
+      return res;
     })
   }
 }

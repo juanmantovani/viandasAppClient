@@ -139,7 +139,8 @@ export class FoodComponent implements OnInit {
       food: food
     }
     await this.foodService.addFood(addFoodRequest).subscribe((res: AddFoodResponse) => {
-      return res
+      this.getFood()
+      return res;
     }
     );
   }
@@ -149,7 +150,8 @@ export class FoodComponent implements OnInit {
       food: food
     }
     await this.foodService.editFood(editFoodRequest).subscribe((res: EditFoodResponse) => {
-      return res
+      this.getFood()
+      return res;
     })
   }
 

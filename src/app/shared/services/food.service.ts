@@ -38,7 +38,6 @@ export class FoodService {
 }
 
   addFood(request: AddFoodRequest) : Observable<AddFoodResponse> {
-    console.log(request)
     var formData = new FormData();
     formData.append('image', request.food.image);
     formData.append('title', request.food.title);
@@ -59,7 +58,7 @@ export class FoodService {
     formData.append('category', request.food.category.id.toString());
     formData.append('id', request.food.id.toString());
 
-    return this.http.post<EditFoodResponse>(ROUTES.API_ROUTES.FOOD.EDITFOOD, formData).pipe(
+    return this.http.put<EditFoodResponse>(ROUTES.API_ROUTES.FOOD.EDITFOOD, formData).pipe(
       tap (res => new EditFoodResponse(res))
     );
   }
