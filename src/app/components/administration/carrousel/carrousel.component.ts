@@ -86,6 +86,7 @@ export class CarrouselComponent implements OnInit {
       idBanner: banner.id
     }
     await this.carrouselService.deleteBanner(request);
+    await this.getBanners();
   }
 
   async generateConfirm(msg: string) {

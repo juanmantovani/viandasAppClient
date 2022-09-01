@@ -98,6 +98,7 @@ export class FoodComponent implements OnInit {
       idFood: food.id
     }
     await this.foodService.deleteFood(request);
+    await this.getFood();
   }
 
   async generateConfirm(msg: string) {

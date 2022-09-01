@@ -40,6 +40,9 @@ const routes: Routes = [
     
     canActivate: [ AuthGuard ]
   },
+
+  {path: '**', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO}
+
   
 
 ];

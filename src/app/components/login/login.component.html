@@ -17,7 +17,7 @@
       <!-- Login Form -->
       <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)">
         <div class="form-group">
-        <input type="text" class="fadeIn third form-control" id="login" formControlName="email" placeholder="Usuario"/>
+        <input type="email" class="fadeIn third form-control" id="email" formControlName="email" placeholder="Usuario" email/>
         <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['required']">Este campo es requerido</div>
         <div class="error" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].errors?.['pattern']">El formato de mail no es corecto</div>
       </div>
@@ -30,9 +30,9 @@
       </form>
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover" href="#">Olvidé mi contraseña</a>
+        <a class="underlineHover" href="{{REGISTER}}">Todavía no tengo una cuenta. Registrarme</a>
         <br>
-        <a class="underlineHover" href="#">Deseo registrarme</a>
+        <a class="underlineHover" href="#">Olvidé mi contraseña</a>
       </div>
     </div>
   </div>

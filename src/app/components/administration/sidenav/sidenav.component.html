@@ -1,7 +1,7 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
-        <h4>Panel administracion</h4>
+        <h4>Panel administracion {{ status }}</h4>
     </mat-toolbar-row>
 </mat-toolbar>
 
@@ -9,14 +9,17 @@
     <mat-sidenav [(opened)]="opened" mode="side">
        
        <mat-list>
-        <mat-list-item>
-            <a class="nav-link"[routerLink]="[CARROUSEL]">Carrousel</a>
+        <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]" (click)="status='> Carrousel'">
+            Carrousel
+        </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
+            Platos
         </mat-list-item>
         <mat-list-item>
-            <a class="nav-link"[routerLink]="[FOOD]">Platos</a>
+
         </mat-list-item>
         <mat-list-item>
-            <a class="nav-link closeSession" (click)="closeSesion()">Cerrar sesión</a>
+            <span class="nav-link closeSession" (click)="closeSesion()">Cerrar sesión</span>
         </mat-list-item>
        </mat-list>
        
