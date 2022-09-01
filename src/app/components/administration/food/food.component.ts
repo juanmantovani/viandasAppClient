@@ -89,7 +89,6 @@ export class FoodComponent implements OnInit {
     async onClickDelete(food : any){
       if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
         await this.deleteFood(food);
-        await this.getFood();
       }
   }
 
@@ -97,8 +96,9 @@ export class FoodComponent implements OnInit {
     const request: DeleteFoodRequest = {
       idFood: food.id
     }
-    await this.foodService.deleteFood(request);
-    await this.getFood();
+    await this.foodService.deleteFood(request).subscribe(() => {
+     this.getFood();
+    });
   }
 
   async generateConfirm(msg: string) {

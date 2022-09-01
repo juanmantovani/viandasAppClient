@@ -63,11 +63,13 @@ export class FoodService {
     );
   }
 
-  deleteFood(request: DeleteFoodRequest) {
-    this.http.put<DeleteFoodResponse>(ROUTES.API_ROUTES.FOOD.DELETEFOOD, request).subscribe((res) => {
-      const response = new DeleteFoodResponse(res);
-      return response
-    });
+  deleteFood(request: DeleteFoodRequest): Observable<DeleteFoodResponse> {
+    let params = new HttpParams();
+    params = params.set('idFood', request.idFood?.toString());
+
+    return this.http.delete<DeleteFoodResponse>(ROUTES.API_ROUTES.FOOD.DELETEFOOD, {params}).pipe(
+    tap (res => new DeleteFoodResponse(res))
+    );
   }
 
 }

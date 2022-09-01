@@ -77,7 +77,6 @@ export class CarrouselComponent implements OnInit {
   async onClickDelete(banner:any){
       if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
         await this.deleteBanner(banner);
-        await this.getBanners();
       }
   }
 
@@ -85,8 +84,9 @@ export class CarrouselComponent implements OnInit {
     const request: DeleteBannerRequest = {
       idBanner: banner.id
     }
-    await this.carrouselService.deleteBanner(request);
-    await this.getBanners();
+    await this.carrouselService.deleteBanner(request).subscribe(() => {
+    this.getBanners();
+    } );
   }
 
   async generateConfirm(msg: string) {

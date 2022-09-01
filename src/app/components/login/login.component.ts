@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { LoginRequest } from 'src/app/shared/dto/Login/LoginRequest';
+import { LoginRequest } from 'src/app/shared/dto/login/LoginRequest';
 import  * as ROUTES  from '../../shared/routes/index.routes'
 
 

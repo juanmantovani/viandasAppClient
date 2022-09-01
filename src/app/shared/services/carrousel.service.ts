@@ -61,13 +61,12 @@ export class CarrouselService {
     );
   }
 
-  deleteBanner(request: DeleteBannerRequest) {
+  deleteBanner(request: DeleteBannerRequest): Observable<DeleteBannerResponse> {
      let params = new HttpParams();
      params = params.set('idBanner', request.idBanner?.toString());
 
-    this.http.delete<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, {params}).subscribe((res) => {
-      const response = new DeleteBannerResponse(res);
-      return response
-    });
+    return this.http.delete<DeleteBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.DELETEBANNER, {params}).pipe(
+      tap(res => new DeleteBannerResponse(res))
+    );
   }
 }
