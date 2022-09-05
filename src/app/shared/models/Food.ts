@@ -4,7 +4,7 @@ export class Food {
     id: number;
     title: string;
     description: string;
-    category : Category;
+    category : any;
     image: Blob;
     urlImage: string;
  

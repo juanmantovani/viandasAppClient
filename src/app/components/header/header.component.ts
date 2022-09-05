@@ -1,4 +1,5 @@
 import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import  * as ROUTES  from '../../shared/routes/index.routes'
 
@@ -17,15 +18,21 @@ export class HeaderComponent implements OnInit {
   LOGIN = ROUTES.INTERNAL_ROUTES.LOGIN;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
   REGISTER = ROUTES.INTERNAL_ROUTES.REGISTER;
+  ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION;
 
   loginDisabled: boolean;
 
-  constructor(private authService : AuthService) {
+  constructor(private authService : AuthService, private router: Router) {
     this.loginDisabled = false;
    }
 
   ngOnInit(): void {
-     this.authService.isAuthenticated()? this.loginDisabled = true : this.loginDisabled = false;
+     if (this.authService.isAuthenticated()) {
+      this.loginDisabled = true;
+    } else {
+      this.router.navigate([ROUTES.INTERNAL_ROUTES.INICIO]);
+      this.loginDisabled = false;
+    }
    
   }
 

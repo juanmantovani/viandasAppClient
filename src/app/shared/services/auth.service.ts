@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { catchError, Observable, of, shareReplay, tap } from 'rxjs';
-import { LoginRequest } from '../dto/Login/LoginRequest';
-import { LoginResponse } from '../dto/Login/LoginResponse';
+import { LoginRequest } from '../dto/login/LoginRequest';
+import { LoginResponse } from '../dto/login/LoginResponse';
 import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({

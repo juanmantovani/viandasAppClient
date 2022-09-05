@@ -5,6 +5,7 @@ export const INTERNAL_ROUTES = {
     ADMINISTRATION:'administration',
     INICIO: 'inicio',
     FOOD:'food',
-    CATEGORY: 'category'
+    CATEGORY: 'category',
+    MENU: 'menu'
 }
 

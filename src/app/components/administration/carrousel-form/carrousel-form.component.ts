@@ -9,6 +9,7 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Banner } from 'src/app/shared/models/Banner';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-carrousel-form',
@@ -21,6 +22,9 @@ export class CarrouselFormComponent implements OnInit {
   minDateEnd: Date;
   image: File;
   nameImage?: string | null;
+  urlImage: string;
+  URLAPI = environment.urlApi;
+  changeImage: boolean;
 
   @Output() onSubmit: EventEmitter<Banner | null>;
 
@@ -33,7 +37,11 @@ export class CarrouselFormComponent implements OnInit {
     this.form = this.generateForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.urlImage = this.data.banner?.urlImage == '' ? null : this.data.banner?.urlImage;
+    this.nameImage = this.data.banner?.urlImage == '' ? null : this.data.banner?.urlImage;
+
+  }
 
   generateForm(): FormGroup {
     return new FormGroup({
@@ -52,7 +60,8 @@ export class CarrouselFormComponent implements OnInit {
   }
   onClickSave() {
     this.result = this.form.getRawValue();
-    this.result.image = this.image;
+    if(this.nameImage != null)
+      this.result.image = this.image;
     this.onSubmit.emit(this.result);
   }
 
@@ -68,5 +77,11 @@ export class CarrouselFormComponent implements OnInit {
 
   onRemove(event: any) {
     this.nameImage = null;
+  }
+
+  onChangeImagen(){
+    this.changeImage = true;
+    this.nameImage = null;
+    return false;
   }
 }
