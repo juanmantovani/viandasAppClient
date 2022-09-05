@@ -21,5 +21,8 @@ export const API_ROUTES ={
     },
     CATEGORY:{
         GETCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/getCategory`,
+    },
+    MENU: {
+        
     }
 }

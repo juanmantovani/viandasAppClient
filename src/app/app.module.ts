@@ -39,6 +39,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
+
 
 
 
@@ -47,6 +52,8 @@ import { MatNotificationComponent } from './shared/components/mat-notification/m
 import { RegisterComponent } from './components/register/register.component';
 import { FoodComponent } from './components/administration/food/food.component';
 import { FoodFormComponent } from './components/administration/food-form/food-form.component';
+
+import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component'
 
 @NgModule({
   declarations: [
@@ -65,7 +72,8 @@ import { FoodFormComponent } from './components/administration/food-form/food-fo
     SpinnerComponent,
     RegisterComponent,
     FoodComponent,
-    FoodFormComponent
+    FoodFormComponent,
+    MenuInicioComponent
     
   ],
   imports: [
@@ -96,7 +104,10 @@ import { FoodFormComponent } from './components/administration/food-form/food-fo
     ReactiveFormsModule,
     NgxDropzoneModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatAutocompleteModule
 
   ],
   providers: [

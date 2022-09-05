@@ -13,6 +13,7 @@ export class SidenavComponent implements OnInit {
   opened = false;
   CARROUSEL = ROUTES.INTERNAL_ROUTES.CARROUSEL;
   FOOD = ROUTES.INTERNAL_ROUTES.FOOD;
+  MENU = ROUTES.INTERNAL_ROUTES.MENU;
   status: string;
 
   constructor( private authService: AuthService) { }
