@@ -1,0 +1,11 @@
+<mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndexMatTab" [selectedIndex]="selectedIndexMatTab">
+    <mat-tab *ngFor="let cat of listCategories, let i = index" >
+      <ng-template mat-tab-label>
+        {{cat.description}}
+         <mat-icon class="example-tab-icon" *ngIf="true">done_all</mat-icon>
+      </ng-template>
+      
+ <app-day [listFood]="filterFoodByCategory(cat.description)" [daysOfMonthh]="daysOfMonth" (daysCharged)="getDays($event)"></app-day>
+         
+</mat-tab>
+</mat-tab-group>

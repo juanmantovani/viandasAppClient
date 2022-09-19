@@ -27,19 +27,11 @@
 }
 
 .container-week mat-form-field{
-    max-width: 100px;
+    max-width: 400px;
     margin: 0 10px 0 10px;
 }
 
-.container-date{
-    width: 90%;
-}
 
-.container-date mat-form-field{
-    max-width: 200px;
-    margin: 0 15px 0 5px;
-
-}
 
 
 /* Simple CSS3 Fade-in-down Animation */

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  //urlApi: 'http://localhost:8080'
-  urlApi: 'http://ec2-3-83-173-159.compute-1.amazonaws.com'
+  urlApi: 'http://localhost:8080'
+  //urlApi: 'http://ec2-3-83-173-159.compute-1.amazonaws.com'
 };
 
 /*

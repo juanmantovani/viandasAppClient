@@ -1,0 +1,28 @@
+
+<div [formGroup]="form" class="example-form" >
+  <div formArrayName="days"> 
+
+    <div *ngFor="let day of days.controls; let i = index">
+      <div [formGroupName]="i"> 
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>{{daysOfMonthh[i].day}} {{daysOfMonthh[i].date | date:'dd/MM'}}</mat-label>            
+            <input type="text" matInput formControlName="food" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option.title}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+
+<!-- 
+          <label>{{daysOfMonthh[i].day}} {{daysOfMonthh[i].date | date:'dd/MM'}}</label>
+          <input type="text" formControlName="food"> -->
+        </div>
+    </div>
+    <button mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+    <mat-icon>save</mat-icon> GUARDAR
+    </button>
+  </div>
+</div>
+ 

@@ -1,0 +1,20 @@
+.container-week{
+    width: 90%;
+    margin-left: 25px;
+    margin-top: 25px;
+}
+
+.container-week mat-form-field{
+    max-width: 100px;
+    margin: 0 10px 0 10px;
+}
+
+.container-date{
+    width: 90%;
+}
+
+.container-date mat-form-field{
+    max-width: 200px;
+    margin: 0 15px 0 5px;
+
+}
