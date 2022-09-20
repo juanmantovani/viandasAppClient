@@ -39,7 +39,6 @@ export class CategoriesComponent implements OnInit {
     this.selectedIndexMatTab = 0;
     this.daysOfMonth = [];
     this.menu = new Menu(null);
-
   }
 
   ngOnInit(): void {
@@ -72,19 +71,41 @@ export class CategoriesComponent implements OnInit {
     //   days: days
     // }
     // this.menu = new Menu(MENU);
+
     this.menu.turnId = 1;
-    
+    console.log(this.menu)
+    days.forEach(value =>{
+      if(this.menu.days == undefined){
+        this.menu.days.push(value)
+      }else{
+        this.menu.days.forEach(value1 => {
+          console.log("tiene cosas")
+        })
+      }
+
+
+
+
+      
+
+
+    })
+
+
+
+    /*
      const CANTDAYOFMONTH = this.daysOfMonth.length;
      for (let i = 0; i < CANTDAYOFMONTH; i++){
       if (this.menu.days[i] == null){
        this.menu.days[i] = new Day(days[i]);
       }else {
-       this.menu.days[i].foodId.push(days[i].foodId[0]);
+       this.menu.days[i].food.push(days[i].food[0]);
       }
      }
     // // this.menuuu.push(new Menu (menu));
      this.selectedIndexMatTab = this.selectedIndexMatTab + 1; 
-    console.log(this.menu);
+    */
+     console.log(this.menu);
 
   }
 

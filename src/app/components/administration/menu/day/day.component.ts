@@ -20,7 +20,6 @@ export class DayComponent implements OnInit {
   form: FormGroup;
 
   constructor( private fb: FormBuilder ) {
-
   }
 
   ngOnInit(): void {
@@ -66,20 +65,7 @@ export class DayComponent implements OnInit {
     return this.listFood.filter(option => option.title.toLowerCase().includes(filterValue));
   }
 
-  onClickSave(){
-    //console.log(this.form.getRawValue())
-    let days = this.days.getRawValue();
-    let daysCharged : Day[];
-    daysCharged = [];
-    let date : Date;
-    days.forEach((day: { date: Date; food: Food}) => {
-      const DAY = {
-        foodId: day.food.id,
-        date: day.date
-      }
-      daysCharged.push(new Day(DAY));
-    });
-
-    this.daysCharged.emit(daysCharged)
+  onClickSave(){  
+    this.daysCharged.emit(this.days.getRawValue())
   }
 }

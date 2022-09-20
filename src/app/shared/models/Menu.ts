@@ -2,15 +2,13 @@ import { Day } from "./Day";
 
 export class Menu {
     turnId: number;
-    days: Day[] = [];
-
+    days: Day[];
  
 
     constructor(data:any) {
         if (data) {
           this.turnId = data.turnId;
-          data.days.forEach ((day: Day) => this.days.push(day));
-
+          this.days = data.days.map((f:any) => new Day(f));
         }
       }
 }
