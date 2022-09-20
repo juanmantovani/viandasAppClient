@@ -20,9 +20,12 @@
           <input type="text" formControlName="food"> -->
         </div>
     </div>
-    <button mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
-    <mat-icon>save</mat-icon> GUARDAR
+    <button *ngIf="!lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+    Siguiente<mat-icon>chevron_right</mat-icon> 
     </button>
+    <button *ngIf="lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+      <mat-icon>save</mat-icon> GUARDAR
+      </button>
   </div>
 </div>
  

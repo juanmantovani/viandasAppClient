@@ -54,7 +54,6 @@ import { FoodComponent } from './components/administration/food/food.component';
 import { FoodFormComponent } from './components/administration/food-form/food-form.component';
 
 import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component';
-import { WeekComponent } from './components/administration/menu/week/week.component';
 import { DayComponent } from './components/administration/menu/day/day.component';
 import { CategoriesComponent } from './components/administration/menu/categories/categories.component'
 
@@ -77,7 +76,6 @@ import { CategoriesComponent } from './components/administration/menu/categories
     FoodComponent,
     FoodFormComponent,
     MenuInicioComponent,
-    WeekComponent,
     DayComponent,
     CategoriesComponent
     

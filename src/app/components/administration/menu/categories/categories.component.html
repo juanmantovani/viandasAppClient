@@ -2,10 +2,9 @@
     <mat-tab *ngFor="let cat of listCategories, let i = index" >
       <ng-template mat-tab-label>
         {{cat.description}}
-         <mat-icon class="example-tab-icon" *ngIf="true">done_all</mat-icon>
+         <mat-icon class="example-tab-icon" *ngIf="selectedIndexMatTab > i">done_all</mat-icon>
       </ng-template>
       
- <app-day [listFood]="filterFoodByCategory(cat)" [daysOfMonthh]="daysOfMonth" (daysCharged)="getDays($event)"></app-day>
-         
+ <app-day [listFood]="filterFoodByCategory(cat)" [lastCategory]="listCategories.length == i+1" [daysOfMonthh]="daysOfMonth" (daysCharged)="getDays($event)" (finishCharged)="addMenu($event)"></app-day>
 </mat-tab>
 </mat-tab-group>

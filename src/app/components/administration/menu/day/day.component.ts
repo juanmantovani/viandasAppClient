@@ -13,7 +13,11 @@ export class DayComponent implements OnInit {
 
   @Input() listFood: Food[];
   @Input() daysOfMonthh: any[];
+  @Input() lastCategory: boolean;
+
   @Output() daysCharged : EventEmitter <Day[]> = new EventEmitter();
+  @Output() finishCharged : EventEmitter <boolean> = new EventEmitter();
+
   viewForm: boolean = false;
 
   filteredOptions: Observable<Food[]>;
@@ -67,5 +71,8 @@ export class DayComponent implements OnInit {
 
   onClickSave(){  
     this.daysCharged.emit(this.days.getRawValue())
+    if (this.lastCategory){
+      this.finishCharged.emit(true);
+    }
   }
 }

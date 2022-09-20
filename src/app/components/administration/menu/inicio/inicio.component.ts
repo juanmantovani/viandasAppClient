@@ -22,8 +22,6 @@ export class MenuInicioComponent implements OnInit {
   listCategories: Category[];
   viewCategories: boolean = false;
 
-
-
   constructor( 
     private foodService: FoodService,
   ) { 
@@ -47,11 +45,6 @@ export class MenuInicioComponent implements OnInit {
   onClickWeeks() {
     this.rangeOfDate = this.range;
     this.viewCategories = true;
-  //   this.cantWeeks = [];
-  //   const CANTWEEKS = this.range.getRawValue();
-  //   for (let i=0; i < CANTWEEKS.weeks; i++){
-  //     this.cantWeeks.push("Semana " + (i+1).toString());
-  //   }
    }
 
    async getCategories() {
