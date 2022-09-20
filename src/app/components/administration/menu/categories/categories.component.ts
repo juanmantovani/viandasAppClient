@@ -4,6 +4,7 @@ import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
 import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
 import { Day } from 'src/app/shared/models/Day';
 import { Menu } from 'src/app/shared/models/Menu';
+import { MenuService } from 'src/app/shared/services/menu.service';
 import { GetFoodResponse } from '../../../../shared/dto/food/GetFoodResponse';
 import { Category } from '../../../../shared/models/Category';
 import { Food } from '../../../../shared/models/Food';
@@ -34,7 +35,7 @@ export class CategoriesComponent implements OnInit {
   selectedIndexMatTab: number;
 
   constructor(
-    private foodService: FoodService,
+    private foodService: FoodService, private menuService: MenuService
   ) { 
     this.listFood = [];
     this.selectedIndexMatTab = 0;
@@ -93,6 +94,7 @@ export class CategoriesComponent implements OnInit {
         addMenuRequest.days.push(dayRequest)
   
         })
+      this.menuService.addMenu(addMenuRequest);
       console.log(addMenuRequest);
     }
     

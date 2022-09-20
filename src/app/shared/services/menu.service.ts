@@ -13,8 +13,7 @@ export class MenuService {
 
   constructor(private http: HttpClient) { }
 
-  addBanner(request: AddMenuRequest) : Observable<AddMenuResponse> {
-
+  addMenu(request: AddMenuRequest) : Observable<AddMenuResponse> {    
     return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, request).pipe(
       tap (res => {
         new AddMenuResponse(res),
