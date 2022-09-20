@@ -13,13 +13,10 @@ import { FoodService } from '../../../../shared/services/food.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-
-  
   @Input() listCategories: Category[];
   @Input() rangeOfDate: FormGroup;
 
   listFood: Food[];
-  listFoodByCategory: Food[];
 
   menu: Menu;
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
@@ -35,7 +32,6 @@ export class CategoriesComponent implements OnInit {
     private foodService: FoodService,
   ) { 
     this.listFood = [];
-    this.listFoodByCategory = [];
     this.selectedIndexMatTab = 0;
     this.daysOfMonth = [];
     this.menu = new Menu(null);
@@ -58,56 +54,20 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
-  filterFoodByCategory(category : string) : Food[] {
+  filterFoodByCategory(category : Category) : Food[] {
     return this.listFood.filter(food => 
       {
-       return food.category.description == category;
+       return food.category.id == category.id;
       });
   }
 
   getDays(days: Day[]){
-    // const MENU = {
-    //   turnId: 1,
-    //   days: days
-    // }
-    // this.menu = new Menu(MENU);
+    if(this.menu.days == undefined)
+      this.menu.days = days
+    else
+    this.menu.days = this.menu.days.concat(days)
+    }
 
-    this.menu.turnId = 1;
-    console.log(this.menu)
-    days.forEach(value =>{
-      if(this.menu.days == undefined){
-        this.menu.days.push(value)
-      }else{
-        this.menu.days.forEach(value1 => {
-          console.log("tiene cosas")
-        })
-      }
-
-
-
-
-      
-
-
-    })
-
-
-
-    /*
-     const CANTDAYOFMONTH = this.daysOfMonth.length;
-     for (let i = 0; i < CANTDAYOFMONTH; i++){
-      if (this.menu.days[i] == null){
-       this.menu.days[i] = new Day(days[i]);
-      }else {
-       this.menu.days[i].food.push(days[i].food[0]);
-      }
-     }
-    // // this.menuuu.push(new Menu (menu));
-     this.selectedIndexMatTab = this.selectedIndexMatTab + 1; 
-    */
-     console.log(this.menu);
-
-  }
 
   setDaysOfMonth(){
     let dateStart : Date; 
