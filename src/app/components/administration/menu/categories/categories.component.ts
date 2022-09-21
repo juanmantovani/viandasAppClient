@@ -46,8 +46,7 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.getFood();
     this.setDaysOfMonth();
-    this.dateStart = this.rangeOfDate.getRawValue().start;
-    this.dateEnd = this.rangeOfDate.getRawValue().end;
+
 
   }
 
@@ -78,10 +77,11 @@ export class CategoriesComponent implements OnInit {
     }
     
     async addMenu(event: boolean) {
-      
+
+
       const turnRequest : TurnRequest = {
-        dateEnd: this.dateEnd,
-        dateStart: this.dateStart,
+        dateEnd: this.rangeOfDate.getRawValue().start,
+        dateStart: this.rangeOfDate.getRawValue().end,
         id: 1,
         days: []
       };
@@ -103,13 +103,13 @@ export class CategoriesComponent implements OnInit {
     
 
   setDaysOfMonth(){
-    this.dateStart = this.rangeOfDate.getRawValue().start;
-    this.dateEnd = this.rangeOfDate.getRawValue().end;
-    const CANTDAYS = (this.dateEnd?.getTime() - this.dateStart?.getTime())/(1000*60*60*24)+1;
-    let currentDate = new Date(this.dateStart);
+    let dateStartAux = this.rangeOfDate.getRawValue().start;
+    let dateEndAux = this.rangeOfDate.getRawValue().end;
+    const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime())/(1000*60*60*24)+1;
+    let currentDate = new Date(dateStartAux);
     let currentDay : string;
     for(let i = 0; i < CANTDAYS; i++){
-      currentDay = this.WEEKDAY[this.dateStart.getDay()];
+      currentDay = this.WEEKDAY[dateStartAux.getDay()];
       if (currentDay != 'Sábado' && currentDay != 'Domingo'){     
         const ITEM = ({
           date: currentDate, 
@@ -117,7 +117,7 @@ export class CategoriesComponent implements OnInit {
         })
         this.daysOfMonth.push(ITEM);
     }
-      currentDate = new Date(this.dateStart.setDate(this.dateStart.getDate() + 1));
+      currentDate = new Date(dateStartAux.setDate(dateStartAux.getDate() + 1));
     }
   }
 }
