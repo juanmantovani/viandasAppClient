@@ -19,8 +19,6 @@ export class DayComponent implements OnInit {
   @Output() finishCharged : EventEmitter <boolean> = new EventEmitter();
 
   viewForm: boolean = false;
-
-  filteredOptions: Observable<Food[]>;
   form: FormGroup;
 
   constructor( private fb: FormBuilder ) {
@@ -29,19 +27,6 @@ export class DayComponent implements OnInit {
   ngOnInit(): void {
     this.generateForm();
     this.addDays();
-
-    this.filteredOptions = this.form.controls['days'].valueChanges.pipe(
-    startWith(''),
-    map(value => {
-      const title = typeof value.title === 'string' ? value?.id : value?.title;
-      return title ? this._filter(title as string) : this.listFood.slice();
-    }),
-    );
- 
-  }
-
-  displayFn(food: Food): string {
-    return food && food.title ? food.title : '';
   }
 
   generateForm() {
@@ -64,15 +49,11 @@ export class DayComponent implements OnInit {
     return this.form.get('days') as FormArray;
   }
 
-  private _filter(title: string): Food[] {
-    const filterValue = title?.toLowerCase();
-    return this.listFood.filter(option => option.title.toLowerCase().includes(filterValue));
-  }
-
   onClickSave(){  
     this.daysCharged.emit(this.days.getRawValue())
     if (this.lastCategory){
       this.finishCharged.emit(true);
     }
+    
   }
 }

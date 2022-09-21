@@ -1,14 +1,13 @@
-import { Day } from "./Day";
+import { Turn } from "./Turn";
 
 export class Menu {
-    turnId: number;
-    days: Day[];
+    id : number;
+    turns: Turn[];
  
-
     constructor(data:any) {
         if (data) {
-          this.turnId = data.turnId;
-          this.days = data.days.map((f:any) => new Day(f));
+          this.id = data.id;
+          this.turns = data.days.map((t:any) => new Turn(t));
         }
       }
 }

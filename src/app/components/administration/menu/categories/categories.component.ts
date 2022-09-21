@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
+import { AddMenuResponse } from 'src/app/shared/dto/menu/AddMenuResponse';
 import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
 import { Day } from 'src/app/shared/models/Day';
 import { Menu } from 'src/app/shared/models/Menu';
+import { Turn } from 'src/app/shared/models/Turn';
+import { TurnRequest } from 'src/app/shared/models/TurnRequest';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { GetFoodResponse } from '../../../../shared/dto/food/GetFoodResponse';
 import { Category } from '../../../../shared/models/Category';
@@ -21,16 +24,13 @@ export class CategoriesComponent implements OnInit {
 
   listFood: Food[];
 
-  menu: Menu;
+  turn: Turn;
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
   daysOfMonth: any [];
 
   viewDays: boolean = false;
   dateStart : Date; 
   dateEnd: Date;
-
-
-
 
   selectedIndexMatTab: number;
 
@@ -40,7 +40,7 @@ export class CategoriesComponent implements OnInit {
     this.listFood = [];
     this.selectedIndexMatTab = 0;
     this.daysOfMonth = [];
-    this.menu = new Menu(null);
+    this.turn = new Turn(null);
   }
 
   ngOnInit(): void {
@@ -70,32 +70,35 @@ export class CategoriesComponent implements OnInit {
   }
 
   getDays(days: Day[]){
-    if(this.menu.days == undefined)
-      this.menu.days = days
+    if(this.turn.days == undefined)
+      this.turn.days = days
     else
-    this.menu.days = this.menu.days.concat(days)
+    this.turn.days = this.turn.days.concat(days)
     this.selectedIndexMatTab = this.selectedIndexMatTab + 1;
-    console.log(this.menu);
     }
-
-    addMenu(event: boolean) {
-      const addMenuRequest : AddMenuRequest = {
+    
+    async addMenu(event: boolean) {
+      
+      const turnRequest : TurnRequest = {
         dateEnd: this.dateEnd,
         dateStart: this.dateStart,
-        turnId: 1,
+        id: 1,
         days: []
       };
-      this.menu.days.forEach(day => {
-        
+      this.turn.days.forEach(day => {
           const dayRequest : DayRequest = {
             date: day.date,
             idFood: day.food.id    
           }
-        addMenuRequest.days.push(dayRequest)
-  
+          turnRequest.days.push(dayRequest)
         })
-      this.menuService.addMenu(addMenuRequest);
-      console.log(addMenuRequest);
+        const addMenuRequest : AddMenuRequest = {
+          turns: []
+        };
+        addMenuRequest.turns.push(turnRequest)
+
+      await this.menuService.addMenu(addMenuRequest).subscribe((res:AddMenuResponse)=>
+      console.log(res));
     }
     
 

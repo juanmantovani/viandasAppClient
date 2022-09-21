@@ -14,11 +14,9 @@ export class MenuService {
   constructor(private http: HttpClient) { }
 
   addMenu(request: AddMenuRequest) : Observable<AddMenuResponse> {    
-    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, request).pipe(
-      tap (res => {
-        new AddMenuResponse(res),
-        console.log(res)
-      })
-    );
+    const options = {headers: {'Content-Type': 'application/json'}};
+    console.log(JSON.stringify(request))
+    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, JSON.stringify(request), options ).pipe(
+    tap (res => new AddMenuResponse(res)))
   }
 }

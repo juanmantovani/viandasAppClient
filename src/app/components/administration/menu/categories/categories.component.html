@@ -1,5 +1,5 @@
 <mat-tab-group mat-align-tabs="start" [selectedIndex]="selectedIndexMatTab" [selectedIndex]="selectedIndexMatTab">
-    <mat-tab *ngFor="let cat of listCategories, let i = index" >
+    <mat-tab *ngFor="let cat of listCategories, let i = index" disabled="true" >
       <ng-template mat-tab-label>
         {{cat.description}}
          <mat-icon class="example-tab-icon" *ngIf="selectedIndexMatTab > i">done_all</mat-icon>

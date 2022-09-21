@@ -1,8 +1,5 @@
-import { DayRequest } from "./DayRequest";
+import { TurnRequest } from "../../models/TurnRequest";
 
 export class AddMenuRequest {
-    turnId: number;
-    dateEnd: Date;
-    dateStart: Date;
-    days: DayRequest[];
+    turns : TurnRequest[];
 }
