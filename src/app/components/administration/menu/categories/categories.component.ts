@@ -3,9 +3,9 @@ import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResp
 import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
 import { AddMenuResponse } from 'src/app/shared/dto/menu/AddMenuResponse';
 import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
+import { TurnRequest } from 'src/app/shared/dto/menu/TurnRequest';
 import { Day } from 'src/app/shared/models/Day';
 import { Turn } from 'src/app/shared/models/Turn';
-import { TurnRequest } from 'src/app/shared/models/TurnRequest';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { GetFoodResponse } from '../../../../shared/dto/food/GetFoodResponse';
 import { Category } from '../../../../shared/models/Category';

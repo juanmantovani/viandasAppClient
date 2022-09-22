@@ -1,4 +1,4 @@
-import { TurnRequest } from "../../models/TurnRequest";
+import { TurnRequest } from "./TurnRequest";
 
 export class AddMenuRequest {
     turns : TurnRequest[];

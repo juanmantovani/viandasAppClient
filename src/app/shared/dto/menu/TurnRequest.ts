@@ -1,4 +1,4 @@
-import { DayRequest } from "../dto/menu/DayRequest";
+import { DayRequest } from "./DayRequest";
 
 export class TurnRequest {
     id: number;

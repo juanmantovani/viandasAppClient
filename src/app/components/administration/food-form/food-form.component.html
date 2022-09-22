@@ -4,7 +4,7 @@
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
-        <mat-form-field appearance="standard" #title>
+        <mat-form-field appearance="fill" #title>
             <mat-label>Titulo</mat-label>
             <input type="text" matInput formControlName="title" name="title"
                 id="title" #title placeholder="Ingrese un titulo" required />
@@ -13,12 +13,12 @@
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="standard" #description>
+        <mat-form-field appearance="fill" #description>
             <mat-label>Descripción</mat-label>
             <textarea type="text" matInput formControlName="description" name="description"
                 id="description" #description placeholder="Ingrese una descripción" rows="3" ></textarea>
         </mat-form-field>
-        <mat-form-field appearance="standard">
+        <mat-form-field appearance="fill">
             <mat-label>Categoría</mat-label>
             <mat-select formControlName="category" name="category"  [(ngModel)]="idCatSelected">
               <mat-option *ngFor="let category of listCategories" [value]="category.id">
