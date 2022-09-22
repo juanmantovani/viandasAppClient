@@ -25,7 +25,11 @@
 
 <div class="fadeInDown" >
     
-  <app-categories *ngIf="viewCategories" [listCategories]="listCategories" [rangeOfDate]="range"></app-categories>
+  <app-categories *ngIf="viewCategories" 
+    [dateStart]="dateStart"
+    [dateEnd]="dateEnd"
+    [daysOfMonth]="daysOfMonth">
+  </app-categories>
   
 </div>
 

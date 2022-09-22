@@ -1,10 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
 import { AddMenuResponse } from 'src/app/shared/dto/menu/AddMenuResponse';
 import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
 import { Day } from 'src/app/shared/models/Day';
-import { Menu } from 'src/app/shared/models/Menu';
 import { Turn } from 'src/app/shared/models/Turn';
 import { TurnRequest } from 'src/app/shared/models/TurnRequest';
 import { MenuService } from 'src/app/shared/services/menu.service';
@@ -19,40 +18,31 @@ import { FoodService } from '../../../../shared/services/food.service';
   styleUrls: ['./categories.component.css']
 })
 export class CategoriesComponent implements OnInit {
-  @Input() listCategories: Category[];
-  @Input() rangeOfDate: FormGroup;
-
+  @Input() dateStart: Date;
+  @Input() dateEnd: Date;
+  @Input() daysOfMonth: any;
+  listCategories: Category[];
   listFood: Food[];
-
   turn: Turn;
-  WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-  daysOfMonth: any [];
-
-  viewDays: boolean = false;
-  dateStart : Date; 
-  dateEnd: Date;
-
+  viewDays: boolean;
   selectedIndexMatTab: number;
 
-  constructor(
-    private foodService: FoodService, private menuService: MenuService
-  ) { 
+  constructor(private foodService: FoodService, private menuService : MenuService) {
     this.listFood = [];
     this.selectedIndexMatTab = 0;
-    this.daysOfMonth = [];
     this.turn = new Turn(null);
   }
 
   ngOnInit(): void {
+    this.getCategories();
     this.getFood();
-    this.setDaysOfMonth();
-
-
+    this.viewDays = true
   }
 
-  ngAfterViewInit(): void {
-    this.viewDays = true;
-
+  async getCategories() {
+    await this.foodService.getCategories().subscribe((res: GetCategoryResponse) => {
+      this.listCategories = res.listCategories;
+    })
   }
 
   async getFood() {
@@ -61,63 +51,44 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
-  filterFoodByCategory(category : Category) : Food[] {
-    return this.listFood.filter(food => 
-      {
-       return food.category.id == category.id;
-      });
+  filterFoodByCategory(category: Category): Food[] {
+    return this.listFood.filter(food => {
+      return food.category.id == category.id;
+    });
   }
 
-  getDays(days: Day[]){
-    if(this.turn.days == undefined)
+  getDays(days: Day[]) {
+    if (this.turn.days == undefined)
       this.turn.days = days
     else
-    this.turn.days = this.turn.days.concat(days)
+      this.turn.days = this.turn.days.concat(days)
     this.selectedIndexMatTab = this.selectedIndexMatTab + 1;
-    }
-    
-    async addMenu(event: boolean) {
-
-
-      const turnRequest : TurnRequest = {
-        dateEnd: this.rangeOfDate.getRawValue().start,
-        dateStart: this.rangeOfDate.getRawValue().end,
-        id: 1,
-        days: []
-      };
-      this.turn.days.forEach(day => {
-          const dayRequest : DayRequest = {
-            date: day.date,
-            idFood: day.food.id    
-          }
-          turnRequest.days.push(dayRequest)
-        })
-        const addMenuRequest : AddMenuRequest = {
-          turns: []
-        };
-        addMenuRequest.turns.push(turnRequest)
-
-      await this.menuService.addMenu(addMenuRequest).subscribe((res:AddMenuResponse)=>
-      console.log(res));
-    }
-    
-
-  setDaysOfMonth(){
-    let dateStartAux = this.rangeOfDate.getRawValue().start;
-    let dateEndAux = this.rangeOfDate.getRawValue().end;
-    const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime())/(1000*60*60*24)+1;
-    let currentDate = new Date(dateStartAux);
-    let currentDay : string;
-    for(let i = 0; i < CANTDAYS; i++){
-      currentDay = this.WEEKDAY[dateStartAux.getDay()];
-      if (currentDay != 'Sábado' && currentDay != 'Domingo'){     
-        const ITEM = ({
-          date: currentDate, 
-          day: currentDay 
-        })
-        this.daysOfMonth.push(ITEM);
-    }
-      currentDate = new Date(dateStartAux.setDate(dateStartAux.getDate() + 1));
-    }
   }
+
+  async addMenu(event: boolean) {
+
+    const turnRequest: TurnRequest = {
+      dateStart: this.dateStart,
+      dateEnd: this.dateEnd,
+      id: 1,
+      days: []
+    };
+    this.turn.days.forEach(day => {
+      const dayRequest: DayRequest = {
+        date: day.date,
+        idFood: day.food.id
+      }
+      turnRequest.days.push(dayRequest)
+    })
+    const addMenuRequest: AddMenuRequest = {
+      turns: []
+    };
+    addMenuRequest.turns.push(turnRequest)
+    await this.menuService.addMenu(addMenuRequest).subscribe((res:AddMenuResponse)=>
+    console.log(res));
+    
+  }
+
+
+
 }

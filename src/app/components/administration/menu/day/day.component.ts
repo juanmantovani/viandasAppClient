@@ -1,7 +1,6 @@
-import { Component, Input, Output, OnInit,EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit,EventEmitter,SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Food } from '../../../../shared/models/Food';
-import { map, Observable, startWith } from 'rxjs';
 import { Day } from '../../../../shared/models/Day';
 
 @Component({
@@ -12,7 +11,7 @@ import { Day } from '../../../../shared/models/Day';
 export class DayComponent implements OnInit {
 
   @Input() listFood: Food[];
-  @Input() daysOfMonthh: any[];
+  @Input() daysOfMonth : any[];
   @Input() lastCategory: boolean;
 
   @Output() daysCharged : EventEmitter <Day[]> = new EventEmitter();
@@ -29,6 +28,13 @@ export class DayComponent implements OnInit {
     this.addDays();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if(changes?.daysOfMonth){
+      this.generateForm()
+      this.addDays();
+    }
+  }
+
   generateForm() {
     this.form = this.fb.group({
       days : this.fb.array([])
@@ -36,7 +42,7 @@ export class DayComponent implements OnInit {
   }
 
   addDays () {
-    this.daysOfMonthh.forEach( value => {
+    this.daysOfMonth.forEach( value => {
       const day = this.fb.group({
         food: new FormControl('', Validators.required),
         date : value.date
@@ -54,6 +60,5 @@ export class DayComponent implements OnInit {
     if (this.lastCategory){
       this.finishCharged.emit(true);
     }
-    
   }
 }

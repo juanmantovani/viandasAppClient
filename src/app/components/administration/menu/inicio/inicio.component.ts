@@ -1,13 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Category } from 'src/app/shared/models/Category';
-import { FoodService } from 'src/app/shared/services/food.service';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
-import { Food } from 'src/app/shared/models/Food';
-import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 
 @Component({
   selector: 'app-inicio',
@@ -15,42 +7,55 @@ import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResp
   styleUrls: ['./inicio.component.css']
 })
 export class MenuInicioComponent implements OnInit {
-
   range: FormGroup;
-  rangeOfDate: any;
-  formMenu: FormGroup;
-  listCategories: Category[];
+  dateStart: Date;
+  dateEnd: Date;
   viewCategories: boolean = false;
+  daysOfMonth : any[]
+  WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
 
-  constructor( 
-    private foodService: FoodService,
-  ) { 
+
+  constructor() { 
     this.range = this.generateFormWeeks();
-    this.getCategories();
-
   }
 
   ngOnInit(): void {
-
   }
 
   generateFormWeeks(): FormGroup {
     return new FormGroup({
-      //weeks: new FormControl('', Validators.required),
       start: new FormControl(null, Validators.required),
       end: new FormControl(null, Validators.required),
     });
   }
 
   onClickWeeks() {
-    this.rangeOfDate = this.range;
+    this.daysOfMonth = [];
+    this.dateStart = this.range.getRawValue().start;
+    this.dateEnd = this.range.getRawValue().end;
+    this.setDaysOfMonth()
     this.viewCategories = true;
    }
 
-   async getCategories() {
-    await this.foodService.getCategories().subscribe((res: GetCategoryResponse) => {
-      this.listCategories = res.listCategories;
-    })
+   setDaysOfMonth(){
+    let dateStartAux = new Date(this.dateStart);
+    let dateEndAux = new Date(this.dateEnd);
+    const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime())/(1000*60*60*24)+1;
+    let currentDate = new Date(dateStartAux);
+    let currentDay : string;
+    for(let i = 0; i < CANTDAYS; i++){
+      currentDay = this.WEEKDAY[dateStartAux.getDay()];
+      if (currentDay != 'Sábado' && currentDay != 'Domingo'){     
+        const ITEM = ({
+          date: currentDate, 
+          day: currentDay 
+        })
+        this.daysOfMonth.push(ITEM);
+    }
+      currentDate = new Date(dateStartAux.setDate(dateStartAux.getDate() + 1));
+    }
   }
+
+   
 
 }

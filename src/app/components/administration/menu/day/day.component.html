@@ -6,7 +6,7 @@
       <div [formGroupName]="i"> 
 
           <mat-form-field appearance="fill">
-            <mat-label>{{daysOfMonthh[i].day}} {{daysOfMonthh[i].date | date:'dd/MM'}}</mat-label>            
+            <mat-label>{{daysOfMonth[i].day}} {{daysOfMonth[i].date | date:'dd/MM'}}</mat-label>            
             <mat-select formControlName="food" name="food"  >
               <mat-option *ngFor="let food of listFood" [value]="food">
                 {{food.title}}
