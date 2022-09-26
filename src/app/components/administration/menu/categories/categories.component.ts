@@ -6,6 +6,7 @@ import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
 import { TurnRequest } from 'src/app/shared/dto/menu/TurnRequest';
 import { Day } from 'src/app/shared/models/Day';
 import { Turn } from 'src/app/shared/models/Turn';
+import { CategoryService } from 'src/app/shared/services/category.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { GetFoodResponse } from '../../../../shared/dto/food/GetFoodResponse';
 import { Category } from '../../../../shared/models/Category';
@@ -27,7 +28,10 @@ export class CategoriesComponent implements OnInit {
   viewDays: boolean;
   selectedIndexMatTab: number;
 
-  constructor(private foodService: FoodService, private menuService : MenuService) {
+  constructor(private foodService: FoodService,
+     private menuService : MenuService,
+     private categoryService : CategoryService
+     ) {
     this.listFood = [];
     this.selectedIndexMatTab = 0;
     this.turn = new Turn(null);
@@ -40,8 +44,8 @@ export class CategoriesComponent implements OnInit {
   }
 
   async getCategories() {
-    await this.foodService.getCategories().subscribe((res: GetCategoryResponse) => {
-      this.listCategories = res.listCategories;
+    await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
+      this.listCategories = res.categories;
     })
   }
 

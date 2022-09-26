@@ -2,12 +2,12 @@ import { Category } from "../../models/Category";
 import { BaseResponse } from "../BaseResponse";
 
 export class GetCategoryResponse extends BaseResponse{
-    listCategories : Category[];
+    categories : Category[];
 
     constructor(data : any) {
         super(data);
         if(data)
-            this.listCategories = data.map((c:any) => new Category(c));
+            this.categories = data.map((c:any) => new Category(c));
 
       }
 }

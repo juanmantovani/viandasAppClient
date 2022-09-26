@@ -55,7 +55,9 @@ import { FoodFormComponent } from './components/administration/food-form/food-fo
 
 import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component';
 import { DayComponent } from './components/administration/menu/day/day.component';
-import { CategoriesComponent } from './components/administration/menu/categories/categories.component'
+import { CategoriesComponent } from './components/administration/menu/categories/categories.component';
+import { CategoryComponent } from './components/administration/category/category.component';
+import { CategoryFormComponent } from './components/administration/category-form/category-form.component'
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { CategoriesComponent } from './components/administration/menu/categories
     FoodFormComponent,
     MenuInicioComponent,
     DayComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    CategoryComponent,
+    CategoryFormComponent
     
   ],
   imports: [

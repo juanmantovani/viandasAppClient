@@ -10,6 +10,7 @@ import  * as ROUTES  from './shared/routes/index.routes'
 import { RegisterComponent } from './components/register/register.component';
 import { FoodComponent } from './components/administration/food/food.component';
 import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component';
+import { CategoryComponent } from './components/administration/category/category.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,7 @@ const routes: Routes = [
     children:[
       {path: ROUTES.INTERNAL_ROUTES.CARROUSEL, component: CarrouselComponent },
       {path: ROUTES.INTERNAL_ROUTES.FOOD, component: FoodComponent },
+      {path: ROUTES.INTERNAL_ROUTES.CATEGORY, component: CategoryComponent },
       {path: ROUTES.INTERNAL_ROUTES.MENU, component: MenuInicioComponent}
     ],
     
