@@ -1,93 +1,35 @@
 <div class="container-week">
-<form [formGroup]="formWeeks" id="formWeeks" #f="ngForm">
-<span>Ingrese la cantidad de semanas que desea configurar: </span>
-<mat-form-field appearance="standard" #weeks>
-    <mat-label>Cantidad</mat-label>
-    <input type="number" matInput formControlName="weeks" name="weeks"
-        id="weeks" #weeks placeholder="Ingrese cantidad de semanas" required />
-    <mat-hint *ngIf="formWeeks!.controls['weeks']!.touched && formWeeks!.controls['weeks']!.invalid"
-        class="error-input">
-        Requerido</mat-hint>
+<form [formGroup]="range" id="range" #f="ngForm">
+<span>Ingrese las fechas del mes que desa cargar: </span>
+
+<mat-form-field appearance="fill">
+  <mat-label>Ingrese el rango de fechas</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate formControlName="start" placeholder="Desde">
+    <input matEndDate formControlName="end" placeholder="Hasta">
+  </mat-date-range-input>
+  <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+  <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
 </mat-form-field>
+
 <button mat-raised-button color="primary" (click)="onClickWeeks()" type="submit" class="btn-primary btn-azul"
-[disabled]="formWeeks.status == 'INVALID'">
+[disabled]="range.status == 'INVALID'">
 <mat-icon>check</mat-icon> Ok
 </button>
 </form>
 </div>
-
-<div class="fadeInDown">
-    <mat-expansion-panel *ngFor="let week of cantWeeks" class="fadeIn">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ week }} 
-      </mat-panel-title>
-      <!-- <mat-panel-description>
-        This is a summary of the content
-      </mat-panel-description> -->
-    </mat-expansion-panel-header>
-
-    <div class="container-date">
-
-        
-
-    <form [formGroup]="formMenu" id="myform" #f="ngForm">
-        <span>Desde: </span>
-        <mat-form-field appearance="standard" #dateStart>
-            <mat-label>Fecha desde</mat-label>
-            <input type="text" matInput formControlName="dateStart"
-                [matDatepicker]="pickerdateStart" (dateChange)="onChangeDateStart($event)"
-                (click)="pickerdateStart.open()" name="dateStart" id="dateStart"
-                placeholder="Seleccione fecha de desde" required />
-            <mat-datepicker-toggle matSuffix [for]="pickerdateStart"></mat-datepicker-toggle>
-            <mat-datepicker #pickerdateStart></mat-datepicker>
-            <mat-hint *ngIf="formMenu!.controls['dateStart']!.touched && formMenu!.controls['dateStart']!.invalid"
-                class="error-input">
-                Este campo es requerido</mat-hint>
-        </mat-form-field>
-
-        <span>Hasta: </span>
-
-        <mat-form-field appearance="standard" #dateEnd>
-            <mat-label>Fecha hasta</mat-label>
-            <input type="text" matInput [matDatepicker]="pickerdateEnd" [min]="minDateEnd"
-                (click)="pickerdateEnd.open()" formControlName="dateEnd"
-                name="dateEnd" id="dateEnd" placeholder="Seleccione fecha hasta" required />
-            <mat-datepicker-toggle matSuffix [for]="pickerdateEnd"></mat-datepicker-toggle>
-            <mat-datepicker #pickerdateEnd></mat-datepicker>
-            <mat-hint *ngIf="formMenu!.controls['dateEnd']!.touched && formMenu!.controls['dateEnd']!.invalid"
-                class="error-input">
-                Este campo es requerido</mat-hint>
-        </mat-form-field>
-        
-    </form>
-</div>
-
-<mat-tab-group mat-align-tabs="start">
-    <mat-tab *ngFor="let cat of listCategories" label="{{cat.description}}">
+<hr>
+<div class="fadeInDown" >
+    
+  <app-categories *ngIf="viewCategories" 
+    [dateStart]="dateStart"
+    [dateEnd]="dateEnd"
+    [daysOfMonth]="daysOfMonth">
+  </app-categories>
   
-
-
-  <form class="example-form" *ngFor="let day of daysOfWeek">
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>{{day}}</mat-label>
-      <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-          {{option.name}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-  </form>
-
-
-</mat-tab>
-</mat-tab-group>
-
-  </mat-expansion-panel>
-
 </div>
 
-
-<!--  -->
 

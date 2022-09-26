@@ -23,6 +23,6 @@ export const API_ROUTES ={
         GETCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/getCategory`,
     },
     MENU: {
-        
+        UPLOADMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,
     }
 }

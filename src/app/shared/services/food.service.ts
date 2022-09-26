@@ -22,7 +22,6 @@ export class FoodService {
   getFood(): Observable<GetFoodResponse> {
        return this.http.get<GetFoodResponse>(ROUTES.API_ROUTES.FOOD.GETFOOD).pipe(
       map((res: any) => {
-        
         return new GetFoodResponse(res);
       })
     )

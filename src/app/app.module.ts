@@ -53,7 +53,9 @@ import { RegisterComponent } from './components/register/register.component';
 import { FoodComponent } from './components/administration/food/food.component';
 import { FoodFormComponent } from './components/administration/food-form/food-form.component';
 
-import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component'
+import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component';
+import { DayComponent } from './components/administration/menu/day/day.component';
+import { CategoriesComponent } from './components/administration/menu/categories/categories.component'
 
 @NgModule({
   declarations: [
@@ -73,7 +75,9 @@ import { MenuInicioComponent } from './components/administration/menu/inicio/ini
     RegisterComponent,
     FoodComponent,
     FoodFormComponent,
-    MenuInicioComponent
+    MenuInicioComponent,
+    DayComponent,
+    CategoriesComponent
     
   ],
   imports: [
@@ -117,7 +121,7 @@ import { MenuInicioComponent } from './components/administration/menu/inicio/ini
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' }
 
   ],
   bootstrap: [AppComponent]
