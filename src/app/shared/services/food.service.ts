@@ -1,7 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
-import { GetCategoryResponse } from '../dto/category/GetCategoryResponse';
 import { AddFoodRequest } from '../dto/food/AddFoodRequest';
 import { AddFoodResponse } from '../dto/food/AddFoodResponse';
 import { DeleteFoodRequest } from '../dto/food/DeleteFoodRequest';
@@ -9,7 +8,6 @@ import { DeleteFoodResponse } from '../dto/food/DeleteFoodResponse';
 import { EditFoodRequest } from '../dto/food/EditFoodRequest';
 import { EditFoodResponse } from '../dto/food/EditFoodResponse';
 import { GetFoodResponse } from '../dto/food/GetFoodResponse';
-import { Category } from '../models/Category';
 import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
@@ -27,14 +25,7 @@ export class FoodService {
     )
   }
 
-  getCategories(): Observable<GetCategoryResponse> {
-    return this.http.get<GetCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.GETCATEGORY).pipe(
-   map((res: any) => {
-     
-     return new GetCategoryResponse(res);
-   })
- )
-}
+
 
   addFood(request: AddFoodRequest) : Observable<AddFoodResponse> {
     var formData = new FormData();

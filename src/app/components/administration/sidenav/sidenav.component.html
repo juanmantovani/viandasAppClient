@@ -15,6 +15,9 @@
         <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
             Platos
         </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === '> Caregorias'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorias'"> 
+            Categorias
+        </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]" (click)="status='> Menú'"> 
             Menú
         </mat-list-item>

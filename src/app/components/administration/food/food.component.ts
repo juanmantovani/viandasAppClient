@@ -17,6 +17,7 @@ import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
 import { Food } from 'src/app/shared/models/Food';
 import { Category } from 'src/app/shared/models/Category';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
+import { CategoryService } from 'src/app/shared/services/category.service';
 
 @Component({
   selector: 'app-food',
@@ -35,6 +36,7 @@ export class FoodComponent implements OnInit {
 
   constructor(
     private foodService: FoodService,
+    private categoryService: CategoryService,
     public dialog: MatDialog,
     private dialogService: DialogService
   ) {
@@ -55,8 +57,8 @@ export class FoodComponent implements OnInit {
     })
   }
   async getCategories() {
-    await this.foodService.getCategories().subscribe((res: GetCategoryResponse) => {
-      this.listCategories = res.listCategories;
+    await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
+      this.listCategories = res.categories;
     })
   }
 
@@ -73,7 +75,7 @@ export class FoodComponent implements OnInit {
       listCategories: this.listCategories
     };
     this.gestionateForm(dataForm);
-    };
+    }
 
     onClickEdit(food: any) {
       this.actionForm = 'Editar';
