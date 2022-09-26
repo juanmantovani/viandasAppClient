@@ -30,14 +30,6 @@
                 Este campo es requerido</mat-hint>
           </mat-form-field>
 
-
-        <!--<ngx-dropzone (change)="onSelect($event)" [accept]="'image/jpeg,image/jpg,image/png,image/gif'">
-            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
-            <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [removable]="true" (removed)="onRemove(f)">
-              <ngx-dropzone-label>{{ nameImage }} ({{ image.type }})</ngx-dropzone-label>
-            </ngx-dropzone-preview>
-          </ngx-dropzone>
-        -->
         <div *ngIf="urlImage != null && !changeImage">
           <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
         </div>

@@ -21,6 +21,9 @@ export const API_ROUTES ={
     },
     CATEGORY:{
         GETCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/getCategory`,
+        UPLOADCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/uploadCategory`,
+        EDITCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/editCategory`,
+        DELETECATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/deleteCategory`,
     },
     MENU: {
         UPLOADMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,

@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{data.actionForm}} categoría</h1>
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill" #title>
+            <mat-label>Titulo</mat-label>
+            <input type="text" matInput formControlName="title" name="title"
+                id="title" #title placeholder="Ingrese un titulo" required />
+            <mat-hint *ngIf="form!.controls['title']!.touched && form!.controls['title']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" #description>
+            <mat-label>Descripción</mat-label>
+            <textarea type="text" matInput formControlName="description" name="description"
+                id="description" #description placeholder="Ingrese una descripción" rows="3" ></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" #price>
+            <mat-label>Precio</mat-label>
+            <input type="number" matInput formControlName="price" name="price"
+                id="price" #price placeholder="Ingrese un titulo" required />
+        </mat-form-field>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>
