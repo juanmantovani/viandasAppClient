@@ -61,3 +61,17 @@ body{
     margin-top: -50px;
 
 }
+
+.container-menu{
+    background: #eaa15ccf; 
+    align-items: center;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5%;
+}

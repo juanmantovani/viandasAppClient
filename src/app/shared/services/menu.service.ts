@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { AddMenuRequest } from '../dto/menu/AddMenuRequest';
 import { AddMenuResponse } from '../dto/menu/AddMenuResponse';
+import { GetMenuResponse } from '../dto/menu/getMenuResponse';
 import  * as ROUTES  from '../routes/index.routes'
 
 
@@ -12,6 +13,14 @@ import  * as ROUTES  from '../routes/index.routes'
 export class MenuService {
 
   constructor(private http: HttpClient) { }
+
+  getMenu(): Observable<GetMenuResponse> {
+    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENU).pipe(
+    map((res: any) => {
+     return new GetMenuResponse(res);
+   })
+ )
+}
 
   addMenu(request: AddMenuRequest) : Observable<AddMenuResponse> {    
     const options = {headers: {'Content-Type': 'application/json'}};

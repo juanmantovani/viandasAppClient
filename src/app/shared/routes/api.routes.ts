@@ -24,5 +24,7 @@ export const API_ROUTES ={
     },
     MENU: {
         UPLOADMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,
+        GETMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenu`,
+
     }
 }
