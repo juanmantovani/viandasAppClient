@@ -13,7 +13,7 @@
      
         <mat-form-field appearance="fill">
             <mat-label>Categoría</mat-label>
-            <mat-select name="category" (selectionChange)="select($event)">
+            <mat-select name="category" formControlName="idCategory" (selectionChange)="select($event)">
               <mat-option *ngFor="let category of listCategories" [value]="category.id">
                 {{category.description}}
               </mat-option>

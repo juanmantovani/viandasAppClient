@@ -56,6 +56,7 @@ export class EditMenuComponent implements OnInit {
     return new FormGroup({
       date: new FormControl(new Date,Validators.required),
       idFood: new FormControl('',Validators.required),
+      idCategory : new FormControl('',Validators.required)
     });
   }
 
@@ -69,7 +70,7 @@ export class EditMenuComponent implements OnInit {
 
   select(cat : any){
     this.idCatSelected = (cat.value)
-    this.GetFoodByCategory(this.idCatSelected)
+    this.GetFoodByCategory(cat.value)
   }
 
 }
