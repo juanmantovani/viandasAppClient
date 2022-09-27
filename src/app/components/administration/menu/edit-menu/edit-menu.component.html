@@ -1,0 +1,47 @@
+<mat-dialog-content>
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Fecha</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint *ngIf="form!.controls['date']!.touched && form!.controls['date']!.errors "
+            class="error-input">
+            Este campo es requerido</mat-hint>
+          </mat-form-field>
+
+     
+        <mat-form-field appearance="fill">
+            <mat-label>Categoría</mat-label>
+            <mat-select name="category" (selectionChange)="select($event)">
+              <mat-option *ngFor="let category of listCategories" [value]="category.id">
+                {{category.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field appearance="fill" *ngIf="idCatSelected != null">
+            <mat-label>Plato</mat-label>            
+            <mat-select formControlName="idFood" name="idFood"  >
+              <mat-option *ngFor="let food of listFood" [value]="food.id">
+                {{food.title}}
+              </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form!.controls['idFood']!.touched && form!.controls['idFood']!.errors "
+            class="error-input">
+            Este campo es requerido</mat-hint>
+          </mat-form-field>        
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

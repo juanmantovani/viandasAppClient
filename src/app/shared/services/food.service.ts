@@ -7,6 +7,7 @@ import { DeleteFoodRequest } from '../dto/food/DeleteFoodRequest';
 import { DeleteFoodResponse } from '../dto/food/DeleteFoodResponse';
 import { EditFoodRequest } from '../dto/food/EditFoodRequest';
 import { EditFoodResponse } from '../dto/food/EditFoodResponse';
+import { GetFoodByCategoryRequest } from '../dto/food/GetFoodByCategoryRequest';
 import { GetFoodResponse } from '../dto/food/GetFoodResponse';
 import  * as ROUTES  from '../routes/index.routes'
 
@@ -24,6 +25,17 @@ export class FoodService {
       })
     )
   }
+
+  getFoodByCategory(request : GetFoodByCategoryRequest) : Observable<GetFoodResponse> {
+    let params = new HttpParams();
+    params = params.set('idCategory', request.idCategory?.toString());
+
+    return this.http.get<GetFoodResponse>(ROUTES.API_ROUTES.FOOD.GETFOODBYCATEGORY, { params }).pipe(
+   map((res: any) => {
+     return new GetFoodResponse(res);
+   })
+ )
+} 
 
 
 

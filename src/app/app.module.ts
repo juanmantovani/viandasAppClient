@@ -57,7 +57,8 @@ import { MenuInicioComponent } from './components/administration/menu/inicio/ini
 import { DayComponent } from './components/administration/menu/day/day.component';
 import { CategoriesComponent } from './components/administration/menu/categories/categories.component';
 import { CategoryComponent } from './components/administration/category/category.component';
-import { CategoryFormComponent } from './components/administration/category-form/category-form.component'
+import { CategoryFormComponent } from './components/administration/category-form/category-form.component';
+import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component'
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { CategoryFormComponent } from './components/administration/category-form
     DayComponent,
     CategoriesComponent,
     CategoryComponent,
-    CategoryFormComponent
+    CategoryFormComponent,
+    EditMenuComponent
     
   ],
   imports: [
