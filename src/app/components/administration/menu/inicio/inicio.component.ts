@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { EditMenuRequest } from 'src/app/shared/dto/menu/EditMenuRequest';
+import { Utils } from 'src/app/utils';
+import { EditMenuComponent } from '../edit-menu/edit-menu.component';
+import { MenuService } from 'src/app/shared/services/menu.service';
+import { EditMenuResponse } from 'src/app/shared/dto/menu/EditMenuResponse';
+
 
 @Component({
   selector: 'app-inicio',
@@ -15,7 +22,7 @@ export class MenuInicioComponent implements OnInit {
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
 
 
-  constructor() { 
+  constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
   }
 
@@ -54,6 +61,34 @@ export class MenuInicioComponent implements OnInit {
     }
       currentDate = new Date(dateStartAux.setDate(dateStartAux.getDate() + 1));
     }
+  }
+
+  onClickEdit(){
+    const dialogConfig = Utils.matDialogConfigDefault();
+    const dialogRef = this.dialog.open(EditMenuComponent, dialogConfig);
+    const componentInstance = dialogRef.componentInstance;
+
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
+        dialogRef.close();
+        return false;
+      }
+
+      var result : any  = await this.onSubmitEdit(data);
+      if (result) {
+        return false;
+      }
+      else {
+        dialogRef.close();
+        return true;
+      }
+    })
+  }
+
+  async onSubmitEdit(editMenuRequest: EditMenuRequest){ 
+    await this.menuService.editMenu(editMenuRequest).subscribe((res: EditMenuResponse) => {
+      return res;
+    })
   }
 
    

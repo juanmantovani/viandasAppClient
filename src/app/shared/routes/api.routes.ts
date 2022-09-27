@@ -15,6 +15,7 @@ export const API_ROUTES ={
     },
     FOOD:{
         GETFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/getFood`,
+        GETFOODBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/getFoodByCategory`,
         UPLOADFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/uploadFood`,
         EDITFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/editFood`,
         DELETEFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/deleteFood`,
@@ -27,5 +28,7 @@ export const API_ROUTES ={
     },
     MENU: {
         UPLOADMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,
+        EDITMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/editMenu`,
+
     }
 }
