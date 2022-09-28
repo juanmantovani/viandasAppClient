@@ -2,6 +2,9 @@ import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
+import { CategoryViewer } from 'src/app/shared/models/CategoryViewer';
+import { MenuViewer } from 'src/app/shared/models/MenuViewer';
+import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { environment } from 'src/environments/environment';
@@ -19,8 +22,8 @@ import { environment } from 'src/environments/environment';
 
 export class InicioComponent implements OnInit {
 
-  //displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight', 'demo-symbol'];
-  //dataSource = ELEMENT_DATA;
+  displayedColumns: string[] = ['Día', 'Menú'];
+  menuViewer : MenuViewer;
 
   //WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
 
@@ -49,9 +52,9 @@ export class InicioComponent implements OnInit {
     this.offcanvasService.open(content, { position: 'end' });
   }
 
-  ngOnInit(): void {
+ async ngOnInit() {
     this.getBannersIndex();
-    this.getMenu();
+    await this.getMenu();
   }
   
   async getBannersIndex() {
@@ -63,6 +66,7 @@ export class InicioComponent implements OnInit {
   async getMenu(){
     await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
       console.log(res);
+      this.menuViewer = new MenuViewer (res.menuViewer);
     })
   }
 
