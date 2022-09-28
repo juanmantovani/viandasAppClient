@@ -25,7 +25,7 @@ export class MenuService {
 
   editMenu(request: EditMenuRequest) : Observable<EditMenuResponse>{
     const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post<EditMenuResponse>(ROUTES.API_ROUTES.MENU.EDITMENU, JSON.stringify(request), options ).pipe(
+    return this.http.put<EditMenuResponse>(ROUTES.API_ROUTES.MENU.EDITMENU, JSON.stringify(request), options ).pipe(
       tap (res => new EditMenuResponse(res)))
   }
 
