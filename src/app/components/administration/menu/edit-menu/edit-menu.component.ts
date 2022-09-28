@@ -43,7 +43,7 @@ export class EditMenuComponent implements OnInit {
       date: this.date
     }
     await this.menuService.getDayMenu(request).subscribe((res: GetDayResponse) => {
-      if (res.days.length > 0) {
+      if ( res.days && res.days.length > 0) {
         this.viewDay = true;
         this.dataSource = new MatTableDataSource(res.days);
       }
