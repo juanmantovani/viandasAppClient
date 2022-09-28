@@ -1,14 +1,15 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
+import { MatTableDataSource } from '@angular/material/table';
 import { GetFoodByCategoryRequest } from 'src/app/shared/dto/food/GetFoodByCategoryRequest';
 import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
 import { EditMenuRequest } from 'src/app/shared/dto/menu/EditMenuRequest';
-import { Category } from 'src/app/shared/models/Category';
+import { GetDayRequest } from 'src/app/shared/dto/menu/GetDaysRequest';
+import { GetDayResponse } from 'src/app/shared/dto/menu/GetDaysResponse';
+import { Day } from 'src/app/shared/models/Day';
 import { Food } from 'src/app/shared/models/Food';
-import { CategoryService } from 'src/app/shared/services/category.service';
 import { FoodService } from 'src/app/shared/services/food.service';
+import { MenuService } from 'src/app/shared/services/menu.service';
 
 @Component({
   selector: 'app-edit-menu',
@@ -16,61 +17,63 @@ import { FoodService } from 'src/app/shared/services/food.service';
   styleUrls: ['./edit-menu.component.css']
 })
 export class EditMenuComponent implements OnInit {
-  
-  result: EditMenuRequest;
-  form: FormGroup;
-  listCategories: Category[];
+  displayedColumns: string[] = ['date', 'food', 'category', 'actions'];
+  dataSource!: MatTableDataSource<Day>;
+  date: Date;
+  listDay: Day[];
+  viewDay: boolean;
+  viewFood: boolean;
   listFood: Food[];
-  idCatSelected : number;
+  food: Food;
+  day : Day;
 
   @Output() onSubmit: EventEmitter<EditMenuRequest | null>;
 
-
-  constructor(private foodService : FoodService,
-    private categoryService : CategoryService,
+  constructor(private menuService: MenuService,
+    private foodService: FoodService,
     public dialogRef: MatDialogRef<EditMenuComponent>) {
     this.onSubmit = new EventEmitter<EditMenuRequest | null>();
-    this.form = this.generateForm();
-    this.getCategories();
-   }
+  }
 
   ngOnInit(): void {
   }
-  async getCategories() {
-    await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
-      this.listCategories = res.categories;
-    })
-  }
 
-  async GetFoodByCategory(cat : number) {
-    const request : GetFoodByCategoryRequest = {
-      idCategory : cat
+  async onClickOk() {
+    const request: GetDayRequest = {
+      date: this.date
     }
-    await this.foodService.getFoodByCategory(request).subscribe((res: GetFoodResponse) => {
-      this.listFood = res.food;
+    await this.menuService.getDayMenu(request).subscribe((res: GetDayResponse) => {
+      if (res.days.length > 0) {
+        this.viewDay = true;
+        this.dataSource = new MatTableDataSource(res.days);
+      }
     })
-  }
-
-
-  generateForm(): FormGroup {
-    return new FormGroup({
-      date: new FormControl(new Date,Validators.required),
-      idFood: new FormControl('',Validators.required),
-      idCategory : new FormControl('',Validators.required)
-    });
   }
 
   onClickCancel() {
     this.dialogRef.close();
   }
-  onClickSave() {
-    this.result = this.form.getRawValue();
-    this.onSubmit.emit(this.result);
+
+  async onClickChange(day: Day) {
+    this.day = day;
+    const request: GetFoodByCategoryRequest = {
+      idCategory: day.food.category.id
+    }
+
+    await this.foodService.getFoodByCategory(request).subscribe((res: GetFoodResponse) => {
+      this.listFood = res.food;
+      this.viewFood = true;
+    })
   }
 
-  select(cat : any){
-    this.idCatSelected = (cat.value)
-    this.GetFoodByCategory(cat.value)
+
+  onClickSave() {
+    const request: EditMenuRequest = {
+      idDay: this.day.id,
+      idFood : this.food.id
+    }
+    this.onSubmit.emit(request);
   }
+
 
 }

@@ -1,5 +1,4 @@
 export class EditMenuRequest{
-    date : Date;
+    idDay : number;
     idFood : number;
-    idCategory : number;
 }
