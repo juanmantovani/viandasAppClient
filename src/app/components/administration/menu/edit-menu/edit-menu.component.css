@@ -3,10 +3,20 @@
     text-align: center;
 }
 .mat-form-field{ 
-    width:85%;
+    width:80%;
     margin-bottom: 10px;
 }
-.error-input{
-    color:tomato;
-    font-size: 12px;
+
+.mat-dialog-content .btn-azul{ 
+    margin-left: 10px;
+}
+
+.table-day{
+    width:100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.select-food{
+    margin-top: 10px;
 }
