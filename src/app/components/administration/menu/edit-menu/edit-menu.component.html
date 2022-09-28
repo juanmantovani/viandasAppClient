@@ -1,37 +1,54 @@
 <mat-dialog-content>
-    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
         <mat-form-field appearance="fill">
             <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="date">
+            <input matInput [matDatepicker]="picker" [(ngModel)]="date">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-hint *ngIf="form!.controls['date']!.touched && form!.controls['date']!.errors "
-            class="error-input">
-            Este campo es requerido</mat-hint>
           </mat-form-field>
+          <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
+          [disabled]="date == null">
+          <mat-icon>check</mat-icon> Ok
+        </button>
 
-     
-        <mat-form-field appearance="fill">
-            <mat-label>Categoría</mat-label>
-            <mat-select name="category" (selectionChange)="select($event)">
-              <mat-option *ngFor="let category of listCategories" [value]="category.id">
-                {{category.description}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        
-          <mat-form-field appearance="fill" *ngIf="idCatSelected != null">
-            <mat-label>Plato</mat-label>            
-            <mat-select formControlName="idFood" name="idFood"  >
-              <mat-option *ngFor="let food of listFood" [value]="food.id">
-                {{food.title}}
-              </mat-option>
-            </mat-select>
-            <mat-hint *ngIf="form!.controls['idFood']!.touched && form!.controls['idFood']!.errors "
-            class="error-input">
-            Este campo es requerido</mat-hint>
-          </mat-form-field>        
-    </form>
+        <div class="table-day" *ngIf="viewDay">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table-day">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd/MM/yyyy' }}  </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="food">
+            <th mat-header-cell *matHeaderCellDef> Plato </th>
+            <td mat-cell *matCellDef="let element"> {{element.food.title}} </td>
+          </ng-container>
+      
+          <ng-container matColumnDef="category">
+            <th mat-header-cell *matHeaderCellDef> Categoria </th>
+            <td mat-cell *matCellDef="let element"> {{element.food.category.description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-raised-button (click)="onClickChange(element)">Cambiar</button>
+            </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+      <div *ngIf="viewFood" class="select-food">
+        <p>   Cambiando el plato <strong>{{day.food.title}}</strong></p>
+      <mat-form-field appearance="fill" >
+        <mat-label>Plato</mat-label>            
+        <mat-select [(ngModel)]="food"  >
+          <mat-option *ngFor="let food of listFood" [value]="food">
+            {{food.title}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field> 
+    </div>
+
 
 </mat-dialog-content>
 
@@ -40,7 +57,7 @@
         <mat-icon>clear</mat-icon> CANCELAR
     </button>
     <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
-        [disabled]="form.status == 'INVALID'">
+        [disabled]="food == null">
         <mat-icon>save</mat-icon> GUARDAR
     </button>
 

@@ -29,6 +29,6 @@ export const API_ROUTES ={
     MENU: {
         UPLOADMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,
         EDITMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/editMenu`,
-
+        GETDAYMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getDayMenu`,
     }
 }
