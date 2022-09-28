@@ -40,7 +40,7 @@
       <mat-form-field appearance="fill" *ngIf="viewFood">
         <mat-label>Plato</mat-label>            
         <mat-select [(ngModel)]="food"  >
-          <mat-option *ngFor="let food of listFood" [value]="food.id">
+          <mat-option *ngFor="let food of listFood" [value]="food">
             {{food.title}}
           </mat-option>
         </mat-select>
