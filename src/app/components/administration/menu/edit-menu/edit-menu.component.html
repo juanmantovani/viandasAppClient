@@ -13,17 +13,17 @@
         <div class="table-day" *ngIf="viewDay">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table-day">
           <ng-container matColumnDef="date">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha </th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+            <th mat-header-cell *matHeaderCellDef> Fecha </th>
+            <td mat-cell *matCellDef="let element"> {{element.date | date: 'dd/MM/yyyy' }}  </td>
           </ng-container>
       
           <ng-container matColumnDef="food">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Plato </th>
+            <th mat-header-cell *matHeaderCellDef> Plato </th>
             <td mat-cell *matCellDef="let element"> {{element.food.title}} </td>
           </ng-container>
       
           <ng-container matColumnDef="category">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
+            <th mat-header-cell *matHeaderCellDef> Categoria </th>
             <td mat-cell *matCellDef="let element"> {{element.food.category.description}} </td>
           </ng-container>
           <ng-container matColumnDef="actions">
@@ -37,7 +37,9 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
       </div>
-      <mat-form-field appearance="fill" *ngIf="viewFood">
+      <div *ngIf="viewFood" class="select-food">
+        <p>   Cambiando el plato <strong>{{day.food.title}}</strong></p>
+      <mat-form-field appearance="fill" >
         <mat-label>Plato</mat-label>            
         <mat-select [(ngModel)]="food"  >
           <mat-option *ngFor="let food of listFood" [value]="food">
@@ -45,7 +47,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field> 
-
+    </div>
 
 
 </mat-dialog-content>

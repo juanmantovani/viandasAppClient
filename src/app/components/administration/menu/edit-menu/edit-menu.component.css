@@ -13,4 +13,10 @@
 
 .table-day{
     width:100%;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.select-food{
+    margin-top: 10px;
 }
