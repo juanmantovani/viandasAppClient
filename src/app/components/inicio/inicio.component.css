@@ -101,3 +101,23 @@ body{
     text-align: center;
     font-weight: bold;
   }
+
+.row {
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+}
+
+.menu {
+    background-color: #eaa15c2d;
+    border-radius: 6px;
+    
+}
+
+.menu-fluid{
+	box-shadow: 10px 10px 0px #3e2e035a;
+}
+
+.container-menu{
+
+}

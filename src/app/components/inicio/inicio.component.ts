@@ -1,13 +1,15 @@
 import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { CategoryViewer } from 'src/app/shared/models/CategoryViewer';
+import { DayViewer } from 'src/app/shared/models/DayViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
-import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { environment } from 'src/environments/environment';
+import {Utils} from '../../shared/utils'
 
 
 @Component({
@@ -21,9 +23,11 @@ import { environment } from 'src/environments/environment';
 
 
 export class InicioComponent implements OnInit {
-
-  displayedColumns: string[] = ['Día', 'Menú'];
+  displayedColumns: string[] = ['date', 'foodViewer'];
   menuViewer : MenuViewer;
+  dataSource!: MatTableDataSource<CategoryViewer>;
+
+
 
   //WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
 
@@ -45,7 +49,9 @@ export class InicioComponent implements OnInit {
     config.pauseOnHover = true;
     config.showNavigationIndicators = false;
     config.animation = false;
-    this.listUrlImage = [];   
+    this.listUrlImage = []; 
+    this.dataSource = new MatTableDataSource<CategoryViewer>();
+  
   }
 
   openEnd(content: TemplateRef<any>) {
@@ -68,6 +74,10 @@ export class InicioComponent implements OnInit {
       console.log(res);
       this.menuViewer = new MenuViewer (res.menuViewer);
     })
+  }
+
+  getDay(date: Date): string{
+    return Utils.getDayOfDate(date);
   }
 
 

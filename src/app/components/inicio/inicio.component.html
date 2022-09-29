@@ -25,15 +25,65 @@
 						</div>
 					</div>
 
-					<div class="about-section-box" id="tipos">
-						<div class="container" *ngFor="let turn of menuViewer?.turnsViewer">
+					<div class="about-section-box" *ngFor="let turn of menuViewer?.turnsViewer" id="tipos">
+						<div class="container" >
 							<h1>{{turn.description}}</h1>
-							<div class="row" *ngFor="let category of turn.categoryViewer">
-								<h2>{{category.category.title}}</h2>
-								<div *ngFor="let food of category.daysViewer">
-									{{food.date | date: 'dd/MM/yyyy'}}
-									{{food.foodViewer.title}}
-								</div>
+							<div class="row menu-fluid  container-menu" *ngFor="let category of turn.categoryViewer">
+								
+								<table class="menu" mat-table [dataSource]="category.daysViewer">
+									<ng-container matColumnDef="date">
+										<th mat-header-cell *matHeaderCellDef colspan="2"><div class="inner-column">
+											<h1>Menú<span> {{category.category.title}}</span></h1>
+										</div>  </th>
+										<td mat-cell *matCellDef="let food"> 
+											<div class="inner-column">
+												<h2>
+													{{getDay(food.date)}} - {{food.date | date: 'dd/MM'}} 
+												</h2>
+											</div>
+										</td>
+									  </ng-container>
+
+									  <ng-container matColumnDef="foodViewer">
+										<div *matHeaderCellDef></div>
+										<td mat-cell *matCellDef="let food"> 
+											<div class="inner-column">
+												<h2>{{food.foodViewer.title}}
+												</h2>
+											</div>
+										 </td>
+									  </ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+								  </table>
+								<!-- <table>
+									<tr>
+										<th colspan="2">
+											<div class="inner-column">
+												<h1>Menú<span> {{category.category.title}}</span></h1>
+											</div>
+										</th>
+									</tr>
+									<tr *ngFor="let food of category.daysViewer">
+										<td>
+											<div class="inner-column">
+												<h3>
+													{{getDay(food.date)}} - {{food.date | date: 'dd/MM'}}
+												</h3>
+											</div>	
+										</td>
+										<td>
+											<div class="inner-column">
+												<h3>
+													{{food.foodViewer.title}}
+												</h3>
+											</div>	
+										</td>
+									</tr>
+								</table> -->
+								
+							
 								
 								<!-- <mat-tab-group>
 									<mat-tab label="Semana del 26/09"> 
@@ -44,6 +94,8 @@
 									<mat-tab label="Semana del 03/10">  </mat-tab>
 									<mat-tab label="Semana del 10/10">  </mat-tab>
 								  </mat-tab-group> -->
+
+								  
 								
 							</div>
 						</div>
