@@ -70,6 +70,24 @@
       transform: none;
     }
   }
+
+  .button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+}
+
+  .button:hover{
+    background: #E3AE06;
+    color: #ffffff;
+      font-weight: 600;
+  }
+  
+  .button{
+      display: inline;
+      font-weight: 500;
+      text-decoration: none;
+      margin-right: 10px
+  }
   
   /* Simple CSS3 Fade-in Animation */
   @-webkit-keyframes fadeIn {

@@ -6,6 +6,10 @@
     border-radius: 10%;
 }
 
+.days-menu{
+    margin-top: 200px;
+}
+
 .about-section-box{
     margin-top: 50px;
 }
@@ -34,6 +38,7 @@
     word-wrap: break-word;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 5%;
+    margin-top: 100px;
 }
 
 .btn-primary{
@@ -108,10 +113,21 @@ body{
 
 }
 
-.menu {
-    background-color: #eaa15c2d;
+.menuProteico {
+    background-color: #EAA15D;
     border-radius: 6px;
-    
+}
+.menuGeneral{
+    background-color: #CF8266;
+    border-radius: 6px;
+}
+.menuLiviano{
+    background-color: #E4BC43;
+    border-radius: 6px;
+}
+.menuVeggie{
+    background-color: #607D51;
+    border-radius: 6px;
 }
 
 .menu-fluid{

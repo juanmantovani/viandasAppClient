@@ -1,3 +1,12 @@
+<div class="container-fluid">
+
+<div class="button-container">
+  <button mat-raised-button (click)="onClickEdit()" class="button">
+    Editar día
+  </button>
+
+</div>
+
 <div class="container-week">
 <form [formGroup]="range" id="range" #f="ngForm">
 <span>Ingrese las fechas del mes que desa cargar: </span>
@@ -20,9 +29,7 @@
 <mat-icon>check</mat-icon> Ok
 </button>
 </form>
-<button mat-raised-button (click)="onClickEdit()" class="button">
-  Editar día
-</button>
+
 </div>
 
 <hr>
@@ -34,6 +41,7 @@
     [daysOfMonth]="daysOfMonth">
   </app-categories>
   
+</div>
 </div>
 
 

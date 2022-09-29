@@ -10,7 +10,7 @@ import  * as ROUTES  from '../../../shared/routes/index.routes'
 })
 export class SidenavComponent implements OnInit {
 
-  opened = false;
+  opened = true;
   CARROUSEL = ROUTES.INTERNAL_ROUTES.CARROUSEL;
   FOOD = ROUTES.INTERNAL_ROUTES.FOOD;
   CATEGORY = ROUTES.INTERNAL_ROUTES.CATEGORY;
