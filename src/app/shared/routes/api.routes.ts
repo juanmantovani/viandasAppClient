@@ -31,6 +31,7 @@ export const API_ROUTES ={
         EDITMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/editMenu`,
         GETDAYMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getDayMenu`,
         GETMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenu`,
+        VALIDATEDATEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/validateDateMenu`,
 
     }
 }

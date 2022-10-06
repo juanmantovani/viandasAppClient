@@ -6,6 +6,8 @@ import { Utils } from 'src/app/utils';
 import { EditMenuComponent } from '../edit-menu/edit-menu.component';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { EditMenuResponse } from 'src/app/shared/dto/menu/EditMenuResponse';
+import { ValidateDateMenuRequest } from 'src/app/shared/dto/menu/ValidateDateMenuRequest';
+import { ValidateDateMenuResponse } from 'src/app/shared/dto/menu/ValidateDateMenuResponse';
 
 
 @Component({
@@ -17,10 +19,10 @@ export class MenuInicioComponent implements OnInit {
   range: FormGroup;
   dateStart: Date;
   dateEnd: Date;
-  viewCategories: boolean = false;
+  viewCategories: boolean;
   daysOfMonth : any[]
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-
+  validDateMenu  : Boolean = true;
 
   constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
@@ -36,12 +38,22 @@ export class MenuInicioComponent implements OnInit {
     });
   }
 
-  onClickWeeks() {
+  async onClickWeeks() {
     this.daysOfMonth = [];
     this.dateStart = this.range.getRawValue().start;
     this.dateEnd = this.range.getRawValue().end;
-    this.setDaysOfMonth()
-    this.viewCategories = true;
+
+    const request: ValidateDateMenuRequest = {
+      dateStart : this.dateStart,
+      dateEnd : this.dateEnd
+    }
+      await this.menuService.validateDateMenu(request).subscribe((res: ValidateDateMenuResponse) => {
+        this.validDateMenu  =  res.validDateMenu;
+        if(this.validDateMenu){
+          this.setDaysOfMonth()
+          this.viewCategories = true;
+        }
+      })
    }
 
    setDaysOfMonth(){

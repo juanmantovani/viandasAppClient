@@ -12,11 +12,11 @@
         <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]" (click)="status='> Carrousel'">
             Carrousel
         </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
-            Platos
-        </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Categorías'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorías'"> 
             Categorías
+        </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
+            Platos
         </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]" (click)="status='> Menú'"> 
             Menú

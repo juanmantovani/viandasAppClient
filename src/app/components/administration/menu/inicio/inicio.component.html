@@ -21,13 +21,16 @@
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-date-range-picker #picker></mat-date-range-picker>
 
-  <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
 </mat-form-field>
 
 <button mat-raised-button color="primary" (click)="onClickWeeks()" type="submit" class="btn-primary btn-azul"
 [disabled]="range.status == 'INVALID'">
 <mat-icon>check</mat-icon> Ok
 </button>
+<mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
+
+<mat-error *ngIf="!validDateMenu">Se encontraron platos asignados a los días ingresados</mat-error>
+
 </form>
 
 </div>

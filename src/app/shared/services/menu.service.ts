@@ -9,6 +9,8 @@ import { GetMenuResponse } from '../dto/menu/getMenuResponse';
 import { GetDayRequest } from '../dto/menu/GetDaysRequest';
 import { GetDayResponse } from '../dto/menu/GetDaysResponse';
 import  * as ROUTES  from '../routes/index.routes'
+import { ValidateDateMenuRequest } from '../dto/menu/ValidateDateMenuRequest';
+import { ValidateDateMenuResponse } from '../dto/menu/ValidateDateMenuResponse';
 
 
 @Injectable({
@@ -17,6 +19,8 @@ import  * as ROUTES  from '../routes/index.routes'
 export class MenuService {
 
   constructor(private http: HttpClient) { }
+  OPTION = {headers: {'Content-Type': 'application/json'}};
+
 
   getMenu(): Observable<GetMenuResponse> {
     return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENU).pipe(
@@ -27,24 +31,30 @@ export class MenuService {
 }
 
   addMenu(request: AddMenuRequest) : Observable<AddMenuResponse> {    
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, JSON.stringify(request), options ).pipe(
+    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, JSON.stringify(request), this.OPTION ).pipe(
     tap (res => new AddMenuResponse(res)))
   }
 
   editMenu(request: EditMenuRequest) : Observable<EditMenuResponse>{
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.put<EditMenuResponse>(ROUTES.API_ROUTES.MENU.EDITMENU, JSON.stringify(request), options ).pipe(
+    return this.http.put<EditMenuResponse>(ROUTES.API_ROUTES.MENU.EDITMENU, JSON.stringify(request), this.OPTION ).pipe(
       tap (res => new EditMenuResponse(res)))
   }
 
   getDayMenu(request : GetDayRequest) : Observable<GetDayResponse>{
-    const options = {headers: {'Content-Type': 'application/json'}};
-
-    return this.http.post<GetDayResponse>(ROUTES.API_ROUTES.MENU.GETDAYMENU, JSON.stringify(request)).pipe(
+    return this.http.post<GetDayResponse>(ROUTES.API_ROUTES.MENU.GETDAYMENU, JSON.stringify(request), this.OPTION).pipe(
    map((res: any) => {
      return new GetDayResponse(res);
    })
- )
-}
+  )
+  }
+  validateDateMenu(request : ValidateDateMenuRequest) : Observable<ValidateDateMenuResponse>{
+    return this.http.post<ValidateDateMenuResponse>(ROUTES.API_ROUTES.MENU.VALIDATEDATEMENU, JSON.stringify(request), this.OPTION).pipe(
+      map((res: any) => {
+        return new ValidateDateMenuResponse(res);
+      })
+     )
+  }
+
+
+
 }
