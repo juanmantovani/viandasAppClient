@@ -1,0 +1,35 @@
+table{
+    width: 100%;
+}
+
+.mat-form-field{
+    font-size: 14px;
+    width: 20%;
+}
+
+.button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+}
+
+.button:hover  {
+	background: #E3AE06;
+	color: #ffffff;
+}
+
+.activeMenu {
+    min-width: auto;
+
+}
+
+.alignIcon mat-icon{
+    vertical-align: middle;
+}
+
+.isActive {
+    background-color: lightgreen;
+    border-radius: 7px;
+    width: fit-content;
+    padding: 6px;
+}
+  

@@ -5,12 +5,15 @@ import { AddMenuRequest } from '../dto/menu/AddMenuRequest';
 import { AddMenuResponse } from '../dto/menu/AddMenuResponse';
 import { EditMenuRequest } from '../dto/menu/EditMenuRequest';
 import { EditMenuResponse } from '../dto/menu/EditMenuResponse';
-import { GetMenuResponse } from '../dto/menu/getMenuResponse';
+import { GetMenuResponse } from '../dto/menu/GetMenuResponse';
 import { GetDayRequest } from '../dto/menu/GetDaysRequest';
 import { GetDayResponse } from '../dto/menu/GetDaysResponse';
 import  * as ROUTES  from '../routes/index.routes'
 import { ValidateDateMenuRequest } from '../dto/menu/ValidateDateMenuRequest';
 import { ValidateDateMenuResponse } from '../dto/menu/ValidateDateMenuResponse';
+import { GetAllMenuResponse } from '../dto/menu/getAllMenuResponse';
+import { DeleteMenuResponse } from '../dto/menu/DeleteMenuResponse';
+import { DeleteMenuRequest } from '../dto/menu/DeleteMenuRequest';
 
 
 @Injectable({
@@ -55,6 +58,21 @@ export class MenuService {
      )
   }
 
+  getAllMenus(): Observable<GetAllMenuResponse>{
+    return this.http.get<GetAllMenuResponse>(ROUTES.API_ROUTES.MENU.GETALLMENU).pipe(
+      map((res: any) => {
+        return new GetAllMenuResponse(res);
+      })
+     )
+  }
 
+  deleteMenu(request: DeleteMenuRequest): Observable<DeleteMenuResponse>{
+    let params = new HttpParams();
+    params = params.set('idMenu', request.idMenu?.toString());
+    params = params.set('idTurn', request.idTurn?.toString());
+    return this.http.delete<DeleteMenuResponse>(ROUTES.API_ROUTES.MENU.DELETEMENU, {params}).pipe(
+      map((res: any) => new DeleteMenuResponse(res))
+     )
+  }
 
 }

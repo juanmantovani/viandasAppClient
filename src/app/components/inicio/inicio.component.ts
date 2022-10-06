@@ -2,7 +2,7 @@ import { Component, OnInit, TemplateRef, ViewEncapsulation } from '@angular/core
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbCarouselConfig, NgbOffcanvas } from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { CategoryViewer } from 'src/app/shared/models/CategoryViewer';
 import { DayViewer } from 'src/app/shared/models/DayViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';

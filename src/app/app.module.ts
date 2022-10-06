@@ -58,7 +58,8 @@ import { DayComponent } from './components/administration/menu/day/day.component
 import { CategoriesComponent } from './components/administration/menu/categories/categories.component';
 import { CategoryComponent } from './components/administration/category/category.component';
 import { CategoryFormComponent } from './components/administration/category-form/category-form.component';
-import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component'
+import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component';
+import { ListMenuComponent } from './components/administration/menu/list-menu/list-menu.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +84,8 @@ import { EditMenuComponent } from './components/administration/menu/edit-menu/ed
     CategoriesComponent,
     CategoryComponent,
     CategoryFormComponent,
-    EditMenuComponent
+    EditMenuComponent,
+    ListMenuComponent,
     
   ],
   imports: [

@@ -8,6 +8,10 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 import { EditMenuResponse } from 'src/app/shared/dto/menu/EditMenuResponse';
 import { ValidateDateMenuRequest } from 'src/app/shared/dto/menu/ValidateDateMenuRequest';
 import { ValidateDateMenuResponse } from 'src/app/shared/dto/menu/ValidateDateMenuResponse';
+import { GetAllMenuResponse } from 'src/app/shared/dto/menu/getAllMenuResponse';
+import { MatTableDataSource } from '@angular/material/table';
+import { MenuList } from 'src/app/shared/models/MenuList';
+import { DeleteMenuRequest } from 'src/app/shared/dto/menu/DeleteMenuRequest';
 
 
 @Component({
@@ -20,15 +24,23 @@ export class MenuInicioComponent implements OnInit {
   dateStart: Date;
   dateEnd: Date;
   viewCategories: boolean;
+  chargeMenu: boolean;
+  listMenu: boolean;
+  dataSource!: MatTableDataSource<MenuList>;
+
+
   daysOfMonth : any[]
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
   validDateMenu  : Boolean = true;
 
   constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
+    this.dataSource = new MatTableDataSource<MenuList>();
+    this.listMenu = true;
   }
 
   ngOnInit(): void {
+    this.getMenus();
   }
 
   generateFormWeeks(): FormGroup {
@@ -103,6 +115,33 @@ export class MenuInicioComponent implements OnInit {
     })
   }
 
+  async getMenus(){
+    await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
+      this.dataSource = new MatTableDataSource(res.menuList);
+    })
+  }
+
+  onClickAdd() {
+    this.chargeMenu = true;
+    this.listMenu = false;
+  }
+
+  onClickListAllMenus(){
+    this.chargeMenu = false;
+    this.listMenu = true;
+    this.getMenus();
+
+  }
+
+  async deleteMenu(menuList: MenuList) {
+    const request: DeleteMenuRequest = {
+      idMenu: menuList.menuId,
+      idTurn: menuList.turn.id
+    }
+    await this.menuService.deleteMenu(request).subscribe(() => {
+    this.getMenus();
+    } );
+  }
    
 
 }

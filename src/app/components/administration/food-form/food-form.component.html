@@ -22,7 +22,7 @@
             <mat-label>Categoría</mat-label>
             <mat-select formControlName="category" name="category"  [(ngModel)]="idCatSelected">
               <mat-option *ngFor="let category of listCategories" [value]="category.id">
-                {{category.description}}
+                {{category.title}}
               </mat-option>
             </mat-select>
             <mat-hint *ngIf="form!.controls['category']!.touched && idCatSelected == null"

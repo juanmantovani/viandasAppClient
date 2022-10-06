@@ -12,15 +12,15 @@ export class ErrorService {
     if (!navigator.onLine) {
       return 'No hay conexión a internet';
     }
-    return error.message ? error.message : error.toString();
+    return error?.message ? error?.message : error?.toString();
 }
 
   getClientStack(error: Error): any {
     return error.stack;
   }
 
-  getServerMessage(error: HttpErrorResponse): string {
-    return error.message ? error.error : error.error;
+  getServerMessage(error: HttpErrorResponse): HttpErrorResponse {
+    return error?.message ? error : error;
   }
 
   getServerStack(error: HttpErrorResponse): string {
