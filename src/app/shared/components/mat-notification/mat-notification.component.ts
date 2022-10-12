@@ -17,7 +17,10 @@ export class MatNotificationComponent implements OnDestroy{
   }
 
   showStandard(message: string) {
-    this.notificationService.show(message);
+    this.notificationService.show(message, {
+    delay: 7000,
+    autohide: true,
+  }) 
   }
 
   showSuccess() {

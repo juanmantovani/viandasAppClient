@@ -1,0 +1,27 @@
+
+
+.menuProteico {
+    background-color: #EAA15D;
+    border-radius: 6px;
+}
+.menuGeneral{
+    background-color: #CF8266;
+    border-radius: 6px;
+}
+.menuLiviano{
+    background-color: #E4BC43;
+    border-radius: 6px;
+}
+.menuVeggie{
+    background-color: #607D51;
+    border-radius: 6px;
+}
+
+.menu-fluid{
+	box-shadow: 10px 10px 0px #3e2e035a;
+}
+.row {
+    border-radius: 6px;
+    margin-bottom: 20px;
+
+}

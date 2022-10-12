@@ -12,6 +12,9 @@ import { GetAllMenuResponse } from 'src/app/shared/dto/menu/getAllMenuResponse';
 import { MatTableDataSource } from '@angular/material/table';
 import { MenuList } from 'src/app/shared/models/MenuList';
 import { DeleteMenuRequest } from 'src/app/shared/dto/menu/DeleteMenuRequest';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
+import { MenuViewer } from 'src/app/shared/models/MenuViewer';
+import { ViewMenuComponent } from '../view-menu/view-menu.component';
 
 
 @Component({
@@ -27,6 +30,8 @@ export class MenuInicioComponent implements OnInit {
   chargeMenu: boolean;
   listMenu: boolean;
   dataSource!: MatTableDataSource<MenuList>;
+  menuViewer : MenuViewer;
+
 
 
   daysOfMonth : any[]
@@ -129,6 +134,8 @@ export class MenuInicioComponent implements OnInit {
   onClickListAllMenus(){
     this.chargeMenu = false;
     this.listMenu = true;
+    this.viewCategories = false;
+
     this.getMenus();
 
   }
@@ -142,6 +149,22 @@ export class MenuInicioComponent implements OnInit {
     this.getMenus();
     } );
   }
+
+  async viewMenu(menuList: MenuList) {
+    await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
+      this.showMenu(new MenuViewer(res.menuViewer))
+    })
+  }
+
+  showMenu(menuViewer: MenuViewer) {
+    const dialogConfig = Utils.matDialogConfigDefault();
+    dialogConfig.data = menuViewer;
+    const dialogRef = this.dialog.open(ViewMenuComponent, dialogConfig);
+  }
    
+  redirectToList(event: boolean){
+    console.log("estoy Aca");
+    this.onClickListAllMenus();
+  }
 
 }

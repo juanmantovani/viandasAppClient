@@ -16,6 +16,7 @@ export class ListMenuComponent implements OnInit {
 
   @Input() dataSource : MatTableDataSource<MenuList>;
   @Output() deleteMenu : EventEmitter <MenuList> = new EventEmitter();
+  @Output() viewMenu : EventEmitter <MenuList> = new EventEmitter();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -43,5 +44,11 @@ export class ListMenuComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
+  async onClickViewMenu(menuList: MenuList){
+    await this.viewMenu.emit(menuList);
+  }
+
+
 
 }

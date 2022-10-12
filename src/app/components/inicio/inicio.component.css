@@ -6,9 +6,6 @@
     border-radius: 10%;
 }
 
-.days-menu{
-    margin-top: 200px;
-}
 
 .about-section-box{
     margin-top: 50px;
@@ -107,33 +104,15 @@ body{
     font-weight: bold;
   }
 
-.row {
-    border-radius: 6px;
-    margin-bottom: 20px;
-
+  .days-menu{
+    margin-top: 200px;
 }
 
-.menuProteico {
-    background-color: #EAA15D;
-    border-radius: 6px;
-}
-.menuGeneral{
-    background-color: #CF8266;
-    border-radius: 6px;
-}
-.menuLiviano{
-    background-color: #E4BC43;
-    border-radius: 6px;
-}
-.menuVeggie{
-    background-color: #607D51;
-    border-radius: 6px;
-}
-
-.menu-fluid{
-	box-shadow: 10px 10px 0px #3e2e035a;
-}
-
-.container-menu{
-
-}
+.example-card {
+    max-width: 400px;
+  }
+  
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  }

@@ -39,7 +39,10 @@
   </div>
 
   <div *ngIf="listMenu">
-    <app-list-menu [dataSource]="dataSource" (deleteMenu)="deleteMenu($event)"></app-list-menu>
+    <app-list-menu [dataSource]="dataSource" 
+      (viewMenu)="viewMenu($event)"
+      (deleteMenu)="deleteMenu($event)">
+    </app-list-menu>
   </div>
 
   <hr>
@@ -47,7 +50,8 @@
     <app-categories *ngIf="viewCategories" 
       [dateStart]="dateStart"
       [dateEnd]="dateEnd"
-      [daysOfMonth]="daysOfMonth">
+      [daysOfMonth]="daysOfMonth"
+      (finishAddMenu)="redirectToList($event)">
     </app-categories>
   </div>
 </div>
