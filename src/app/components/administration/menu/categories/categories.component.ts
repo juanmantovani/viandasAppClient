@@ -57,7 +57,7 @@ export class CategoriesComponent implements OnInit {
 
   filterFoodByCategory(category: Category): Food[] {
     return this.listFood.filter(food => {
-      return food.category.id == category.id;
+      return food.categories.includes(category);
     });
   }
 

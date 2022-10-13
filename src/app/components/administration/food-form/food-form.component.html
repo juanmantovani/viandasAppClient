@@ -18,17 +18,12 @@
             <textarea type="text" matInput formControlName="description" name="description"
                 id="description" #description placeholder="Ingrese una descripción" rows="3" ></textarea>
         </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Categoría</mat-label>
-            <mat-select formControlName="category" name="category"  [(ngModel)]="idCatSelected">
-              <mat-option *ngFor="let category of listCategories" [value]="category.id">
-                {{category.title}}
-              </mat-option>
-            </mat-select>
-            <mat-hint *ngIf="form!.controls['category']!.touched && idCatSelected == null"
-                class="error-input">
-                Este campo es requerido</mat-hint>
-          </mat-form-field>
+
+        <h4>Categoria</h4>
+          <section class="section-category">
+            <mat-checkbox *ngFor="let category of listCategories" [(ngModel)]="category.checked" class="checbox-cat" [ngModelOptions]="{standalone: true}">{{category.title}}</mat-checkbox>
+          </section>
+          <mat-hint *ngIf="messageError != null"  class="error-input">{{messageError}}</mat-hint>
 
         <div *ngIf="urlImage != null && !changeImage">
           <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
@@ -52,7 +47,7 @@
         <mat-icon>clear</mat-icon> CANCELAR
     </button>
     <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
-        [disabled]="form.status == 'INVALID' || idCatSelected == null">
+        [disabled]="form.status == 'INVALID' ">
         <mat-icon>save</mat-icon> GUARDAR
     </button>
 
