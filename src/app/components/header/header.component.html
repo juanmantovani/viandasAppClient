@@ -25,40 +25,31 @@
       </ul>
       
       <ul #myNameElem2 class="nav-item">
-        <div class="row flex-xl-nowrap">
-          <div class="col-12 col-lg-12">
-        <a class="nav-link active navbar-botones" aria-current="page" [routerLink]="['/inicio']">Home</a>
-        <a class="nav-link navbar-botones" onclick="location.href='inicio#tipos'" fragment="features">Tipos</a>
-        <a class="nav-link navbar-botones" onclick="location.href='inicio#nos'">Nosotros</a>
-        <a class="nav-link navbar-botones" onclick="location.href='inicio#galeria'" tabindex="-1" aria-disabled="true">Galería</a>
-
-
-
-        </div>
-        </div>
+        <button mat-raised-button class="button" onclick="location.href='inicio#menu'" fragment="features">Menu</button>
+        <button mat-raised-button class="button" onclick="location.href='inicio#tipos'" fragment="features">Tipos</button>
+        <button mat-raised-button class="button" onclick="location.href='inicio#nos'">Nosotros</button>
+        <button mat-raised-button class="button" onclick="location.href='inicio#galeria'" tabindex="-1" aria-disabled="true">Galería</button>
       </ul>
       </div>
 
 
-      <div class="d-flex align-items-center">
-        <div class="row">
-          <div class="col">
+      <div class="d-flex">
+          <div class="">
             <div ngbDropdown class="d-inline-block">
               <figure  class="nav__logo" id="dropdownBasic1" ngbDropdownToggle>
                 <img src="../../../assets/menu.svg"  class="nav__img" alt="">
               </figure>
               
-
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#menu'">Menu</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#tipos'">Tipos</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#nos'">Nosotros</button>
                 <button ngbDropdownItem class="drowdownitem" onclick="location.href='inicio#galeria'">Galería</button>
               </div>
             </div>
           </div>        
-        </div>
-        <button *ngIf="loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{ADMINISTRATION}}">Bienvenido</a> </button>
-        <button *ngIf="!loginDisabled" ngbDropdownItem class="drowdownitem login"><a  href="{{LOGIN}}">Iniciá acá</a> </button>
+        <button *ngIf="loginDisabled" mat-raised-button class="button login"><a  href="{{ADMINISTRATION}}">Bienvenido</a> </button>
+        <button *ngIf="!loginDisabled" mat-raised-button class="button login"><a  href="{{LOGIN}}">Iniciá acá</a> </button>
       </div>
   </div>
 </nav>

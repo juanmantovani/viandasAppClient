@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
 import { AddMenuResponse } from 'src/app/shared/dto/menu/AddMenuResponse';
@@ -13,6 +13,7 @@ import { Category } from '../../../../shared/models/Category';
 import { Food } from '../../../../shared/models/Food';
 import { FoodService } from '../../../../shared/services/food.service';
 
+
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -22,6 +23,8 @@ export class CategoriesComponent implements OnInit {
   @Input() dateStart: Date;
   @Input() dateEnd: Date;
   @Input() daysOfMonth: any;
+  @Output() finishAddMenu : EventEmitter <boolean> = new EventEmitter();
+
   listCategories: Category[];
   listFood: Food[];
   turn: Turn;
@@ -40,7 +43,7 @@ export class CategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.getFood();
-    this.viewDays = true
+    this.viewDays = true;
   }
 
   async getCategories() {
@@ -57,7 +60,7 @@ export class CategoriesComponent implements OnInit {
 
   filterFoodByCategory(category: Category): Food[] {
     return this.listFood.filter(food => {
-      return food.category.id == category.id;
+      return food.categories.includes(category);
     });
   }
 
@@ -89,7 +92,10 @@ export class CategoriesComponent implements OnInit {
     };
     addMenuRequest.turns.push(turnRequest)
     await this.menuService.addMenu(addMenuRequest).subscribe((res:AddMenuResponse)=>
-    console.log(res));
+    {
+      console.log("estoy");
+      this.finishAddMenu.emit(true);
+    })
     
   }
 

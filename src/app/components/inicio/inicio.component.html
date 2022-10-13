@@ -8,7 +8,6 @@
 			<div class="row py-4  px-md-4 px-lg-5">
 				<div class="col-12 col-xl-9 px-md-0 pe-xl-4">
 					<div class="container-carousel">
-						<div class="card-body">
 							<ngb-carousel>
 								<ng-template ngbSlide *ngFor="let url of listUrlImage">
 									<div class="picsum-img-wrapper">
@@ -22,8 +21,11 @@
 
 								
 							</ngb-carousel>
-						</div>
 					</div>
+
+
+
+					<app-menu [menuViewer]="menuViewer"></app-menu>
 
 					<div class="about-section-box" id="tipos">
 						<div class="container">

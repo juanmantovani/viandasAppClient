@@ -18,10 +18,15 @@ export class GlobalErrorHandler implements ErrorHandler {
     let message;
     //let stackTrace;
     if (error instanceof HttpErrorResponse) {
+      //console.log(error)
       // Server error
-      message = errorService.getServerMessage(error);
+      let errorStatusCode = error.status;
+      let errorMessage = errorService.getServerMessage(error);
       //stackTrace = errorService.getServerErrorStackTrace(error);
-      this.notifier.showDanger(message);
+      if (errorStatusCode = 404)
+        this.notifier.showStandard(errorMessage.error);
+        else
+          this.notifier.showDanger(errorMessage.message);
     } else {
       // Client Error
       message = errorService.getClientMessage(error);

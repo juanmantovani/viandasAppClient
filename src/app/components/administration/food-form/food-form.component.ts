@@ -24,10 +24,10 @@ export class FoodFormComponent implements OnInit {
   image: File;
   nameImage?: string | null;
   listCategories: Category[];
-  idCatSelected: number;
   urlImage: string;
   URLAPI = environment.urlApi;
   changeImage: boolean;
+  messageError = "";
 
   @Output() onSubmit: EventEmitter<Food | null>;
 
@@ -40,10 +40,10 @@ export class FoodFormComponent implements OnInit {
   }
 
   ngOnInit() {
-  this.listCategories = this.data.listCategories;
-  this.idCatSelected = this.data.food?.category?.id;
-  this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
-  this.nameImage =  this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+    console.log(this.data.food)
+    this.listCategories = this.data.food?.categories;
+    this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+    this.nameImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
 
   }
 
@@ -52,18 +52,25 @@ export class FoodFormComponent implements OnInit {
       id: new FormControl(this.data.food?.id),
       title: new FormControl(this.data.food?.title, Validators.required),
       description: new FormControl(this.data.food?.description),
-      category: new FormControl(this.data.food?.category),
     });
   }
 
   onClickCancel() {
+    this.listCategories.forEach(c => c.checked = false)
     this.dialogRef.close();
   }
+
   onClickSave() {
+    const categoriesSelected = this.listCategories.filter(c => c.checked);
+    if (categoriesSelected.length < 1) {
+      this.messageError = "Debe seleccionar al menos una categoría";
+      return null;
+    }
     this.result = this.form.getRawValue();
-    if(this.nameImage != null)
+    this.result.categories = this.listCategories
+    if (this.nameImage != null)
       this.result.image = this.image;
-    this.result.category = this.listCategories.find(c => c.id == this.idCatSelected)
+
     this.onSubmit.emit(this.result);
   }
 
@@ -80,9 +87,10 @@ export class FoodFormComponent implements OnInit {
     this.nameImage = null;
   }
 
-  onChangeImagen(){
+  onChangeImagen() {
     this.changeImage = true;
     this.nameImage = null;
     return false;
   }
+
 }

@@ -9,6 +9,7 @@ import { EditFoodRequest } from '../dto/food/EditFoodRequest';
 import { EditFoodResponse } from '../dto/food/EditFoodResponse';
 import { GetFoodByCategoryRequest } from '../dto/food/GetFoodByCategoryRequest';
 import { GetFoodResponse } from '../dto/food/GetFoodResponse';
+import { Category } from '../models/Category';
 import  * as ROUTES  from '../routes/index.routes'
 
 @Injectable({
@@ -37,15 +38,28 @@ export class FoodService {
  )
 } 
 
+formatStringCategories(categories : Category[]){
+  var stringFormat = "";
 
+  categories.forEach(c => {
+    if(c.checked){
+      if(stringFormat == "")
+      stringFormat = c.id.toString();
+      else
+      stringFormat += ", " + c.id.toString();
+  }
+  })
+
+  return stringFormat
+}
 
   addFood(request: AddFoodRequest) : Observable<AddFoodResponse> {
     var formData = new FormData();
     formData.append('image', request.food.image);
     formData.append('title', request.food.title);
     formData.append('description', request.food.description);
-    formData.append('category', request.food.category.id.toString());
-
+    formData.append('categories',  this.formatStringCategories(request.food.categories));
+    
     return this.http.post<AddFoodResponse>(ROUTES.API_ROUTES.FOOD.UPLOADFOOD, formData).pipe(
       tap (res => 
         new AddFoodResponse(res))
@@ -57,7 +71,7 @@ export class FoodService {
     formData.append('image', request.food.image);
     formData.append('title', request.food.title);
     formData.append('description', request.food.description);
-    formData.append('category', request.food.category.id.toString());
+    formData.append('categories',  this.formatStringCategories(request.food.categories));
     formData.append('id', request.food.id.toString());
 
     return this.http.put<EditFoodResponse>(ROUTES.API_ROUTES.FOOD.EDITFOOD, formData).pipe(
