@@ -23,14 +23,7 @@ import {Utils} from '../../shared/utils'
 
 
 export class InicioComponent implements OnInit {
-  displayedColumns: string[] = ['date', 'foodViewer'];
   menuViewer : MenuViewer;
-  dataSource!: MatTableDataSource<CategoryViewer>;
-
-
-
-  //WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-
 
   listUrlImage: string[];
   URLAPI = environment.urlApi;
@@ -50,7 +43,6 @@ export class InicioComponent implements OnInit {
     config.showNavigationIndicators = false;
     config.animation = false;
     this.listUrlImage = []; 
-    this.dataSource = new MatTableDataSource<CategoryViewer>();
   
   }
 
@@ -71,13 +63,8 @@ export class InicioComponent implements OnInit {
 
   async getMenu(){
     await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
-      console.log(res);
       this.menuViewer = new MenuViewer (res.menuViewer);
     })
-  }
-
-  getDay(date: Date): string{
-    return Utils.getDayOfDate(date);
   }
 
 
