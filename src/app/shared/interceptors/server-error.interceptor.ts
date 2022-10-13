@@ -34,7 +34,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
           mergeMap((error, index) => {
             if (index < maxRetries && error.status == 500) {
               return of(error).pipe(delay(delayMs));
-            }            
+            }      
             throw error;
           })
         )

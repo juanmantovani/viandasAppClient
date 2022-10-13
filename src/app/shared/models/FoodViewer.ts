@@ -1,18 +1,17 @@
-import { Day } from "./Day";
 
-export class Turn{
+export class FoodViewer {
     id: number;
-    days: Day[];
+    title: string;
     description: string;
+    urlImage: string;
+ 
 
     constructor(data:any) {
         if (data) {
           this.id = data.id;
+          this.title = data.title;
           this.description = data.description;
-        if (data.days){
-          this.days = data.days.map((d:any) => new Day(d));
+          this.urlImage= data.urlImage;
         }
-        }
-        
       }
 }

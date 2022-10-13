@@ -1,1 +1,33 @@
-<p>menu works!</p>
+<div class="days-menu" *ngFor="let turn of menuViewer?.turnsViewer" id="menu">
+    <div class="row menu-fluid  container-menu" *ngFor="let category of turn.categoryViewer">
+        
+        <table class="menu{{category.category.title}}" mat-table [dataSource]="category.daysViewer">
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef colspan="2"><div class="inner-column">
+                    <h1><strong>Menú {{category.category.title}}</strong></h1>
+                </div>  </th>
+                <td mat-cell *matCellDef="let food"> 
+                    <div class="inner-column">
+                        <h2>
+                            {{getDay(food.date)}} - {{food.date | date: 'dd/MM'}} 
+                        </h2>
+                    </div>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="foodViewer">
+                <div *matHeaderCellDef></div>
+                <td mat-cell *matCellDef="let food"> 
+                    <div class="inner-column">
+                        <h2>{{food.foodViewer.title}}
+                        </h2>
+                    </div>
+                 </td>
+              </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        
+    </div>
+</div>

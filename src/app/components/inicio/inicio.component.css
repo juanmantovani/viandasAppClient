@@ -6,6 +6,7 @@
     border-radius: 10%;
 }
 
+
 .about-section-box{
     margin-top: 50px;
 }
@@ -34,6 +35,7 @@
     word-wrap: break-word;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 5%;
+    margin-top: 100px;
 }
 
 .btn-primary{
@@ -60,4 +62,48 @@ body{
     background-repeat: repeat-x;
     margin-top: -50px;
 
+}
+
+.container-menu{
+    background: #eaa15ccf; 
+    align-items: center;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 0.25rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5%;
+}
+
+.demo-table {
+    width: 100%;
+  }
+  
+  .mat-column-demo-position {
+    width: 32px;
+    border-right: 1px solid currentColor;
+    padding-right: 24px;
+    text-align: center;
+  }
+  
+  .mat-column-demo-name {
+    padding-left: 16px;
+    font-size: 20px;
+  }
+  
+  .mat-column-demo-weight {
+    font-style: italic;
+  }
+  
+  .mat-column-demo-symbol {
+    width: 32px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+  .days-menu{
+    margin-top: 200px;
 }

@@ -42,7 +42,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import {MatCardModule} from '@angular/material/card';
 
 
 
@@ -58,7 +58,9 @@ import { DayComponent } from './components/administration/menu/day/day.component
 import { CategoriesComponent } from './components/administration/menu/categories/categories.component';
 import { CategoryComponent } from './components/administration/category/category.component';
 import { CategoryFormComponent } from './components/administration/category-form/category-form.component';
-import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component'
+import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component';
+import { ListMenuComponent } from './components/administration/menu/list-menu/list-menu.component';
+import { ViewMenuComponent } from './components/administration/menu/view-menu/view-menu.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +85,9 @@ import { EditMenuComponent } from './components/administration/menu/edit-menu/ed
     CategoriesComponent,
     CategoryComponent,
     CategoryFormComponent,
-    EditMenuComponent
+    EditMenuComponent,
+    ListMenuComponent,
+    ViewMenuComponent,
     
   ],
   imports: [
@@ -117,15 +121,16 @@ import { EditMenuComponent } from './components/administration/menu/edit-menu/ed
     MatCheckboxModule,
     MatExpansionModule,
     MatTabsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatCardModule
 
   ],
   providers: [
     MatNotificationComponent,
     MatDatepickerModule,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' }
 

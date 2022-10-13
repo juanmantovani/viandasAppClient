@@ -1,13 +1,27 @@
-.nav-link:hover{
+.button:hover{
 	background: #E3AE06;
 	color: #ffffff;
-    font-weight: 600;
 }
 
-.nav-link{
+.button{
     display: inline;
-    font-weight: 500;
     text-decoration: none;
+    margin-right: 10px
+}
+
+.button.login{
+    background: #E3AE06;
+}
+
+.button.login:hover{
+    background: white
+}
+
+.button.login a{
+    color: white;
+}
+.button.login a:hover{
+    color: #E3AE06;
 }
 
 .drowdownitem:hover{
@@ -17,7 +31,6 @@
 .drowdownitem.login a{
    color:#E3AE06;
    font-size: large;
-   font-weight: 600
 }
 
 .drowdownitem.login:hover a{
