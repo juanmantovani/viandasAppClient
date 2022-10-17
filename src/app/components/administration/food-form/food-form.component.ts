@@ -73,6 +73,8 @@ export class FoodFormComponent implements OnInit {
       this.result.image = this.image;
 
     this.onSubmit.emit(this.result);
+    this.cleanList()
+
   }
 
   onChangeDateStart(e: any) {
@@ -104,6 +106,9 @@ export class FoodFormComponent implements OnInit {
     else{
     this.listCategories = this.data.listCategories
    }
+  }
+  cleanList(){
+    this.listCategories.forEach(cat => cat.checked = false)
   }
 
 }

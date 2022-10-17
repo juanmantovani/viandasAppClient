@@ -27,16 +27,28 @@ export class CategoryService {
 }
 
 addCategory(request: AddCategoryRequest) : Observable<AddCategoryResponse> {
-  const options = {headers: {'Content-Type': 'application/json'}};
-  return this.http.post<AddCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.UPLOADCATEGORY, JSON.stringify(request), options).pipe(
+  var formData = new FormData();
+  formData.append('image', request.category.image);
+  formData.append('title', request.category.title);
+  formData.append('price', request.category.price.toString());
+  formData.append('description', request.category.description);
+
+  return this.http.post<AddCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.UPLOADCATEGORY, formData).pipe(
     tap (res => 
       new AddCategoryResponse(res))
   );
 }
 
 editCategory(request: EditCategoryRequest) : Observable<EditCategoryResponse> {
-  const options = {headers: {'Content-Type': 'application/json'}};
-  return this.http.put<EditCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.EDITCATEGORY, JSON.stringify(request), options).pipe(
+  var formData = new FormData();
+  formData.append('image', request.category.image);
+  formData.append('title', request.category.title);
+  formData.append('price', request.category.price.toString());
+  formData.append('description', request.category.description);
+  formData.append('id', request.category.id.toString());
+
+
+  return this.http.put<EditCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.EDITCATEGORY, formData).pipe(
     tap (res => new EditCategoryResponse(res))
   );
 }

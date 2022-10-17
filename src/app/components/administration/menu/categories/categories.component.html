@@ -6,7 +6,8 @@
       </ng-template>
       <div>
       </div>
- <app-day [listFood]="filterFoodByCategory(cat)" 
+ <app-day  
+    [category] = "cat"
     [lastCategory]="listCategories.length == i+1" 
     [daysOfMonth]="daysOfMonth" 
     (daysCharged)="getDays($event)" 

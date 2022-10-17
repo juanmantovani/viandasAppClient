@@ -13,6 +13,13 @@ export class CategoryFormComponent implements OnInit {
   result: Category;
   form: FormGroup;
   URLAPI = environment.urlApi;
+  image: File;
+  urlImage: string;
+  nameImage?: string | null;
+  changeImage: boolean;
+
+
+
 
   @Output() onSubmit: EventEmitter<Category | null>;
 
@@ -26,6 +33,8 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+    this.nameImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
   }
 
   generateForm(): FormGroup {
@@ -42,9 +51,24 @@ export class CategoryFormComponent implements OnInit {
   }
   onClickSave() {
     this.result = this.form.getRawValue();
+    if (this.nameImage != null)
+      this.result.image = this.image;
     this.onSubmit.emit(this.result);
   }
+  onSelect(event: any) {
+    this.image = event.addedFiles[0];
+    this.nameImage = event.addedFiles[0].name;
+  }
 
+  onRemove(event: any) {
+    this.nameImage = null;
+  }
+
+  onChangeImagen() {
+    this.changeImage = true;
+    this.nameImage = null;
+    return false;
+  }
  
  
 
