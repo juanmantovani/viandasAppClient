@@ -8,13 +8,13 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 import { EditMenuResponse } from 'src/app/shared/dto/menu/EditMenuResponse';
 import { ValidateDateMenuRequest } from 'src/app/shared/dto/menu/ValidateDateMenuRequest';
 import { ValidateDateMenuResponse } from 'src/app/shared/dto/menu/ValidateDateMenuResponse';
-import { GetAllMenuResponse } from 'src/app/shared/dto/menu/getAllMenuResponse';
 import { MatTableDataSource } from '@angular/material/table';
 import { MenuList } from 'src/app/shared/models/MenuList';
 import { DeleteMenuRequest } from 'src/app/shared/dto/menu/DeleteMenuRequest';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
+import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';
 
 
 @Component({

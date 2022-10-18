@@ -33,8 +33,8 @@ export class CategoryFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
-    this.nameImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
+    this.urlImage = this.data.category?.urlImage == '' ? null : this.data.category?.urlImage;
+    this.nameImage = this.data.category?.urlImage == '' ? null : this.data.category?.urlImage;
   }
 
   generateForm(): FormGroup {

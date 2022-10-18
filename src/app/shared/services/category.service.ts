@@ -31,7 +31,8 @@ addCategory(request: AddCategoryRequest) : Observable<AddCategoryResponse> {
   formData.append('image', request.category.image);
   formData.append('title', request.category.title);
   formData.append('price', request.category.price.toString());
-  formData.append('description', request.category.description);
+  if(request.category.description != null)
+      formData.append('description', request.category.description);
 
   return this.http.post<AddCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.UPLOADCATEGORY, formData).pipe(
     tap (res => 

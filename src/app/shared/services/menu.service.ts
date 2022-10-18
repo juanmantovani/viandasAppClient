@@ -11,9 +11,10 @@ import { GetDayResponse } from '../dto/menu/GetDaysResponse';
 import  * as ROUTES  from '../routes/index.routes'
 import { ValidateDateMenuRequest } from '../dto/menu/ValidateDateMenuRequest';
 import { ValidateDateMenuResponse } from '../dto/menu/ValidateDateMenuResponse';
-import { GetAllMenuResponse } from '../dto/menu/getAllMenuResponse';
+
 import { DeleteMenuResponse } from '../dto/menu/DeleteMenuResponse';
 import { DeleteMenuRequest } from '../dto/menu/DeleteMenuRequest';
+import { GetAllMenuResponse } from '../dto/menu/GetAllMenuResponse';
 
 
 @Injectable({

@@ -11,7 +11,7 @@ export class Day {
     constructor(data:any) {
         if (data) {
           this.id = data.id
-          this.food = new Food(data.food);
+          this.food = new Food(data?.food);
           this.date = new Date(data?.date);
           this.category = new Category(data?.category);
         }
