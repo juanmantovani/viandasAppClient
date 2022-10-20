@@ -45,7 +45,6 @@ export class FoodFormComponent implements OnInit {
     this.mapedCategories()
     this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
     this.nameImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
-
   }
 
   generateForm(): FormGroup {

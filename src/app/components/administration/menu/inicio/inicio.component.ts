@@ -93,7 +93,7 @@ export class MenuInicioComponent implements OnInit {
   }
 
   onClickEdit(){
-    const dialogConfig = Utils.matDialogConfigDefault();
+    const dialogConfig = Utils.matDialogConfigEditMenu();
     const dialogRef = this.dialog.open(EditMenuComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 
