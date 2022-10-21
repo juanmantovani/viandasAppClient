@@ -26,7 +26,6 @@ export class CategoriesComponent implements OnInit {
   @Output() finishAddMenu : EventEmitter <boolean> = new EventEmitter();
 
   listCategories: Category[];
-  listFood: Food[];
   turn: Turn;
   viewDays: boolean;
   selectedIndexMatTab: number;
@@ -35,14 +34,12 @@ export class CategoriesComponent implements OnInit {
      private menuService : MenuService,
      private categoryService : CategoryService
      ) {
-    this.listFood = [];
     this.selectedIndexMatTab = 0;
     this.turn = new Turn(null);
   }
 
   ngOnInit(): void {
     this.getCategories();
-    this.getFood();
     this.viewDays = true;
   }
 
@@ -50,18 +47,6 @@ export class CategoriesComponent implements OnInit {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
       this.listCategories = res.categories;
     })
-  }
-
-  async getFood() {
-    await this.foodService.getFood().subscribe((res: GetFoodResponse) => {
-      this.listFood = res.food;
-    })
-  }
-
-  filterFoodByCategory(category: Category): Food[] {
-    return this.listFood.filter(food => {
-      return food.categories.includes(category);
-    });
   }
 
   getDays(days: Day[]) {
@@ -83,7 +68,8 @@ export class CategoriesComponent implements OnInit {
     this.turn.days.forEach(day => {
       const dayRequest: DayRequest = {
         date: day.date,
-        idFood: day.food.id
+        idFood: day.food.id,
+        idCategory : day.category.id
       }
       turnRequest.days.push(dayRequest)
     })
@@ -93,7 +79,6 @@ export class CategoriesComponent implements OnInit {
     addMenuRequest.turns.push(turnRequest)
     await this.menuService.addMenu(addMenuRequest).subscribe((res:AddMenuResponse)=>
     {
-      console.log("estoy");
       this.finishAddMenu.emit(true);
     })
     

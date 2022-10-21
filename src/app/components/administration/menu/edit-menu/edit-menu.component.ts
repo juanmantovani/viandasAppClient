@@ -57,7 +57,7 @@ export class EditMenuComponent implements OnInit {
   async onClickChange(day: Day) {
     this.day = day;
     const request: GetFoodByCategoryRequest = {
-      idCategory: 1//day.food.category.id
+      idCategory: day.category.id
     }
 
     await this.foodService.getFoodByCategory(request).subscribe((res: GetFoodResponse) => {
@@ -70,7 +70,8 @@ export class EditMenuComponent implements OnInit {
   onClickSave() {
     const request: EditMenuRequest = {
       idDay: this.day.id,
-      idFood : this.food.id
+      idFood : this.food.id,
+      idCategory : this.day.category.id
     }
     this.onSubmit.emit(request);
   }

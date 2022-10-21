@@ -19,4 +19,12 @@ export class Utils {
     dialogConfig.width = '500px'
     return dialogConfig;
   }
+
+  public static matDialogConfigMenu(): MatDialogConfig {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '800px'
+    return dialogConfig;
+  }
 }

@@ -54,10 +54,12 @@ formatStringCategories(categories : Category[]){
 }
 
   addFood(request: AddFoodRequest) : Observable<AddFoodResponse> {
+    console.log(request)
     var formData = new FormData();
     formData.append('image', request.food.image);
     formData.append('title', request.food.title);
-    formData.append('description', request.food.description);
+    if(request.food.description != null)
+      formData.append('description', request.food.description);
     formData.append('categories',  this.formatStringCategories(request.food.categories));
     
     return this.http.post<AddFoodResponse>(ROUTES.API_ROUTES.FOOD.UPLOADFOOD, formData).pipe(
