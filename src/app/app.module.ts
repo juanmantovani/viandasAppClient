@@ -4,7 +4,7 @@ import { NgbAlertModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InicioComponent } from './components/inicio/inicio.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { ViewMenuCompleteComponent } from './components/menu/view-menu-complete/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
@@ -20,6 +20,8 @@ import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ServerErrorInterceptor } from './shared/interceptors/server-error.interceptor';
 import { GlobalErrorHandler } from './shared/global-error-handler';
+import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
+import { CategoriesCardsComponent } from './components/categories-cards/categories-cards.component'
 
 //material
 import { MatTableModule } from '@angular/material/table';
@@ -34,7 +36,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule} from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
-import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
@@ -43,6 +44,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
@@ -61,12 +63,13 @@ import { CategoryFormComponent } from './components/administration/category-form
 import { EditMenuComponent } from './components/administration/menu/edit-menu/edit-menu.component';
 import { ListMenuComponent } from './components/administration/menu/list-menu/list-menu.component';
 import { ViewMenuComponent } from './components/administration/menu/view-menu/view-menu.component';
+import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InicioComponent,
-    MenuComponent,
+    ViewMenuCompleteComponent,
     FooterComponent,
     HeaderComponent,
     LoginComponent,
@@ -87,7 +90,10 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
     CategoryFormComponent,
     EditMenuComponent,
     ListMenuComponent,
-    ViewMenuComponent,
+    ViewMenuCompleteComponent,
+    CategoriesCardsComponent,
+    MenuByCategoryComponent,
+    ViewMenuComponent
     
   ],
   imports: [
@@ -122,7 +128,9 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
     MatExpansionModule,
     MatTabsModule,
     MatAutocompleteModule,
-    MatCardModule
+    MatCardModule,
+    MatGridListModule,
+    
 
   ],
   providers: [

@@ -34,6 +34,8 @@ export const API_ROUTES ={
         VALIDATEDATEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/validateDateMenu`,
         GETALLMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getAllMenu`,
         DELETEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,
+        GETMENUBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategory`,
+
 
 
 

@@ -7,11 +7,11 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 import { Utils } from 'src/app/shared/utils';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'app-view-menu-complete',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class ViewMenuCompleteComponent implements OnInit {
 
   @Input() menuViewer: MenuViewer;
 
@@ -25,7 +25,7 @@ export class MenuComponent implements OnInit {
     this.dataSource = new MatTableDataSource<CategoryViewer>();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
   }
   
   getDay(date: Date): string{

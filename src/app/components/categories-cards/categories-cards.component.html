@@ -1,0 +1,15 @@
+<mat-card class="example-card"> 
+    <mat-card-header class="text">
+      <mat-card-title>Menú {{categoryViewer.category.title}} </mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Foto del menú {{categoryViewer.category.title}}">
+    <mat-card-content>
+      <p>
+        {{categoryViewer.category.description}}
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button class="{{categoryViewer.category.title}}" (click)="onClickCategory()">Ver info</button>
+      <!-- <button mat-button>SHARE</button> -->
+    </mat-card-actions>
+  </mat-card>

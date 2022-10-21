@@ -11,6 +11,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { FoodComponent } from './components/administration/food/food.component';
 import { MenuInicioComponent } from './components/administration/menu/inicio/inicio.component';
 import { CategoryComponent } from './components/administration/category/category.component';
+import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,9 @@ const routes: Routes = [
 
   { path: ROUTES.INTERNAL_ROUTES.INICIO, 
     component: InicioComponent  },
- // {path: '**', redirectTo: '/'},
+
+  { path: ROUTES.INTERNAL_ROUTES.MENUBYCATEGORY, 
+  component: MenuByCategoryComponent  },
   
  { 
     path: ROUTES.INTERNAL_ROUTES.ADMINISTRATION, 
