@@ -6,6 +6,7 @@ export const INTERNAL_ROUTES = {
     INICIO: 'inicio',
     FOOD:'food',
     CATEGORY: 'category',
-    MENU: 'menu'
+    MENU: 'menu',
+    MENUBYCATEGORY: 'menuByCategory',
 }
 

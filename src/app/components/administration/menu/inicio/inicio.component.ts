@@ -163,7 +163,6 @@ export class MenuInicioComponent implements OnInit {
   }
    
   redirectToList(event: boolean){
-    console.log("estoy Aca");
     this.onClickListAllMenus();
   }
 
