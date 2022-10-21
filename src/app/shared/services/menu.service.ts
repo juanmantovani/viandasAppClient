@@ -14,6 +14,8 @@ import { ValidateDateMenuResponse } from '../dto/menu/ValidateDateMenuResponse';
 
 import { DeleteMenuResponse } from '../dto/menu/DeleteMenuResponse';
 import { DeleteMenuRequest } from '../dto/menu/DeleteMenuRequest';
+import { GetAllMenuResponse } from '../dto/menu/GetAllMenuResponse';
+import { GetMenuByCategoryResponse } from '../dto/menu/GetMenuByCategoryResponse';
 
 
 @Injectable({
