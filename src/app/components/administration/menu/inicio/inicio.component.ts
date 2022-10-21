@@ -93,7 +93,7 @@ export class MenuInicioComponent implements OnInit {
   }
 
   onClickEdit(){
-    const dialogConfig = Utils.matDialogConfigEditMenu();
+    const dialogConfig = Utils.matDialogConfigMenu();
     const dialogRef = this.dialog.open(EditMenuComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 
@@ -157,7 +157,7 @@ export class MenuInicioComponent implements OnInit {
   }
 
   showMenu(menuViewer: MenuViewer) {
-    const dialogConfig = Utils.matDialogConfigDefault();
+    const dialogConfig = Utils.matDialogConfigMenu();
     dialogConfig.data = menuViewer;
     const dialogRef = this.dialog.open(ViewMenuComponent, dialogConfig);
   }

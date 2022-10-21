@@ -20,7 +20,7 @@ export class Utils {
     return dialogConfig;
   }
 
-  public static matDialogConfigEditMenu(): MatDialogConfig {
+  public static matDialogConfigMenu(): MatDialogConfig {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
