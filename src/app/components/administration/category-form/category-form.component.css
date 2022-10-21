@@ -10,4 +10,12 @@
     color:tomato;
     font-size: 12px;
 }
+.preview-image{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+.changeImage{
+    margin-bottom: 10px;
 
+}

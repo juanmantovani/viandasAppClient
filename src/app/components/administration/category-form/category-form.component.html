@@ -24,6 +24,19 @@
             <input type="number" matInput formControlName="price" name="price"
                 id="price" #price placeholder="Ingrese un titulo" required />
         </mat-form-field>
+
+        <div *ngIf="urlImage != null && !changeImage">
+            <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
+          </div>
+  
+          <button mat-raised-button (click)="onChangeImagen()" *ngIf="urlImage != null && !changeImage" class="button changeImage">
+            Cambiar Imagen
+          </button>
+            <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" *ngIf="urlImage == null || changeImage">
+              <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+              <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [file]="image" [removable]="true" (removed)="onRemove(f)">
+              </ngx-dropzone-image-preview>
+            </ngx-dropzone>
     </form>
 
 </mat-dialog-content>

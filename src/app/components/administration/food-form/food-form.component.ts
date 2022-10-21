@@ -37,14 +37,14 @@ export class FoodFormComponent implements OnInit {
   ) {
     this.onSubmit = new EventEmitter<Food | null>();
     this.form = this.generateForm();
+    this.listCategories = [];
   }
 
+ 
   ngOnInit() {
-    console.log(this.data.food)
-    this.listCategories = this.data.food?.categories;
+    this.mapedCategories()
     this.urlImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
     this.nameImage = this.data.food?.urlImage == '' ? null : this.data.food?.urlImage;
-
   }
 
   generateForm(): FormGroup {
@@ -56,7 +56,7 @@ export class FoodFormComponent implements OnInit {
   }
 
   onClickCancel() {
-    this.listCategories.forEach(c => c.checked = false)
+    this.mapedCategories()
     this.dialogRef.close();
   }
 
@@ -72,6 +72,8 @@ export class FoodFormComponent implements OnInit {
       this.result.image = this.image;
 
     this.onSubmit.emit(this.result);
+    this.cleanList()
+
   }
 
   onChangeDateStart(e: any) {
@@ -91,6 +93,21 @@ export class FoodFormComponent implements OnInit {
     this.changeImage = true;
     this.nameImage = null;
     return false;
+  }
+
+  mapedCategories(){
+    if(this.data.actionForm == "Editar"){
+      this.listCategories = [];
+      for (let cat of this.data.food?.categories){
+        this.listCategories.push(new Category (cat))
+      }
+    }
+    else{
+    this.listCategories = this.data.listCategories
+   }
+  }
+  cleanList(){
+    this.listCategories.forEach(cat => cat.checked = false)
   }
 
 }

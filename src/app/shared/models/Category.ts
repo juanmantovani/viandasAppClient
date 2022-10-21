@@ -4,6 +4,10 @@ export class Category {
     description: string;
     price: number;
     checked: boolean
+    image: Blob;
+    urlImage: string;
+
+
     constructor(data:any) {
         if (data) {
           this.id = data.id;
@@ -11,6 +15,8 @@ export class Category {
           this.description = data.description;
           this.price = data.price;
           this.checked = data.checked;
+          this.urlImage= data.urlImage;
+
         }
       }
 }
