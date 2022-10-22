@@ -42,6 +42,7 @@ export class MenuInicioComponent implements OnInit {
     this.range = this.generateFormWeeks();
     this.dataSource = new MatTableDataSource<MenuList>();
     this.listMenu = true;
+
   }
 
   ngOnInit(): void {
@@ -57,6 +58,7 @@ export class MenuInicioComponent implements OnInit {
 
   async onClickWeeks() {
     this.daysOfMonth = [];
+    this.viewCategories = false;
     this.dateStart = this.range.getRawValue().start;
     this.dateEnd = this.range.getRawValue().end;
 
@@ -151,7 +153,7 @@ export class MenuInicioComponent implements OnInit {
   }
 
   async viewMenu(menuList: MenuList) {
-    await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
+    await this.menuService.getMenuByID(menuList.menuId).subscribe((res: GetMenuResponse) => {
       this.showMenu(new MenuViewer(res.menuViewer))
     })
   }

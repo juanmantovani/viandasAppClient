@@ -20,7 +20,6 @@ export class CarrouselService {
   getBanners(): Observable<GetBannerResponse> {
        return this.http.get<GetBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.GETBANNERS).pipe(
       map((res: any) => {
-        
         return new GetBannerResponse(res);
       })
     )

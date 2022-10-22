@@ -4,6 +4,7 @@ import { Category } from 'src/app/shared/models/Category';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { Utils } from 'src/app/shared/utils';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -14,6 +15,8 @@ import { Utils } from 'src/app/shared/utils';
 export class MenuByCategoryComponent implements OnInit {
   @Input() category : Category;
   menuViewer : MenuViewer;
+  URLAPI = environment.urlApi;
+
 
   constructor(
       private menuService: MenuService,
@@ -29,7 +32,6 @@ export class MenuByCategoryComponent implements OnInit {
 
   getMenuByCategory(){
     this.menuService.getMenuByCategory(this.category.id).subscribe((res: GetMenuByCategoryResponse) => {
-      console.log(res);
       this.menuViewer = new MenuViewer (res.menuViewer);
     })
   }

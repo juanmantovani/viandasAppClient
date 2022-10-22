@@ -16,6 +16,13 @@
     margin: 10px;
   }
 
+  .title {
+    padding-top: 20px;
+  }
+  .title h1{
+    margin-bottom: 0px;
+  }
+
 
   @media (max-width: 600px) {
     .responsive {

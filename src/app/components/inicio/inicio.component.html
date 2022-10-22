@@ -1,38 +1,36 @@
 <app-header></app-header>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
 <div *ngIf="!viewMenuByCategory">
   <ngb-carousel class="top">
     <ng-template ngbSlide *ngFor="let img of listUrlImage">
       <div class="picsum-img-wrapper">
-        <img src="{{URLAPI}}/{{img}}" alt="Random first slide" class="responsive">
+        <img src="{{URLAPI}}{{img}}" alt="Random first slide" class="responsive">
       </div>
     </ng-template>
   </ngb-carousel>
   <div class="container">
-
-
-  <div class="row gray">
-
-    <div class="col-md" *ngFor="let category of menuViewer.turnsViewer[0].categoryViewer">
-    <app-categories-cards [categoryViewer]="category"
-    (onCategory)="showMenuByCategory($event)"></app-categories-cards>
-  </div>
-  </div>
+    <div class="row gray">
+      <div class="m-0 justify-content-center align-items-center title">
+        <h1 class="col-auto text-center">Nuestros Menú disponibles</h1>
+      </div>
+        <div class="col-md" *ngFor="let category of turnsViewer?.categoryViewer">
+          <app-categories-cards [categoryViewer]="category"
+          (onCategory)="showMenuByCategory($event)">
+          </app-categories-cards>
+        </div>
+    </div>
   </div>
 
   <div class="gray responsive">
-  <div class="container">
-  <div class="row">
-    Hola Mundo
-  </div>
-
-
-  </div>
+    <div class="container">
+      <div class="row">
+        Hola Mundo
+      </div>
+    </div>
   </div>
 </div>
 <div *ngIf="viewMenuByCategory">
-  
   <app-menu-by-category [category]="category">
   </app-menu-by-category>
 </div>

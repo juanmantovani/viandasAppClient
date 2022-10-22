@@ -39,9 +39,13 @@ export class EditMenuComponent implements OnInit {
   }
 
   async onClickOk() {
+    this.viewDay = false;
+    this.dataSource = new MatTableDataSource();
+
     const request: GetDayRequest = {
       date: this.date
     }
+
     await this.menuService.getDayMenu(request).subscribe((res: GetDayResponse) => {
       if ( res.days && res.days.length > 0) {
         this.viewDay = true;

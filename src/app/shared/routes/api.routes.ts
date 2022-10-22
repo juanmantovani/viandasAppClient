@@ -35,6 +35,8 @@ export const API_ROUTES ={
         GETALLMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getAllMenu`,
         DELETEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,
         GETMENUBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategory`,
+        GETMENUBYID : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByID`,
+
 
 
 
