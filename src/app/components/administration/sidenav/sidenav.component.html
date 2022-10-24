@@ -1,10 +1,5 @@
-
 <mat-toolbar>
-
     <mat-toolbar-row>
-        <a href="">
-            <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
-        </a>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
         <h4>Panel administracion {{ status }}</h4>
     </mat-toolbar-row>
@@ -17,11 +12,11 @@
         <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]" (click)="status='> Carrousel'">
             Carrousel
         </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Categorías'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorías'"> 
-            Categorías
-        </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
             Platos
+        </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === '> Caregorias'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorias'"> 
+            Categorias
         </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]" (click)="status='> Menú'"> 
             Menú
@@ -30,7 +25,7 @@
 
         </mat-list-item>
         <mat-list-item>
-            <span class="nav-link closeSession" (click)="closeSesion()">Cerrar sesión</span>
+            <button ngbDropdownItem class="drowdownitem login"  type="button" (click)="logout()"><a>Cerrar Sesión</a></button>
         </mat-list-item>
        </mat-list>
        
