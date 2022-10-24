@@ -10,6 +10,9 @@
           <mat-icon>check</mat-icon> Ok
         </button>
 
+        <mat-error *ngIf="!existFoodInDay"> No hay platos en la fecha seleccionada</mat-error>
+
+
         <div class="table-day" *ngIf="viewDay">
         <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 table-day">
           <ng-container matColumnDef="date">
