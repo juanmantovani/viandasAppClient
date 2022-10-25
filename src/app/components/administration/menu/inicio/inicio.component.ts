@@ -15,7 +15,10 @@ import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
 import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';
+import { CalendarOptions, defineFullCalendarElement } from '@fullcalendar/web-component';
+import dayGridPlugin from '@fullcalendar/daygrid';
 
+defineFullCalendarElement();
 
 @Component({
   selector: 'app-inicio',
@@ -32,7 +35,20 @@ export class MenuInicioComponent implements OnInit {
   dataSource!: MatTableDataSource<MenuList>;
   menuViewer : MenuViewer;
 
-
+  //Full calendar
+  calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin],
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay'
+    },
+    events: [{
+      title: 'Menu: 4',
+      start: new Date('Fri Oct 11 2022 00:00:00 GMT-0300 (hora estándar de Argentina)'),
+      end: new Date('Mon Oct 24 2022 00:00:00 GMT-0300 (hora estándar de Argentina)')
+    }]
+  };
 
   daysOfMonth : any[]
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
@@ -47,6 +63,7 @@ export class MenuInicioComponent implements OnInit {
 
   ngOnInit(): void {
     this.getMenus();
+
   }
 
   generateFormWeeks(): FormGroup {
@@ -125,6 +142,17 @@ export class MenuInicioComponent implements OnInit {
   async getMenus(){
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
       this.dataSource = new MatTableDataSource(res.menuList);
+      res.menuList.forEach(m => {
+        console.log(m.dateStart);
+        console.log(m.dateEnd);
+  
+        // let menu = {
+        //   title: 'Menu: ' + m.menuId,
+        //   start: m.dateStart,
+        //   end: m.dateEnd
+        // }
+        // this.calendarOptions.events = [menu]
+      })
     })
   }
 
@@ -167,5 +195,6 @@ export class MenuInicioComponent implements OnInit {
   redirectToList(event: boolean){
     this.onClickListAllMenus();
   }
+
 
 }
