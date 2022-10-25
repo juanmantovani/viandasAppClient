@@ -7,7 +7,6 @@ import { InicioComponent } from './components/inicio/inicio.component';
 import { ViewMenuCompleteComponent } from './components/menu/view-menu-complete/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { LoginComponent } from './components/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CarrouselComponent } from './components/administration/carrousel/carrousel.component'; 
@@ -17,7 +16,6 @@ import { SidenavComponent } from './components/administration/sidenav/sidenav.co
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
-import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 import { ServerErrorInterceptor } from './shared/interceptors/server-error.interceptor';
 import { GlobalErrorHandler } from './shared/global-error-handler';
 import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
@@ -47,11 +45,8 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 
-
-
 import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
 import { MatNotificationComponent } from './shared/components/mat-notification/mat-notification.component';
-import { RegisterComponent } from './components/register/register.component';
 import { FoodComponent } from './components/administration/food/food.component';
 import { FoodFormComponent } from './components/administration/food-form/food-form.component';
 
@@ -65,6 +60,8 @@ import { ListMenuComponent } from './components/administration/menu/list-menu/li
 import { ViewMenuComponent } from './components/administration/menu/view-menu/view-menu.component';
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
+import { AuthModule } from './auth/auth.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +69,6 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
     ViewMenuCompleteComponent,
     FooterComponent,
     HeaderComponent,
-    LoginComponent,
     CarrouselComponent,
     InicioAdminComponent,
     SidenavComponent,
@@ -80,7 +76,6 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
     MatConfirmDialogComponent,
     MatNotificationComponent,
     SpinnerComponent,
-    RegisterComponent,
     FoodComponent,
     FoodFormComponent,
     MenuInicioComponent,
@@ -130,6 +125,7 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
     MatAutocompleteModule,
     MatCardModule,
     MatGridListModule,
+    AuthModule
     
 
   ],
@@ -139,7 +135,6 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' }
 
   ],
