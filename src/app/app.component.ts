@@ -1,20 +1,25 @@
-import { Component, ɵNOT_FOUND_CHECK_ONLY_ELEMENT_INJECTOR } from '@angular/core';
-import { Router } from '@angular/router';
-import {NgbOffcanvas, OffcanvasDismissReasons, NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from './shared/services/auth.service';
-
-
+import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  public isLoggedIn = false;
+  public userProfile: KeycloakProfile | null = null;
 
-  constructor(private authService : AuthService, private router: Router) {}
-  
-  ngOnInit() {
- 
+  constructor(private readonly keycloak: KeycloakService) {}
+
+  public async ngOnInit() {
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      this.userProfile = await this.keycloak.loadUserProfile();
+    }
   }
+
+ 
+
 }

@@ -1,7 +1,8 @@
-import { Component, ViewChild, OnInit, ElementRef } from '@angular/core';
+import { Component, ViewChild, OnInit, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/shared/services/auth.service';
 import  * as ROUTES  from '../../shared/routes/index.routes'
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 
 
@@ -15,46 +16,35 @@ export class HeaderComponent implements OnInit {
   @ViewChild("myNameElem") myNameElem: ElementRef;
   @ViewChild("myNameElem2") myNameElem2: ElementRef;
   
-  LOGIN = ROUTES.INTERNAL_ROUTES.LOGIN;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
-  REGISTER = ROUTES.INTERNAL_ROUTES.REGISTER;
   ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION;
 
-  loginDisabled: boolean;
+  public isLoggedIn = false;
+  public userProfile: KeycloakProfile | null = null;
 
-  constructor(private authService : AuthService, private router: Router) {
-    this.loginDisabled = false;
+  constructor(private router: Router,
+    private readonly keycloak: KeycloakService) {
    }
 
-  ngOnInit(): void {
-     if (this.authService.isAuthenticated()) {
-      this.loginDisabled = true;
-    } else {
-      this.router.navigate([ROUTES.INTERNAL_ROUTES.INICIO]);
-      this.loginDisabled = false;
+   public async ngOnInit() {
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      this.userProfile = await this.keycloak.loadUserProfile();
     }
-   
   }
 
   mostrarMenu(){
-
-  console.log(this.myNameElem2);    
-
     this.myNameElem2.nativeElement.classList.toggle("list--show");
-//    let el: DebugElement;
+  }
 
-    //const menuHamburguesa = el.query(By.css(".nav__logo"));
-
-  /*menuHamburguesa.addEventListener("click", () => {
-  let menu = document.querySelector(".list");
-
-  menu.classList.toggle("list--show");
+  public login() {
+    this.keycloak.login();
+  }
 
   
-
-
-});
-*/
+  public logout() {
+    this.keycloak.logout();
   }
 
 }

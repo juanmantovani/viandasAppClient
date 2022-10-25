@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
 import  * as ROUTES  from '../../../shared/routes/index.routes'
 
 
@@ -10,20 +11,21 @@ import  * as ROUTES  from '../../../shared/routes/index.routes'
 })
 export class SidenavComponent implements OnInit {
 
-  opened = true;
+  opened = false;
   CARROUSEL = ROUTES.INTERNAL_ROUTES.CARROUSEL;
   FOOD = ROUTES.INTERNAL_ROUTES.FOOD;
   CATEGORY = ROUTES.INTERNAL_ROUTES.CATEGORY;
   MENU = ROUTES.INTERNAL_ROUTES.MENU;
   status: string;
 
-  constructor( private authService: AuthService) { }
+  constructor(private readonly keycloak: KeycloakService, private router : Router ) { }
 
   ngOnInit(): void {
   }
 
-  closeSesion (){
-    this.authService.logout();
+  public logout() {
+    this.keycloak.logout();
+    this.router.navigate(['/inicio'])
   }
 
-}
+ }
