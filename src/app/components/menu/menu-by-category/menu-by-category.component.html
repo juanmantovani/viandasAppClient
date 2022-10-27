@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md">
-            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Foto del menú {{category.title}}">
+            <img mat-card-image src="{{URLAPI}}{{category.urlImage}}" alt="Foto del menú {{category.title}}">
         </div>
         <div class="col-md">
             <h1>Menú {{category.title}}</h1> 
@@ -16,6 +16,8 @@
             <hr>
         </div>
     </div>
+    <div class="row">
+    <h2>Menú desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
     <div class="row">
 
         <app-view-menu-complete [menuViewer]="menuViewer"></app-view-menu-complete>

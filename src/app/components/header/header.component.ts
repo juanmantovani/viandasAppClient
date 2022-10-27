@@ -21,9 +21,13 @@ export class HeaderComponent implements OnInit {
 
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
+  public userRoles: string [] = [];
+
+  collapsed = true;
 
   constructor(private router: Router,
-    private readonly keycloak: KeycloakService) {
+    private readonly keycloak: KeycloakService
+    ) {
    }
 
    public async ngOnInit() {
@@ -31,6 +35,7 @@ export class HeaderComponent implements OnInit {
 
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
+      this.userRoles = this.keycloak.getUserRoles()
     }
   }
 
@@ -42,6 +47,18 @@ export class HeaderComponent implements OnInit {
     this.keycloak.login();
   }
 
+  onClickIngresar(){
+    if (this.userRoles.indexOf('admin') != -1)
+    {
+      this.router.navigateByUrl(this.ADMINISTRATION);
+      return false
+    }
+    
+    if (this.userRoles.indexOf('client') != -1){
+      //this.router.navigateByUrl(this.ADMINISTRATION);
+      return false
+    }
+  }
   
   public logout() {
     this.keycloak.logout();

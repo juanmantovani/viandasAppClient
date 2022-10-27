@@ -26,6 +26,7 @@ export class EditMenuComponent implements OnInit {
   listFood: Food[];
   food: Food;
   day : Day;
+  existFoodInDay: boolean = true;
 
   @Output() onSubmit: EventEmitter<EditMenuRequest | null>;
 
@@ -39,14 +40,21 @@ export class EditMenuComponent implements OnInit {
   }
 
   async onClickOk() {
+    this.viewDay = false;
+    this.dataSource = new MatTableDataSource();
+
     const request: GetDayRequest = {
       date: this.date
     }
+
     await this.menuService.getDayMenu(request).subscribe((res: GetDayResponse) => {
       if ( res.days && res.days.length > 0) {
-        this.viewDay = true;
         this.dataSource = new MatTableDataSource(res.days);
-      }
+        this.viewDay = true;
+        this.existFoodInDay = true;
+      } else {
+          this.existFoodInDay = false;
+        }
     })
   }
 

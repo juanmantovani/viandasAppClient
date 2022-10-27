@@ -11,8 +11,8 @@
     font-size: 12px;
 }
 .preview-image{
-    width: 150px;
-    height: 150px;
+    width: 70%;
+    height: auto;
     margin-bottom: 10px;
 }
 .changeImage{

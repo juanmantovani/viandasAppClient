@@ -16,6 +16,18 @@
     margin: 10px;
   }
 
+  .title {
+    padding-top: 20px;
+  }
+  .title h1{
+    margin-bottom: 0px;
+  }
+
+  .col-auto mat-icon {
+    font-size: xxx-large;
+    display: inline;
+    vertical-align: middle;
+  }
 
   @media (max-width: 600px) {
     .responsive {
@@ -26,7 +38,7 @@
     }
     
     .top {
-      margin-top: -5px;
+      margin-top: -25px;
     }
   }
 

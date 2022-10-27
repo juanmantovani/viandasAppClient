@@ -16,6 +16,7 @@ import { DeleteMenuResponse } from '../dto/menu/DeleteMenuResponse';
 import { DeleteMenuRequest } from '../dto/menu/DeleteMenuRequest';
 import { GetAllMenuResponse } from '../dto/menu/GetAllMenuResponse';
 import { GetMenuByCategoryResponse } from '../dto/menu/GetMenuByCategoryResponse';
+import { GetMenuByIDResponse } from '../dto/menu/GetMenuByIDResponse';
 
 
 @Injectable({
@@ -72,6 +73,16 @@ export class MenuService {
     let params = new HttpParams();
     params = params.set('idCategory', idCategory?.toString());
     return this.http.get<GetMenuByCategoryResponse>(ROUTES.API_ROUTES.MENU.GETMENUBYCATEGORY, {params}).pipe(
+      map((res: any) => {
+        return new GetMenuByCategoryResponse(res);
+      })
+     )
+  }
+
+  getMenuByID(idMenu: number): Observable<GetMenuByIDResponse>{
+    let params = new HttpParams();
+    params = params.set('idMenu', idMenu?.toString());
+    return this.http.get<GetMenuByIDResponse>(ROUTES.API_ROUTES.MENU.GETMENUBYID, {params}).pipe(
       map((res: any) => {
         return new GetMenuByCategoryResponse(res);
       })
