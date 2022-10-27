@@ -9,10 +9,11 @@
       </div>
     </ng-template>
   </ngb-carousel>
-  <div class="container">
+  <div class="container" id="menu">
     <div class="row gray">
       <div class="m-0 justify-content-center align-items-center title">
-        <h1 class="col-auto text-center">Nuestros Menú disponibles</h1>
+        <h1 class="col-auto text-center" *ngIf="turnsViewer">Nuestros Menú disponibles</h1>
+        <h1 class="col-auto text-center" *ngIf="!turnsViewer">No hay ningún menú disponible <mat-icon>error_outline</mat-icon></h1>
       </div>
         <div class="col-md" *ngFor="let category of turnsViewer?.categoryViewer">
           <app-categories-cards [categoryViewer]="category"

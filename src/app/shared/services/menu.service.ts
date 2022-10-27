@@ -31,7 +31,6 @@ export class MenuService {
   getMenu(): Observable<GetMenuResponse> {
     return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENU).pipe(
     map((res: any) => {
-      console.log(res);
      return new GetMenuResponse(res);
    })
  )

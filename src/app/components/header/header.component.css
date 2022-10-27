@@ -1,14 +1,21 @@
-.nav-link:hover{
-	background: #E3AE06;
-	color: #ffffff;
-    font-weight: 600;
+.button.login{
+    background: #E3AE06;
 }
 
-.nav-link{
-    display: inline;
-    font-weight: 500;
-    text-decoration: none;
+.button.login:hover{
+    background: white
 }
+
+.button.login a{
+    color: white;
+}
+.button.login a:hover{
+    color: #E3AE06;
+}
+
+
+
+
 
 .drowdownitem:hover{
     background: #E3AE06;
@@ -32,17 +39,177 @@
     content: none;
 }
 
-.nav__img{
-    width: 30px;
-    display: block;
-}
-
-.nav__logo{
-    cursor:pointer;
-}
 
 @media(min-width:992px){
-    .nav__logo{
+    .nav__img{
         display: none;
     }
+
+    .navbar{
+        padding: 10px 5px;
+        /*position: fixed;*/
+        width: 100%;
+        border-radius: 0px 0px 50px 50px;
+        transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        height: auto;
+    }
+    
+}
+
+/*DESDE COMPONENT.CSS*/
+.top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover{
+	background: #E3AE06;
+	color: #ffffff;
+}
+.top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link{
+	background: #E3AE06;
+	color: #ffffff;
+	border-radius: 4px;
+}
+
+.nav-item a{
+    cursor: pointer;
+}
+
+
+.top-navbar 
+
+.top-navbar .navbar-light .navbar-nav .nav-link{
+	color: #010101;
+	font-size: 16px;
+	padding: 10px 20px;
+	border-radius: 4px;
+	text-transform: uppercase;
+}
+
+
+a {
+    color: #1f1f1f;
+    text-decoration: none;
+    outline: none;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+
+ul, li, ol{
+	margin: 0px;
+	padding: 0px;
+}
+
+/*nuevo header*/
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+
+  .navbar{
+	padding: 10px 5px;
+	/*position: fixed;*/
+	width: 100%;
+	border-radius: 0px 0px 50px 50px;
+	transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	-webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+	box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+	z-index: 100;
+    height: auto;
+}
+  
+
+.navbar-nav span:hover{
+	color: #607d51;
+    font-weight: 600;
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+
+}
+
+ul span {
+    margin-bottom: 10px;
+}
+
+.cool-link {
+    display: inline-block;
+    color: #607d51;
+    text-decoration: none;
+}
+
+.cool-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 3px;
+    background: #607d51;
+    transition: width .3s;
+}
+
+.cool-link:hover::after {
+    width: 100%;
+    color: #607d51;
+    font-weight: 600;
+    transition: all .1s ease-in-out;
+    cursor: pointer;
+}
+
+.cool-link.button{
+    display: inline;
+    font-weight: 700;
+    font-size: large;
+    text-decoration: none;
+    padding: 10px 10px 5px 10px;
+    color: #3c3c3cde;
+
+}
+
+.nav__logo img{
+    display: block;
+    cursor: pointer;
+}
+
+.navbar .container-fluid .nav__logo{
+    padding-left: 2em;
+}
+
+.navbar .container-fluid .navbar-collapse{
+    padding-right: 2em;
+}
+
+@media(max-width:992px){
+    .nav__img{
+        display: none;
+    }
+
+    .navbar{
+        padding: 10px 5px;
+        /*position: fixed;*/
+        width: 100%;
+        border-radius: 0px 0px 50px 50px;
+        transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+        z-index: 100;
+        height: auto;
+    }
+
+    .d-inline-block {
+        margin-left: 5%;
+    }
+    
+    
+}
+
+.navbar-collapse ul span{
+    margin: 6px;
 }
