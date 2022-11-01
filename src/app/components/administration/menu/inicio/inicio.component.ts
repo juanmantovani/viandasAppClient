@@ -15,8 +15,13 @@ import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
 import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';
-import { CalendarOptions, defineFullCalendarElement } from '@fullcalendar/web-component';
+import { defineFullCalendarElement,  } from '@fullcalendar/web-component';
+import { CalendarOptions } from '@fullcalendar/core';
+
 import dayGridPlugin from '@fullcalendar/daygrid';
+import { EventInput } from '@fullcalendar/web-component';
+
+
 
 defineFullCalendarElement();
 
@@ -35,36 +40,26 @@ export class MenuInicioComponent implements OnInit {
   dataSource!: MatTableDataSource<MenuList>;
   menuViewer : MenuViewer;
 
-  //Full calendar
-  calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,dayGridWeek,dayGridDay'
-    },
-    events: [{
-      title: 'Menu: 4',
-      start: new Date('Fri Oct 11 2022 00:00:00 GMT-0300 (hora estándar de Argentina)'),
-      end: new Date('Mon Oct 24 2022 00:00:00 GMT-0300 (hora estándar de Argentina)')
-    }]
-  };
+  events: any[] = [];
+  
 
   daysOfMonth : any[]
   WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
   validDateMenu  : Boolean = true;
+  
 
   constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
     this.dataSource = new MatTableDataSource<MenuList>();
     this.listMenu = true;
 
+    this.getMenus();
   }
 
   ngOnInit(): void {
-    this.getMenus();
 
   }
+  
 
   generateFormWeeks(): FormGroup {
     return new FormGroup({
@@ -143,18 +138,24 @@ export class MenuInicioComponent implements OnInit {
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
       this.dataSource = new MatTableDataSource(res.menuList);
       res.menuList.forEach(m => {
-        console.log(m.dateStart);
-        console.log(m.dateEnd);
-  
-        // let menu = {
-        //   title: 'Menu: ' + m.menuId,
-        //   start: m.dateStart,
-        //   end: m.dateEnd
-        // }
-        // this.calendarOptions.events = [menu]
+    
+        let menu = {
+          title: 'ID Menú: ' + m.menuId,
+          start: m.dateStart,
+          end: m.dateEnd,
+          allDay: true,
+          color: this.generateRandomColor()
+        }
+         this.events.push(menu);
       })
     })
   }
+
+  generateRandomColor() : string {
+    const RANDOMCOLOR : string = Math.floor(Math.random()*16777215).toString(16);
+    return '#'+RANDOMCOLOR;
+  }
+
 
   onClickAdd() {
     this.chargeMenu = true;

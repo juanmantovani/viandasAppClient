@@ -3,8 +3,8 @@
         
         <table class="menu{{category.category.title}}" mat-table [dataSource]="category.daysViewer">
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef colspan="2"><div class="inner-column">
-                    <h1><strong>Menú {{category.category.title}}</strong></h1>
+                 <th mat-header-cell *matHeaderCellDef colspan="2"><div class="inner-column">
+                    <h1><strong>Menú {{category.category.title}}</strong></h1> 
                 </div>  </th>
                 <td mat-cell *matCellDef="let food"> 
                     <div class="inner-column">

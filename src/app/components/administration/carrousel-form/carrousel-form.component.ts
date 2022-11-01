@@ -73,6 +73,7 @@ export class CarrouselFormComponent implements OnInit {
   onSelect(event: any) {
     this.image = event.addedFiles[0];
     this.nameImage = event.addedFiles[0].name;
+
   }
 
   onRemove(event: any) {

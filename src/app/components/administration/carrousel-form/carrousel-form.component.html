@@ -33,10 +33,12 @@
                 name="dateEnd" id="dateEnd" placeholder="Seleccione fecha hasta" required />
             <mat-datepicker-toggle matSuffix [for]="pickerdateEnd"></mat-datepicker-toggle>
             <mat-datepicker #pickerdateEnd></mat-datepicker>
-            <mat-hint *ngIf="form!.controls['dateEnd']!.touched && form!.controls['dateEnd']!.invalid"
-                class="error-input">
-                Este campo es requerido</mat-hint>
+            <mat-hint *ngIf="form!.controls['dateEnd']!.touched && form!.controls['dateEnd']!.invalid" class="error-input">
+                Este campo es requerido
+            </mat-hint>
         </mat-form-field>
+
+        <h4 mat-dialog-subtitle>La imagen debe tener 1920 x 800 (Ancho x Alto)</h4>
 
         <div *ngIf="urlImage != null && !changeImage">
             <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
@@ -46,7 +48,7 @@
             Cambiar Imagen
           </button>
 
-        <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" *ngIf="urlImage == null || changeImage">
+        <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" *ngIf="urlImage == null || changeImage" id="imgUpload">
             <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [file]="image" [removable]="true" (removed)="onRemove(f)">
             </ngx-dropzone-image-preview>

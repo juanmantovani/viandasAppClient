@@ -61,6 +61,9 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 import { AuthModule } from './auth/auth.module';
+import { CalendarMenuComponent } from './components/administration/menu/calendar-menu/calendar-menu.component';
+
+
 
 @NgModule({
   declarations: [
@@ -88,7 +91,8 @@ import { AuthModule } from './auth/auth.module';
     ViewMenuCompleteComponent,
     CategoriesCardsComponent,
     MenuByCategoryComponent,
-    ViewMenuComponent
+    ViewMenuComponent,
+    CalendarMenuComponent,
     
   ],
   imports: [
@@ -140,6 +144,7 @@ import { AuthModule } from './auth/auth.module';
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 
 })
 export class AppModule { }

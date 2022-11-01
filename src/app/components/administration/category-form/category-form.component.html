@@ -25,6 +25,8 @@
                 id="price" #price placeholder="Ingrese un titulo" required />
         </mat-form-field>
 
+        <h4 mat-dialog-subtitle>La imagen debe tener 1080 x 1080 (Ancho x Alto)</h4>
+
         <div *ngIf="urlImage != null && !changeImage">
             <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
           </div>
