@@ -1,0 +1,36 @@
+mat-sidenav-container{
+    height: calc(205vh - 115vh);
+}
+
+mat-sidenav{
+    display: flex;
+    width: 200px;
+    background-color: #f2d26b5a; 
+}
+
+mat-toolbar{
+    background-color: #f2d26bc4;
+}
+
+.nav-link:hover  {
+	background: #f2d26be1;
+	color: #575757;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.nav-link.active  {
+	background: #f2d26be1;
+	color: #575757;
+    font-weight: 600;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: black;
+    cursor: pointer;
+}
+
+.nav-link.closeSession{
+    color: red;
+}

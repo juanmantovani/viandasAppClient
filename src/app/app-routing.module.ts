@@ -9,10 +9,14 @@ import { MenuInicioComponent } from './components/administration/menu/inicio/ini
 import { CategoryComponent } from './components/administration/category/category.component';
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 import { AuthGuard } from './auth/auth.guard';
+import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
+import { ProfileComponent } from './components/clients/profile/profile.component';
 
 
 
 const routes: Routes = [
+
+
   {path: '', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO, pathMatch: 'full' },
   
 
@@ -35,9 +39,16 @@ const routes: Routes = [
     canActivate: [ AuthGuard ]
   },
 
-  {path: '**', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO}
+  { path: ROUTES.INTERNAL_ROUTES.CLIENT, 
+    component: InicioClientComponent,
+    children:[
+      {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent }
+    ],
+    canActivate: [ AuthGuard ]
+  },
 
-  
+  {path: '**', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO},
+
 
 ];
 

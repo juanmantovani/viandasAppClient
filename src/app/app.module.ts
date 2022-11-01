@@ -61,6 +61,10 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 import { AuthModule } from './auth/auth.module';
+import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
+import { NavCLientComponent } from './components/clients/nav-client/nav-client.component';
+import { RegisterClientComponent } from './components/clients/register-client/register-client.component';
+import { ProfileComponent } from './components/clients/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +92,11 @@ import { AuthModule } from './auth/auth.module';
     ViewMenuCompleteComponent,
     CategoriesCardsComponent,
     MenuByCategoryComponent,
-    ViewMenuComponent
+    ViewMenuComponent,
+    InicioClientComponent,
+    NavCLientComponent,
+    RegisterClientComponent,
+    ProfileComponent
     
   ],
   imports: [

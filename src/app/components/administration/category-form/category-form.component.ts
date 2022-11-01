@@ -18,11 +18,7 @@ export class CategoryFormComponent implements OnInit {
   nameImage?: string | null;
   changeImage: boolean;
 
-
-
-
   @Output() onSubmit: EventEmitter<Category | null>;
-
 
   constructor(
     public dialogRef: MatDialogRef<CategoryFormComponent>,
