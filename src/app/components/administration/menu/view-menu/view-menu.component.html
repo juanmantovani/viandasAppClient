@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Menu</h1>
+<h1 mat-dialog-title>Menú Nº {{data.id}} desde el {{data.dateStart | date: 'dd/MM'}} al {{data.dateEnd | date: 'dd/MM'}} </h1>
 <mat-dialog-content>
 
     <app-view-menu-complete [menuViewer]="data"></app-view-menu-complete>

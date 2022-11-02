@@ -141,6 +141,7 @@ export class MenuInicioComponent implements OnInit {
     
         let menu = {
           title: 'ID Menú: ' + m.menuId,
+          idMenu: m.menuId,
           start: m.dateStart,
           end: m.dateEnd,
           allDay: true,
@@ -195,6 +196,12 @@ export class MenuInicioComponent implements OnInit {
    
   redirectToList(event: boolean){
     this.onClickListAllMenus();
+  }
+
+  async onViewMenu(menuId : number){
+    await this.menuService.getMenuByID(menuId).subscribe((res: GetMenuResponse) => {
+      this.showMenu(new MenuViewer(res.menuViewer))
+    })
   }
 
 

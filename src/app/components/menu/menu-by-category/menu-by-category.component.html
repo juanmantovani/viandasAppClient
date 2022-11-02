@@ -17,11 +17,9 @@
         </div>
     </div>
     <div class="row">
-    <h2>Desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
-    <div class="row">
-
-        <app-view-menu-complete [menuViewer]="menuViewer"></app-view-menu-complete>
-
+        <h2>Desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
     </div>
-</div>
+    <div class="row">
+        <app-view-menu-complete [menuViewer]="menuViewer"></app-view-menu-complete>
+    </div>
 </div>

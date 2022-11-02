@@ -40,7 +40,10 @@
 
   <div *ngIf="listMenu">
     <h2>Calendario</h2>
-    <div *ngIf="events.length > 1" class="full-calendar"><app-calendar-menu [events]="events"></app-calendar-menu></div>
+    <div *ngIf="events.length > 1" class="full-calendar">
+      <app-calendar-menu [events]="events"
+        (selectMenu)="onViewMenu($event)"></app-calendar-menu>
+    </div>
 
     <hr>
     <h2>Acciones</h2>

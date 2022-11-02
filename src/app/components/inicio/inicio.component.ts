@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
   aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías.";
   viewMenuByCategory : boolean = false;
   category : Category;
-  listUrlImage : string[];
+  listUrlImage : string[] = [];
 
 
   constructor(config: NgbCarouselConfig, 

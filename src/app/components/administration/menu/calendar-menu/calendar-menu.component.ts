@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CalendarOptions } from '@fullcalendar/core';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -14,6 +14,8 @@ import esLocale from '@fullcalendar/core/locales/es';
 export class CalendarMenuComponent implements OnInit {
 
   @Input() events : any[];
+  @Output() selectMenu : EventEmitter <number> = new EventEmitter();
+
   constructor() {
    }
 
@@ -35,7 +37,10 @@ export class CalendarMenuComponent implements OnInit {
       locale: esLocale,
 
       
-      events: this.events
+      events: this.events,
+
+      eventClick: this.clickEvent.bind(this),
+
 
       // options here
     });
@@ -43,5 +48,10 @@ export class CalendarMenuComponent implements OnInit {
       calendar.render();
 
   }
+
+  clickEvent(event: any): void {
+    this.selectMenu.emit(event.event?.extendedProps?.idMenu);    
+  }
+  
 
 }
