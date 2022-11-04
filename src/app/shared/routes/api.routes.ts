@@ -39,6 +39,9 @@ export const API_ROUTES ={
     },
     CLIENT :{
         REGISTERCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
-        UPDATEcLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`
+        UPDATECLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`
+    },
+    CITY : {
+        GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCITY`,
     }
 }

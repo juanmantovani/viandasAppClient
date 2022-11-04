@@ -1,7 +1,8 @@
-<h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{userProfile?.firstName}}! Por favor, ingresá tus datos de contacto</h3>
 
-<mat-dialog-content>
+<div class="container">
+    <h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{userProfile?.firstName}}! Por favor, ingresá tus datos de contacto</h3>
 
+    <div class="row" align="center">
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
@@ -19,7 +20,14 @@
             <input type="number" matInput formControlName="phone_secondary" name="phone_secondary"
                 id="phone_secondary" #phone_secondary placeholder="Teléfono secundario"  />
         </mat-form-field>
-
+        <mat-form-field appearance="fill">
+            <mat-label>Ciudad</mat-label>
+            <mat-select formControlName="city" name="city"  [(ngModel)]="idCitySelected">
+              <mat-option *ngFor="let city of listCities" [value]="city.id">
+                {{city.description}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         <mat-form-field appearance="fill" #street>
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street"
@@ -48,13 +56,10 @@
         </mat-form-field>
        
     </form>
-
-</mat-dialog-content>
+</div>
+</div>
 
 <mat-dialog-actions align="center">
-    <button mat-button color="primary" (click)="onClickCancel()">
-        <mat-icon>clear</mat-icon> CANCELAR
-    </button>
     <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
         [disabled]="form.status == 'INVALID'">
         <mat-icon>save</mat-icon> GUARDAR

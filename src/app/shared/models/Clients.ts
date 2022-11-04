@@ -17,7 +17,7 @@ export class Client {
           this.phone_primay = data.phone_primay;
           this.phone_seconday = data.phone_seconday;
           this.born_date = new Date(data?.born_date);
-          this.direction = new Direction(data?.direction);
+          this.direction = new Direction(data.direction);
         }
       }
 

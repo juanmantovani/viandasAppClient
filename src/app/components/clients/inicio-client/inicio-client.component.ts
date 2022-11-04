@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataFormRegisterClient } from 'src/app/shared/dto/clients/DataFormRegisterClient';
-import { RegisterClientRequest } from 'src/app/shared/dto/clients/RegisterClientRequest';
-import { RegisterClientResponse } from 'src/app/shared/dto/clients/RegisterClientResponse';
-import { UpdateClientRequest } from 'src/app/shared/dto/clients/UpdateClientRequest';
-import { UpdateClientResponse } from 'src/app/shared/dto/clients/UpdateClientResponse';
+import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
+import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
+import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
+import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
+import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResponse';
 import { Client } from 'src/app/shared/models/Clients';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
