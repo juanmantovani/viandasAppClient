@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
 import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
@@ -8,7 +10,7 @@ import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResp
 import { Client } from 'src/app/shared/models/Clients';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
-import { RegisterClientComponent } from '../register-client/register-client.component';
+import { ClientFormComponent } from '../client-form/client-form.component';
 
 @Component({
   selector: 'app-inicio-client',
@@ -17,15 +19,20 @@ import { RegisterClientComponent } from '../register-client/register-client.comp
 })
 export class InicioClientComponent implements OnInit {
   actionForm: string;
+  userProfile: KeycloakProfile | null = null;
 
-  constructor(public dialog: MatDialog, private clientService : ClientService) { }
 
-  ngOnInit(): void {
+  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService : ClientService) { }
+
+  async ngOnInit() {
+    this.userProfile = await this.keycloak.loadUserProfile();
+
     if(1 == 1){
       this.actionForm = 'Alta';
       const dataForm: DataFormRegisterClient = {
       actionForm: "Alta",
       client: new Client(null),
+      userProfile : this.userProfile
     };
     this.gestionateForm(dataForm);
     }
@@ -34,7 +41,7 @@ export class InicioClientComponent implements OnInit {
   async gestionateForm(dataForm: DataFormRegisterClient) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
-    const dialogRef = this.dialog.open(RegisterClientComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 
     componentInstance.onSubmit.subscribe(async (data) => {

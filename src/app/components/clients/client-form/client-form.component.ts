@@ -10,15 +10,14 @@ import { ClientService } from 'src/app/shared/services/client.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-register-client',
-  templateUrl: './register-client.component.html',
-  styleUrls: ['./register-client.component.css']
+  selector: 'app-client-form',
+  templateUrl: './client-form.component.html',
+  styleUrls: ['./client-form.component.css']
 })
-export class RegisterClientComponent implements OnInit {
+export class ClientFormComponent implements OnInit {
   result: Client;
   form: FormGroup;
   URLAPI = environment.urlApi;
-  userProfile: KeycloakProfile | null = null;
   listCities: City[];
   idCitySelected: number;
 
@@ -27,19 +26,17 @@ export class RegisterClientComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<RegisterClientComponent>,
+    public dialogRef: MatDialogRef<ClientFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private readonly keycloak: KeycloakService,
     private clientService : ClientService
   ) {
     this.onSubmit = new EventEmitter<Client | null>();
     this.form = this.generateForm();
   }
 
-  async ngOnInit() {
+  ngOnInit() {
     this.idCitySelected = this.data.direction?.city?.id;
     this.getCities();
-    this.userProfile = await this.keycloak.loadUserProfile();
 
 
   }
@@ -53,6 +50,7 @@ export class RegisterClientComponent implements OnInit {
       number: new FormControl(this.data.client.direction?.number),
       floor: new FormControl(this.data.client.direction?.floor),
       departament: new FormControl(this.data.client.direction?.departament),
+      born_date : new FormControl(this.data.client?.born_date,Validators.required),
       city : new FormControl(this.data.client.direction?.departament.city)
     });
   }
@@ -63,7 +61,8 @@ export class RegisterClientComponent implements OnInit {
 
   onClickSave() {
     this.result = this.form.getRawValue();
-    //this.result.direction.city = this.listCities.find(c => c.id == this.idCitySelected)
+    //this.result.direction.city = new City(this.listCities.find(c => c.id == this.idCitySelected))
+    console.log(this.result)
     this.onSubmit.emit(this.result);
   }
 

@@ -63,7 +63,7 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
 import { AuthModule } from './auth/auth.module';
 import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
 import { NavCLientComponent } from './components/clients/nav-client/nav-client.component';
-import { RegisterClientComponent } from './components/clients/register-client/register-client.component';
+import { ClientFormComponent } from './components/clients/client-form/client-form.component';
 import { ProfileComponent } from './components/clients/profile/profile.component';
 
 @NgModule({
@@ -95,7 +95,7 @@ import { ProfileComponent } from './components/clients/profile/profile.component
     ViewMenuComponent,
     InicioClientComponent,
     NavCLientComponent,
-    RegisterClientComponent,
+    ClientFormComponent,
     ProfileComponent
     
   ],
