@@ -4,8 +4,20 @@
             <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
         </a>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
-        <h4>Panel administracion {{ status }}</h4>
-    </mat-toolbar-row>
+        <h4>Panel administración {{ status }}</h4>
+
+    <span class="spacer"></span>
+    <div class="row">
+    <div ngbDropdown class="d-inline-block">
+        <button *ngIf="isLoggedIn" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
+          Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -15,7 +27,7 @@
         <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]" (click)="status='> Carrousel'">
             Carrousel
         </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Caregorias'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorias'"> 
+        <mat-list-item [ngClass]="{'active': status === '> Categorias'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorias'"> 
             Categorias
         </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
@@ -27,9 +39,7 @@
         <mat-list-item>
 
         </mat-list-item>
-        <mat-list-item>
-            <button ngbDropdownItem class="drowdownitem login"  type="button" (click)="logout()"><a>Cerrar Sesión</a></button>
-        </mat-list-item>
+
        </mat-list>
        
     </mat-sidenav>

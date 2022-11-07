@@ -34,21 +34,36 @@
       </button>
       <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
 
-      <mat-error *ngIf="!validDateMenu">Se encontraron platos asignados a los días ingresados</mat-error>
+      <div *ngIf="!validDateMenu">
+      <mat-error>Se encontraron platos asignados a los días ingresados</mat-error>
+      </div>
+      <div *ngIf="eventsMenu.length > 1">
+        <div class="fullCalendarContainer">
+          <h1>Calendario de menús</h1>
+          <div class="calendarMenu">
+            <app-calendar-menu [events]="eventsMenu"
+              (selectMenu)="onViewMenu($event)"></app-calendar-menu>
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 
   <div *ngIf="listMenu">
-    <h2>Calendario</h2>
-    <div *ngIf="events.length > 1" class="full-calendar">
-      <app-calendar-menu [events]="events"
-        (selectMenu)="onViewMenu($event)"></app-calendar-menu>
+    <div *ngIf="eventsFood.length > 30">
+      <div class="fullCalendarContainer">
+        <h1>Calendario</h1>
+        <div class="calendarMenu">
+          <app-calendar-food [events]="eventsFood"
+            (selectMenu)="onViewMenu($event)"></app-calendar-food>
+        </div>
+      </div>
     </div>
 
     <hr>
     <h2>Acciones</h2>
     <app-list-menu [dataSource]="dataSource" 
-      (viewMenu)="viewMenu($event)"
+      (menuId)="onViewMenu($event)"
       (deleteMenu)="deleteMenu($event)">
     </app-list-menu>
 

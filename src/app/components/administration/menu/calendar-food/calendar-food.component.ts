@@ -1,36 +1,36 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import esLocale from '@fullcalendar/core/locales/es';
 
-
-
 @Component({
-  selector: 'app-calendar-menu',
-  templateUrl: './calendar-menu.component.html',
-  styleUrls: ['./calendar-menu.component.css']
+  selector: 'app-calendar-food',
+  templateUrl: './calendar-food.component.html',
+  styleUrls: ['./calendar-food.component.css']
 })
-export class CalendarMenuComponent implements OnInit {
+export class CalendarFoodComponent implements OnInit {
 
   @Input() events : any[];
   @Output() selectMenu : EventEmitter <number> = new EventEmitter();
 
-  constructor() {
-   }
+  constructor() { }
 
   ngOnInit(): void {
+  }
+  ngAfterViewInit() {
     this.inicialiceCalendar();
+
   }
 
   inicialiceCalendar(){
-    let calendarEl: HTMLElement = document.getElementById('calendarMenu')!;
+    let calendarEl: HTMLElement = document.getElementById('calendarFood')!;
     
     let calendar = new Calendar(calendarEl, {
       weekends: false,
       plugins: [ dayGridPlugin ],
       navLinks: true,
-      initialView: 'dayGridMonth',
+      expandRows: true,
+      initialView: 'dayGridDay',
       headerToolbar: {
         left: 'prev,next today',
         center: 'title',
@@ -39,13 +39,12 @@ export class CalendarMenuComponent implements OnInit {
       locale: esLocale,
       events: this.events,
       eventClick: this.clickEvent.bind(this),
-      // options here
     });
     calendar.render();
   }
 
   clickEvent(event: any): void {
-    this.selectMenu.emit(event.event?.extendedProps?.idMenu);    
+    //this.selectMenu.emit(event.event?.extendedProps?.idMenu);    
   }
 
 }

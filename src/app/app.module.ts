@@ -62,6 +62,7 @@ import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu
 
 import { AuthModule } from './auth/auth.module';
 import { CalendarMenuComponent } from './components/administration/menu/calendar-menu/calendar-menu.component';
+import { CalendarFoodComponent } from './components/administration/menu/calendar-food/calendar-food.component';
 
 
 
@@ -93,6 +94,7 @@ import { CalendarMenuComponent } from './components/administration/menu/calendar
     MenuByCategoryComponent,
     ViewMenuComponent,
     CalendarMenuComponent,
+    CalendarFoodComponent,
     
   ],
   imports: [
