@@ -61,6 +61,13 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 import { AuthModule } from './auth/auth.module';
+import { CalendarMenuComponent } from './components/administration/menu/calendar-menu/calendar-menu.component';
+import { CalendarFoodComponent } from './components/administration/menu/calendar-food/calendar-food.component';
+
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
+
+
 
 @NgModule({
   declarations: [
@@ -88,7 +95,9 @@ import { AuthModule } from './auth/auth.module';
     ViewMenuCompleteComponent,
     CategoriesCardsComponent,
     MenuByCategoryComponent,
-    ViewMenuComponent
+    ViewMenuComponent,
+    CalendarMenuComponent,
+    CalendarFoodComponent,
     
   ],
   imports: [
@@ -125,7 +134,9 @@ import { AuthModule } from './auth/auth.module';
     MatAutocompleteModule,
     MatCardModule,
     MatGridListModule,
-    AuthModule
+    AuthModule,
+    GalleryModule,
+    LightboxModule,
     
 
   ],
@@ -140,6 +151,7 @@ import { AuthModule } from './auth/auth.module';
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 
 })
 export class AppModule { }

@@ -33,3 +33,8 @@ table{
     padding: 6px;
 }
   
+
+.mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+  }
+

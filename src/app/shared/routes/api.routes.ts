@@ -19,6 +19,8 @@ export const API_ROUTES ={
         UPLOADFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/uploadFood`,
         EDITFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/editFood`,
         DELETEFOOD : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/deleteFood`,
+        GETIMAGEBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.FOOD}/getImageByCategory`,
+
     },
     CATEGORY:{
         GETCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.CATEGORY}/getCategory`,

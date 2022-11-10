@@ -18,11 +18,7 @@ export class CategoryFormComponent implements OnInit {
   nameImage?: string | null;
   changeImage: boolean;
 
-
-
-
   @Output() onSubmit: EventEmitter<Category | null>;
-
 
   constructor(
     public dialogRef: MatDialogRef<CategoryFormComponent>,
@@ -43,6 +39,7 @@ export class CategoryFormComponent implements OnInit {
       title: new FormControl(this.data.category?.title, Validators.required),
       description: new FormControl(this.data.category?.description),
       price: new FormControl(this.data.category?.price),
+      color: new FormControl(this.data.category?.color)
     });
   }
 

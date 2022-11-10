@@ -17,3 +17,19 @@ table{
 	color: #ffffff;
 }
   
+
+.mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+  }
+
+  table {
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  .hidden{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+  }
+

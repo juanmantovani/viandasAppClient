@@ -8,6 +8,9 @@ body{
     font-family: Roboto;
 
 }
+mat-icon {
+    vertical-align: middle;
+}
 
 
 
