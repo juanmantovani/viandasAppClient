@@ -20,6 +20,7 @@ import { CalendarOptions } from '@fullcalendar/core';
 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import { EventInput } from '@fullcalendar/web-component';
+import { Observable } from 'rxjs';
 
 
 
@@ -39,6 +40,7 @@ export class MenuInicioComponent implements OnInit {
   listMenu: boolean;
   dataSource!: MatTableDataSource<MenuList>;
   menuViewer : MenuViewer;
+  viewCalendarFood: boolean;
 
   eventsMenu: any[] = [];
   eventsFood: any[] = [];
@@ -135,12 +137,11 @@ export class MenuInicioComponent implements OnInit {
   async getMenus(){
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
       this.dataSource = new MatTableDataSource(res.menuList);
-      this.completeCalendarFood();
     })
   }
 
- completeCalendarFood(){
-    this.dataSource.filteredData?.forEach(menuList => {
+ async completeCalendarFood(){
+    await this.dataSource.filteredData?.forEach(menuList => {
       //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
       this.menuService.getMenuByID(menuList.menuId).subscribe((res: GetMenuResponse) => {
         let menuViewer = new MenuViewer(res.menuViewer);
@@ -148,7 +149,7 @@ export class MenuInicioComponent implements OnInit {
           turnsViewer.categoryViewer?.forEach(categoryViewer => {
             categoryViewer.daysViewer?.forEach(dayViewer => {
               let food = {
-                title: 'Categoría: '+categoryViewer.category.title+' Plato: ' + dayViewer.foodViewer.title,
+                title: categoryViewer.category.title+' - ' + dayViewer.foodViewer.title,
                 idMenu: menuViewer.id,
                 start: new Date(dayViewer.date),
                 allDay: true,
@@ -236,6 +237,11 @@ export class MenuInicioComponent implements OnInit {
     await this.menuService.getMenuByID(menuId).subscribe((res: GetMenuResponse) => {
       this.showMenu(new MenuViewer(res.menuViewer))
     })
+  }
+
+ async onClickCalendar() {
+    await this.completeCalendarFood();
+    this.viewCalendarFood = true;
   }
 
 

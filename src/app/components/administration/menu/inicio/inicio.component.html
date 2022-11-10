@@ -4,12 +4,16 @@
     <button mat-raised-button (click)="onClickListAllMenus()" class="button">
       Listar menús
     </button>
+    <button mat-raised-button (click)="onClickCalendar()" class="button">
+      Ver Calendario
+    </button>
     <button mat-raised-button (click)="onClickEdit()" class="button">
       Editar día
     </button>
     <button mat-raised-button (click)="onClickAdd()" class="button">
       Agregar
     </button>
+
 
   </div>
 
@@ -50,23 +54,21 @@
   </div>
 
   <div *ngIf="listMenu">
-    <div *ngIf="eventsFood.length > 30">
-      <div class="fullCalendarContainer">
-        <h1>Calendario</h1>
-        <div class="calendarMenu">
-          <app-calendar-food [events]="eventsFood"
-            (selectMenu)="onViewMenu($event)"></app-calendar-food>
-        </div>
-      </div>
-    </div>
-
-    <hr>
     <h2>Acciones</h2>
     <app-list-menu [dataSource]="dataSource" 
       (menuId)="onViewMenu($event)"
       (deleteMenu)="deleteMenu($event)">
     </app-list-menu>
+  </div>
 
+  <div *ngIf="viewCalendarFood&&eventsFood.length > 1">
+    <div class="fullCalendarContainer">
+      <h1>Calendario</h1>
+      <div class="calendarMenu">
+        <app-calendar-food [events]="eventsFood"
+          (selectMenu)="onViewMenu($event)"></app-calendar-food>
+      </div>
+    </div>
   </div>
 
   <hr>

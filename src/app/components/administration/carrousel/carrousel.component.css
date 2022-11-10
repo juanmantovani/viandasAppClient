@@ -16,4 +16,7 @@ table{
 	background: #E3AE06;
 	color: #ffffff;
 }
-  
+
+.mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+  }

@@ -14,6 +14,8 @@ import { Utils } from 'src/app/shared/utils';
 export class ViewMenuCompleteComponent implements OnInit {
 
   @Input() menuViewer: MenuViewer;
+  @Input() categoryColor : string;
+
 
   displayedColumns: string[] = ['date', 'foodViewer'];
   dataSource!: MatTableDataSource<CategoryViewer>;

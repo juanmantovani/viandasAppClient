@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
+import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { Category } from 'src/app/shared/models/Category';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
+import { CategoryService } from 'src/app/shared/services/category.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,19 +23,20 @@ import { environment } from 'src/environments/environment';
 
 
 export class InicioComponent implements OnInit {
-  menuViewer : MenuViewer;
-  turnsViewer : TurnViewer;
   URLAPI = environment.urlApi;
   mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
   aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías.";
   viewMenuByCategory : boolean = false;
   category : Category;
+  categories : Category[] = [];
   listUrlImage : string[] = [];
 
 
   constructor(config: NgbCarouselConfig, 
     private carrouselService : CarrouselService,
-    private menuService: MenuService,
+    //private menuService: MenuService,
+    private categoryService: CategoryService,
+
     ) {
     config.interval = 6000;
     config.wrap = true;
@@ -47,7 +50,7 @@ export class InicioComponent implements OnInit {
 
  async ngOnInit() {
   this.getBannersIndex();
-  await this.getMenu();
+  await this.getCategories();
   }
   
   async getBannersIndex() {
@@ -56,12 +59,18 @@ export class InicioComponent implements OnInit {
     })
   }
 
-  async getMenu(){
-    await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
-      this.menuViewer = new MenuViewer (res.menuViewer);
-      this.turnsViewer = this.menuViewer.turnsViewer[0];
-    })
+  // async getMenu(){
+  //   await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
+  //     this.menuViewer = new MenuViewer (res.menuViewer);
+  //     this.turnsViewer = this.menuViewer.turnsViewer[0];
+  //   })
 
+  // }
+
+  async getCategories() {
+    await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
+      this.categories = res.categories;
+    })
   }
 
   showMenuByCategory(category : Category){

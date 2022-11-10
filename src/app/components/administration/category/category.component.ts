@@ -22,7 +22,7 @@ import { CategoryFormComponent } from '../category-form/category-form.component'
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = ['title','description', 'price', 'actions'];
+  displayedColumns: string[] = ['title','description', 'price','color', 'actions'];
   dataSource!: MatTableDataSource<Category>;
   actionForm: string;
 
@@ -126,8 +126,6 @@ export class CategoryComponent implements OnInit {
     const addCategoryRequest: AddCategoryRequest = {
       category: category
     }
-    console.log(addCategoryRequest)
-
     await this.categoryService.addCategory(addCategoryRequest).subscribe((res: AddCategoryResponse) => {
       this.getCategories()
       return res;

@@ -1,12 +1,21 @@
 import { Injectable } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
+import { KeycloakEventType, KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile, KeycloakTokenParsed } from 'keycloak-js';
 import { from, Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
 
-  constructor(private keycloakService: KeycloakService) {}
+  constructor(private keycloakService: KeycloakService) {
+
+    keycloakService.keycloakEvents$.subscribe({
+      next: (e) => {
+        if (e.type == KeycloakEventType.OnTokenExpired) {
+          keycloakService.updateToken(20);
+        }
+      }
+    });
+  }
 
   public getLoggedUser(): KeycloakTokenParsed | undefined {
     try {
@@ -17,6 +26,8 @@ export class AuthService {
       console.error("Exception", e);
       return undefined;
     }
+
+
   }
 
   public isLoggedIn() : Promise<boolean> {

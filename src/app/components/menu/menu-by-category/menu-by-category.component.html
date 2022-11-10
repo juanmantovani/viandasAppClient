@@ -16,10 +16,21 @@
             <hr>
         </div>
     </div>
-    <div class="row">
-        <h2>Desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
+    <div *ngIf="showMenu">
+        <div class="row">
+            {{menuViewer | json}}
+            <h2>Menú disponible desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
+        </div>
+        <div class="row">
+            <app-view-menu-complete [menuViewer]="menuViewer" [categoryColor]="category.color"></app-view-menu-complete>
+        </div>
     </div>
-    <div class="row">
-        <app-view-menu-complete [menuViewer]="menuViewer"></app-view-menu-complete>
+    <div *ngIf="!showMenu">
+        <h2>No hay ningún menú disponible <mat-icon>error_outline</mat-icon></h2>
+    </div>
+
+    <div class="col-md" *ngFor="let img of images">
+        <img mat-card-image src="{{URLAPI}}{{img.urlImage}}" alt="Foto del menú {{img.title}}">
+        {{img.title}}
     </div>
 </div>

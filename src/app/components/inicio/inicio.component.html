@@ -2,6 +2,7 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
 <div *ngIf="!viewMenuByCategory">
+
   <ngb-carousel class="top" *ngIf="listUrlImage.length > 0">
     <ng-template ngbSlide *ngFor="let img of listUrlImage">
       <div class="picsum-img-wrapper">
@@ -9,6 +10,7 @@
       </div>
     </ng-template>
   </ngb-carousel>
+
   <ngb-carousel class="top" *ngIf="listUrlImage.length == 0">
     <ng-template ngbSlide>
       <div class="picsum-img-wrapper">
@@ -16,14 +18,14 @@
       </div>
     </ng-template>
   </ngb-carousel>
+  
   <div class="container" id="menu">
     <div class="row gray">
       <div class="m-0 justify-content-center align-items-center title">
-        <h1 class="col-auto text-center" *ngIf="turnsViewer">Nuestros Menú disponibles</h1>
-        <h1 class="col-auto text-center" *ngIf="!turnsViewer">No hay ningún menú disponible <mat-icon>error_outline</mat-icon></h1>
+        <h1 class="col-auto text-center">Nuestros variedades disponibles</h1>
       </div>
-        <div class="col-md" *ngFor="let category of turnsViewer?.categoryViewer">
-          <app-categories-cards [categoryViewer]="category"
+        <div class="col-md" *ngFor="let category of categories">
+          <app-categories-cards [category]="category"
           (onCategory)="showMenuByCategory($event)">
           </app-categories-cards>
         </div>

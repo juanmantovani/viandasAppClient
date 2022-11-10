@@ -22,8 +22,21 @@
         <mat-form-field appearance="fill" #price>
             <mat-label>Precio</mat-label>
             <input type="number" matInput formControlName="price" name="price"
-                id="price" #price placeholder="Ingrese un titulo" required />
+                id="price" #price placeholder="Ingrese el precio" required />
         </mat-form-field>
+
+        <mat-form-field appearance="fill" #color>
+            <mat-label>Código de color con el #</mat-label>
+            <input type="text" matInput formControlName="color" name="color"
+                id="color" #color placeholder="Ingrese un código de color" required />
+        </mat-form-field>
+
+
+        <h4 mat-dialog-subtitle>Machete para los developer: Proteico color: #EAA15D;
+        General color: #CF8266;
+        Liviano color: #E4BC43;           
+        Veggie color: #607D51</h4>         
+        
 
         <h4 mat-dialog-subtitle>La imagen debe tener 1080 x 1080 (Ancho x Alto)</h4>
 

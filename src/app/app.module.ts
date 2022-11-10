@@ -64,6 +64,9 @@ import { AuthModule } from './auth/auth.module';
 import { CalendarMenuComponent } from './components/administration/menu/calendar-menu/calendar-menu.component';
 import { CalendarFoodComponent } from './components/administration/menu/calendar-food/calendar-food.component';
 
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
+
 
 
 @NgModule({
@@ -131,7 +134,9 @@ import { CalendarFoodComponent } from './components/administration/menu/calendar
     MatAutocompleteModule,
     MatCardModule,
     MatGridListModule,
-    AuthModule
+    AuthModule,
+    GalleryModule,
+    LightboxModule,
     
 
   ],

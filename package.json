@@ -29,6 +29,7 @@
     "keycloak-angular": "^12.1.0",
     "keycloak-js": "^19.0.1",
     "moment": "^2.29.4",
+    "ng-gallery": "^7.1.2",
     "ngx-dropzone": "^3.1.0",
     "rxjs": "~7.5.5",
     "tslib": "^2.3.0",

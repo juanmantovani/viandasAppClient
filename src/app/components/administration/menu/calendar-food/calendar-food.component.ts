@@ -23,6 +23,7 @@ export class CalendarFoodComponent implements OnInit {
   }
 
   inicialiceCalendar(){
+    
     let calendarEl: HTMLElement = document.getElementById('calendarFood')!;
     
     let calendar = new Calendar(calendarEl, {
