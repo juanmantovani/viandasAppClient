@@ -9,10 +9,15 @@ import { MenuInicioComponent } from './components/administration/menu/inicio/ini
 import { CategoryComponent } from './components/administration/category/category.component';
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 import { AuthGuard } from './auth/auth.guard';
+import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
+import { ProfileComponent } from './components/clients/profile/profile.component';
+import { PathologyComponent } from './components/administration/pathology/pathology.component';
 
 
 
 const routes: Routes = [
+
+
   {path: '', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO, pathMatch: 'full' },
   
 
@@ -29,15 +34,23 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.CARROUSEL, component: CarrouselComponent },
       {path: ROUTES.INTERNAL_ROUTES.FOOD, component: FoodComponent },
       {path: ROUTES.INTERNAL_ROUTES.CATEGORY, component: CategoryComponent },
-      {path: ROUTES.INTERNAL_ROUTES.MENU, component: MenuInicioComponent}
+      {path: ROUTES.INTERNAL_ROUTES.MENU, component: MenuInicioComponent},
+      {path: ROUTES.INTERNAL_ROUTES.PATHOLOGY, component: PathologyComponent}
     ],
     
     canActivate: [ AuthGuard ]
   },
 
-  {path: '**', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO}
+  { path: ROUTES.INTERNAL_ROUTES.CLIENT, 
+    component: InicioClientComponent,
+    children:[
+      {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent }
+    ],
+    canActivate: [ AuthGuard ]
+  },
 
-  
+  {path: '**', redirectTo: ROUTES.INTERNAL_ROUTES.INICIO},
+
 
 ];
 

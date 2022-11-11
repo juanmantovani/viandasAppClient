@@ -1,0 +1,29 @@
+<h1 mat-dialog-title>{{data.actionForm}} patología</h1>
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill" #description>
+            <mat-label>Descripción</mat-label>
+            <input type="text" matInput formControlName="description" name="description"
+                id="description" #description placeholder="Ingrese una descripción" required />
+            <mat-hint *ngIf="form!.controls['description']!.touched && form!.controls['description']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

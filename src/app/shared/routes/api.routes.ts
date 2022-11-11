@@ -38,10 +38,18 @@ export const API_ROUTES ={
         DELETEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,
         GETMENUBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategory`,
         GETMENUBYID : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByID`,
-
-
-
-
-
+    },
+    CLIENT :{
+        REGISTERCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
+        UPDATECLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`
+    },
+    PATHOLOGY:{
+        GETPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`,
+        UPLOADPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/uploadPathology`,
+        EDITPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/editPathology`,
+        DELETEPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/deletePathology`,
+    },
+    CITY : {
+        GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCITY`,
     }
 }

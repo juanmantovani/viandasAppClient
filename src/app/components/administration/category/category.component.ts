@@ -126,6 +126,7 @@ export class CategoryComponent implements OnInit {
     const addCategoryRequest: AddCategoryRequest = {
       category: category
     }
+
     await this.categoryService.addCategory(addCategoryRequest).subscribe((res: AddCategoryResponse) => {
       this.getCategories()
       return res;

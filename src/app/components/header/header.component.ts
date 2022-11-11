@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
   
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
   ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION;
+  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT
 
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
@@ -55,7 +56,7 @@ export class HeaderComponent implements OnInit {
     }
     
     if (this.userRoles.indexOf('client') != -1){
-      //this.router.navigateByUrl(this.ADMINISTRATION);
+      this.router.navigateByUrl(this.CLIENT);
       return false
     }
   }

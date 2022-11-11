@@ -8,5 +8,10 @@ export const INTERNAL_ROUTES = {
     CATEGORY: 'category',
     MENU: 'menu',
     MENUBYCATEGORY: 'menuByCategory',
+    CLIENT : 'client',
+    PROFILE : 'profile',
+    CITY: 'city',
+    PATHOLOGY: 'pathology'
+
 }
 
