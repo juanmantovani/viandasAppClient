@@ -6,8 +6,11 @@
 
         <mat-form-field appearance="fill" #description>
             <mat-label>Descripción</mat-label>
-            <textarea type="text" matInput formControlName="description" name="description"
-                id="description" #description placeholder="Ingrese una descripción" rows="3" ></textarea>
+            <input type="text" matInput formControlName="description" name="description"
+                id="description" #description placeholder="Ingrese una descripción" required />
+            <mat-hint *ngIf="form!.controls['description']!.touched && form!.controls['description']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
         </mat-form-field>
 
     </form>

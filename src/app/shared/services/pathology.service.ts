@@ -23,20 +23,18 @@ export class PathologyService {
   getPathology(): Observable<GetPathologyResponse> {
     return this.http.get<GetPathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.GETPATHOLOGY).pipe(
    map((res: any) => {
-    console.log(ROUTES.API_ROUTES.PATHOLOGY.GETPATHOLOGY)
-    console.log(res)
      return new GetPathologyResponse(res);
    })
  )
 }
 
 addPathology(request: AddPathologyRequest) : Observable<AddPathologyResponse> {    
-  return this.http.post<AddPathologyResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, JSON.stringify(request), this.OPTION ).pipe(
+  return this.http.post<AddPathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.UPLOADPATHOLOGY, JSON.stringify(request), this.OPTION ).pipe(
   tap (res => new AddPathologyResponse(res)))
 }
 
 editPathology(request: EditPathologyRequest) : Observable<EditPathologyResponse>{
-  return this.http.put<EditPathologyResponse>(ROUTES.API_ROUTES.MENU.EDITMENU, JSON.stringify(request), this.OPTION ).pipe(
+  return this.http.put<EditPathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.EDITPATHOLOGY, JSON.stringify(request), this.OPTION ).pipe(
     tap (res => new EditPathologyResponse(res)))
 }
 
@@ -44,7 +42,7 @@ deletePathology(request: DeletePathologyRequest): Observable<DeletePathologyResp
   let params = new HttpParams();
   params = params.set('idPathology', request.idPathology?.toString());
 
-  return this.http.delete<DeletePathologyResponse>(ROUTES.API_ROUTES.CATEGORY.DELETECATEGORY, {params}).pipe(
+  return this.http.delete<DeletePathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.DELETEPATHOLOGY, {params}).pipe(
   tap (res => new DeletePathologyResponse(res))
   );
 }

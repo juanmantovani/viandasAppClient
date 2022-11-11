@@ -44,7 +44,10 @@ export const API_ROUTES ={
         UPDATECLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`
     },
     PATHOLOGY:{
-        GETPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`
+        GETPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`,
+        UPLOADPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/uploadPathology`,
+        EDITPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/editPathology`,
+        DELETEPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/deletePathology`,
     },
     CITY : {
         GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCITY`,
