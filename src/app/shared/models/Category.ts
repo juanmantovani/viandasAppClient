@@ -6,6 +6,8 @@ export class Category {
     checked: boolean
     image: Blob;
     urlImage: string;
+    color: string;
+
 
 
     constructor(data:any) {
@@ -16,6 +18,7 @@ export class Category {
           this.price = data.price;
           this.checked = data.checked;
           this.urlImage= data.urlImage;
+          this.color= data.color;
 
         }
       }

@@ -34,3 +34,23 @@ mat-toolbar{
 .nav-link.closeSession{
     color: red;
 }
+
+.spacer {
+    flex: 1 1 auto;
+  }
+
+
+  .drowdownitem:hover{
+    background: #E3AE06;
+}
+
+
+.drowdownitem.login:hover a{
+    color:#ffffff;
+}
+
+.dropdown-toggle::after{
+    content: none;
+}
+
+

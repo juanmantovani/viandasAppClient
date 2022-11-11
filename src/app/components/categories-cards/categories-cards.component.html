@@ -1,15 +1,15 @@
 <mat-card class="example-card"> 
     <mat-card-header class="text">
-      <mat-card-title>Menú {{categoryViewer.category.title}} </mat-card-title>
+      <mat-card-title>Menú {{category.title}} </mat-card-title>
     </mat-card-header>
-    <img mat-card-image src="{{URLAPI}}{{categoryViewer.category.urlImage}}" alt="Foto del menú {{categoryViewer.category.title}}">
+    <img mat-card-image src="{{URLAPI}}{{category.urlImage}}" alt="Foto del menú {{category.title}}">
     <mat-card-content>
       <p>
-        {{categoryViewer.category.description}}
+        {{category.description}}
       </p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button class="{{categoryViewer.category.title}}" (click)="onClickCategory()">Ver info</button>
+      <button mat-raised-button [style]="{'background-color': category.color}" (click)="onClickCategory()">Ver info</button>
       <!-- <button mat-button>SHARE</button> -->
     </mat-card-actions>
   </mat-card>

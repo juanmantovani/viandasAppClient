@@ -61,6 +61,11 @@ import { ViewMenuComponent } from './components/administration/menu/view-menu/vi
 import { MenuByCategoryComponent } from './components/menu/menu-by-category/menu-by-category.component';
 
 import { AuthModule } from './auth/auth.module';
+import { CalendarMenuComponent } from './components/administration/menu/calendar-menu/calendar-menu.component';
+import { CalendarFoodComponent } from './components/administration/menu/calendar-food/calendar-food.component';
+
+import { GalleryModule } from  'ng-gallery';
+import { LightboxModule } from  'ng-gallery/lightbox';
 import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
 import { NavCLientComponent } from './components/clients/nav-client/nav-client.component';
 import { ClientFormComponent } from './components/clients/client-form/client-form.component';
@@ -93,10 +98,12 @@ import { ProfileComponent } from './components/clients/profile/profile.component
     CategoriesCardsComponent,
     MenuByCategoryComponent,
     ViewMenuComponent,
+    CalendarMenuComponent,
+    CalendarFoodComponent,
     InicioClientComponent,
     NavCLientComponent,
     ClientFormComponent,
-    ProfileComponent
+    ProfileComponent,
     
   ],
   imports: [
@@ -133,9 +140,9 @@ import { ProfileComponent } from './components/clients/profile/profile.component
     MatAutocompleteModule,
     MatCardModule,
     MatGridListModule,
-    AuthModule
-    
-
+    AuthModule,
+    GalleryModule,
+    LightboxModule
   ],
   providers: [
     MatNotificationComponent,
@@ -148,6 +155,7 @@ import { ProfileComponent } from './components/clients/profile/profile.component
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  
 
 })
 export class AppModule { }

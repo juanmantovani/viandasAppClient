@@ -11,18 +11,19 @@ import { environment } from 'src/environments/environment';
 })
 export class CategoriesCardsComponent implements OnInit {
  
-  @Input() categoryViewer: CategoryViewer;
+  @Input() category: Category;
   @Output() onCategory : EventEmitter <Category> = new EventEmitter();
   URLAPI = environment.urlApi;
-
+  color : string;
 
   constructor() { 
   }
 
   ngOnInit(): void {
+    
   }
   onClickCategory(){
-    this.onCategory.emit(this.categoryViewer.category);
+    this.onCategory.emit(this.category);
 
   }
 

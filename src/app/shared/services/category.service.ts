@@ -20,7 +20,6 @@ export class CategoryService {
   getCategories(): Observable<GetCategoryResponse> {
     return this.http.get<GetCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.GETCATEGORY).pipe(
    map((res: any) => {
-     
      return new GetCategoryResponse(res);
    })
  )
@@ -31,6 +30,8 @@ addCategory(request: AddCategoryRequest) : Observable<AddCategoryResponse> {
   formData.append('image', request.category.image);
   formData.append('title', request.category.title);
   formData.append('price', request.category.price.toString());
+  formData.append('color', request.category.color);
+
   if(request.category.description != null)
       formData.append('description', request.category.description);
 
@@ -47,6 +48,8 @@ editCategory(request: EditCategoryRequest) : Observable<EditCategoryResponse> {
   formData.append('price', request.category.price.toString());
   formData.append('description', request.category.description);
   formData.append('id', request.category.id.toString());
+  formData.append('color', request.category.color);
+
 
 
   return this.http.put<EditCategoryResponse>(ROUTES.API_ROUTES.CATEGORY.EDITCATEGORY, formData).pipe(

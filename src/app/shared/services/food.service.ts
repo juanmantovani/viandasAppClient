@@ -9,6 +9,8 @@ import { EditFoodRequest } from '../dto/food/EditFoodRequest';
 import { EditFoodResponse } from '../dto/food/EditFoodResponse';
 import { GetFoodByCategoryRequest } from '../dto/food/GetFoodByCategoryRequest';
 import { GetFoodResponse } from '../dto/food/GetFoodResponse';
+import { GetImageByCategoryRequest } from '../dto/food/GetImageByCategoryRequest';
+import { GetImageByCategoryResponse } from '../dto/food/GetImageByCategoryResponse';
 import { Category } from '../models/Category';
 import  * as ROUTES  from '../routes/index.routes'
 
@@ -89,5 +91,16 @@ formatStringCategories(categories : Category[]){
     tap (res => new DeleteFoodResponse(res))
     );
   }
+
+  getImageByCategory(request : GetImageByCategoryRequest) : Observable<GetImageByCategoryResponse> {
+    let params = new HttpParams();
+    params = params.set('idCategory', request.idCategory?.toString());
+
+    return this.http.get<GetImageByCategoryResponse>(ROUTES.API_ROUTES.FOOD.GETIMAGEBYCATEGORY, { params }).pipe(
+   map((res: any) => {
+     return new GetImageByCategoryResponse(res);
+   })
+ )
+} 
 
 }
