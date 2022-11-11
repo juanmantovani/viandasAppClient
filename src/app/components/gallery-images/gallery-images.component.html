@@ -1,0 +1,11 @@
+<gallery id="foodGallery" [itemTemplate]="itemTemplate"></gallery>
+
+<ng-template #itemTemplate
+             let-index="index"
+             let-type="type"
+             let-data="data"
+             let-currIndex="currIndex">
+  <span *ngIf="type === 'image' && index === currIndex" class="item-text">
+    {{data?.title}}
+  </span>
+</ng-template>

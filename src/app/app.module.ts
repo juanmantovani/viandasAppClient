@@ -66,6 +66,9 @@ import { CalendarFoodComponent } from './components/administration/menu/calendar
 
 import { GalleryModule } from  'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
+import { GalleryImagesComponent } from './components/gallery-images/gallery-images.component';
+
+
 import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
 import { NavCLientComponent } from './components/clients/nav-client/nav-client.component';
 import { ClientFormComponent } from './components/clients/client-form/client-form.component';
@@ -102,6 +105,7 @@ import { PathologyFormComponent } from './components/administration/pathology-fo
     ViewMenuComponent,
     CalendarMenuComponent,
     CalendarFoodComponent,
+    GalleryImagesComponent,
     InicioClientComponent,
     NavCLientComponent,
     ClientFormComponent,
