@@ -66,6 +66,7 @@ import { CalendarFoodComponent } from './components/administration/menu/calendar
 
 import { GalleryModule } from  'ng-gallery';
 import { LightboxModule } from  'ng-gallery/lightbox';
+import { GalleryImagesComponent } from './components/gallery-images/gallery-images.component';
 
 
 
@@ -98,6 +99,7 @@ import { LightboxModule } from  'ng-gallery/lightbox';
     ViewMenuComponent,
     CalendarMenuComponent,
     CalendarFoodComponent,
+    GalleryImagesComponent,
     
   ],
   imports: [

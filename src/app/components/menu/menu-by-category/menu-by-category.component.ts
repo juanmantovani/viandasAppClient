@@ -23,6 +23,7 @@ export class MenuByCategoryComponent implements OnInit {
   URLAPI = environment.urlApi;
   images : FoodViewer[] = [];
   showMenu : boolean;
+  showGalleryImages : boolean;
 
   constructor(
       private menuService: MenuService,
@@ -30,11 +31,13 @@ export class MenuByCategoryComponent implements OnInit {
     ) 
     {
     this.menuViewer = new MenuViewer(null);
+
    }
 
   ngOnInit() {
     this.getMenuByCategory();
     this.getImageByCategory();
+
   }
 
   getMenuByCategory(){
@@ -49,9 +52,14 @@ export class MenuByCategoryComponent implements OnInit {
       idCategory: this.category.id
     }
     this.foodService.getImageByCategory(request).subscribe((res: GetImageByCategoryResponse) => {
-      this.images = res.foodViewer;
+      if (res.foodViewer.length > 0){
+        this.images = res.foodViewer;
+        this.showGalleryImages = true;
+      }
     })
+
   }
+  
 
 
 
