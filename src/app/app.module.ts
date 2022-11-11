@@ -70,6 +70,8 @@ import { InicioClientComponent } from './components/clients/inicio-client/inicio
 import { NavCLientComponent } from './components/clients/nav-client/nav-client.component';
 import { ClientFormComponent } from './components/clients/client-form/client-form.component';
 import { ProfileComponent } from './components/clients/profile/profile.component';
+import { PathologyComponent } from './components/administration/pathology/pathology.component';
+import { PathologyFormComponent } from './components/administration/pathology-form/pathology-form.component';
 
 @NgModule({
   declarations: [
@@ -104,6 +106,8 @@ import { ProfileComponent } from './components/clients/profile/profile.component
     NavCLientComponent,
     ClientFormComponent,
     ProfileComponent,
+    PathologyComponent,
+    PathologyFormComponent,
     
   ],
   imports: [

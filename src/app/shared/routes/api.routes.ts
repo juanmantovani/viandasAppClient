@@ -43,6 +43,9 @@ export const API_ROUTES ={
         REGISTERCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
         UPDATECLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`
     },
+    PATHOLOGY:{
+        GETPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`
+    },
     CITY : {
         GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCITY`,
     }

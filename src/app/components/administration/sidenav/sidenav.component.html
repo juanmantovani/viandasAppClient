@@ -36,8 +36,8 @@
         <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]" (click)="status='> Menú'"> 
             Menú
         </mat-list-item>
-        <mat-list-item>
-
+        <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[PATHOLOGY]" (click)="status='> Patologías'"> 
+            Patologías
         </mat-list-item>
 
        </mat-list>
