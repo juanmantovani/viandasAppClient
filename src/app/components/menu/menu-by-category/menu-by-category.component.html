@@ -17,7 +17,7 @@
         </div>
     </div>
     <div *ngIf="showMenu">
-        <div >
+        <div class="row">
             <h2>Menú disponible desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
         </div>
         <div class="row">
@@ -29,8 +29,8 @@
     </div>
 
     <div class="row" *ngIf="showGalleryImages">
+        <h2>Nuestros productos</h2>
         <app-gallery-images [imagesCategory]="images"></app-gallery-images>
     </div>
-
     
 </div>
