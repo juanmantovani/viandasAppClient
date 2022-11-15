@@ -36,7 +36,6 @@ export class ClientService {
   getCities(): Observable<GetCityResponse>{
     return this.http.get<GetCityResponse>(ROUTES.API_ROUTES.CITY.GETCITY).pipe(
       map((res: any) => {
-     
         return new GetCityResponse(res);
       })
     )  

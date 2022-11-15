@@ -50,6 +50,6 @@ export const API_ROUTES ={
         DELETEPATHOLOGY : `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/deletePathology`,
     },
     CITY : {
-        GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCITY`,
+        GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCity`,
     }
 }
