@@ -30,16 +30,7 @@
             <input type="number" matInput formControlName="phoneSecondary" name="phoneSecondary"
                 id="phoneSecondary" #phoneSecondary placeholder="Teléfono secundario"  />
         </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Ciudad</mat-label>
-            <mat-select formControlName="city" name="city"  [(ngModel)]="idCitySelected">
-              <mat-option *ngFor="let city of listCities" [value]="city.id">
-                {{city.description}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          
+              
         <mat-form-field appearance="fill" #street>
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street"

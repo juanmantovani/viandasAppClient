@@ -1,9 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { KeycloakService } from 'keycloak-angular';
-import { KeycloakProfile } from 'keycloak-js';
-import { GetCityResponse } from 'src/app/shared/dto/city/GetCityResponse';
 import { GetPathologyResponse } from 'src/app/shared/dto/pathology/GetPathologyResponse';
 import { City } from 'src/app/shared/models/City';
 import { Client } from 'src/app/shared/models/Clients';
@@ -41,7 +38,6 @@ export class ClientFormComponent implements OnInit {
 
   ngOnInit() {
     this.idCitySelected = this.data.direction?.city?.id;
-    this.getCities();
     this.getPathologies();
 
   }
@@ -56,7 +52,6 @@ export class ClientFormComponent implements OnInit {
       floor: new FormControl(this.data.client.direction?.floor),
       departament: new FormControl(this.data.client.direction?.departament),
       bornDate : new FormControl(this.data.client?.bornDate,Validators.required),
-      city : new FormControl(this.data.client.direction?.city),
       obsClient: new FormControl(this.data.client?.observation),
       obsDirection : new FormControl(this.data.direction?.observation)
     });
@@ -69,15 +64,7 @@ export class ClientFormComponent implements OnInit {
   onClickSave() {
     this.result = this.form.getRawValue();
     this.result.pathologies = this.listPathologies
-    //this.result.direction.city = new City(this.listCities.find(c => c.id == this.idCitySelected))
-    console.log(this.result)
-    //this.onSubmit.emit(this.result);
-  }
-
-  async getCities() {
-    await this.clientService.getCities().subscribe((res: GetCityResponse) => {
-      this.listCities = res.cities;
-    })
+    this.onSubmit.emit(this.result);
   }
 
   async getPathologies(){
