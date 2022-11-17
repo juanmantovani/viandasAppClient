@@ -16,6 +16,8 @@ export class DayOrder {
           this.food = new Food(data?.food);
           this.date = new Date(data?.date);
           this.category = new Category(data?.category);
+          this.cant = data.cant;
+          this.observation = data.observation;
         }
       }
 }
