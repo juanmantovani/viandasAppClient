@@ -5,7 +5,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { GetCityResponse } from 'src/app/shared/dto/city/GetCityResponse';
 import { City } from 'src/app/shared/models/City';
-import { Client } from 'src/app/shared/models/Clients';
+import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { environment } from 'src/environments/environment';
 

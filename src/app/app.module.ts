@@ -43,6 +43,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 import { MatConfirmDialogComponent } from './shared/components/mat-confirm-dialog/mat-confirm-dialog.component';
@@ -75,6 +77,7 @@ import { ClientFormComponent } from './components/clients/client-form/client-for
 import { ProfileComponent } from './components/clients/profile/profile.component';
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
 import { PathologyFormComponent } from './components/administration/pathology-form/pathology-form.component';
+import { ListFoodComponent } from './components/clients/order/list-food/list-food.component';
 
 @NgModule({
   declarations: [
@@ -112,6 +115,7 @@ import { PathologyFormComponent } from './components/administration/pathology-fo
     ProfileComponent,
     PathologyComponent,
     PathologyFormComponent,
+    ListFoodComponent,
     
   ],
   imports: [
@@ -150,7 +154,8 @@ import { PathologyFormComponent } from './components/administration/pathology-fo
     MatGridListModule,
     AuthModule,
     GalleryModule,
-    LightboxModule
+    LightboxModule,
+    MatChipsModule
   ],
   providers: [
     MatNotificationComponent,

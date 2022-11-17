@@ -31,6 +31,8 @@ export class MenuService {
   getMenu(): Observable<GetMenuResponse> {
     return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENU).pipe(
     map((res: any) => {
+      console.log(res);
+
      return new GetMenuResponse(res);
    })
  )
@@ -84,6 +86,7 @@ export class MenuService {
     params = params.set('idMenu', idMenu?.toString());
     return this.http.get<GetMenuByIDResponse>(ROUTES.API_ROUTES.MENU.GETMENUBYID, {params}).pipe(
       map((res: any) => {
+        console.log(res);
         return new GetMenuByCategoryResponse(res);
       })
      )

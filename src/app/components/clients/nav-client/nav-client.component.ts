@@ -14,13 +14,27 @@ export class NavCLientComponent implements OnInit {
 
   opened = false;
   PROFILE = ROUTES.INTERNAL_ROUTES.PROFILE;
+  ORDER = ROUTES.INTERNAL_ROUTES.ORDER;
+
   status: string;
   userProfile: KeycloakProfile | null = null;
+
+  public isLoggedIn = false;
+  public userRoles: string [] = [];
+
+
 
   constructor(private readonly keycloak: KeycloakService, private router : Router) { }
 
   async ngOnInit() {
-    this.userProfile = await this.keycloak.loadUserProfile();   
+    this.userProfile = await this.keycloak.loadUserProfile(); 
+    
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
+
+    if (this.isLoggedIn) {
+      this.userProfile = await this.keycloak.loadUserProfile();
+      this.userRoles = this.keycloak.getUserRoles()
+    }
   }
 
   public logout() {

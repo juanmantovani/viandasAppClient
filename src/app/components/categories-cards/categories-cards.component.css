@@ -3,19 +3,6 @@
     border-radius: 5px;
   }
   
-  
-.Proteico {
-  background-color: #eaa15d;
-}
-.General{
-  background-color: #cf8266;
-}
-.Liviano{
-  background-color: #e4bc43;
-}
-.Veggie{
-  background-color: #607d51;
-}
 
 mat-card-content p {
   text-align: justify;
