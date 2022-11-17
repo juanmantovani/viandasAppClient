@@ -46,9 +46,9 @@ export class ClientService {
     let params = new HttpParams();
     params = params.set('idUser', idUser);
 
-    return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDUSER, {params}).pipe(
+    return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CATEGORY.GETCATEGORY, {params}).pipe(
       map((res:any) => {
-        return new GetClientByIdUserResponse(res);
+        return new GetClientByIdUserResponse(null);
       })
     )
   }

@@ -29,9 +29,10 @@ export class InicioClientComponent implements OnInit {
     this.userProfile = await this.keycloak.loadUserProfile();
     this.getClientByIdUser(); 
   }
+  
   async getClientByIdUser(){
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
-      if(res == null){
+      if(res.client == null){
         this.actionForm = 'Alta';
         const dataForm: DataFormRegisterClient = {
         actionForm: "Alta",
