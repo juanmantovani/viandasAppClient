@@ -5,7 +5,7 @@ export class Client {
     id : number;
     name : string;
     lastName : string;
-    phonePrimay : string;
+    phonePrimary : string;
     phoneSeconday : string;
     bornDate : Date;
     adresses  : Address[];
@@ -18,7 +18,7 @@ export class Client {
           this.id = data.id;
           this.name = data.name;
           this.lastName = data.lastName;
-          this.phonePrimay = data.phonePrimay;
+          this.phonePrimary = data.phonePrimay;
           this.phoneSeconday = data.phoneSeconday;
           this.bornDate = new Date(data.bornDate);
           this.adresses  = data.adresses.map((a : any) => new Address(a))

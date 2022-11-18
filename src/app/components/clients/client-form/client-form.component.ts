@@ -78,7 +78,7 @@ export class ClientFormComponent implements OnInit {
     this.result.id = data["id"];
     this.result.bornDate = data["bornDate"];
     this.result.observation = data["obsClient"];
-    this.result.phonePrimay = data["phonePrimary"];
+    this.result.phonePrimary = data["phonePrimary"];
 
     var address : Address = {
       street : data["street"],
