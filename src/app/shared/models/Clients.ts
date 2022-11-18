@@ -1,4 +1,4 @@
-import { Direction } from "./Direction";
+import { Address } from "./Address";
 import { Pathology } from "./Pathology";
 
 export class Client {
@@ -8,7 +8,7 @@ export class Client {
     phonePrimay : string;
     phoneSeconday : string;
     bornDate : Date;
-    direction : Direction;
+    adresses  : Address[];
     email : string;
     observation : string;
     pathologies : Pathology[];
@@ -20,8 +20,8 @@ export class Client {
           this.lastName = data.lastName;
           this.phonePrimay = data.phonePrimay;
           this.phoneSeconday = data.phoneSeconday;
-          this.bornDate = new Date(data?.born_date);
-          this.direction = new Direction(data.bornDate);
+          this.bornDate = new Date(data.bornDate);
+          this.adresses  = data.adresses.map((a : any) => new Address(a))
           this.observation = data.observation;
           this.pathologies = data.pathologies.map((p : any) => new Pathology(p))
         }

@@ -1,8 +1,8 @@
 import { City } from "./City";
 
-export class Direction{
+export class Address{
     street : string;
-    number : number;
+    number : string;
     floor : number;
     departament : string;
     observation : string;

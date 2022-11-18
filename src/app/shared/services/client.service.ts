@@ -20,7 +20,7 @@ export class ClientService {
 
   
   registerClient(request: RegisterClientRequest) : Observable<RegisterClientResponse> {
-    console.log(request)
+    console.log(JSON.stringify(request))
     return this.http.post<RegisterClientResponse>(ROUTES.API_ROUTES.CLIENT.REGISTERCLIENT, JSON.stringify(request), this.OPTIONS).pipe(
       tap (res => 
         new RegisterClientResponse(res))

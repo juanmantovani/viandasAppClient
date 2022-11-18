@@ -58,7 +58,7 @@
             </tr>
         </table>
         <mat-form-field appearance="fill" #obsDirection>
-            <mat-label>Observación</mat-label>
+            <mat-label>Indicaciones</mat-label>
             <textarea type="text" matInput formControlName="obsDirection" name="obsDirection" id="obsDirection"
                 #obsDirection rows="2"></textarea>
         </mat-form-field>
@@ -78,7 +78,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="center">
-        <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        <button mat-raised-button color="primary"  type="submit" class="btn-primary btn-azul"
             [disabled]="form.status == 'INVALID'">
             <mat-icon>save</mat-icon> GUARDAR
         </button>

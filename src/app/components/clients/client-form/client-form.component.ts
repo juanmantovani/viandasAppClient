@@ -1,9 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Console } from 'console';
 import { GetPathologyResponse } from 'src/app/shared/dto/pathology/GetPathologyResponse';
 import { City } from 'src/app/shared/models/City';
 import { Client } from 'src/app/shared/models/Clients';
+import { Address } from 'src/app/shared/models/Address';
 import { Pathology } from 'src/app/shared/models/Pathology';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { PathologyService } from 'src/app/shared/services/pathology.service';
@@ -20,8 +22,6 @@ export class ClientFormComponent implements OnInit {
   URLAPI = environment.urlApi;
   listCities: City[];
   listPathologies: Pathology[];
-  idCitySelected: number;
-
 
   @Output() onSubmit: EventEmitter<Client | null>;
 
@@ -34,10 +34,11 @@ export class ClientFormComponent implements OnInit {
   ) {
     this.onSubmit = new EventEmitter<Client | null>();
     this.form = this.generateForm();
+    this.result = new Client(null);
+    this.result.adresses = [];
   }
 
   ngOnInit() {
-    this.idCitySelected = this.data.direction?.city?.id;
     this.getPathologies();
 
   }
@@ -52,7 +53,7 @@ export class ClientFormComponent implements OnInit {
       departament: new FormControl(this.data.client.direction?.departament),
       bornDate : new FormControl(this.data.client?.bornDate,Validators.required),
       obsClient: new FormControl(this.data.client?.observation),
-      obsDirection : new FormControl(this.data.direction?.observation)
+      obsDirection : new FormControl(this.data.client.direction?.observation)
     });
   }
 
@@ -61,8 +62,8 @@ export class ClientFormComponent implements OnInit {
   }
 
   onClickSave() {
-    this.result = this.form.getRawValue();
-    this.result.pathologies = this.listPathologies
+    this.mapperClient();
+    this.result.pathologies = this.listPathologies;
     this.onSubmit.emit(this.result);
   }
 
@@ -72,4 +73,22 @@ export class ClientFormComponent implements OnInit {
     })
   }
 
+  mapperClient(){
+    var data = this.form.getRawValue();
+    this.result.id = data["id"];
+    this.result.bornDate = data["bornDate"];
+    this.result.observation = data["obsClient"];
+    this.result.phonePrimay = data["phonePrimary"];
+
+    var address : Address = {
+      street : data["street"],
+      number : data["number"],
+      floor : data["floor"],
+      departament : data["departament"],
+      observation : data["obsDirection"],
+      city : new City(null)
+    }
+
+    this.result.adresses.push(address)
+  }
 }
