@@ -25,7 +25,7 @@ import { CategoryService } from 'src/app/shared/services/category.service';
   styleUrls: ['./food.component.css']
 })
 export class FoodComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'description', 'category', 'actions'];
+  displayedColumns: string[] = ['id','title', 'description', 'category', 'actions'];
   dataSource!: MatTableDataSource<Food>;
   actionForm:string;
   listCategories: Category[];

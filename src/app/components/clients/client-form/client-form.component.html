@@ -1,83 +1,87 @@
+<form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
 
-<div class="container">
-    <h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}! Necesitamos que ingreses los siguientes datos</h3>
-
-    <div class="row" align="center">
-    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+    <h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
+        Necesitamos que ingreses los siguientes datos</h3>
+    <mat-dialog-content>
         <input type="hidden" formControlName="id" />
 
         <mat-form-field appearance="fill">
             <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="born_date">
+            <input matInput [matDatepicker]="picker" formControlName="bornDate">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-hint *ngIf="form!.controls['born_date']!.touched && form!.controls['born_date']!.invalid"
+            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>
-          </mat-form-field>
+        </mat-form-field>
 
-        <mat-form-field appearance="fill" #phone_primay>
+        <mat-form-field appearance="fill" #phonePrimary>
             <mat-label>Teléfono</mat-label>
-            <input type="number" matInput formControlName="phone_primay" name="phone_primay"
-                id="phone_primay" #phone_primay placeholder="Teléfono" required />
-            <mat-hint *ngIf="form!.controls['phone_primay']!.touched && form!.controls['phone_primay']!.invalid"
+            <input type="number" matInput formControlName="phonePrimary" name="phonePrimary" id="phonePrimary"
+                #phonePrimary placeholder="Teléfono" required />
+            <mat-hint *ngIf="form!.controls['phonePrimary']!.touched && form!.controls['phonePrimary']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" #phone_secondary>
-            <mat-label>Teléfono secundario</mat-label>
-            <input type="number" matInput formControlName="phone_secondary" name="phone_secondary"
-                id="phone_secondary" #phone_secondary placeholder="Teléfono secundario"  />
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Ciudad</mat-label>
-            <mat-select formControlName="city" name="city"  [(ngModel)]="idCitySelected">
-                <mat-option [value]="1">
-                    Paraná
-                </mat-option>
-              <mat-option *ngFor="let city of listCities" [value]="city.id">
-                {{city.description}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          
         <mat-form-field appearance="fill" #street>
             <mat-label>Calle</mat-label>
-            <input type="text" matInput formControlName="street" name="street"
-                id="street" #street placeholder="Calle" required />
-                <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
+            <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
+                required />
+            <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>
-
-        <mat-form-field appearance="fill" #number>
-            <mat-label>Número</mat-label>
-            <input type="number" matInput formControlName="number" name="number"
-                id="number" #number placeholder="Número" />
+        <table>
+            <tr>
+                <td >
+                    <mat-form-field appearance="fill" #number > 
+                        <mat-label>Número</mat-label>
+                        <input type="text" matInput formControlName="number" name="number" id="number" #number
+                            placeholder="Número" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill"  #floor >
+                        <mat-label>Piso</mat-label>
+                        <input type="text" matInput formControlName="floor" name="floor" id="floor" #floor
+                            placeholder="Piso" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill"  #departament >
+                        <mat-label>Dpto</mat-label>
+                        <input type="text" matInput formControlName="departament" name="departament"
+                            id="departament" #departament placeholder="Dpto" />
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <mat-form-field appearance="fill" #obsDirection>
+            <mat-label>Indicaciones</mat-label>
+            <textarea type="text" matInput formControlName="obsDirection" name="obsDirection" id="obsDirection"
+                #obsDirection rows="2"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" #floor>
-            <mat-label>Piso</mat-label>
-            <input type="floor" matInput formControlName="floor" name="floor"
-                id="floor" #floor placeholder="Piso" />
+        <h4 *ngIf="listPathologies">Patologías</h4>
+        <section class="row section-pathologies">
+            <mat-checkbox *ngFor="let pathology of listPathologies" [(ngModel)]="pathology.checked" class="checbox-pat"
+                [ngModelOptions]="{standalone: true}">{{pathology.description}}</mat-checkbox>
+        </section>
+
+        <mat-form-field appearance="fill" #obsClient>
+            <mat-label>Observación</mat-label>
+            <textarea type="text" matInput formControlName="obsClient" name="obsClient" id="obsClient" #obsClient
+                rows="2"></textarea>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" #departament>
-            <mat-label>Departamento</mat-label>
-            <input type="departament" matInput formControlName="departament" name="departament"
-                id="departament" #departament placeholder="Departamento" />
-        </mat-form-field>
-       
-    </form>
-</div>
-</div>
+    </mat-dialog-content>
 
-<mat-dialog-actions align="center">
-    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
-        [disabled]="form.status == 'INVALID'">
-        <mat-icon>save</mat-icon> GUARDAR
-    </button>
+    <mat-dialog-actions align="center">
+        <button mat-raised-button color="primary"  type="submit" class="btn-primary btn-azul"
+            [disabled]="form.status == 'INVALID'">
+            <mat-icon>save</mat-icon> GUARDAR
+        </button>
 
-</mat-dialog-actions>
+    </mat-dialog-actions>
+</form>

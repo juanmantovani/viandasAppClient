@@ -22,7 +22,7 @@ import { CategoryFormComponent } from '../category-form/category-form.component'
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = ['title','description', 'price','color', 'actions'];
+  displayedColumns: string[] = ['id','title','description', 'price','color', 'actions'];
   dataSource!: MatTableDataSource<Category>;
   actionForm: string;
 

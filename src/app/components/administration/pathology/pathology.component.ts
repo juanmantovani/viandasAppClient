@@ -45,7 +45,7 @@ export class PathologyComponent implements OnInit {
 
     async getPathologies() {
       await this.pathologyService.getPathology().subscribe((res: GetPathologyResponse) => {
-        this.dataSource = new MatTableDataSource(res.pathology);
+        this.dataSource = new MatTableDataSource(res.pathologies);
       })
     }
 

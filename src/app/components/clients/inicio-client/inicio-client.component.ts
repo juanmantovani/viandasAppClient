@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
+import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
 import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
 import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
@@ -26,16 +27,21 @@ export class InicioClientComponent implements OnInit {
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-
-    if(1 == 1){
-      this.actionForm = 'Alta';
-      const dataForm: DataFormRegisterClient = {
-      actionForm: "Alta",
-      client: new Client(null),
-      userProfile : this.userProfile
-    };
-    this.gestionateForm(dataForm);
-    }
+    this.getClientByIdUser(); 
+  }
+  
+  async getClientByIdUser(){
+    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
+      if(res.client == null){
+        this.actionForm = 'Alta';
+        const dataForm: DataFormRegisterClient = {
+        actionForm: "Alta",
+        client: new Client(null),
+        userProfile : this.userProfile!
+      };
+      this.gestionateForm(dataForm);
+      }
+    })
   }
 
   async gestionateForm(dataForm: DataFormRegisterClient) {
