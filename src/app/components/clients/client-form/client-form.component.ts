@@ -35,7 +35,7 @@ export class ClientFormComponent implements OnInit {
     this.onSubmit = new EventEmitter<Client | null>();
     this.form = this.generateForm();
     this.result = new Client(null);
-    this.result.adresses = [];
+    this.result.addresses = [];
   }
 
   ngOnInit() {
@@ -89,6 +89,6 @@ export class ClientFormComponent implements OnInit {
       city : new City(null)
     }
 
-    this.result.adresses.push(address)
+    this.result.addresses.push(address)
   }
 }
