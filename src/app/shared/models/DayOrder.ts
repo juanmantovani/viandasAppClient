@@ -16,7 +16,9 @@ export class DayOrder {
           this.food = new Food(data?.food);
           this.date = new Date(data?.date);
           this.category = new Category(data?.category);
-          this.cant = data.cant;
+          if(data.cant){
+            this.cant = data.cant;
+          }else { this.cant = 1}
           this.observation = data.observation;
         }
       }

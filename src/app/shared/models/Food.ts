@@ -14,6 +14,7 @@ export class Food {
           this.id = data.id;
           this.title = data.title;
           this.description = data.description;
+          if (data.categories)
           this.categories = data.categories.map((c:any) => new Category(c));
           this.urlImage= data.urlImage;
         }

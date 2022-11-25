@@ -1,4 +1,5 @@
 import { ErrorHandler, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgbAlertModule, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app-routing.module';
@@ -44,6 +45,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatStepperModule} from '@angular/material/stepper';
+
 
 
 
@@ -77,7 +80,13 @@ import { ClientFormComponent } from './components/clients/client-form/client-for
 import { ProfileComponent } from './components/clients/profile/profile.component';
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
 import { PathologyFormComponent } from './components/administration/pathology-form/pathology-form.component';
-import { ListFoodComponent } from './components/clients/order/list-food/list-food.component';
+import { OrderInicioComponent } from './components/clients/order/inicio/inicio.component';
+import { OrderCategoriesComponent } from './components/clients/order/categories/categories.component';
+import { OrderListFoodComponent } from './components/clients/order/list-food/list-food.component';
+import { ViewDetailsCategoryComponent } from './components/clients/order/view-details-category/view-details-category.component';
+import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
+
+
 
 @NgModule({
   declarations: [
@@ -115,7 +124,11 @@ import { ListFoodComponent } from './components/clients/order/list-food/list-foo
     ProfileComponent,
     PathologyComponent,
     PathologyFormComponent,
-    ListFoodComponent,
+    OrderInicioComponent,
+    OrderCategoriesComponent,
+    OrderListFoodComponent,
+    ViewDetailsCategoryComponent,
+    ResumeOrderComponent
     
   ],
   imports: [
@@ -155,7 +168,9 @@ import { ListFoodComponent } from './components/clients/order/list-food/list-foo
     AuthModule,
     GalleryModule,
     LightboxModule,
-    MatChipsModule
+    MatChipsModule,
+    MatStepperModule,
+    CommonModule
   ],
   providers: [
     MatNotificationComponent,

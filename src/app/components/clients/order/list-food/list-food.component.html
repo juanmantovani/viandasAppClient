@@ -1,59 +1,29 @@
-<div class="container">
-  <div class="row">
-<h2 *ngIf="menuViewer">Menú disponible desde el {{ (menuViewer.dateStart | date: 'dd/MM')}} hasta el {{ (menuViewer.dateEnd | date: 'dd/MM') }}</h2>
-</div>
-<div class="row">
-
-  <mat-form-field class="example-chip-list" appearance="fill">
-    <mat-label>Seleccione una categoría</mat-label>
-    <mat-chip-list #chipList aria-label="Seleccione una categoría">
-      <mat-chip 
-        *ngFor="let cat of category"
-        [style]="{'background-color': cat.color}"
-        (removed)="remove(cat)">
-        {{cat.title}}
-        <button matChipRemove>
-          <mat-icon>cancel</mat-icon>
-        </button>
-      </mat-chip>
-      <input
-        placeholder="Seleccione una categoría..."
-        #categoryInput
-        [formControl]="categoryCtrl"
-        [matAutocomplete]="auto"
-        [matChipInputFor]="chipList"
-        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-        (matChipInputTokenEnd)="add($event)">
-    </mat-chip-list>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-      <mat-option *ngFor="let category of filteredCategories | async" [value]="category">
-        {{category.title}}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
-
-  <!-- <mat-chip-list aria-label="Fish selection">
-    <mat-chip *ngFor="let cat of categories" [style]="{'background-color': cat.color}">{{cat.title}}</mat-chip>
-
-    <mat-chip color="accent" selected>Accent fish</mat-chip>
-  </mat-chip-list> -->
-
-  <div class="d-flex flex-wrap" *ngFor="let cat of turnViewer?.categoryViewer">
-    <mat-card class="food-card" *ngFor="let food of cat.daysViewer" [style]="{'border-right': '10px solid'+cat.category.color}">
+<mat-card class="food-card" *ngFor="let dayOrder of order.daysOrder" [style]="{'border-right': '5px solid'+dayOrder.category.color}">
     <mat-card-title-group>
-      <mat-card-subtitle>Menú {{cat.category.title}} - {{food.date | date: 'dd/MM'}} - ${{cat.category.price}}</mat-card-subtitle>
-      <mat-card-title><h2>{{food.foodViewer.title}}</h2></mat-card-title>
-      <img *ngIf="food.foodViewer.urlImage" mat-card-md-image src="{{URLAPI}}{{food.foodViewer.urlImage}}">
-      <img *ngIf="!food.foodViewer.urlImage" mat-card-md-image src="../../../../../assets/meal2.png">
+      <mat-card-title><h4>{{dayOrder.food.title}}</h4></mat-card-title>
+      <mat-card-subtitle>{{dayOrder.food.description}}</mat-card-subtitle>
+      <mat-card-title><h4>$650</h4></mat-card-title>
+
+        <img *ngIf="dayOrder.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.food.urlImage}}" class="foodCard">
+        <img *ngIf="!dayOrder.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCard">
+
     </mat-card-title-group>
-    <mat-card-content>
-      {{food.foodViewer.description}}
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button class="button">Agregar</button>
-      <button mat-raised-button class="button">Quitar</button>
-    </mat-card-actions>
+      <mat-card-actions align="end">
+        <form class="example-form" >
+          <mat-form-field class="example-full-width">
+            <mat-label>Observaciones</mat-label>
+            <input matInput placeholder="Aclaración sobre algún ingrediente" (value)="dayOrder.observation" [disabled]="dayOrder.cant < 1">
+          </mat-form-field>
+        </form>
+        <div class="cant">
+          <button mat-icon-button aria-label="Clear" (click)="dayOrder.cant=dayOrder.cant-1" class="removeButton" [disabled]="dayOrder.cant < 1">
+            <mat-icon>remove</mat-icon>
+          </button>
+          <span class="center">{{dayOrder.cant}}</span>
+          <button mat-icon-button aria-label="Clear" (click)="dayOrder.cant=dayOrder.cant+1">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </mat-card-actions>
+
   </mat-card>
-</div>
-</div>
-</div>  

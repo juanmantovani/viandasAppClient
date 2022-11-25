@@ -1,0 +1,57 @@
+<ng-container [ngSwitch]="stepperOrientation | async">
+
+  </ng-container>
+  
+  <mat-stepper  linear #stepper
+    class="stepper"
+    [orientation]="(stepperOrientation | async)!">
+    <mat-step label="Selecciona la opción deseada" [completed]="firstStepCompleted" >
+      <app-order-categories *ngIf="categories"
+        [categories]="categories"
+        (selectCategory)="selectCategory($event)"
+        (viewDetailsCategory)="onViewDetailsCategory($event)">
+        </app-order-categories>
+        <div align="end">
+          <button mat-raised-button class="button btn-azul" [disabled]="!selectedCategory" color="primary" (click)="nextStep()" matStepperNext>Siguiente</button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" label="Cantidad y observaciones">
+      <app-list-food *ngIf="order" 
+        [order]="order">
+      </app-list-food>
+      <!-- <form [formGroup]="secondFormGroup">
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form> -->
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" label="Seleccione la cantidad y agregue las observaciones que desee">
+      <form [formGroup]="thirdFormGroup">
+        <mat-form-field appearance="fill">
+          <mat-label>Phone number</mat-label>
+          <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+
+<app-resume-order></app-resume-order>
+
+  
