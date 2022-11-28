@@ -1,1 +1,69 @@
-<p>profile works!</p>
+<div class="container-fluid">
+
+    <div *ngIf="client">
+
+        <mat-card class="example-card">
+            <mat-card-header class="text">
+                <mat-card-title>Dirección </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <div *ngFor="let address of client.addresses">
+                    <p>
+                        {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
+                    </p>
+                    <span *ngIf="client.observation != null">
+                        Indicaciones: {{address.observation}}
+                    </span>
+                </div>
+            </mat-card-content>
+            <button mat-raised-button class="button">
+                Agregar
+            </button>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card">
+            <mat-card-header class="text">
+                <mat-card-title>Teléfonos </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <p>
+                    {{client.phonePrimary}}
+                </p>
+
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="example-card">
+            <mat-card-header class="text">
+                <mat-card-title>Información adicional </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <label>Fecha de nacimiento:</label>
+                <p>
+                    {{client.bornDate | date: 'dd/MM/yyyy' }}
+                </p>
+                <label>Observación:</label>
+                <p>
+                    {{client.observation }}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+
+        <div align="center">
+            <button mat-raised-button (click)="onClickUpdate()" class="button">
+                Actualizar mis datos
+            </button>
+        </div>
+
+    </div>
+
+</div>

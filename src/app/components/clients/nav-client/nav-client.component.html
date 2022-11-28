@@ -11,6 +11,7 @@
               Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem [routerLink]="[PROFILE]"> Perfil  </button>
               <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
             </div>
           </div>
@@ -22,9 +23,7 @@
     <mat-sidenav [(opened)]="opened" mode="over">
        
        <mat-list>
-        <mat-list-item class="nav-link" [routerLink]="[PROFILE]" (click)="status='> Perfil'; opened = !opened">
-            Perfil
-        </mat-list-item>
+
         <mat-list-item class="nav-link" [routerLink]="[ORDER]" (click)="status='> Pedir'; opened = !opened">
             Pedir
         </mat-list-item>

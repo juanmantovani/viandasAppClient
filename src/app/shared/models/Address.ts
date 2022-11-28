@@ -15,6 +15,7 @@ export class Address{
           this.number = data.number;
           this.floor = data.floor;
           this.departament = data.departament;
+          this.observation = data.observation
           this.city = new City (data.city)
         }
       }
