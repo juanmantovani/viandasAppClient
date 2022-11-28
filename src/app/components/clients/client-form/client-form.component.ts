@@ -1,13 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Console } from 'console';
 import { GetPathologyResponse } from 'src/app/shared/dto/pathology/GetPathologyResponse';
 import { City } from 'src/app/shared/models/City';
 import { Client } from 'src/app/shared/models/Client';
 import { Address } from 'src/app/shared/models/Address';
 import { Pathology } from 'src/app/shared/models/Pathology';
-import { ClientService } from 'src/app/shared/services/client.service';
 import { PathologyService } from 'src/app/shared/services/pathology.service';
 import { environment } from 'src/environments/environment';
 
@@ -29,18 +27,17 @@ export class ClientFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ClientFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private clientService: ClientService,
     private pathologyService: PathologyService
   ) {
     this.onSubmit = new EventEmitter<Client | null>();
     this.form = this.generateForm();
     this.result = new Client(null);
     this.result.addresses = [];
+    this.listPathologies = [];
   }
 
   ngOnInit() {
-    this.getPathologies();
-
+    this.mapperPathology();
   }
 
   generateForm(): FormGroup {
@@ -64,8 +61,8 @@ export class ClientFormComponent implements OnInit {
 
   onClickSave() {
     this.mapperClient();
-    this.result.pathologies = this.listPathologies;
     this.onSubmit.emit(this.result);
+    this.cleanList()
   }
 
   async getPathologies() {
@@ -90,7 +87,22 @@ export class ClientFormComponent implements OnInit {
       observation: data["obsAddress"],
       city: new City(null)
     }
-
     this.result.addresses.push(address)
+  }
+
+  mapperPathology(){
+    if(this.data.actionForm == "Edit"){
+      this.listPathologies = [];
+      for (let pat of this.data.client?.pathologies){
+        this.listPathologies.push(new Pathology (pat))
+      }
+    }
+    else{
+      this.getPathologies()
+   }
+  }
+
+  cleanList(){
+    this.listPathologies.forEach(pat => pat.checked = false)
   }
 }
