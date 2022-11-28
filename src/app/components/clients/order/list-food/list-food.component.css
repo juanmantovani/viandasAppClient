@@ -11,6 +11,11 @@ mat-card-title h4 {
 
 mat-card-subtitle {
   font-size: small;
+  text-align: justify;
+  text-justify: inter-word;
+  overflow: hidden;
+  height: 5em;
+  margin-right: 5px;
 }
 
 h4 {
