@@ -56,7 +56,6 @@ formatStringCategories(categories : Category[]){
 }
 
   addFood(request: AddFoodRequest) : Observable<AddFoodResponse> {
-    console.log(request)
     var formData = new FormData();
     formData.append('image', request.food.image);
     formData.append('title', request.food.title);

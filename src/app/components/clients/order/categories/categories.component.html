@@ -1,0 +1,16 @@
+<div *ngFor="let category of categories">
+<mat-card class="card" [style]="{'border-right': '10px solid'+category.color}" [ngStyle]="(choseCategory == category) ? {'backgroundColor':'#d3d3d33b'} : {}" (click)="onSelectCategory(category)">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"> 
+        <mat-icon *ngIf="choseCategory == category">radio_button_checked</mat-icon>
+        <mat-icon *ngIf="choseCategory != category">radio_button_unchecked</mat-icon>
+      </div>
+      <mat-card-title> Menú {{category.title}}</mat-card-title>
+      <mat-card-subtitle>${{category.price}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions align="end">
+      <button mat-raised-button class="button" (click)="onViewDetailsCategory(category)">Ver detalles</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+

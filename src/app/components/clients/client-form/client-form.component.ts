@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Console } from 'console';
 import { GetPathologyResponse } from 'src/app/shared/dto/pathology/GetPathologyResponse';
 import { City } from 'src/app/shared/models/City';
-import { Client } from 'src/app/shared/models/Clients';
+import { Client } from 'src/app/shared/models/Client';
 import { Address } from 'src/app/shared/models/Address';
 import { Pathology } from 'src/app/shared/models/Pathology';
 import { ClientService } from 'src/app/shared/services/client.service';

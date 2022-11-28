@@ -8,7 +8,7 @@ import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientR
 import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
 import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
 import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResponse';
-import { Client } from 'src/app/shared/models/Clients';
+import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';

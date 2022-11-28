@@ -9,7 +9,7 @@ export class CategoryViewer{
     constructor(data:any) {
         if (data) {
           this.category = new Category(data.category)
-          this.daysViewer = data.daysViewer.map((d:any) => new DayViewer(d));
+          this.daysViewer = data.daysViewer?.map((d:any) => new DayViewer(d));
         }
     }
 }

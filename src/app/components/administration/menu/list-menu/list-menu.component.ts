@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MenuList } from 'src/app/shared/models/MenuList';
+import { Menu } from 'src/app/shared/models/Menu';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
@@ -14,8 +14,8 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 export class ListMenuComponent implements OnInit {
   displayedColumns: string[] = ['ID', 'start', 'end', 'actions', 'activeMenu'];
 
-  @Input() dataSource : MatTableDataSource<MenuList>;
-  @Output() deleteMenu : EventEmitter <MenuList> = new EventEmitter();
+  @Input() dataSource : MatTableDataSource<Menu>;
+  @Output() deleteMenu : EventEmitter <Menu> = new EventEmitter();
   @Output() menuId : EventEmitter <number> = new EventEmitter();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -30,9 +30,9 @@ export class ListMenuComponent implements OnInit {
   ngOnInit(): void {
   }
 
- async onClickDelete(menuList: MenuList) {
+ async onClickDelete(menu: Menu) {
     if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
-      await this.deleteMenu.emit(menuList);
+      await this.deleteMenu.emit(menu);
     }
     }
 
@@ -45,8 +45,8 @@ export class ListMenuComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async onClickViewMenu(menuList: MenuList){
-    await this.menuId.emit(menuList.menuId);
+  async onClickViewMenu(menu: Menu){
+    await this.menuId.emit(menu.id);
   }
 
 

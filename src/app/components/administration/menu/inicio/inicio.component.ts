@@ -9,7 +9,7 @@ import { EditMenuResponse } from 'src/app/shared/dto/menu/EditMenuResponse';
 import { ValidateDateMenuRequest } from 'src/app/shared/dto/menu/ValidateDateMenuRequest';
 import { ValidateDateMenuResponse } from 'src/app/shared/dto/menu/ValidateDateMenuResponse';
 import { MatTableDataSource } from '@angular/material/table';
-import { MenuList } from 'src/app/shared/models/MenuList';
+import { Menu } from 'src/app/shared/models/Menu';
 import { DeleteMenuRequest } from 'src/app/shared/dto/menu/DeleteMenuRequest';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
@@ -38,7 +38,7 @@ export class MenuInicioComponent implements OnInit {
   viewCategories: boolean;
   chargeMenu: boolean;
   listMenu: boolean;
-  dataSource!: MatTableDataSource<MenuList>;
+  dataSource!: MatTableDataSource<Menu>;
   menuViewer : MenuViewer;
   viewCalendarFood: boolean;
 
@@ -51,7 +51,7 @@ export class MenuInicioComponent implements OnInit {
   
   constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
-    this.dataSource = new MatTableDataSource<MenuList>();
+    this.dataSource = new MatTableDataSource<Menu>();
     this.listMenu = true;
 
     this.getMenus();
@@ -136,14 +136,14 @@ export class MenuInicioComponent implements OnInit {
 
   async getMenus(){
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
-      this.dataSource = new MatTableDataSource(res.menuList);
+      this.dataSource = new MatTableDataSource(res.menu);
     })
   }
 
  async completeCalendarFood(){
-    await this.dataSource.filteredData?.forEach(menuList => {
+    await this.dataSource.filteredData?.forEach(menu => {
       //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
-      this.menuService.getMenuByID(menuList.menuId).subscribe((res: GetMenuResponse) => {
+      this.menuService.getMenuByID(menu.id).subscribe((res: GetMenuResponse) => {
         let menuViewer = new MenuViewer(res.menuViewer);
         menuViewer.turnsViewer?.forEach(turnsViewer => {
           turnsViewer.categoryViewer?.forEach(categoryViewer => {
@@ -191,8 +191,8 @@ export class MenuInicioComponent implements OnInit {
     this.eventsMenu = [];
     this.dataSource.filteredData.forEach(m => {
       let menu = {
-        title: 'ID Menú: ' + m.menuId,
-        idMenu: m.menuId,
+        title: 'ID Menú: ' + m.id,
+        idMenu: m.id,
         start: m.dateStart,
         end: new Date((m.dateEnd).setHours(23, 59, 59)),
         color: this.generateRandomColor()
@@ -210,10 +210,10 @@ export class MenuInicioComponent implements OnInit {
     this.getMenus();
   }
 
-  async deleteMenu(menuList: MenuList) {
+  async deleteMenu(menu: Menu) {
     const request: DeleteMenuRequest = {
-      idMenu: menuList.menuId,
-      idTurn: menuList.turn.id
+      idMenu: menu.id,
+      idTurn: menu.turns[0].id
     }
     await this.menuService.deleteMenu(request).subscribe(() => {
     this.getMenus();

@@ -1,13 +1,13 @@
-import { MenuList } from "../../models/MenuList";
+import { Menu } from "../../models/Menu";
 import { BaseResponse } from "../BaseResponse";
 
 export class GetAllMenuResponse extends BaseResponse{
-    menuList: MenuList[];
+    menu: Menu[];
 
     constructor(data : any) {
         super(data);
         if(data)
-            this.menuList = data.map((m: any) => new MenuList(m));
+            this.menu = data.map((m: any) => new Menu(m));
             
     }
 }

@@ -31,10 +31,6 @@ mat-toolbar{
     cursor: pointer;
 }
 
-.nav-link.closeSession{
-    color: red;
-}
-
 .spacer {
     flex: 1 1 auto;
   }

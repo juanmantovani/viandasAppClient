@@ -1,4 +1,4 @@
-import { Client } from "../../models/Clients";
+import { Client } from "../../models/Client";
 import { BaseResponse } from "../BaseResponse";
 
 export class GetClientByIdUserResponse extends BaseResponse{

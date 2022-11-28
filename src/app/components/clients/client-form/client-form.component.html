@@ -17,7 +17,7 @@
 
         <mat-form-field appearance="fill" #phonePrimary>
             <mat-label>Teléfono</mat-label>
-            <input type="number" matInput formControlName="phonePrimary" name="phonePrimary" id="phonePrimary"
+            <input type="text" matInput formControlName="phonePrimary" name="phonePrimary" id="phonePrimary"
                 #phonePrimary placeholder="Teléfono" required />
             <mat-hint *ngIf="form!.controls['phonePrimary']!.touched && form!.controls['phonePrimary']!.invalid"
                 class="error-input">
