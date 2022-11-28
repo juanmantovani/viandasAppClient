@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CategoryFormComponent } from '../../category-form/category-form.component';
+import { ListMenuComponent } from '../list-menu/list-menu.component';
 
 @Component({
   selector: 'app-view-menu',
@@ -9,7 +9,7 @@ import { CategoryFormComponent } from '../../category-form/category-form.compone
 })
 export class ViewMenuComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<CategoryFormComponent>,
+  constructor(public dialogRef: MatDialogRef<ListMenuComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
 
     ) { }

@@ -12,6 +12,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { InicioClientComponent } from './components/clients/inicio-client/inicio-client.component';
 import { ProfileComponent } from './components/clients/profile/profile.component';
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
+import { OrderInicioComponent } from './components/clients/order/inicio/inicio.component';
 
 
 
@@ -44,7 +45,9 @@ const routes: Routes = [
   { path: ROUTES.INTERNAL_ROUTES.CLIENT, 
     component: InicioClientComponent,
     children:[
-      {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent }
+      {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent },
+      {path: ROUTES.INTERNAL_ROUTES.ORDER, component: OrderInicioComponent }
+
     ],
     canActivate: [ AuthGuard ]
   },

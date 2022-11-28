@@ -11,3 +11,7 @@
 }
 
 .alternate { background-color: #f5f5f5 }
+
+.inner-column h2 {
+    font-size: medium;
+}

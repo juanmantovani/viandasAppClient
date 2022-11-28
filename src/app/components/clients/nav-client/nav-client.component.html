@@ -4,24 +4,35 @@
             <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
         </a>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
-        <h4>{{userProfile?.firstName}} {{userProfile?.lastName}}</h4>
+        <span class="spacer"></span>
+        <div class="row">
+        <div ngbDropdown class="d-inline-block">
+            <button *ngIf="isLoggedIn" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
+              Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+            </div>
+          </div>
+        </div>
     </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened" mode="side">
+    <mat-sidenav [(opened)]="opened" mode="over">
        
        <mat-list>
-        <mat-list-item class="nav-link" [routerLink]="[PROFILE]" (click)="status='> Carrousel'">
+        <mat-list-item class="nav-link" [routerLink]="[PROFILE]" (click)="status='> Perfil'; opened = !opened">
             Perfil
+        </mat-list-item>
+        <mat-list-item class="nav-link" [routerLink]="[ORDER]" (click)="status='> Pedir'; opened = !opened">
+            Pedir
         </mat-list-item>
         
         <mat-list-item>
 
         </mat-list-item>
-        <mat-list-item>
-            <button ngbDropdownItem class="drowdownitem login"  type="button" (click)="logout()"><a>Cerrar Sesión</a></button>
-        </mat-list-item>
+
        </mat-list>
        
     </mat-sidenav>

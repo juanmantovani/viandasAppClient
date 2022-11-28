@@ -59,13 +59,7 @@ export class InicioComponent implements OnInit {
     })
   }
 
-  // async getMenu(){
-  //   await this.menuService.getMenu().subscribe((res: GetMenuResponse) => {
-  //     this.menuViewer = new MenuViewer (res.menuViewer);
-  //     this.turnsViewer = this.menuViewer.turnsViewer[0];
-  //   })
 
-  // }
 
   async getCategories() {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {

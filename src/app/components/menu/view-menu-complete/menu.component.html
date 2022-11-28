@@ -4,7 +4,7 @@
         <table class="table table-striped" mat-table [dataSource]="category.daysViewer">
                 
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef colspan="2" [style]="{'color': categoryColor}">
+                <th mat-header-cell *matHeaderCellDef colspan="2" [style]="{'color': category.category.color}">
                     <div class="inner-column">
                     <h1><strong>Menú {{category.category.title}}</strong></h1> 
                     </div>  

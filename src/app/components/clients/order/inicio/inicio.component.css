@@ -1,0 +1,17 @@
+.stepper {
+    margin-top: 8px;
+  }
+
+
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .stepper {
+      margin-left: -20px;
+    }
+
+  }
+  

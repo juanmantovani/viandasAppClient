@@ -1,0 +1,57 @@
+.food-card {
+  max-width: 450px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+mat-card-title h4 {
+  font-size: medium;
+  padding-right: 5px;
+}
+
+mat-card-subtitle {
+  font-size: small;
+  text-align: justify;
+  text-justify: inter-word;
+  overflow: hidden;
+  height: 5em;
+  margin-right: 5px;
+}
+
+h4 {
+  margin-bottom: 0px !important;
+}
+
+.foodCard {
+  border-radius: 5px;
+}
+
+.cant {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 112px;
+  margin-right: 8px;
+  height: 40px;
+}
+
+.removeButton {
+  float: left;
+}
+.center {
+  margin: inherit;
+  width: 50%;
+}
+
+
+mat-card-title, mat-card-subtitle {
+  margin-bottom: 5px;
+}
+
+.example-full-width {
+  width: 100%;
+}
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 70%;
+}

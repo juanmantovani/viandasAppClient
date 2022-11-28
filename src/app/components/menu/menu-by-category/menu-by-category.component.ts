@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GetImageByCategoryRequest } from 'src/app/shared/dto/food/GetImageByCategoryRequest';
 import { GetImageByCategoryResponse } from 'src/app/shared/dto/food/GetImageByCategoryResponse';
-import { GetMenuByCategoryResponse } from 'src/app/shared/dto/menu/GetMenuByCategoryResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { Category } from 'src/app/shared/models/Category';
 import { FoodViewer } from 'src/app/shared/models/FoodViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
@@ -41,7 +41,7 @@ export class MenuByCategoryComponent implements OnInit {
   }
 
   getMenuByCategory(){
-    this.menuService.getMenuByCategory(this.category.id).subscribe((res: GetMenuByCategoryResponse) => {
+    this.menuService.getMenuByCategory(this.category.id).subscribe((res: GetMenuResponse) => {
       this.menuViewer = new MenuViewer (res.menuViewer);
       this.showMenu = true;
     })
