@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Console } from 'console';
 import { GetPathologyResponse } from 'src/app/shared/dto/pathology/GetPathologyResponse';
 import { City } from 'src/app/shared/models/City';
-import { Client } from 'src/app/shared/models/Clients';
+import { Client } from 'src/app/shared/models/Client';
 import { Address } from 'src/app/shared/models/Address';
 import { Pathology } from 'src/app/shared/models/Pathology';
 import { ClientService } from 'src/app/shared/services/client.service';
@@ -29,8 +29,8 @@ export class ClientFormComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<ClientFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private clientService : ClientService,
-    private pathologyService : PathologyService
+    private clientService: ClientService,
+    private pathologyService: PathologyService
   ) {
     this.onSubmit = new EventEmitter<Client | null>();
     this.form = this.generateForm();
@@ -47,13 +47,14 @@ export class ClientFormComponent implements OnInit {
     return new FormGroup({
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, Validators.required),
-      street: new FormControl(this.data.client.direction?.street, Validators.required),
-      number: new FormControl(this.data.client.direction?.number),
-      floor: new FormControl(this.data.client.direction?.floor),
-      departament: new FormControl(this.data.client.direction?.departament),
-      bornDate : new FormControl(this.data.client?.bornDate,Validators.required),
+      phoneSecondary: new FormControl(this.data.client?.phoneSecondary),
+      street: new FormControl(this.data.client.addresses[0]?.street, Validators.required),
+      number: new FormControl(this.data.client.addresses[0]?.number),
+      floor: new FormControl(this.data.client.addresses[0]?.floor),
+      departament: new FormControl(this.data.client.addresses[0]?.departament),
+      bornDate: new FormControl(this.data.client?.bornDate, Validators.required),
       obsClient: new FormControl(this.data.client?.observation),
-      obsDirection : new FormControl(this.data.client.direction?.observation)
+      obsAddress: new FormControl(this.data.client.addresses[0]?.observation)
     });
   }
 
@@ -67,26 +68,27 @@ export class ClientFormComponent implements OnInit {
     this.onSubmit.emit(this.result);
   }
 
-  async getPathologies(){
-    await this.pathologyService.getPathology().subscribe((res : GetPathologyResponse) => {
+  async getPathologies() {
+    await this.pathologyService.getPathology().subscribe((res: GetPathologyResponse) => {
       this.listPathologies = res.pathologies;
     })
   }
 
-  mapperClient(){
+  mapperClient() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
     this.result.bornDate = data["bornDate"];
     this.result.observation = data["obsClient"];
     this.result.phonePrimary = data["phonePrimary"];
+    this.result.phoneSecondary = data["phoneSecondary"];
 
-    var address : Address = {
-      street : data["street"],
-      number : data["number"],
-      floor : data["floor"],
-      departament : data["departament"],
-      observation : data["obsDirection"],
-      city : new City(null)
+    var address: Address = {
+      street: data["street"],
+      number: data["number"],
+      floor: data["floor"],
+      departament: data["departament"],
+      observation: data["obsAddress"],
+      city: new City(null)
     }
 
     this.result.addresses.push(address)
