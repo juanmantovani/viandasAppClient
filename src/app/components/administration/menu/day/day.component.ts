@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit,EventEmitter,SimpleChanges } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Food } from '../../../../shared/models/Food';
-import { Day } from '../../../../shared/models/Day';
+import { DayFood } from '../../../../shared/models/DayFood';
 import { Category } from 'src/app/shared/models/Category';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
@@ -18,7 +18,7 @@ export class DayComponent implements OnInit {
   @Input() lastCategory: boolean;
   @Input() category: Category;
 
-  @Output() daysCharged : EventEmitter <Day[]> = new EventEmitter();
+  @Output() daysCharged : EventEmitter <DayFood[]> = new EventEmitter();
   @Output() finishCharged : EventEmitter <boolean> = new EventEmitter();
 
   viewForm: boolean = false;

@@ -1,7 +1,7 @@
 import { Category } from "./Category";
 import { Food } from "./Food";
 
-export class Day {
+export class DayFood {
     id : number;
     food: Food;
     date: Date;
@@ -11,9 +11,9 @@ export class Day {
     constructor(data:any) {
         if (data) {
           this.id = data.id
-          this.food = new Food(data?.food);
-          this.date = new Date(data?.date);
-          this.category = new Category(data?.category);
+          this.food = new Food(data.food);
+          this.date = new Date(data.date);
+          this.category = new Category(data.category);
         }
       }
 }

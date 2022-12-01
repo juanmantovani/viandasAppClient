@@ -38,6 +38,8 @@ export const API_ROUTES ={
         DELETEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,
         GETMENUBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategory`,
         GETMENUBYID : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByID`,
+        GETMENUBYCATEGORIES : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategories`,
+
     },
     CLIENT :{
         REGISTERCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,

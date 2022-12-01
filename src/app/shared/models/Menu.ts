@@ -9,7 +9,7 @@ export class Menu {
  
     constructor(data:any) {
         if (data) {
-          this.id = data.menuId;
+          this.id = data.id;
           this.turns = [];
           this.turns.push(new Turn(data.turn));
           //this.turns = data.turns.map((t:any) => new Turn(t));

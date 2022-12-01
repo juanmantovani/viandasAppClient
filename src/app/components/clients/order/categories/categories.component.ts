@@ -9,8 +9,8 @@ import { Category } from 'src/app/shared/models/Category';
 export class OrderCategoriesComponent implements OnInit {
 
   @Input() categories : Category[];
-  choseCategory : Category;
-  @Output() selectCategory : EventEmitter <Category> = new EventEmitter();
+  choseCategory : Category[] = [];
+  @Output() selectCategory : EventEmitter <Category []> = new EventEmitter();
   @Output() viewDetailsCategory : EventEmitter <Category> = new EventEmitter();
 
 
@@ -21,12 +21,20 @@ export class OrderCategoriesComponent implements OnInit {
   }
   
   onSelectCategory(cat : Category) {
-    this.choseCategory = cat;
-    this.selectCategory.emit(cat);
+    if (this.isSelectedCategory(cat)){
+      this.choseCategory = this.choseCategory.filter(category => category != cat)
+    } else {
+      this.choseCategory.push(cat);
+    }
+    this.selectCategory.emit(this.choseCategory);
   }
 
   onViewDetailsCategory(cat : Category) {
     this.viewDetailsCategory.emit(cat);
+  }
+
+  isSelectedCategory(category : Category) : boolean{
+    return this.choseCategory.includes(category);  
   }
 
 }
