@@ -12,7 +12,7 @@
     </mat-card-title-group>
       <mat-card-actions align="end">
         <form class="formFood" >
-          <mat-form-field class="full-width">
+          <mat-form-field class="full-width" appearance="fill">
             <mat-label>Observaciones</mat-label>
             <input matInput placeholder="Aclaraciones sobre ingredientes" [disabled]="dayOrder.cant < 1" [(ngModel)]="dayOrder.observation" [ngModelOptions]="{standalone: true}">
           </mat-form-field>

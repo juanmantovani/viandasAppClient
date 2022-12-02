@@ -54,5 +54,8 @@ export const API_ROUTES ={
     },
     CITY : {
         GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCity`,
+    },
+    ORDER : {
+        UPLOADORDER:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
     }
 }

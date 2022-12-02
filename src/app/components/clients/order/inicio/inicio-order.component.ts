@@ -29,6 +29,7 @@ import { ClientService } from 'src/app/shared/services/client.service';
 import { KeycloakService } from 'keycloak-angular';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { Client } from 'src/app/shared/models/Client';
+import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 
 
 @Component({
@@ -44,7 +45,10 @@ export class InicioOrderComponent implements OnInit {
   selectedCategories : Category[] = [];
   firstStepCompleted: boolean;
   order : Order;
+
   client : Client;
+  favoriteAdress: Address;
+  showFinishOrder : boolean;
 
   public userProfile: KeycloakProfile | null;
 
@@ -79,33 +83,18 @@ export class InicioOrderComponent implements OnInit {
     })
   }
 
+  async getClientByIdUser(){
+    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
+      this.client = new Client(res.client);
+      this.favoriteAdress = new Address(this.client.addresses.find(({ id }) => id === 1));//cambiar ID por el campo favorite
+
+    })
+  }
+
   selectCategory(event: Category[]){
     this.selectedCategories = event;
     this.firstStepCompleted = true;
   }
-
-  async onGetMenu(){
-  let request = new GetMenuByCategoriesRequest(this.selectedCategories);
-    await this.menuService.getMenuByCategories(request).subscribe((res: getMenuByCategoriesResponse) => {
-      this.generateOrder(res.menu)
-    })
-  }
-
-  generateOrder(menu : Menu) {
-  this.order.daysOrder = [];
-      menu.turns.forEach(turn => {
-        turn.days.forEach (dayFood => {
-          const dayOrder : DayOrder = {
-            id: 0,
-            address: new Address(null),
-            cant: 1,
-            dayFood: new DayFood(dayFood),
-            observation: ""
-          }
-          this.order.daysOrder.push(dayOrder)
-        })
-      });
-    }
 
   async onViewDetailsCategory(category: Category){
     await this.menuService.getMenuByCategory(category.id).subscribe((res: GetMenuResponse) => {
@@ -118,18 +107,47 @@ export class InicioOrderComponent implements OnInit {
     dialogConfig.data = menuViewer;
     dialogConfig.maxHeight = '95%';
     dialogConfig.maxWidth = '95%';
-
     const dialogRef = this.dialog.open(ViewDetailsCategoryComponent, dialogConfig);
   }
 
+  async onGetMenu(){
+    let request = new GetMenuByCategoriesRequest(this.selectedCategories);
+    await this.menuService.getMenuByCategories(request).subscribe((res: getMenuByCategoriesResponse) => {
+      this.generateOrder(res.menu)
+    })
+  }
 
-  async createOrder() {
+  generateOrder(menu : Menu) {
+    this.order.daysOrder = [];
+    var total = 0;
+    var cantMenus = 0;
+
+    menu.turns.forEach(turn => {
+      turn.days.forEach (dayFood => {
+        const dayOrder : DayOrder = {
+          id: 0,
+          address: new Address (null),
+          cant: 1,
+          dayFood: new DayFood(dayFood),
+          observation: ""
+        }
+        this.order.daysOrder.push(dayOrder)
+        total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
+        cantMenus += cantMenus;
+      })
+      this.order.client = this.client;
+      this.order.date = new Date();
+      this.order.observation = "";
+      this.order.total = total;
+    });
+  }
+
+  async sendOrder() {
     var dayOrderRequestArray : DayOrderRequest[] = [];
-    var favoriteAdress = this.client.addresses.find(({ id }) => id === 1);
     this.order.daysOrder.forEach(dayOrder => {
       const dayOrderRequest : DayOrderRequest = {
         cant: dayOrder.cant,
-        idAddress: (new Address (favoriteAdress)).id,
+        idAddress: new Address (this.favoriteAdress).id,
         idDayFood: dayOrder.dayFood.id,
         observation: dayOrder.observation
       }
@@ -137,12 +155,14 @@ export class InicioOrderComponent implements OnInit {
     })
     const request: AddOrderRequest = {
       daysOrderRequest: dayOrderRequestArray,
-      idClient: this.client.id,
-      observation: "puto",
-      total: 60000,
-      date: new Date()
+      idClient: this.order.client.id,
+      observation: this.order.observation,
+      total: this.order.total,
+      date: this.order.date
     }
-    this.orderService.addOrder(request);
+    this.orderService.addOrder(request).subscribe((res: AddOrderResponse) => {
+      console.log(res);
+    });
   }
 
  onStepComplete(steps : any){
@@ -152,10 +172,15 @@ export class InicioOrderComponent implements OnInit {
       break; 
     } 
     case 1: { 
-      this.createOrder()
+      //this.createOrder()
+      this.showFinishOrder = true;
       break; 
     } 
     case 2: { 
+      console.log(this.favoriteAdress)
+
+      console.log(this.order)
+      this.sendOrder();
       //this.onGenerateOrder();
       break; 
    } 
@@ -165,10 +190,6 @@ export class InicioOrderComponent implements OnInit {
     } 
   } 
  }
- async getClientByIdUser(){
-  await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
-    this.client = new Client(res.client);
-    })
-  }
+
 
 }

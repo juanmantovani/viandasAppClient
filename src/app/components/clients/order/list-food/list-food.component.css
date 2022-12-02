@@ -32,6 +32,7 @@ h4 {
   border-radius: 10px;
   width: 112px;
   margin-right: 8px;
+  margin-top: 8px;
   height: 40px;
 }
 
@@ -51,10 +52,14 @@ mat-card-title, mat-card-subtitle {
 .full-width {
   width: 100%;
 }
+
 .formFood {
   min-width: 150px;
   max-width: 500px;
   width: 70%;
+  height: 60px;
+  margin-right: 8px;
+
 }
 
 @media (min-width: 940px) {

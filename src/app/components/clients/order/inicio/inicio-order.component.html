@@ -17,15 +17,11 @@
         [order]="order">
       </app-list-food>
     </mat-step>
-    <mat-step label="Seleccione la cantidad y agregue las observaciones que desee">
-      <app-finish-order></app-finish-order>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-      </div>
+    <mat-step label="Confirmar el menú">
+      <app-finish-order *ngIf="showFinishOrder"
+        [order]="order"
+        [favoriteAdress]="favoriteAdress">
+      </app-finish-order>
     </mat-step>
   </mat-stepper>
 
