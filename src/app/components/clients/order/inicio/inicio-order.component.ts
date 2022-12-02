@@ -86,7 +86,8 @@ export class InicioOrderComponent implements OnInit {
   async getClientByIdUser(){
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
-      this.favoriteAdress = new Address(this.client.addresses.find(({ id }) => id === 1));//cambiar ID por el campo favorite
+      //this.favoriteAdress = new Address(this.client.addresses.find(({ id }) => id === 1));//cambiar ID por el campo favorite
+      this.favoriteAdress = new Address(this.client.addresses[0]);//cambiar ID por el campo favorite
 
     })
   }
@@ -113,6 +114,7 @@ export class InicioOrderComponent implements OnInit {
   async onGetMenu(){
     let request = new GetMenuByCategoriesRequest(this.selectedCategories);
     await this.menuService.getMenuByCategories(request).subscribe((res: getMenuByCategoriesResponse) => {
+      console.log(res);
       this.generateOrder(res.menu)
     })
   }
