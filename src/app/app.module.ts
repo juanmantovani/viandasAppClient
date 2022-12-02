@@ -84,7 +84,8 @@ import { OrderInicioComponent } from './components/clients/order/inicio/inicio.c
 import { OrderCategoriesComponent } from './components/clients/order/categories/categories.component';
 import { OrderListFoodComponent } from './components/clients/order/list-food/list-food.component';
 import { ViewDetailsCategoryComponent } from './components/clients/order/view-details-category/view-details-category.component';
-import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
+import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component';
+import { AddressFormComponent } from './components/clients/address-form/address-form.component'
 
 
 
@@ -128,7 +129,8 @@ import { ResumeOrderComponent } from './components/clients/order/resume-order/re
     OrderCategoriesComponent,
     OrderListFoodComponent,
     ViewDetailsCategoryComponent,
-    ResumeOrderComponent
+    ResumeOrderComponent,
+    AddressFormComponent
     
   ],
   imports: [

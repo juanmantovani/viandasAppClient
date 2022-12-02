@@ -12,7 +12,8 @@ export const INTERNAL_ROUTES = {
     PROFILE : 'profile',
     ORDER : 'order',
     CITY: 'city',
-    PATHOLOGY: 'pathology'
+    PATHOLOGY: 'pathology',
+    ADDRESS : 'address'
 
 }
 

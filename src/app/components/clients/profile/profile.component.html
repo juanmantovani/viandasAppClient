@@ -2,26 +2,24 @@
 
     <div *ngIf="client">
 
-        <mat-card class="example-card">
+        <mat-card class="card-phone">
             <mat-card-header class="text">
-                <mat-card-title>Dirección </mat-card-title>
+                <mat-card-title>Direcciones </mat-card-title> 
+                <button mat-raised-button (click)="onClickAddAddress()"><mat-icon  fontIcon="add"></mat-icon></button>
             </mat-card-header>
             <hr>
             <mat-card-content>
-                <div *ngFor="let address of client.addresses">
+
+                <div *ngFor="let address of client.addresses" >
                     <p>
                         {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
                     </p>
-                    <span *ngIf="client.observation != null">
+                    <p *ngIf="client.observation != null">
                         Indicaciones: {{address.observation}}
-                    </span>
+                    </p>
+                    <button mat-raised-button (click)="onClickEditAddress(address)"><mat-icon  fontIcon="edit"></mat-icon></button>
                 </div>
             </mat-card-content>
-            <button mat-raised-button class="button">
-                Agregar
-            </button>
-            <mat-card-actions>
-            </mat-card-actions>
         </mat-card>
 
         <mat-card class="example-card">
@@ -32,6 +30,9 @@
             <mat-card-content>
                 <p>
                     {{client.phonePrimary}}
+                </p>
+                <p *ngIf="client.phoneSecondary != null">
+                    {{client.phoneSecondary}}
                 </p>
 
             </mat-card-content>

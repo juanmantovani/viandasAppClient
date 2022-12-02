@@ -61,6 +61,7 @@ export class ClientFormComponent implements OnInit {
 
   onClickSave() {
     this.mapperClient();
+    this.result.pathologies = this.listPathologies.filter(c => c.checked);
     this.onSubmit.emit(this.result);
     this.cleanList()
   }
@@ -80,6 +81,8 @@ export class ClientFormComponent implements OnInit {
     this.result.phoneSecondary = data["phoneSecondary"];
 
     var address: Address = {
+      id : 0,
+      favourite : true,
       street: data["street"],
       number: data["number"],
       floor: data["floor"],

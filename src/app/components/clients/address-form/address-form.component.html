@@ -1,0 +1,59 @@
+<form [formGroup]="form" id="myform" #f="ngForm">
+
+    <mat-dialog-content>
+        <input type="hidden" formControlName="id" />
+
+
+        <mat-form-field appearance="fill" #street >
+            <mat-label>Calle</mat-label>
+            <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
+                required />
+            <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+        <table >
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" #number>
+                        <mat-label>Número</mat-label>
+                        <input type="text" matInput formControlName="number" name="number" id="number" #number
+                            placeholder="Número" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" #floor>
+                        <mat-label>Piso</mat-label>
+                        <input type="text" matInput formControlName="floor" name="floor" id="floor" #floor
+                            placeholder="Piso" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" #departament>
+                        <mat-label>Dpto</mat-label>
+                        <input type="text" matInput formControlName="departament" name="departament" id="departament"
+                            #departament placeholder="Dpto" />
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+        <mat-form-field appearance="fill" #obsAddress >
+            <mat-label>Indicaciones</mat-label>
+            <textarea type="text" matInput formControlName="obsAddress" name="obsAddress" id="obsAddress" #obsAddress
+                rows="2"></textarea>
+        </mat-form-field>
+
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="center">
+        <button  mat-button color="primary" (click)="onClickCancel()">
+            <mat-icon>clear</mat-icon> CANCELAR
+        </button>
+        <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+            [disabled]="form.status == 'INVALID'">
+            <mat-icon>save</mat-icon> GUARDAR
+        </button>
+
+    </mat-dialog-actions>
+</form>
