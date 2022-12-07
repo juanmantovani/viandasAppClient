@@ -54,7 +54,7 @@ export const API_ROUTES ={
         GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCity`,
     },
     ADDRESS :{
-        UPLOADADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/uploadAddress`,
+        ADDADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/addAddress`,
         EDITADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/editAddress`,
     }
 }

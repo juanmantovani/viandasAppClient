@@ -45,13 +45,13 @@ export class ClientFormComponent implements OnInit {
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, Validators.required),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary),
-      street: new FormControl(this.data.client.addresses[0]?.street, Validators.required),
-      number: new FormControl(this.data.client.addresses[0]?.number),
-      floor: new FormControl(this.data.client.addresses[0]?.floor),
-      departament: new FormControl(this.data.client.addresses[0]?.departament),
+      street: new FormControl("",Validators.required),
+      number: new FormControl(),
+      floor: new FormControl(),
+      departament: new FormControl(),
       bornDate: new FormControl(this.data.client?.bornDate, Validators.required),
       obsClient: new FormControl(this.data.client?.observation),
-      obsAddress: new FormControl(this.data.client.addresses[0]?.observation)
+      obsAddress: new FormControl()
     });
   }
 

@@ -31,7 +31,7 @@ export class InicioClientComponent implements OnInit {
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
-      if (res.client == null) {
+      if (res.client == undefined) {
         const dataForm: DataFormRegisterClient = {
           actionForm: "Alta",
           client: new Client(null),

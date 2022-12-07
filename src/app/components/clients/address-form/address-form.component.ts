@@ -33,7 +33,7 @@ export class AddressFormComponent implements OnInit {
       number: new FormControl(this.data.address?.number),
       floor: new FormControl(this.data.address?.floor),
       departament: new FormControl(this.data.address?.departament),
-      obsAddress: new FormControl(this.data.address?.observation)
+      observation: new FormControl(this.data.address?.observation)
     });
   }
   onClickCancel() {

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
+import { AddAddressRequest } from 'src/app/shared/dto/address/AddAddressRequest';
+import { AddAddressResponse } from 'src/app/shared/dto/address/AddAddressResponse';
 import { DataFormAddress } from 'src/app/shared/dto/address/DataFormAddress';
 import { EditAddressRequest } from 'src/app/shared/dto/address/EditAddressRequest';
 import { EditAddressResponse } from 'src/app/shared/dto/address/EditAddressResponse';
@@ -26,6 +28,8 @@ export class ProfileComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
   client: Client;
+  actionFormAddress:string;
+
 
   constructor(private readonly keycloak: KeycloakService, 
     private clientService: ClientService, 
@@ -89,10 +93,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickEditAddress(address: Address) {
+    this.actionFormAddress = "Edit"
     const dataForm: DataFormAddress = {
       actionForm: "Edit",
       address: address,
-      idClient : this.client.id
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -109,7 +113,7 @@ export class ProfileComponent implements OnInit {
         return false;
       }
 
-      var result: any = await this.updateAddress(data);
+      var result: any = await this.onSubmit(data);
       if (result) {
         return false;
       }
@@ -117,6 +121,23 @@ export class ProfileComponent implements OnInit {
         dialogRef.close();
         return true;
       }
+    })
+  }
+
+  async onSubmit(address: Address){ 
+    const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
+  
+    return resultOperation;
+  }
+
+  async addAddress(address: Address) {
+    const addAddressRequest: AddAddressRequest = {
+      address: address,
+      idCLient: this.client.id
+    }
+    await this.addressService.addAddress(addAddressRequest).subscribe((res: AddAddressResponse) => {
+      this.getClientByIdUser();
+      return res;
     })
   }
 
@@ -131,10 +152,10 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickAddAddress(){
+    this.actionFormAddress = "Add"
     const dataForm: DataFormAddress = {
       actionForm: "Add",
       address: new Address(null),
-      idClient : this.client.id
     };
     this.gestionateFormAddress(dataForm);
 

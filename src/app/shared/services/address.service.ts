@@ -17,8 +17,9 @@ export class AddressService {
 
   OPTION = {headers: {'Content-Type': 'application/json'}};
 
-  addAddress(request: AddAddressRequest) : Observable<AddAddressResponse> {    
-    return this.http.post<AddAddressResponse>(ROUTES.API_ROUTES.ADDRESS.UPLOADADDRESS, JSON.stringify(request), this.OPTION ).pipe(
+  addAddress(request: AddAddressRequest) : Observable<AddAddressResponse> { 
+    console.log(JSON.stringify(request))   
+    return this.http.post<AddAddressResponse>(ROUTES.API_ROUTES.ADDRESS.ADDADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new AddAddressResponse(res)))
   }
   
