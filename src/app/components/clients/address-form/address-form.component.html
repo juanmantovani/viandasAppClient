@@ -3,6 +3,9 @@
     <mat-dialog-content>
         <input type="hidden" formControlName="id" />
 
+        <button class="check" *ngIf="!this.data.address?.favourite" mat-raised-button (click)="onClickSetAsFavourite(data)" title="Marcar como favorita">
+            <mat-icon fontIcon="check"></mat-icon>Marcar como favorita
+        </button>
 
         <mat-form-field appearance="fill" #street >
             <mat-label>Calle</mat-label>

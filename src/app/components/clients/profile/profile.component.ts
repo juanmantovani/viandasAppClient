@@ -5,6 +5,7 @@ import { KeycloakProfile } from 'keycloak-js';
 import { AddAddressRequest } from 'src/app/shared/dto/address/AddAddressRequest';
 import { AddAddressResponse } from 'src/app/shared/dto/address/AddAddressResponse';
 import { DataFormAddress } from 'src/app/shared/dto/address/DataFormAddress';
+import { DeleteAddressRequest } from 'src/app/shared/dto/address/DeleteAddressRequest';
 import { EditAddressRequest } from 'src/app/shared/dto/address/EditAddressRequest';
 import { EditAddressResponse } from 'src/app/shared/dto/address/EditAddressResponse';
 import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
@@ -15,6 +16,7 @@ import { Address } from 'src/app/shared/models/Address';
 import { Client } from 'src/app/shared/models/Client';
 import { AddressService } from 'src/app/shared/services/address.service';
 import { ClientService } from 'src/app/shared/services/client.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 import { Utils } from 'src/app/utils';
 import { AddressFormComponent } from '../address-form/address-form.component';
 import { ClientFormComponent } from '../client-form/client-form.component';
@@ -28,14 +30,15 @@ export class ProfileComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
   client: Client;
-  actionFormAddress:string;
+  actionFormAddress: string;
 
 
-  constructor(private readonly keycloak: KeycloakService, 
-    private clientService: ClientService, 
+  constructor(private readonly keycloak: KeycloakService,
+    private clientService: ClientService,
     public dialog: MatDialog,
-    private addressService : AddressService
-    ) { }
+    private addressService: AddressService,
+    private dialogService: DialogService
+  ) { }
 
 
   async ngOnInit() {
@@ -101,6 +104,15 @@ export class ProfileComponent implements OnInit {
     this.gestionateFormAddress(dataForm);
   }
 
+  onClickAddAddress() {
+    this.actionFormAddress = "Add"
+    const dataForm: DataFormAddress = {
+      actionForm: "Add",
+      address: new Address(null),
+    };
+    this.gestionateFormAddress(dataForm);
+  }
+
   async gestionateFormAddress(dataForm: DataFormAddress) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
@@ -124,9 +136,9 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  async onSubmit(address: Address){ 
+  async onSubmit(address: Address) {
     const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
-  
+
     return resultOperation;
   }
 
@@ -151,14 +163,23 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  onClickAddAddress(){
-    this.actionFormAddress = "Add"
-    const dataForm: DataFormAddress = {
-      actionForm: "Add",
-      address: new Address(null),
-    };
-    this.gestionateFormAddress(dataForm);
+  async onClickDeleteAddress(address: Address) {
+    if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+      await this.deleteAddress(address);
+    }
+  }
 
+  async deleteAddress(address: Address){
+    const request: DeleteAddressRequest = {
+      idAddress: address.id
+    }
+    await this.addressService.deleteAddress(request).subscribe(() => {
+     this.getClientByIdUser();
+    });
+  }
+
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
   }
 
 }

@@ -1,7 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { SetFavouriteAddressRequest } from 'src/app/shared/dto/address/SetFavouriteAddressRequest';
 import { Address } from 'src/app/shared/models/Address';
+import { AddressService } from 'src/app/shared/services/address.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-address-form',
@@ -15,7 +18,9 @@ export class AddressFormComponent implements OnInit {
   @Output() onSubmit: EventEmitter<Address | null>;
 
   constructor(
-    public dialogRef: MatDialogRef<AddressFormComponent>,
+    private dialogService: DialogService,
+    private addressService: AddressService,
+    public dialogRef: MatDialogRef<AddressFormComponent>, 
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.onSubmit = new EventEmitter<Address | null>();
@@ -44,5 +49,25 @@ export class AddressFormComponent implements OnInit {
     this.result = this.form.getRawValue()
     this.onSubmit.emit(this.result);
   }
+
+  async onClickSetAsFavourite(data: any){
+    if (await this.generateConfirm("¿Está seguro de realizar esta operación?") === true) {
+      await this.setFavouriteAddress(data.address);
+    }
+  }
+
+  async setFavouriteAddress(address: Address){
+    const request: SetFavouriteAddressRequest = {
+      idAddress: address.id
+    }
+    await this.addressService.setFavouriteAddress(request).subscribe(() => {
+      this.onSubmit.emit()
+    });
+  }
+
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
+  }
+
 
 }

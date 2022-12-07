@@ -2,27 +2,37 @@
 
     <div *ngIf="client">
 
-        <mat-card class="card-phone">
+        <mat-card class="card">
             <mat-card-header class="text">
-                <mat-card-title>Direcciones </mat-card-title> 
-                <button mat-raised-button (click)="onClickAddAddress()"><mat-icon  fontIcon="add"></mat-icon></button>
+                <mat-card-title>Direcciones </mat-card-title>
+                <button mat-raised-button (click)="onClickAddAddress()">
+                    <mat-icon fontIcon="add"></mat-icon>
+                </button>
             </mat-card-header>
             <hr>
             <mat-card-content>
 
-                <div *ngFor="let address of client.addresses" >
+                <div *ngFor="let address of client.addresses">
                     <p>
+                        <mat-icon class="star" *ngIf="address.favourite" fontIcon="star"></mat-icon>
                         {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
                     </p>
-                    <p *ngIf="client.observation != null">
+                    <p *ngIf="address.observation.length  > 0">
                         Indicaciones: {{address.observation}}
                     </p>
-                    <button mat-raised-button (click)="onClickEditAddress(address)"><mat-icon  fontIcon="edit"></mat-icon></button>
+                    <button mat-raised-button (click)="onClickEditAddress(address)" title="Editar">
+                        <mat-icon fontIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-raised-button (click)="onClickDeleteAddress(address)" title="Eliminar">
+                        <mat-icon fontIcon="delete"></mat-icon>
+                    </button>
+                   
+                    <hr>
                 </div>
             </mat-card-content>
         </mat-card>
 
-        <mat-card class="example-card">
+        <mat-card class="card">
             <mat-card-header class="text">
                 <mat-card-title>Teléfonos </mat-card-title>
             </mat-card-header>
@@ -40,7 +50,7 @@
             </mat-card-actions>
         </mat-card>
 
-        <mat-card class="example-card">
+        <mat-card class="card">
             <mat-card-header class="text">
                 <mat-card-title>Información adicional </mat-card-title>
             </mat-card-header>
