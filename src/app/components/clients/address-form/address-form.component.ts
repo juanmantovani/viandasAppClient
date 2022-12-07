@@ -58,7 +58,8 @@ export class AddressFormComponent implements OnInit {
 
   async setFavouriteAddress(address: Address){
     const request: SetFavouriteAddressRequest = {
-      idAddress: address.id
+      idAddress: address.id,
+      idClient: this.data.idClient
     }
     await this.addressService.setFavouriteAddress(request).subscribe(() => {
       this.onSubmit.emit()

@@ -100,6 +100,7 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormAddress = {
       actionForm: "Edit",
       address: address,
+      idClient : this.client.id
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -109,6 +110,7 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormAddress = {
       actionForm: "Add",
       address: new Address(null),
+      idClient: this.client.id
     };
     this.gestionateFormAddress(dataForm);
   }
