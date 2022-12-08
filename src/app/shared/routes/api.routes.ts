@@ -52,5 +52,11 @@ export const API_ROUTES ={
     },
     CITY : {
         GETCITY:`${ENV.urlApi}/${INTERNAL_ROUTES.CITY}/getCity`,
+    },
+    ADDRESS :{
+        ADDADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/addAddress`,
+        EDITADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/editAddress`,
+        DELETEADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/deleteAddress`,
+        SETFAVOURITEADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/setFavouriteAddress`,
     }
 }

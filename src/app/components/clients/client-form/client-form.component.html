@@ -35,7 +35,7 @@
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" #street>
+        <mat-form-field appearance="fill" #street *ngIf="data.actionForm == 'Alta'">
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
                 required />
@@ -43,7 +43,7 @@
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>
-        <table>
+        <table *ngIf="data.actionForm == 'Alta'">
             <tr>
                 <td>
                     <mat-form-field appearance="fill" #number>
@@ -68,7 +68,7 @@
                 </td>
             </tr>
         </table>
-        <mat-form-field appearance="fill" #obsAddress>
+        <mat-form-field appearance="fill" #obsAddress *ngIf="data.actionForm == 'Alta'">
             <mat-label>Indicaciones</mat-label>
             <textarea type="text" matInput formControlName="obsAddress" name="obsAddress" id="obsAddress" #obsAddress
                 rows="2"></textarea>
