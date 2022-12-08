@@ -58,13 +58,20 @@ export class AddressFormComponent implements OnInit {
 
   async setFavouriteAddress(address: Address){
     const request: SetFavouriteAddressRequest = {
-      idAddress: address.id,
-      idClient: this.data.idClient
+      idNewFavouriteAddress: address.id,
+      idClient: this.data.client.id,
+      idOldFavouriteAddress : this.findFavouriteAddres(this.data.client.addresses)
     }
     await this.addressService.setFavouriteAddress(request).subscribe(() => {
-      this.onSubmit.emit()
+      this.onSubmit.emit(new Address(null))
     });
   }
+  findFavouriteAddres(addresses : Address[]){
+    var address = addresses.find(a => a.favourite == true)
+
+    return address?.id!
+  }
+
 
   async generateConfirm(msg: string) {
     return await this.dialogService.openConfirmDialog(msg);

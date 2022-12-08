@@ -1,4 +1,5 @@
 export class SetFavouriteAddressRequest{
-    idAddress : number;
+    idNewFavouriteAddress : number;
+    idOldFavouriteAddress : number;
     idClient : number;
 }

@@ -100,7 +100,7 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormAddress = {
       actionForm: "Edit",
       address: address,
-      idClient : this.client.id
+      client : this.client
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -110,7 +110,7 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormAddress = {
       actionForm: "Add",
       address: new Address(null),
-      idClient: this.client.id
+      client: this.client
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -139,6 +139,10 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSubmit(address: Address) {
+    if(address.id == undefined){
+      this.getClientByIdUser();
+      return false;
+    }
     const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
 
     return resultOperation;
