@@ -85,7 +85,7 @@ import { OrderCategoriesComponent } from './components/clients/order/categories/
 import { OrderListFoodComponent } from './components/clients/order/list-food/list-food.component';
 import { ViewDetailsCategoryComponent } from './components/clients/order/view-details-category/view-details-category.component';
 import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component';
-import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component'
+import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
 
 
 
@@ -130,7 +130,7 @@ import { FinishOrderComponent } from './components/clients/order/finish-order/fi
     OrderListFoodComponent,
     ViewDetailsCategoryComponent,
     ResumeOrderComponent,
-    FinishOrderComponent
+    FinishOrderComponent,
     
   ],
   imports: [

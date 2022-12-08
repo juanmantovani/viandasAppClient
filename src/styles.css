@@ -28,3 +28,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-stepper-horizontal, .mat-stepper-vertical {
     background-color:#f9f6f4;
 }
+
+mat-chip {
+    margin-right: 10px !important;
+}

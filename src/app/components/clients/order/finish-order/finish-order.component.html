@@ -1,17 +1,36 @@
-<h2>Detalles del pedido</h2>
-<mat-card>
-    {{ order.total }}
-    <form class="formFood" >
-        <mat-form-field class="full-width" appearance="fill">
-          <mat-label>Observaciones</mat-label>
-          <input matInput placeholder="Aclaraciones generales" [(ngModel)]="order.observation" [ngModelOptions]="{standalone: true}">
-        </mat-form-field>
-      </form>
-    <mat-card-content>Simple card</mat-card-content>
+<mat-card class="cardDay">
+  <mat-card-title>Tu orden</mat-card-title>
+  <div *ngFor="let day of daysOfMonth">
+    <mat-divider></mat-divider>
+    {{ getDay(day) }} {{ day | date:'dd/MM' }}:
+    <mat-card-content>
+        <mat-chip-list class="listMenuByDay" *ngFor="let dayOrder of order.daysOrder let i=index">
+          <mat-chip *ngIf="((dayOrder.dayFood.date | date:'dd/MM') == (day | date:'dd/MM') && dayOrder.cant > 0)" [style]="{'background-color': dayOrder.dayFood.category.color}">
+            {{ dayOrder.cant }} x {{ dayOrder.dayFood.category.title }}
+          </mat-chip>
+        </mat-chip-list>
+    </mat-card-content>
+  </div>
 </mat-card>
 
-<h2>Detalles del envío</h2>
 <mat-card>
-    <mat-card-title>Dirección</mat-card-title>
-    <mat-card-content>{{ favoriteAdress.street }} Nº{{ favoriteAdress.number }}</mat-card-content>
+  <h2>Domicilio de entrega</h2>
+    <mat-card-content>
+      <mat-divider></mat-divider>
+      {{ favoriteAdress.street }} Nº{{ favoriteAdress.number }}
+    </mat-card-content>
 </mat-card>
+
+<mat-card>
+  <h2>Dejá tu observación</h2>
+  <mat-card-content>
+  <form class="formFood" >
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Observaciones</mat-label>
+        <textarea matInput placeholder="Aclaraciones generales" [(ngModel)]="order.observation" [ngModelOptions]="{standalone: true}"></textarea>
+      </mat-form-field>
+    </form>
+    <h2>TOTAL ${{ order.total }}</h2>
+  </mat-card-content>    
+</mat-card>
+

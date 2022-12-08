@@ -30,6 +30,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
+import { Food } from 'src/app/shared/models/Food';
 
 
 @Component({
@@ -48,7 +49,9 @@ export class InicioOrderComponent implements OnInit {
 
   client : Client;
   favoriteAdress: Address;
-  showFinishOrder : boolean;
+  viewOrderByDay : boolean;
+  daysOfMonth : Date [];
+  menu : Menu;
 
   public userProfile: KeycloakProfile | null;
 
@@ -114,7 +117,7 @@ export class InicioOrderComponent implements OnInit {
   async onGetMenu(){
     let request = new GetMenuByCategoriesRequest(this.selectedCategories);
     await this.menuService.getMenuByCategories(request).subscribe((res: getMenuByCategoriesResponse) => {
-      console.log(res);
+      this.menu = res.menu;
       this.generateOrder(res.menu)
     })
   }
@@ -123,6 +126,7 @@ export class InicioOrderComponent implements OnInit {
     this.order.daysOrder = [];
     var total = 0;
     var cantMenus = 0;
+    this.daysOfMonth = [];
 
     menu.turns.forEach(turn => {
       turn.days.forEach (dayFood => {
@@ -136,6 +140,11 @@ export class InicioOrderComponent implements OnInit {
         this.order.daysOrder.push(dayOrder)
         total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
         cantMenus += cantMenus;
+
+        if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)){//para evitar duplicados
+          this.daysOfMonth.push(new Date(dayFood.date));
+        }
+
       })
       this.order.client = this.client;
       this.order.date = new Date();
@@ -144,8 +153,16 @@ export class InicioOrderComponent implements OnInit {
     });
   }
 
+  existeFecha(array: any, fecha: Date) {
+    return array.some((f: any) => {
+      return f.getTime() === fecha.getTime();     
+    });
+  }
+
   async sendOrder() {
     var dayOrderRequestArray : DayOrderRequest[] = [];
+
+
     this.order.daysOrder.forEach(dayOrder => {
       const dayOrderRequest : DayOrderRequest = {
         cant: dayOrder.cant,
@@ -155,6 +172,7 @@ export class InicioOrderComponent implements OnInit {
       }
       dayOrderRequestArray.push(dayOrderRequest);
     })
+
     const request: AddOrderRequest = {
       daysOrderRequest: dayOrderRequestArray,
       idClient: this.order.client.id,
@@ -167,6 +185,11 @@ export class InicioOrderComponent implements OnInit {
     });
   }
 
+  onViewOrderByDay(){
+    this.viewOrderByDay = true;
+
+  }
+
  onStepComplete(steps : any){
   switch(steps) { 
     case 0: { 
@@ -175,13 +198,11 @@ export class InicioOrderComponent implements OnInit {
     } 
     case 1: { 
       //this.createOrder()
-      this.showFinishOrder = true;
+
+      this.onViewOrderByDay()
       break; 
     } 
     case 2: { 
-      console.log(this.favoriteAdress)
-
-      console.log(this.order)
       this.sendOrder();
       //this.onGenerateOrder();
       break; 

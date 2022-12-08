@@ -1,9 +1,11 @@
 <mat-toolbar>
     <mat-toolbar-row>
-        <a href="">
+        <!-- <a href="">
             <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
-        </a>
+        </a> -->
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+        <h4>{{ status }}</h4>
+
         <span class="spacer"></span>
         <div class="row">
         <div ngbDropdown class="d-inline-block">
@@ -22,10 +24,10 @@
     <mat-sidenav [(opened)]="opened" mode="over">
        
        <mat-list>
-        <mat-list-item class="nav-link" [routerLink]="[PROFILE]" (click)="status='> Perfil'; opened = !opened">
+        <mat-list-item [ngClass]="{'active': status === 'Perfil'}" class="nav-link" [routerLink]="[PROFILE]" (click)="status='Perfil'; opened = !opened">
             Perfil
         </mat-list-item>
-        <mat-list-item class="nav-link" [routerLink]="[ORDER]" (click)="status='> Pedir'; opened = !opened">
+        <mat-list-item [ngClass]="{'active': status === 'Pedir'}" class="nav-link" [routerLink]="[ORDER]" (click)="status='Pedir'; opened = !opened">
             Pedir
         </mat-list-item>
         
