@@ -23,6 +23,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     }
 
+    mat-sidenav-container{
+        height: calc(100% - 56px);
+    }
+    
+
 }
 
 .mat-stepper-horizontal, .mat-stepper-vertical {
@@ -32,3 +37,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-chip {
     margin-right: 10px !important;
 }
+

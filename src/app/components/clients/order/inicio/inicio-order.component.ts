@@ -31,6 +31,7 @@ import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientBy
 import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 import { Food } from 'src/app/shared/models/Food';
+import { GetOrderViewerResponse } from 'src/app/shared/dto/order/GetOrderViewerResponse';
 
 
 @Component({
@@ -77,7 +78,7 @@ export class InicioOrderComponent implements OnInit {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
     this.getClientByIdUser()
-
+    this.getOrderViewer()
   }
 
   async getCategories() {
@@ -213,6 +214,11 @@ export class InicioOrderComponent implements OnInit {
     } 
   } 
  }
+
+ async getOrderViewer() {
+  await this.orderService.getOrderViewer().subscribe((res: GetOrderViewerResponse) => {
+    console.log(res);
+  }) }
 
 
 }

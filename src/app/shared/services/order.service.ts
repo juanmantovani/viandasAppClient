@@ -4,6 +4,7 @@ import { AddOrderRequest } from '../dto/order/AddOrderRequest';
 import { AddOrderResponse } from '../dto/order/AddOrderResponse';
 import  * as ROUTES  from '../routes/index.routes'
 import { map, Observable, tap } from 'rxjs';
+import { GetOrderViewerResponse } from '../dto/order/GetOrderViewerResponse';
 
 
 
@@ -22,5 +23,14 @@ export class OrderService {
         new AddOrderResponse(res);
       }))  
   }
+
+  getOrderViewer(): Observable<GetOrderViewerResponse> {
+    return this.http.get<GetOrderViewerResponse>(ROUTES.API_ROUTES.ORDER.GETORDERVIEWER).pipe(
+    map((res: any) => {
+      return new GetOrderViewerResponse(res);
+   })
+ )
+}
+
 
 }

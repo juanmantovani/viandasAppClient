@@ -3,7 +3,7 @@
         <!-- <a href="">
             <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
         </a> -->
-        <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
         <h4>{{ status }}</h4>
 
         <span class="spacer"></span>
@@ -24,11 +24,11 @@
     <mat-sidenav [(opened)]="opened" mode="over">
        
        <mat-list>
-        <mat-list-item [ngClass]="{'active': status === 'Perfil'}" class="nav-link" [routerLink]="[PROFILE]" (click)="status='Perfil'; opened = !opened">
-            Perfil
+        <mat-list-item [ngClass]="{'active': status === 'Tu perfil'}" class="nav-link" [routerLink]="[PROFILE]" (click)="status='Tu perfil'; opened = !opened">
+            <mat-icon>account_box</mat-icon> <div class="item">Tu perfil</div>
         </mat-list-item>
         <mat-list-item [ngClass]="{'active': status === 'Pedir'}" class="nav-link" [routerLink]="[ORDER]" (click)="status='Pedir'; opened = !opened">
-            Pedir
+            <mat-icon>assignment</mat-icon> <div class="item">Pedir</div>
         </mat-list-item>
         
         <mat-list-item>

@@ -6,7 +6,7 @@ export class Client {
     name : string;
     lastName : string;
     phonePrimary : string;
-    phoneSeconday : string;
+    phoneSecondary : string;
     bornDate : Date;
     addresses  : Address[];
     email : string;
@@ -19,11 +19,13 @@ export class Client {
           this.name = data.name;
           this.lastName = data.lastName;
           this.phonePrimary = data.phonePrimary;
-          this.phoneSeconday = data.phoneSecondary;
+          this.phoneSecondary = data.phoneSecondary;
           this.bornDate = new Date(data.bornDate);
+           if(data.addresses)
           this.addresses  = data.addresses.map((a : any) => new Address(a))
           this.observation = data.observation;
-          this.pathologies = data.pathologies.map((p : any) => new Pathology(p))
+          if(data.pathologies)
+            this.pathologies = data.pathologies.map((p : any) => new Pathology(p))
         }
       }
 }

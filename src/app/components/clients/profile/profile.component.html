@@ -1,1 +1,80 @@
-<p>profile works!</p>
+<div class="container-fluid">
+
+    <div *ngIf="client">
+
+        <mat-card class="card">
+            <mat-card-header class="text">
+                <mat-card-title>Direcciones </mat-card-title>
+                <button mat-raised-button (click)="onClickAddAddress()">
+                    <mat-icon fontIcon="add"></mat-icon>
+                </button>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+
+                <div *ngFor="let address of client.addresses">
+                    <p>
+                        <mat-icon class="star" *ngIf="address.favourite" fontIcon="star"></mat-icon>
+                        {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
+                    </p>
+                    <p *ngIf="address.observation.length  > 0">
+                        Indicaciones: {{address.observation}}
+                    </p>
+                    <button mat-raised-button (click)="onClickEditAddress(address)" title="Editar">
+                        <mat-icon fontIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-raised-button (click)="onClickDeleteAddress(address)" title="Eliminar">
+                        <mat-icon fontIcon="delete"></mat-icon>
+                    </button>
+                   
+                    <hr>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-header class="text">
+                <mat-card-title>Teléfonos </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <p>
+                    {{client.phonePrimary}}
+                </p>
+                <p *ngIf="client.phoneSecondary != null">
+                    {{client.phoneSecondary}}
+                </p>
+
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-header class="text">
+                <mat-card-title>Información adicional </mat-card-title>
+            </mat-card-header>
+            <hr>
+            <mat-card-content>
+                <label>Fecha de nacimiento:</label>
+                <p>
+                    {{client.bornDate | date: 'dd/MM/yyyy' }}
+                </p>
+                <label>Observación:</label>
+                <p>
+                    {{client.observation }}
+                </p>
+            </mat-card-content>
+            <mat-card-actions>
+            </mat-card-actions>
+        </mat-card>
+
+        <div align="center">
+            <button mat-raised-button (click)="onClickUpdate()" class="button">
+                Actualizar mis datos
+            </button>
+        </div>
+
+    </div>
+
+</div>

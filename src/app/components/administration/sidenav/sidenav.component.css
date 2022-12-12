@@ -15,14 +15,12 @@ mat-toolbar{
 .nav-link:hover  {
 	background: #f2d26be1;
 	color: #575757;
-    font-weight: 600;
     cursor: pointer;
 }
 
 .nav-link.active  {
 	background: #f2d26be1;
 	color: #575757;
-    font-weight: 600;
 }
 
 .nav-link {
@@ -49,4 +47,12 @@ mat-toolbar{
     content: none;
 }
 
+
+@media (max-width: 600px) {
+
+    mat-sidenav-container{
+        height: calc(100% - 56px);
+    }
+
+}
 

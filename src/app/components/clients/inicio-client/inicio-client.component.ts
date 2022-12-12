@@ -19,27 +19,25 @@ import { ClientFormComponent } from '../client-form/client-form.component';
   styleUrls: ['./inicio-client.component.css']
 })
 export class InicioClientComponent implements OnInit {
-  actionForm: string;
   userProfile: KeycloakProfile | null = null;
 
 
-  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService : ClientService) { }
+  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService: ClientService) { }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser(); 
+    this.getClientByIdUser();
   }
-  
-  async getClientByIdUser(){
-    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
-      if(res.client == null){
-        this.actionForm = 'Alta';
+
+  async getClientByIdUser() {
+    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
+      if (res.client == undefined) {
         const dataForm: DataFormRegisterClient = {
-        actionForm: "Alta",
-        client: new Client(null),
-        userProfile : this.userProfile!
-      };
-      this.gestionateForm(dataForm);
+          actionForm: "Alta",
+          client: new Client(null),
+          userProfile: this.userProfile!
+        };
+        this.gestionateForm(dataForm);
       }
     })
   }
@@ -56,7 +54,7 @@ export class InicioClientComponent implements OnInit {
         return false;
       }
 
-      var result : any  = await this.onSubmit(data);
+      var result: any = await this.registerClient(data);
       if (result) {
         return false;
       }
@@ -65,13 +63,6 @@ export class InicioClientComponent implements OnInit {
         return true;
       }
     })
-  }
-
-  async onSubmit(client: Client){ 
-   
-    const resultOperation = this.actionForm == "Alta" ? await this.registerClient(client) : await this.updateClient(client);
-  
-    return resultOperation;
   }
 
   async registerClient(client: Client) {
@@ -84,15 +75,5 @@ export class InicioClientComponent implements OnInit {
     }
     );
   }
-
-  async updateClient(client: Client) {
-    const updateClientRequest: UpdateClientRequest = {
-      client: client
-    }
-    await this.clientService.updateClient(updateClientRequest).subscribe((res: UpdateClientResponse) => {
-      return res;
-    })
-  }
-
 
 }

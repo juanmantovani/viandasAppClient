@@ -1,0 +1,13 @@
+.card {
+    max-width: 100%;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.button{
+    margin: 10px;
+}
+
+.star{
+    color: gold;
+}
