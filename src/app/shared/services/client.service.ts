@@ -47,7 +47,10 @@ export class ClientService {
 
     return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDUSER, {params}).pipe(
       map((res:any) => {
+        console.log(res)
+
         return new GetClientByIdUserResponse(res);
+
       })
     )
   }

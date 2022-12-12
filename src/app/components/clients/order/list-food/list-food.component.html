@@ -1,18 +1,20 @@
-<mat-card class="food-card" *ngFor="let dayOrder of order.daysOrder" [style]="{'border-right': '5px solid'+dayOrder.category.color}">
+<div class="d-flex flex-wrap">
+<mat-card class="food-card" *ngFor="let dayOrder of order.daysOrder" [style]="{'border-right': '5px solid'+dayOrder.dayFood.category.color}">
     <mat-card-title-group>
-      <mat-card-title><h4>{{dayOrder.food.title}}</h4></mat-card-title>
-      <mat-card-subtitle>{{dayOrder.food.description}}</mat-card-subtitle>
+      <mat-card-subtitle>{{ getDay(dayOrder.dayFood.date)}} - {{ dayOrder.dayFood.date | date: 'dd/MM' }} ({{ dayOrder.dayFood.category.title }})</mat-card-subtitle>
+      <mat-card-title><h4>{{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
+      <mat-card-subtitle class="descriptionSubtitle">{{ dayOrder.dayFood.food.description }}</mat-card-subtitle>
       <mat-card-title><h4>$650</h4></mat-card-title>
 
-        <img *ngIf="dayOrder.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.food.urlImage}}" class="foodCard">
-        <img *ngIf="!dayOrder.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCard">
+        <img *ngIf="dayOrder.dayFood.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.dayFood.food.urlImage}}" class="foodCardImg">
+        <img *ngIf="!dayOrder.dayFood.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCardImg">
 
     </mat-card-title-group>
       <mat-card-actions align="end">
-        <form class="example-form" >
-          <mat-form-field class="example-full-width">
+        <form class="formFood" >
+          <mat-form-field class="full-width" appearance="fill">
             <mat-label>Observaciones</mat-label>
-            <input matInput placeholder="Aclaración sobre algún ingrediente" (value)="dayOrder.observation" [disabled]="dayOrder.cant < 1">
+            <input matInput placeholder="Aclaraciones sobre ingredientes" [disabled]="dayOrder.cant < 1" [(ngModel)]="dayOrder.observation" [ngModelOptions]="{standalone: true}">
           </mat-form-field>
         </form>
         <div class="cant">
@@ -27,3 +29,5 @@
       </mat-card-actions>
 
   </mat-card>
+
+</div>

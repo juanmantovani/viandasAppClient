@@ -139,20 +139,23 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSubmit(address: Address) {
-    if(address.id == undefined){
-      this.getClientByIdUser();
-      return false;
-    }
+    
+    // if(address.id == undefined){
+    //   this.getClientByIdUser();
+    //   return false;
+    // }
     const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
 
     return resultOperation;
   }
 
   async addAddress(address: Address) {
+
     const addAddressRequest: AddAddressRequest = {
       address: address,
       idCLient: this.client.id
     }
+
     await this.addressService.addAddress(addAddressRequest).subscribe((res: AddAddressResponse) => {
       this.getClientByIdUser();
       return res;

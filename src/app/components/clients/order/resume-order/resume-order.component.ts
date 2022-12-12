@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-resume-order',
@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResumeOrderComponent implements OnInit {
 
+  @Input() isDisabledNext : boolean;
+  @Output() stepComplete : EventEmitter <boolean> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onClickNext() {
+    this.stepComplete.emit();
   }
 
 }

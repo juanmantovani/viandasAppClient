@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/shared/models/Order';
+import { Utils } from 'src/app/shared/utils';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -19,6 +20,11 @@ export class OrderListFoodComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+
+  getDay(date: Date): string{
+    return Utils.getDayOfDate(date);
   }
 
 }

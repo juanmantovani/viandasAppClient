@@ -2,9 +2,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { AddMenuRequest } from 'src/app/shared/dto/menu/AddMenuRequest';
 import { AddMenuResponse } from 'src/app/shared/dto/menu/AddMenuResponse';
-import { DayRequest } from 'src/app/shared/dto/menu/DayRequest';
+import { DayFoodRequest } from 'src/app/shared/dto/menu/DayFoodRequest';
 import { TurnRequest } from 'src/app/shared/dto/menu/TurnRequest';
-import { Day } from 'src/app/shared/models/Day';
+import { DayFood } from 'src/app/shared/models/DayFood';
 import { Turn } from 'src/app/shared/models/Turn';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
@@ -49,7 +49,7 @@ export class CategoriesComponent implements OnInit {
     })
   }
 
-  getDays(days: Day[]) {
+  getDays(days: DayFood[]) {
     if (this.turn.days == undefined)
       this.turn.days = days
     else
@@ -66,7 +66,7 @@ export class CategoriesComponent implements OnInit {
       days: []
     };
     this.turn.days.forEach(day => {
-      const dayRequest: DayRequest = {
+      const dayRequest: DayFoodRequest = {
         date: day.date,
         idFood: day.food.id,
         idCategory : day.category.id

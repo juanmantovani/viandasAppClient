@@ -13,14 +13,9 @@ export class Order {
         if (data) {
             this.id = data.id;
             this.client = new Client(data.client);
-            this.date = new Date(data?.date);
-            if (data.days){
-                this.daysOrder = data.days.map((d:any) => new DayOrder(d));
-            }
-            if (data.daysOrder){
-                this.daysOrder = data.daysOrder.map((d:any) => new DayOrder(d));
-            }
-            this.observation = data.observation;
+            this.date = new Date(data.date);
+            this.daysOrder = data.daysOrder.map((d:any) => new DayOrder(d));
+            this.observation= data.observation;
             this.total = data.total;
         }
     }

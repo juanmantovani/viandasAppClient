@@ -1,5 +1,4 @@
 import { Category } from "./Category";
-import { Day } from "./Day";
 import { DayViewer } from "./DayViewer";
 
 export class CategoryViewer{

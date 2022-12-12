@@ -80,12 +80,13 @@ import { ClientFormComponent } from './components/clients/client-form/client-for
 import { ProfileComponent } from './components/clients/profile/profile.component';
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
 import { PathologyFormComponent } from './components/administration/pathology-form/pathology-form.component';
-import { OrderInicioComponent } from './components/clients/order/inicio/inicio.component';
+import { InicioOrderComponent } from './components/clients/order/inicio/inicio-order.component';
 import { OrderCategoriesComponent } from './components/clients/order/categories/categories.component';
 import { OrderListFoodComponent } from './components/clients/order/list-food/list-food.component';
 import { ViewDetailsCategoryComponent } from './components/clients/order/view-details-category/view-details-category.component';
-import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component';
+import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
 import { AddressFormComponent } from './components/clients/address-form/address-form.component'
+import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
 
 
 
@@ -125,13 +126,14 @@ import { AddressFormComponent } from './components/clients/address-form/address-
     ProfileComponent,
     PathologyComponent,
     PathologyFormComponent,
-    OrderInicioComponent,
+    InicioOrderComponent,
     OrderCategoriesComponent,
     OrderListFoodComponent,
     ViewDetailsCategoryComponent,
     ResumeOrderComponent,
-    AddressFormComponent
-    
+    AddressFormComponent,
+    FinishOrderComponent
+
   ],
   imports: [
     BrowserModule,

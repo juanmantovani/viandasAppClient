@@ -9,20 +9,20 @@ mat-card-title h4 {
   padding-right: 5px;
 }
 
-mat-card-subtitle {
+.descriptionSubtitle {
   font-size: small;
   text-align: justify;
   text-justify: inter-word;
   overflow: hidden;
-  height: 5em;
   margin-right: 5px;
+  line-height: normal;
 }
 
 h4 {
   margin-bottom: 0px !important;
 }
 
-.foodCard {
+.foodCardImg {
   border-radius: 5px;
 }
 
@@ -31,6 +31,7 @@ h4 {
   border-radius: 10px;
   width: 112px;
   margin-right: 8px;
+  margin-top: 8px;
   height: 40px;
 }
 
@@ -47,11 +48,25 @@ mat-card-title, mat-card-subtitle {
   margin-bottom: 5px;
 }
 
-.example-full-width {
+.full-width {
   width: 100%;
 }
-.example-form {
+
+.formFood {
   min-width: 150px;
   max-width: 500px;
   width: 70%;
+  height: 60px;
+  margin-right: 8px;
+
 }
+
+@media (min-width: 940px) {
+  .food-card {
+    max-width: 550px;
+    margin: 15px;
+    width: 100%;
+  }
+
+}
+

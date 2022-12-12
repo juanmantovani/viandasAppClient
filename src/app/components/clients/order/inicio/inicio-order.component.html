@@ -1,0 +1,30 @@
+<ng-container [ngSwitch]="stepperOrientation | async">
+
+  </ng-container>
+  
+  <mat-stepper  linear #stepper
+    class="stepper"
+    [orientation]="(stepperOrientation | async)!">
+    <mat-step label="Selecciona la opción deseada" [completed]="firstStepCompleted">
+      <app-order-categories *ngIf="categories"
+        [categories]="categories"
+        (selectCategory)="selectCategory($event)"
+        (viewDetailsCategory)="onViewDetailsCategory($event)">
+        </app-order-categories>
+    </mat-step>
+    <mat-step label="Cantidad y observaciones">
+      <app-list-food *ngIf="order" 
+        [order]="order">
+      </app-list-food>
+    </mat-step>
+    <mat-step label="Confirmar el menú">
+      <app-finish-order *ngIf="viewOrderByDay"
+        [order]="order"
+        [favoriteAdress]="favoriteAdress"
+        [daysOfMonth]="daysOfMonth">
+      </app-finish-order>
+    </mat-step>
+  </mat-stepper>
+
+  <app-resume-order [isDisabledNext]="selectedCategories.length < 1" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
+  

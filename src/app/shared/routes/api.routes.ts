@@ -38,6 +38,8 @@ export const API_ROUTES ={
         DELETEMENU : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,
         GETMENUBYCATEGORY : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategory`,
         GETMENUBYID : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByID`,
+        GETMENUBYCATEGORIES : `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuByCategories`,
+
     },
     CLIENT :{
         REGISTERCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
@@ -58,5 +60,10 @@ export const API_ROUTES ={
         EDITADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/editAddress`,
         DELETEADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/deleteAddress`,
         SETFAVOURITEADDRESS : `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/setFavouriteAddress`,
+    },
+    ORDER : {
+        UPLOADORDER:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
+        GETORDERVIEWER:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
+
     }
 }

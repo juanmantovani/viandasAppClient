@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body, app-root { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .overlay{
@@ -15,10 +15,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 } 
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
 @media (max-width: 600px) {
 
     .mat-vertical-content{
@@ -27,8 +23,18 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
     }
 
+    mat-sidenav-container{
+        height: calc(100% - 56px);
+    }
+    
+
 }
 
 .mat-stepper-horizontal, .mat-stepper-vertical {
     background-color:#f9f6f4;
 }
+
+mat-chip {
+    margin-right: 10px !important;
+}
+

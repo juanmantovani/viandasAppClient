@@ -1,0 +1,11 @@
+mat-card {
+    margin-bottom: 10px;
+}
+
+.listMenuByDay {
+    display: inline-flex;
+}
+
+.full-width {
+    width: 100%;
+}

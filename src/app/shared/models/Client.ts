@@ -21,7 +21,7 @@ export class Client {
           this.phonePrimary = data.phonePrimary;
           this.phoneSecondary = data.phoneSecondary;
           this.bornDate = new Date(data.bornDate);
-           if(data.pathologies)
+           if(data.addresses)
           this.addresses  = data.addresses.map((a : any) => new Address(a))
           this.observation = data.observation;
           if(data.pathologies)

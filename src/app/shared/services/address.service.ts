@@ -22,6 +22,7 @@ export class AddressService {
   OPTION = {headers: {'Content-Type': 'application/json'}};
 
   addAddress(request: AddAddressRequest) : Observable<AddAddressResponse> { 
+    console.log("toy aca")
     return this.http.post<AddAddressResponse>(ROUTES.API_ROUTES.ADDRESS.ADDADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new AddAddressResponse(res)))
   }
@@ -41,6 +42,7 @@ export class AddressService {
   }
 
   setFavouriteAddress(request: SetFavouriteAddressRequest): Observable<SetFavouriteAddressResponse>{
+    console.log(request)
     return this.http.post<SetFavouriteAddressResponse>(ROUTES.API_ROUTES.ADDRESS.SETFAVOURITEADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new SetFavouriteAddressResponse(res)))
   }

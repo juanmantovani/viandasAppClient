@@ -6,7 +6,7 @@ import { GetFoodResponse } from 'src/app/shared/dto/food/GetFoodResponse';
 import { EditMenuRequest } from 'src/app/shared/dto/menu/EditMenuRequest';
 import { GetDayRequest } from 'src/app/shared/dto/menu/GetDaysRequest';
 import { GetDayResponse } from 'src/app/shared/dto/menu/GetDaysResponse';
-import { Day } from 'src/app/shared/models/Day';
+import { DayFood } from 'src/app/shared/models/DayFood';
 import { Food } from 'src/app/shared/models/Food';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
@@ -18,14 +18,14 @@ import { MenuService } from 'src/app/shared/services/menu.service';
 })
 export class EditMenuComponent implements OnInit {
   displayedColumns: string[] = ['date', 'food', 'category', 'actions'];
-  dataSource!: MatTableDataSource<Day>;
+  dataSource!: MatTableDataSource<DayFood>;
   date: Date;
-  listDay: Day[];
+  listDay: DayFood[];
   viewDay: boolean;
   viewFood: boolean;
   listFood: Food[];
   food: Food;
-  day : Day;
+  day : DayFood;
   existFoodInDay: boolean = true;
 
   @Output() onSubmit: EventEmitter<EditMenuRequest | null>;
@@ -62,7 +62,7 @@ export class EditMenuComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  async onClickChange(day: Day) {
+  async onClickChange(day: DayFood) {
     this.day = day;
     const request: GetFoodByCategoryRequest = {
       idCategory: day.category.id
@@ -77,7 +77,7 @@ export class EditMenuComponent implements OnInit {
 
   onClickSave() {
     const request: EditMenuRequest = {
-      idDay: this.day.id,
+      idDayFood: this.day.id,
       idFood : this.food.id,
       idCategory : this.day.category.id
     }

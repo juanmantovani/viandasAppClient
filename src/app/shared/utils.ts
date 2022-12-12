@@ -23,6 +23,7 @@ export class Utils {
  }
 
  public static getDayOfDate(date: Date) : string {
+    date = new Date(date)
     const WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]; 
     let currentDay = WEEKDAY[date.getDay()];
             return currentDay;
