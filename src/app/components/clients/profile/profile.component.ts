@@ -8,6 +8,7 @@ import { DataFormAddress } from 'src/app/shared/dto/address/DataFormAddress';
 import { DeleteAddressRequest } from 'src/app/shared/dto/address/DeleteAddressRequest';
 import { EditAddressRequest } from 'src/app/shared/dto/address/EditAddressRequest';
 import { EditAddressResponse } from 'src/app/shared/dto/address/EditAddressResponse';
+import { SetFavouriteAddressRequest } from 'src/app/shared/dto/address/SetFavouriteAddressRequest';
 import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
@@ -100,7 +101,7 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormAddress = {
       actionForm: "Edit",
       address: address,
-      client : this.client
+      client: this.client
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -139,11 +140,7 @@ export class ProfileComponent implements OnInit {
   }
 
   async onSubmit(address: Address) {
-    
-    // if(address.id == undefined){
-    //   this.getClientByIdUser();
-    //   return false;
-    // }
+
     const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
 
     return resultOperation;
@@ -178,18 +175,42 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  async deleteAddress(address: Address){
+  async deleteAddress(address: Address) {
     const request: DeleteAddressRequest = {
       idAddress: address.id
     }
     await this.addressService.deleteAddress(request).subscribe(() => {
-     this.getClientByIdUser();
+      this.getClientByIdUser();
     });
   }
 
   async generateConfirm(msg: string) {
     return await this.dialogService.openConfirmDialog(msg);
   }
+
+  async onClickSetAsFavourite(address: Address){
+    if (await this.generateConfirm("¿Está seguro asignar esta dirección como favorita?") === true) {
+      await this.setFavouriteAddress(address);
+    }
+  }
+
+  async setFavouriteAddress(address: Address){
+
+    const request: SetFavouriteAddressRequest = {
+      idNewFavouriteAddress: address.id,
+      idClient: this.client.id,
+      idOldFavouriteAddress : this.findFavouriteAddres(this.client.addresses)
+    }
+    await this.addressService.setFavouriteAddress(request).subscribe(() => {
+      this.getClientByIdUser();
+    });
+  }
+  findFavouriteAddres(addresses : Address[]){
+    var address = addresses.find(a => a.favourite == true)
+
+    return address?.id!
+  }
+
 
 }
 
