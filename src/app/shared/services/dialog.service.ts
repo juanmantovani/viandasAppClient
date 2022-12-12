@@ -10,7 +10,7 @@ export class DialogService {
   dialogConfig: MatDialogConfig = {
     disableClose: true,
     autoFocus: true,
-    width: '25%',
+    width: 'auto',
     panelClass: 'myconfirm-dialog-container',
     //position: { top: "150px" },
   };

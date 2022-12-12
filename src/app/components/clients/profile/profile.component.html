@@ -14,7 +14,8 @@
 
                 <div *ngFor="let address of client.addresses">
                     <p>
-                        <mat-icon class="star" *ngIf="address.favourite" fontIcon="star"></mat-icon>
+                        <mat-icon class="starEnable" *ngIf="address.favourite" fontIcon="star"></mat-icon>
+                        <mat-icon class="star" *ngIf="!address.favourite" (click)="onClickSetAsFavourite(address)" fontIcon="star" title="Marcar como favorita"></mat-icon>
                         {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
                     </p>
                     <p *ngIf="address.observation.length  > 0">
