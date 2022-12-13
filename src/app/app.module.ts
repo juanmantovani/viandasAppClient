@@ -87,6 +87,7 @@ import { ViewDetailsCategoryComponent } from './components/clients/order/view-de
 import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
 import { AddressFormComponent } from './components/clients/address-form/address-form.component'
 import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
+import { AddressComponent } from './components/clients/address/address.component';
 
 
 
@@ -132,7 +133,8 @@ import { FinishOrderComponent } from './components/clients/order/finish-order/fi
     ViewDetailsCategoryComponent,
     ResumeOrderComponent,
     AddressFormComponent,
-    FinishOrderComponent
+    FinishOrderComponent,
+    AddressComponent
 
   ],
   imports: [

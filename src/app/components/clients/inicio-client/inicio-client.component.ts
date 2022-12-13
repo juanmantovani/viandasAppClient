@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
-import { DataFormRegisterClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
+import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
 import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
@@ -32,7 +32,7 @@ export class InicioClientComponent implements OnInit {
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       if (res.client == undefined) {
-        const dataForm: DataFormRegisterClient = {
+        const dataForm: DataFormClient = {
           actionForm: "Alta",
           client: new Client(null),
           userProfile: this.userProfile!
@@ -42,7 +42,7 @@ export class InicioClientComponent implements OnInit {
     })
   }
 
-  async gestionateForm(dataForm: DataFormRegisterClient) {
+  async gestionateForm(dataForm: DataFormClient) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
     const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
