@@ -42,7 +42,6 @@ export class AddressService {
   }
 
   setFavouriteAddress(request: SetFavouriteAddressRequest): Observable<SetFavouriteAddressResponse>{
-    console.log(request)
     return this.http.post<SetFavouriteAddressResponse>(ROUTES.API_ROUTES.ADDRESS.SETFAVOURITEADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new SetFavouriteAddressResponse(res)))
   }

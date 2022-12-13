@@ -18,7 +18,6 @@ import { GetMenuByCategoriesRequest } from 'src/app/shared/dto/menu/GetMenuByCat
 import { getMenuByCategoriesResponse } from 'src/app/shared/dto/menu/getMenuByCategoriesResponse';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { AddOrderRequest } from 'src/app/shared/dto/order/AddOrderRequest';
-import { HeaderComponent } from 'src/app/components/header/header.component';
 import { KeycloakProfile } from 'keycloak-js';
 import { DayOrderRequest } from 'src/app/shared/dto/order/DayOrderRequest';
 import { Menu } from 'src/app/shared/models/Menu';
@@ -30,8 +29,8 @@ import { KeycloakService } from 'keycloak-angular';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
-import { Food } from 'src/app/shared/models/Food';
-import { GetOrderViewerResponse } from 'src/app/shared/dto/order/GetOrderViewerResponse';
+import { ActivatedRoute, Router } from '@angular/router';
+import  * as ROUTES  from '../../../../shared/routes/index.routes'
 
 
 @Component({
@@ -54,6 +53,9 @@ export class InicioOrderComponent implements OnInit {
   daysOfMonth : Date [];
   menu : Menu;
 
+  ORDERS: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.ORDERS;
+
+
   public userProfile: KeycloakProfile | null;
 
   constructor(
@@ -64,7 +66,9 @@ export class InicioOrderComponent implements OnInit {
     public dialog: MatDialog,
     private orderService: OrderService,
     private clientService : ClientService,
-    private readonly keycloak: KeycloakService
+    private readonly keycloak: KeycloakService,
+    private router: Router,
+    private route: ActivatedRoute,
     ) 
     {
       this.stepperOrientation = breakpointObserver
@@ -77,8 +81,7 @@ export class InicioOrderComponent implements OnInit {
  async ngOnInit() {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser()
-    this.getOrderViewer()
+    this.getClientByIdUser();
   }
 
   async getCategories() {
@@ -90,8 +93,7 @@ export class InicioOrderComponent implements OnInit {
   async getClientByIdUser(){
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
-      //this.favoriteAdress = new Address(this.client.addresses.find(({ id }) => id === 1));//cambiar ID por el campo favorite
-      this.favoriteAdress = new Address(this.client.addresses[0]);//cambiar ID por el campo favorite
+      this.favoriteAdress = new Address(this.client.addresses.find( address => address.favourite));
 
     })
   }
@@ -182,7 +184,11 @@ export class InicioOrderComponent implements OnInit {
       date: this.order.date
     }
     this.orderService.addOrder(request).subscribe((res: AddOrderResponse) => {
-      console.log(res);
+      if (res){
+        return false;
+      } else {
+        this.router.navigateByUrl(this.ORDERS);
+      }
     });
   }
 
@@ -215,10 +221,6 @@ export class InicioOrderComponent implements OnInit {
   } 
  }
 
- async getOrderViewer() {
-  await this.orderService.getOrderViewer().subscribe((res: GetOrderViewerResponse) => {
-    console.log(res);
-  }) }
 
 
 }

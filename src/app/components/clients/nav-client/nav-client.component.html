@@ -30,6 +30,9 @@
         <mat-list-item [ngClass]="{'active': status === 'Pedir'}" class="nav-link" [routerLink]="[ORDER]" (click)="status='Pedir'; opened = !opened">
             <mat-icon>assignment</mat-icon> <div class="item">Pedir</div>
         </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === 'Tus ordenes'}" class="nav-link" [routerLink]="[ORDERS]" (click)="status='Tus ordenes'; opened = !opened">
+            <mat-icon>list_alt</mat-icon> <div class="item">Tus ordenes</div>
+        </mat-list-item>
         
         <mat-list-item>
 
