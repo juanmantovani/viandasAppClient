@@ -15,13 +15,21 @@
 
 <mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
-    <mat-card-content>
-      <mat-divider></mat-divider>
-      {{ selectedAdress.street }} Nº{{ selectedAdress.number }}
-    </mat-card-content>
-    <button mat-raised-button (click)="onClickEditAddress()" title="Editar">
-      <mat-icon fontIcon="edit"></mat-icon>
-  </button>
+
+  <mat-card-header>
+    <div mat-card-avatar><mat-icon>place</mat-icon></div>
+    <mat-card-title>        {{selectedAdress.street}} Nº{{selectedAdress.number}} {{selectedAdress.floor}} {{selectedAdress.departament}}                 
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="selectedAdress.observation.length  > 0">({{selectedAdress.observation}})</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions>
+      <div align="end">
+        <button mat-raised-button (click)="onClickEditAddress()" title="Editar">
+          Cambiar
+        </button>
+      </div>
+  </mat-card-actions>
 </mat-card>
 
 <div *ngIf="changeAddress" class="card">
@@ -31,6 +39,7 @@
               (getClient)="onGetClient()" 
               (selectedAddressEmit)="selectedAddress($event)">
           </app-address>
+
 </div>
 <mat-card class="card">
   <h2>Dejá tu observación</h2>

@@ -18,7 +18,7 @@
                         <mat-icon *ngIf="address.id != selectedAddress?.id">radio_button_unchecked</mat-icon>
                     </div>
                 <h3>
-                    {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}                 
+                    {{address.street}} Nº {{address.number}} {{address.floor}} {{address.departament}}                 
                     <div *ngIf="address.observation.length  > 0">({{address.observation}})</div>
                 </h3>
                 </mat-card-header>

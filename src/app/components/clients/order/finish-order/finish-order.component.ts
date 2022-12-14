@@ -36,7 +36,7 @@ export class FinishOrderComponent implements OnInit {
   }
 
   onClickEditAddress() {
-    this.changeAddress = true;
+    this.changeAddress = !this.changeAddress;
   }
 
   selectedAddress(address: Address){
