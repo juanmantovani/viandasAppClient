@@ -89,7 +89,6 @@ import { AddressFormComponent } from './components/clients/address-form/address-
 import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
 import { AddressComponent } from './components/clients/address/address.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
-import { SelectAddressComponent } from './components/clients/order/select-address/select-address.component';
 
 
 
@@ -138,7 +137,6 @@ import { SelectAddressComponent } from './components/clients/order/select-addres
     FinishOrderComponent,
     AddressComponent,
     InicioOrdersComponent,
-    SelectAddressComponent
 
   ],
   imports: [

@@ -31,7 +31,6 @@ import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import  * as ROUTES  from '../../../../shared/routes/index.routes'
-import { SelectAddressComponent } from '../select-address/select-address.component';
 
 
 @Component({
