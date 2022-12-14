@@ -227,7 +227,6 @@ export class InicioOrderComponent implements OnInit {
  }
 
  onGetClient(){
-  console.log("toy")
   this.getClientByIdUser();
  }
 

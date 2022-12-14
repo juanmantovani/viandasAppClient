@@ -2,11 +2,12 @@
 
     <div *ngIf="client">
 
-        <app-address [client]="client" 
-            [selectionableAddress]="false" 
-            (getClient)="getClient()">
-        </app-address>
-
+        <div class="card">
+            <app-address [client]="client" 
+                [selectionableAddress]="false" 
+                (getClient)="getClient()">
+            </app-address>
+        </div>
 
         <mat-card class="card">
             <mat-card-header class="text">

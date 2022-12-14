@@ -24,5 +24,8 @@ export class InicioOrdersComponent implements OnInit {
       this.orders = res.orderViewer;
     }) }
   
+    onViewDetailsOrder(order : any) {
+
+    }
 
 }

@@ -1,1 +1,11 @@
-<p>{{ orders | json}}</p>
+<div class="container-fluid">
+<mat-card *ngFor="let order of orders">
+<mat-card-title>Orden Nº {{order.id}}</mat-card-title>
+<mat-card-subtitle>{{order.date | date:'dd/MM/YYYY'}} - ${{order.total}} ({{order.observation}})</mat-card-subtitle>
+<mat-card-actions align="end">
+    <button mat-raised-button class="button" (click)="onViewDetailsOrder(order)">Ver detalles</button>
+  </mat-card-actions>
+
+</mat-card>
+
+</div>

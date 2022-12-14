@@ -16,6 +16,8 @@ export class FinishOrderComponent implements OnInit {
   @Input() order : Order;
   @Input() selectedAdress : Address;
   @Input() daysOfMonth : Date[];
+  @Input() client : Client;
+
 
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
   @Output() getClient: EventEmitter<any> = new EventEmitter();
@@ -42,7 +44,6 @@ export class FinishOrderComponent implements OnInit {
   }
 
   onGetClient() {
-    console.log("acá si")
     this.getClient.emit()
   }
 

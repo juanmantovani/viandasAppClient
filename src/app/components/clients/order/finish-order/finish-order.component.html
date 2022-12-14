@@ -1,4 +1,4 @@
-<mat-card class="cardDay">
+<mat-card class="card">
   <mat-card-title>Tu orden</mat-card-title>
   <div *ngFor="let day of daysOfMonth">
     <mat-divider></mat-divider>
@@ -13,7 +13,7 @@
   </div>
 </mat-card>
 
-<mat-card *ngIf="!changeAddress">
+<mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
     <mat-card-content>
       <mat-divider></mat-divider>
@@ -24,14 +24,15 @@
   </button>
 </mat-card>
 
-<app-address *ngIf="changeAddress"
-            [client]="order.client" 
-            [selectionableAddress]="true"
-            (getClient)="onGetClient()" 
-            (selectedAddressEmit)="selectedAddress($event)">
-        </app-address>
-
-<mat-card>
+<div *ngIf="changeAddress" class="card">
+  <app-address
+              [client]="client" 
+              [selectionableAddress]="true"
+              (getClient)="onGetClient()" 
+              (selectedAddressEmit)="selectedAddress($event)">
+          </app-address>
+</div>
+<mat-card class="card">
   <h2>Dejá tu observación</h2>
   <mat-card-content>
   <form class="formFood" >

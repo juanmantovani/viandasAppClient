@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
@@ -12,6 +13,8 @@ import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';
+import  * as ROUTES  from '../../../shared/routes/index.routes'
+
 
 @Component({
   selector: 'app-inicio-client',
@@ -20,9 +23,10 @@ import { ClientFormComponent } from '../client-form/client-form.component';
 })
 export class InicioClientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
+  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.PROFILE;
 
 
-  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService: ClientService) { }
+  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService: ClientService, private router: Router) { }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
@@ -71,7 +75,10 @@ export class InicioClientComponent implements OnInit {
     }
 
     await this.clientService.registerClient(registerClientRequest).subscribe((res: RegisterClientResponse) => {
-      return res;
+      if (res){
+        this.router.navigateByUrl(this.PROFILE);
+
+      };
     }
     );
   }
