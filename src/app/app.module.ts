@@ -87,7 +87,9 @@ import { ViewDetailsCategoryComponent } from './components/clients/order/view-de
 import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
 import { AddressFormComponent } from './components/clients/address-form/address-form.component'
 import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
+import { AddressComponent } from './components/clients/address/address.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
+import { SelectAddressComponent } from './components/clients/order/select-address/select-address.component';
 
 
 
@@ -134,7 +136,9 @@ import { InicioOrdersComponent } from './components/clients/orders/inicio-orders
     ResumeOrderComponent,
     AddressFormComponent,
     FinishOrderComponent,
-    InicioOrdersComponent
+    AddressComponent,
+    InicioOrdersComponent,
+    SelectAddressComponent
 
   ],
   imports: [

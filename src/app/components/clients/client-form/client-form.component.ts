@@ -45,7 +45,7 @@ export class ClientFormComponent implements OnInit {
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, Validators.required),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary),
-      street: new FormControl("",Validators.required),
+      street: new FormControl(),
       number: new FormControl(),
       floor: new FormControl(),
       departament: new FormControl(),

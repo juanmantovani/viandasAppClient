@@ -20,8 +20,10 @@
     <mat-step label="Confirmar el menú">
       <app-finish-order *ngIf="viewOrderByDay"
         [order]="order"
-        [favoriteAdress]="favoriteAdress"
-        [daysOfMonth]="daysOfMonth">
+        [selectedAdress]="selectedAdress"
+        [daysOfMonth]="daysOfMonth"
+        (getClient)="onGetClient()"
+        (selectedAddressEmit)="onChangeAddress($event)">
       </app-finish-order>
     </mat-step>
   </mat-stepper>

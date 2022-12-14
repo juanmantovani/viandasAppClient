@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/shared/models/Order';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/utils';
 import { environment } from 'src/environments/environment';
 
 @Component({

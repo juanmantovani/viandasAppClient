@@ -31,6 +31,7 @@ import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import  * as ROUTES  from '../../../../shared/routes/index.routes'
+import { SelectAddressComponent } from '../select-address/select-address.component';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class InicioOrderComponent implements OnInit {
   order : Order;
 
   client : Client;
-  favoriteAdress: Address;
+  selectedAdress: Address;
   viewOrderByDay : boolean;
   daysOfMonth : Date [];
   menu : Menu;
@@ -75,6 +76,7 @@ export class InicioOrderComponent implements OnInit {
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
       this.order = new Order(null);
+      
       this.order.daysOrder = [];
     }
 
@@ -93,7 +95,7 @@ export class InicioOrderComponent implements OnInit {
   async getClientByIdUser(){
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
-      this.favoriteAdress = new Address(this.client.addresses.find( address => address.favourite));
+      this.selectedAdress = new Address(this.client.addresses.find( address => address.favourite));
 
     })
   }
@@ -169,7 +171,7 @@ export class InicioOrderComponent implements OnInit {
     this.order.daysOrder.forEach(dayOrder => {
       const dayOrderRequest : DayOrderRequest = {
         cant: dayOrder.cant,
-        idAddress: new Address (this.favoriteAdress).id,
+        idAddress: new Address (this.selectedAdress).id,
         idDayFood: dayOrder.dayFood.id,
         observation: dayOrder.observation
       }
@@ -219,6 +221,15 @@ export class InicioOrderComponent implements OnInit {
        break; 
     } 
   } 
+ }
+
+ onChangeAddress(address : any){
+  this.selectedAdress = new Address(address)
+ }
+
+ onGetClient(){
+  console.log("toy")
+  this.getClientByIdUser();
  }
 
 
