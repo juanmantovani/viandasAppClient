@@ -1,7 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body, app-root { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; 
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    background-color: #f9f6f4;
+ }
 
 .overlay{
     position: fixed;

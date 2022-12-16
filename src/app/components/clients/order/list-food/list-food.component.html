@@ -2,15 +2,15 @@
 <mat-card class="food-card" *ngFor="let dayOrder of order.daysOrder" [style]="{'border-right': '5px solid'+dayOrder.dayFood.category.color}">
     <mat-card-title-group>
       <mat-card-subtitle>{{ getDay(dayOrder.dayFood.date)}} - {{ dayOrder.dayFood.date | date: 'dd/MM' }} ({{ dayOrder.dayFood.category.title }})</mat-card-subtitle>
-      <mat-card-title><h4>{{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
+      <mat-card-title><h4><span *ngIf="editAddress"> {{ dayOrder.cant }} X</span> {{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
       <mat-card-subtitle class="descriptionSubtitle">{{ dayOrder.dayFood.food.description }}</mat-card-subtitle>
-      <mat-card-title><h4>$650</h4></mat-card-title>
+      <mat-card-title *ngIf="!editAddress"><h4>${{ dayOrder.dayFood.category.price }}</h4></mat-card-title>
 
         <img *ngIf="dayOrder.dayFood.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.dayFood.food.urlImage}}" class="foodCardImg">
         <img *ngIf="!dayOrder.dayFood.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCardImg">
 
     </mat-card-title-group>
-      <mat-card-actions align="end">
+      <mat-card-actions align="end" *ngIf="!editAddress">
         <form class="formFood" >
           <mat-form-field class="full-width" appearance="fill">
             <mat-label>Observaciones</mat-label>
@@ -26,6 +26,15 @@
             <mat-icon>add</mat-icon>
           </button>
         </div>
+      </mat-card-actions>
+      <mat-card-actions *ngIf="editAddress">
+        <hr>
+        <p>
+          <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
+          <button mat-raised-button class="button" (click)="onChangeAddress(dayOrder.id)">Cambiar</button>
+
+        </p>
+
       </mat-card-actions>
 
   </mat-card>

@@ -77,7 +77,6 @@ export class MenuService {
     params = params.set('idCategory', idCategory?.toString());
    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUBYCATEGORY, {params}).pipe(
       map((res: any) => {
-        console.log(res);
         return new GetMenuResponse(res);
       })
      )

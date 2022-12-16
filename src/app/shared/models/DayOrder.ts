@@ -14,11 +14,11 @@ export class DayOrder {
  
     constructor(data:any) {
         if (data) {
-          this.id = data.id
-          this.dayFood = new DayFood(data.dayFood)
+          this.id = data.id;
+          this.dayFood = new DayFood(data.dayFood);
           this.cant = data.cant;
           this.observation = data.observation;
-          this.address = new Address(data.adress)
+          this.address = new Address(data.address);
         }
       }
 }

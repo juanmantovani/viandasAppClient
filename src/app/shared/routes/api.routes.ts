@@ -64,6 +64,8 @@ export const API_ROUTES ={
     ORDER : {
         UPLOADORDER:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
         GETORDERVIEWER:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
+        GETORDERBYID:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
+
 
     }
 }

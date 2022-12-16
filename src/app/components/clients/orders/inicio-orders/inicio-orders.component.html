@@ -1,11 +1,24 @@
+
 <div class="container-fluid">
-<mat-card *ngFor="let order of orders">
-<mat-card-title>Orden Nº {{order.id}}</mat-card-title>
-<mat-card-subtitle>{{order.date | date:'dd/MM/YYYY'}} - ${{order.total}} ({{order.observation}})</mat-card-subtitle>
-<mat-card-actions align="end">
-    <button mat-raised-button class="button" (click)="onViewDetailsOrder(order)">Ver detalles</button>
-  </mat-card-actions>
+  <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+  </mat-paginator>
+  <div class="d-flex flex-wrap">
 
-</mat-card>
+    <mat-card class="orders-card" *ngFor="let order of ordersViewer" [ngClass]="{'isActive': (orderDetails.id === order.id)}">
+      <mat-card-subtitle>Orden Nº {{order.id}}</mat-card-subtitle>
+      <mat-card-title>{{order.date | date:'dd/MM/YYYY'}} - ${{order.total}}</mat-card-title>
+      <div *ngIf="order.observation"> ({{ order.observation }}) </div>
+      <mat-card-content  *ngIf="orderDetails?.id === order.id">
+          <app-list-food
+            [order]="orderDetails"
+            [editAddress]="true">
+          </app-list-food>
+      </mat-card-content>
 
+      <mat-card-actions align="end">
+        <button mat-raised-button class="button" (click)="onViewDetailsOrder(order.id)" *ngIf="orderDetails?.id != order.id">Ver detalles</button>
+        <button mat-raised-button class="button" (click)="onHideDetailsOrder(order.id)" *ngIf="orderDetails?.id === order.id">Ocultar detalles</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

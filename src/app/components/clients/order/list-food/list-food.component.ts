@@ -15,6 +15,8 @@ export class OrderListFoodComponent implements OnInit {
 
   
   @Input() order : Order;
+  @Input() editAddress : boolean;
+
 
 
   constructor() { }
@@ -25,6 +27,10 @@ export class OrderListFoodComponent implements OnInit {
 
   getDay(date: Date): string{
     return Utils.getDayOfDate(date);
+  }
+
+  onChangeAddress(addressId : number) {
+    
   }
 
 }

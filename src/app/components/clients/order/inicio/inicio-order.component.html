@@ -14,7 +14,8 @@
     </mat-step>
     <mat-step label="Cantidad y observaciones">
       <app-list-food *ngIf="order" 
-        [order]="order">
+        [order]="order"
+        [editAddress]="false">
       </app-list-food>
     </mat-step>
     <mat-step label="Confirmar el menú">
