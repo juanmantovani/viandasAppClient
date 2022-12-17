@@ -18,7 +18,7 @@ export class OrderService {
 
 
   addOrder(request: AddOrderRequest) : Observable<AddOrderResponse> {
-    return this.http.post<AddOrderResponse>(ROUTES.API_ROUTES.ORDER.UPLOADORDER, JSON.stringify(request), this.OPTION ).pipe(
+    return this.http.post<AddOrderResponse>(ROUTES.API_ROUTES.ORDER.ADDORDER, JSON.stringify(request), this.OPTION ).pipe(
       tap (res => {
         new AddOrderResponse(res);
       }))  

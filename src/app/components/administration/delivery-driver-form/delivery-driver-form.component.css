@@ -1,0 +1,35 @@
+.mat-dialog-content{
+    width: 500px;
+    text-align: center;
+}
+.mat-form-field{ 
+    width:85%;
+    margin-bottom: 10px;
+}
+.error-input{
+    color:tomato;
+    font-size: 12px;
+}
+
+.preview-image{
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+}
+.changeImage{
+    margin-bottom: 10px;
+
+}
+.section-category{
+    margin-bottom: 10px;
+}
+.checbox-cat{
+    margin: 5px;
+}
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+    background-color: #E3AE06;
+  }
+  
+  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+    background-color: #E3AE06;
+  }

@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{data.actionForm}} banner</h1>
+<h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nuevo' : 'Editando' }} banner</h1>
 <mat-dialog-content>
 
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">

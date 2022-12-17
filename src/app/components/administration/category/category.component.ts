@@ -55,18 +55,18 @@ export class CategoryComponent implements OnInit {
   }
 
   onClickAdd() {
-    this.actionForm = 'Crear';
+    this.actionForm = 'Add';
     const dataForm: DataFormCategory = {
-      actionForm: "Crear",
+      actionForm: "Add",
       category: new Category(null),
     };
     this.gestionateForm(dataForm);
   }
 
   onClickEdit(category: any) {
-    this.actionForm = 'Editar';
+    this.actionForm = 'Edit';
     const dataForm: DataFormCategory = {
-      actionForm: "Editar",
+      actionForm: "Edit",
       category: category,
 
     };
@@ -117,7 +117,7 @@ export class CategoryComponent implements OnInit {
   }
 
   async onSubmit(category: Category){ 
-    const resultOperation = this.actionForm == "Crear" ? await this.addCategory(category) : await this.editCategory(category);
+    const resultOperation = this.actionForm == "Add" ? await this.addCategory(category) : await this.editCategory(category);
   
     return resultOperation;
   }

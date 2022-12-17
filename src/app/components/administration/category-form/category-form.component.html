@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>{{data.actionForm}} categoría</h1>
+<h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nueva' : 'Editando' }} categoría</h1>
 <mat-dialog-content>
 
     <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">

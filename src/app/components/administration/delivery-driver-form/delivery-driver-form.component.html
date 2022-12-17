@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nuevo' : 'Editando' }} repartidor</h1>
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill" #dni>
+            <mat-label>DNI</mat-label>
+            <input type="text" matInput formControlName="dni" name="dni"
+                id="dni" #dni placeholder="Ingrese DNI" required />
+            <mat-hint *ngIf="form!.controls['dni']!.touched && form!.controls['dni']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" #name>
+            <mat-label>Nombre</mat-label>
+            <input type="text" matInput formControlName="name" name="name"
+                id="name" #name placeholder="Ingrese un nombre" required />
+            <mat-hint *ngIf="form!.controls['name']!.touched && form!.controls['name']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" #lastName>
+            <mat-label>Apellido</mat-label>
+            <input type="text" matInput formControlName="lastName" name="lastName"
+                id="lastName" #lastName placeholder="Ingrese un apellido" required />
+            <mat-hint *ngIf="form!.controls['lastName']!.touched && form!.controls['lastName']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+       
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID' ">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

@@ -68,9 +68,9 @@ export class FoodComponent implements OnInit {
   }
 
   onClickAdd() {
-    this.actionForm = 'Crear';
+    this.actionForm = 'Add';
     const dataForm: DataFormFood = {
-      actionForm: "Crear",
+      actionForm: "Add",
       food: new Food(null),
       listCategories: this.listCategories
     };
@@ -78,9 +78,9 @@ export class FoodComponent implements OnInit {
     }
 
     onClickEdit(food: any) {
-      this.actionForm = 'Editar';
+      this.actionForm = 'Edit';
       const dataForm: DataFormFood = {
-        actionForm: "Editar",
+        actionForm: "Edit",
         food: food,
         listCategories: this.listCategories
 
@@ -132,7 +132,7 @@ export class FoodComponent implements OnInit {
   }
 
   async onSubmit(food: Food){ 
-    const resultOperation = this.actionForm == "Crear" ? await this.addFood(food) : await this.editFood(food);
+    const resultOperation = this.actionForm == "Add" ? await this.addFood(food) : await this.editFood(food);
   
     return resultOperation;
   }

@@ -13,6 +13,7 @@ import { InicioClientComponent } from './components/clients/inicio-client/inicio
 import { ProfileComponent } from './components/clients/profile/profile.component';
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
 import { InicioOrderComponent } from './components/clients/order/inicio/inicio-order.component';
+import { DeliveryDriverComponent } from './components/administration/delivery-driver/delivery-driver.component';
 
 
 
@@ -36,7 +37,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.FOOD, component: FoodComponent },
       {path: ROUTES.INTERNAL_ROUTES.CATEGORY, component: CategoryComponent },
       {path: ROUTES.INTERNAL_ROUTES.MENU, component: MenuInicioComponent},
-      {path: ROUTES.INTERNAL_ROUTES.PATHOLOGY, component: PathologyComponent}
+      {path: ROUTES.INTERNAL_ROUTES.PATHOLOGY, component: PathologyComponent},
+      {path: ROUTES.INTERNAL_ROUTES.DELIVERYDRIVER, component: DeliveryDriverComponent}
     ],
     
     canActivate: [ AuthGuard ]

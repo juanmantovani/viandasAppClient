@@ -27,7 +27,7 @@ export class ClientService {
   }
 
   updateClient(request: UpdateClientRequest) : Observable <UpdateClientResponse>{
-    return this.http.post<UpdateClientResponse>(ROUTES.API_ROUTES.CLIENT.UPDATECLIENT, JSON.stringify(request), this.OPTIONS).pipe(
+    return this.http.post<UpdateClientResponse>(ROUTES.API_ROUTES.CLIENT.EDITCLIENT, JSON.stringify(request), this.OPTIONS).pipe(
       tap (res => 
         new UpdateClientResponse(res))
     );

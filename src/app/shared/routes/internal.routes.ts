@@ -13,7 +13,8 @@ export const INTERNAL_ROUTES = {
     ORDER : 'order',
     CITY: 'city',
     PATHOLOGY: 'pathology',
-    ADDRESS : 'address'
+    ADDRESS : 'address',
+    DELIVERYDRIVER: 'deliveryDriver'
 
 }
 

@@ -55,18 +55,18 @@ export class PathologyComponent implements OnInit {
     }
   
     onClickAdd() {
-      this.actionForm = 'Crear';
+      this.actionForm = 'Add';
       const dataForm: DataFormPathology = {
-        actionForm: "Crear",
+        actionForm: "Add",
         pathology: new Pathology(null),
       };
       this.gestionateForm(dataForm);
     }
 
     onClickEdit(Pathology: any) {
-      this.actionForm = 'Editar';
+      this.actionForm = 'Edit';
       const dataForm: DataFormPathology = {
-        actionForm: "Editar",
+        actionForm: "Edit",
         pathology: Pathology,
   
       };
@@ -117,7 +117,7 @@ export class PathologyComponent implements OnInit {
     }
 
     async onSubmit(pathology: Pathology){ 
-      const resultOperation = this.actionForm == "Crear" ? await this.addPathology(pathology) : await this.editPathology(pathology);
+      const resultOperation = this.actionForm == "Add" ? await this.addPathology(pathology) : await this.editPathology(pathology);
     
       return resultOperation;
     }

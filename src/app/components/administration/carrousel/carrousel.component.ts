@@ -57,18 +57,18 @@ export class CarrouselComponent implements OnInit {
   }
 
   onClickAdd() {
-    this.actionForm = 'Crear';
+    this.actionForm = 'Add';
     const dataForm: DataFormCarrousel = {
-      actionForm: "Crear",
+      actionForm: "Add",
       banner: new Banner(null)
     };
     this.gestionateForm(dataForm);
     };
 
   onClickEdit(banner: any) {
-    this.actionForm = 'Editar';
+    this.actionForm = 'Edit';
     const dataForm: DataFormCarrousel = {
-      actionForm: "Editar",
+      actionForm: "Edit",
       banner: banner
     };
     this.gestionateForm(dataForm);
@@ -119,7 +119,7 @@ export class CarrouselComponent implements OnInit {
   }
 
   async onSubmit(banner: Banner){ 
-    const resultOperation = this.actionForm == "Crear" ? await this.addBanner(banner) : await this.editBanner(banner);
+    const resultOperation = this.actionForm == "Add" ? await this.addBanner(banner) : await this.editBanner(banner);
   
     return resultOperation;
   }
