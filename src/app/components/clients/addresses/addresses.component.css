@@ -1,24 +1,23 @@
-mat-card {
-    margin-top: 10px;
-}
-
-.isActive {
-    background: #eee;
-}
-
-.orders-card {
+.card {
     max-width: 450px;
     margin-bottom: 10px;
     width: 100%;
   }
 
+  .container-fluid{
+    margin-top: 10px;
+  }
+
+  mat-icon {
+    vertical-align: middle;
+  }
 
   @media (min-width: 940px) {
-    .orders-card {
+    .card {
       max-width: 550px;
       margin: 15px;
       width: 100%;
     }
-
   
   }
+  

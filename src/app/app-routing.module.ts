@@ -14,6 +14,7 @@ import { ProfileComponent } from './components/clients/profile/profile.component
 import { PathologyComponent } from './components/administration/pathology/pathology.component';
 import { InicioOrderComponent } from './components/clients/order/inicio/inicio-order.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
+import { AddressesComponent } from './components/clients/addresses/addresses.component';
 
 
 
@@ -48,7 +49,9 @@ const routes: Routes = [
     children:[
       {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent },
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: InicioOrderComponent },
-      {path: ROUTES.INTERNAL_ROUTES.ORDERS, component: InicioOrdersComponent }
+      {path: ROUTES.INTERNAL_ROUTES.ORDERS, component: InicioOrdersComponent },
+      {path: ROUTES.INTERNAL_ROUTES.ADDRESSES, component: AddressesComponent }
+
 
 
     ],

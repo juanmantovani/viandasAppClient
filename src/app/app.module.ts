@@ -46,6 +46,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -89,6 +90,8 @@ import { AddressFormComponent } from './components/clients/address-form/address-
 import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
 import { AddressComponent } from './components/clients/address/address.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
+import { AddressesComponent } from './components/clients/addresses/addresses.component';
+import { AvatarComponent } from './components/clients/avatar/avatar.component';
 
 
 
@@ -137,6 +140,8 @@ import { InicioOrdersComponent } from './components/clients/orders/inicio-orders
     FinishOrderComponent,
     AddressComponent,
     InicioOrdersComponent,
+    AddressesComponent,
+    AvatarComponent,
 
   ],
   imports: [
@@ -178,7 +183,8 @@ import { InicioOrdersComponent } from './components/clients/orders/inicio-orders
     LightboxModule,
     MatChipsModule,
     MatStepperModule,
-    CommonModule
+    CommonModule,
+    MatTooltipModule
   ],
   providers: [
     MatNotificationComponent,

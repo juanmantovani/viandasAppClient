@@ -15,6 +15,8 @@ export const INTERNAL_ROUTES = {
     CITY: 'city',
     PATHOLOGY: 'pathology',
     ADDRESS : 'address',
+    ADDRESSES : 'addresses',
+
 
 
 }

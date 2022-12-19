@@ -1,11 +1,11 @@
-import { Component, OnInit, Injectable, NgModule } from '@angular/core';
+import { Component, OnInit, Injectable, NgModule, ViewChild } from '@angular/core';
 import { GetOrderByIdResponse } from 'src/app/shared/dto/order/GetOrderByIdResponse';
 import { GetOrderViewerResponse } from 'src/app/shared/dto/order/GetOrderViewerResponse';
 import { Order } from 'src/app/shared/models/Order';
 import { OrderViewer } from 'src/app/shared/models/OrderViewer';
 import { OrderService } from 'src/app/shared/services/order.service';
-import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import {Subject} from 'rxjs';
+import { MatPaginator } from '@angular/material/paginator';
+
 
 
 @Component({
@@ -13,23 +13,14 @@ import {Subject} from 'rxjs';
   templateUrl: './inicio-orders.component.html',
   styleUrls: ['./inicio-orders.component.css']
 })
-export class InicioOrdersComponent implements OnInit,  MatPaginatorIntl  {
+export class InicioOrdersComponent implements OnInit  {
   
   ordersViewer : OrderViewer[];
   orderDetails: Order;
 
-  changes = new Subject<void>();
+  @ViewChild(MatPaginator) paginator?:MatPaginator;
 
-  // For internationalization, the `$localize` function from
-  // the `@angular/localize` package can be used.
-  firstPageLabel = $localize`First page`;
-  itemsPerPageLabel = $localize`Items per page:`;
-  lastPageLabel = $localize`Last page`;
 
-  // You can set labels to an arbitrary string too, or dynamically compute
-  // it through other third-party internationalization libraries.
-  nextPageLabel = 'Next page';
-  previousPageLabel = 'Previous page';
 
   constructor(private orderService: OrderService,
     ) {
@@ -39,13 +30,6 @@ export class InicioOrdersComponent implements OnInit,  MatPaginatorIntl  {
   ngOnInit(): void {
     this.getOrderViewer();
 
-  }
-  getRangeLabel(page: number, pageSize: number, length: number): string {
-    if (length === 0) {
-      return $localize`Page 1 of 1`;
-    }
-    const amountPages = Math.ceil(length / pageSize);
-    return $localize`Page ${page + 1} of ${amountPages}`;
   }
 
 
