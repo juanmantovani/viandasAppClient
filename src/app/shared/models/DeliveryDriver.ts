@@ -1,9 +1,14 @@
+import { Address } from "./Address";
+import { Vehicle } from "./Vehicle";
+
 export class DeliveryDriver {
     id: number;
     dni: number;
     name: string;
     lastName: string;
     phone: string;
+    address: Address;
+    vehicle : Vehicle;
 
     constructor(data: any) {
         if (data) {
@@ -12,6 +17,8 @@ export class DeliveryDriver {
             this.name = data.name;
             this.lastName = data.lastName;
             this.phone = data.phone;
+            this.address = new Address(data.address);
+            this.vehicle = new Vehicle(data.vehicle);
         }
     }
 }

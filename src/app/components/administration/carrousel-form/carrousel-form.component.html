@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nuevo' : 'Editando' }} banner</h1>
 <mat-dialog-content>
 
-    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+    <form [formGroup]="form"  id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
         <mat-form-field appearance="fill" #title>
@@ -61,7 +61,7 @@
     <button mat-button color="primary" (click)="onClickCancel()">
         <mat-icon>clear</mat-icon> CANCELAR
     </button>
-    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+    <button mat-raised-button color="primary" (click)="onClickSave()"  class="btn-primary btn-azul"
         [disabled]="form.status == 'INVALID' || nameImage == null ">
         <mat-icon>save</mat-icon> GUARDAR
     </button>

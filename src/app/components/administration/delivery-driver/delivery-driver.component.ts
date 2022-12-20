@@ -118,7 +118,7 @@ export class DeliveryDriverComponent implements OnInit {
   }
 
   async onSubmit(deliveryDriver: DeliveryDriver){ 
-    const resultOperation = this.actionForm == "Crear" ? await this.addDeliveryDriver(deliveryDriver) : await this.editDeliveryDriver(deliveryDriver);
+    const resultOperation = this.actionForm == "Add" ? await this.addDeliveryDriver(deliveryDriver) : await this.editDeliveryDriver(deliveryDriver);
   
     return resultOperation;
   }

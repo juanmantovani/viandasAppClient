@@ -1,35 +1,25 @@
-.mat-dialog-content{
-    width: 500px;
+.mat-dialog-content {
     text-align: center;
 }
-.mat-form-field{ 
-    width:85%;
-    margin-bottom: 10px;
+
+.mat-form-field {
+    width: 100%;
 }
-.error-input{
-    color:tomato;
+
+.error-input {
+    color: tomato;
     font-size: 12px;
 }
 
-.preview-image{
-    width: 150px;
-    height: 150px;
-    margin-bottom: 10px;
+::ng-deep .mat-form-field-infix {
+    width: auto !important;
 }
-.changeImage{
-    margin-bottom: 10px;
 
+@media (min-width: 800px) {
+    .mat-dialog-content {
+        width: 500px;
+    }
 }
-.section-category{
-    margin-bottom: 10px;
+.tabla{
+    width: 100%;
 }
-.checbox-cat{
-    margin: 5px;
-}
-::ng-deep .mat-checkbox-ripple .mat-ripple-element {
-    background-color: #E3AE06;
-  }
-  
-  ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background {
-    background-color: #E3AE06;
-  }
