@@ -1,13 +1,13 @@
 <form [formGroup]="form" id="myform" #f="ngForm">
 
-    <h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
+    <h3 *ngIf="data.actionForm == 'Add'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
         Completá tus datos</h3>
     <h3 *ngIf="data.actionForm == 'Edit'" mat-dialog-title align="center">{{data.userProfile?.firstName}} actualizá tus datos</h3>
     <mat-dialog-content>
         <input type="hidden" formControlName="id" />
         
         <fieldset>
-            <legend>Name and Location</legend>
+            <legend>Datos personales</legend>
             <mat-form-field appearance="fill">
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="bornDate">
@@ -95,7 +95,7 @@
         <button *ngIf="data.actionForm == 'Edit'" mat-button color="primary" (click)="onClickCancel()">
             <mat-icon>clear</mat-icon> CANCELAR
         </button>
-        <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul"
+        <button mat-raised-button color="primary" (click)="onClickSave()"  class="btn-primary btn-azul"
             [disabled]="form.status == 'INVALID'">
             <mat-icon>save</mat-icon> GUARDAR
         </button>

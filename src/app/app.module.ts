@@ -89,6 +89,8 @@ import { ResumeOrderComponent } from './components/clients/order/resume-order/re
 import { AddressFormComponent } from './components/clients/address-form/address-form.component'
 import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
 import { AddressComponent } from './components/clients/address/address.component';
+import { DeliveryDriverComponent } from './components/administration/delivery-driver/delivery-driver.component';
+import { DeliveryDriverFormComponent } from './components/administration/delivery-driver-form/delivery-driver-form.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
 import { AddressesComponent } from './components/clients/addresses/addresses.component';
 import { AvatarComponent } from './components/clients/avatar/avatar.component';
@@ -139,6 +141,8 @@ import { AvatarComponent } from './components/clients/avatar/avatar.component';
     AddressFormComponent,
     FinishOrderComponent,
     AddressComponent,
+    DeliveryDriverComponent,
+    DeliveryDriverFormComponent,
     InicioOrdersComponent,
     AddressesComponent,
     AvatarComponent,

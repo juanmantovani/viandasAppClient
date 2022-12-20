@@ -96,7 +96,7 @@ export class FoodFormComponent implements OnInit {
   }
 
   mapedCategories(){
-    if(this.data.actionForm == "Editar"){
+    if(this.data.actionForm == "Edit"){
       this.listCategories = [];
       for (let cat of this.data.food?.categories){
         this.listCategories.push(new Category (cat))

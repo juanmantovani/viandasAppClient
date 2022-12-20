@@ -40,7 +40,7 @@ export class CarrouselService {
     formData.append('dateEnd', request.banner.dateEnd.toUTCString());
     formData.append('title', request.banner.title);
 
-    return this.http.post<AddBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.UPLOADBANNER, formData).pipe(
+    return this.http.post<AddBannerResponse>(ROUTES.API_ROUTES.CARROUSEL.ADDBANNER, formData).pipe(
       tap (res => 
         new AddBannerResponse(res))
     );

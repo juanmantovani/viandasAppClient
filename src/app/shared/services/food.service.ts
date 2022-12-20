@@ -63,7 +63,7 @@ formatStringCategories(categories : Category[]){
       formData.append('description', request.food.description);
     formData.append('categories',  this.formatStringCategories(request.food.categories));
     
-    return this.http.post<AddFoodResponse>(ROUTES.API_ROUTES.FOOD.UPLOADFOOD, formData).pipe(
+    return this.http.post<AddFoodResponse>(ROUTES.API_ROUTES.FOOD.ADDFOOD, formData).pipe(
       tap (res => 
         new AddFoodResponse(res))
     );

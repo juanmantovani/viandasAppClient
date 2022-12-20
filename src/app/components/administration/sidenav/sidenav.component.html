@@ -39,6 +39,9 @@
         <mat-list-item [ngClass]="{'active': status === '> Patologías'}" class="nav-link" [routerLink]="[PATHOLOGY]" (click)="status='> Patologías'"> 
             Patologías
         </mat-list-item>
+        <mat-list-item [ngClass]="{'active': status === '> Repartidor'}" class="nav-link" [routerLink]="[DELIVERYDRIVER]" (click)="status='> Repartidor'"> 
+            Repartidores
+        </mat-list-item>
 
        </mat-list>
        
