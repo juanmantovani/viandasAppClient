@@ -11,10 +11,14 @@ export const INTERNAL_ROUTES = {
     CLIENT : 'client',
     PROFILE : 'profile',
     ORDER : 'order',
+    ORDERS : 'orders',
     CITY: 'city',
     PATHOLOGY: 'pathology',
     ADDRESS : 'address',
-    DELIVERYDRIVER: 'deliveryDriver'
+    DELIVERYDRIVER: 'deliveryDriver',
+    ADDRESSES : 'addresses',
+
+
 
 }
 

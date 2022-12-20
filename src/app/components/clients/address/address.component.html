@@ -1,30 +1,34 @@
-<mat-card class="card">
-    <mat-card-header class="text">
-        <mat-card-title>Direcciones </mat-card-title>
-        <button mat-raised-button (click)="onClickAddAddress()">
-            <mat-icon fontIcon="add"></mat-icon>
-        </button>
-    </mat-card-header>
-    <hr>
-    <mat-card-content>
+
+    <div class="container-fluid">
 
         <div *ngFor="let address of client.addresses">
-            <p>
+            <p align="end">
                 <mat-icon class="starEnable" *ngIf="address.favourite" fontIcon="star"></mat-icon>
                 <mat-icon class="star" *ngIf="!address.favourite" (click)="onClickSetAsFavourite(address)" fontIcon="star" title="Marcar como favorita"></mat-icon>
-                {{address.street}} {{address.number}} {{address.floor}} {{address.departament}}
             </p>
-            <p *ngIf="address.observation.length  > 0">
-                Indicaciones: {{address.observation}}
-            </p>
-            <button mat-raised-button (click)="onClickEditAddress(address)" title="Editar">
-                <mat-icon fontIcon="edit"></mat-icon>
-            </button>
-            <button mat-raised-button (click)="onClickDeleteAddress(address)" title="Eliminar">
-                <mat-icon fontIcon="delete"></mat-icon>
-            </button>
-           
+            <mat-card-header>
+                <div mat-card-avatar class="header-image" *ngIf="selectionableAddress" (click)="onSelectAddress(address)"> 
+                    <mat-icon *ngIf="address.id === selectedAddress?.id" class="check">radio_button_checked</mat-icon>
+                    <mat-icon *ngIf="address.id != selectedAddress?.id">radio_button_unchecked</mat-icon>
+                </div>
+            <h3>
+                {{address.street}} Nº {{address.number}} {{address.floor}} {{address.departament}}                 
+                <div *ngIf="address.observation.length  > 0">({{address.observation}})</div>
+            </h3>
+            </mat-card-header>
+            <mat-card-actions>
+            <div align="end">
+                <button mat-raised-button (click)="onClickDeleteAddress(address)" title="Eliminar">
+                    <mat-icon fontIcon="delete"></mat-icon>
+                </button>
+            </div>
+            </mat-card-actions>
             <hr>
+            
         </div>
-    </mat-card-content>
-</mat-card>
+        <div align="center">
+            <button mat-raised-button (click)="onClickAddAddress()" class="button">
+                Agregar dirección
+            </button>
+        </div>
+</div>

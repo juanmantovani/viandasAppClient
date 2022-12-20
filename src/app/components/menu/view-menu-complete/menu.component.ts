@@ -4,7 +4,7 @@ import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { CategoryViewer } from 'src/app/shared/models/CategoryViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { MenuService } from 'src/app/shared/services/menu.service';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/utils';
 
 @Component({
   selector: 'app-view-menu-complete',

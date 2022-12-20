@@ -1,15 +1,15 @@
-<div class="container-fluid">
+<div class="container-fluid responsive">
 
     <div *ngIf="client">
+        <div align="center">
+            <app-avatar [name]="client.name" [lastName]="client.lastName"></app-avatar>
+            <h2>{{ client.name }} {{ client.lastName }}</h2>
+            <h3> {{ userProfile?.email }}</h3>
+        </div>
 
-        <app-address [client]="client" [userProfile]="userProfile" (getClient)="getClient()"></app-address>
-
-
+        <h2 class="title">Información personal</h2>
         <mat-card class="card">
-            <mat-card-header class="text">
-                <mat-card-title>Teléfonos </mat-card-title>
-            </mat-card-header>
-            <hr>
+            <mat-card-title>Teléfonos </mat-card-title>
             <mat-card-content>
                 <p>
                     {{client.phonePrimary}}
@@ -17,37 +17,29 @@
                 <p *ngIf="client.phoneSecondary != null">
                     {{client.phoneSecondary}}
                 </p>
-
             </mat-card-content>
-            <mat-card-actions>
-            </mat-card-actions>
-        </mat-card>
-
-        <mat-card class="card">
-            <mat-card-header class="text">
-                <mat-card-title>Información adicional </mat-card-title>
-            </mat-card-header>
             <hr>
+                <mat-card-title>Información adicional</mat-card-title>
             <mat-card-content>
-                <label>Fecha de nacimiento:</label>
+                <h3>Fecha de nacimiento:</h3>
                 <p>
                     {{client.bornDate | date: 'dd/MM/yyyy' }}
                 </p>
-                <label>Observación:</label>
+                <h3>Observaciones:</h3>
                 <p>
                     {{client.observation }}
                 </p>
+                <h3>Patologías:</h3>
+                <span *ngFor="let pathologie of client.pathologies">
+                    <div *ngIf="pathologie.checked">{{ pathologie.description }}</div>
+                </span>
             </mat-card-content>
-            <mat-card-actions>
-            </mat-card-actions>
         </mat-card>
-
         <div align="center">
             <button mat-raised-button (click)="onClickUpdate()" class="button">
                 Actualizar mis datos
             </button>
         </div>
-
     </div>
 
 </div>

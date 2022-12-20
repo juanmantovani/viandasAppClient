@@ -1,4 +1,6 @@
-<mat-card class="cardDay">
+<div class="d-flex flex-wrap">
+
+<mat-card class="card">
   <mat-card-title>Tu orden</mat-card-title>
   <div *ngFor="let day of daysOfMonth">
     <mat-divider></mat-divider>
@@ -13,15 +15,35 @@
   </div>
 </mat-card>
 
-<mat-card>
+<mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
-    <mat-card-content>
-      <mat-divider></mat-divider>
-      {{ favoriteAdress.street }} Nº{{ favoriteAdress.number }}
-    </mat-card-content>
+
+  <mat-card-header>
+    <div mat-card-avatar><mat-icon>place</mat-icon></div>
+    <mat-card-title>        {{selectedAdress.street}} Nº{{selectedAdress.number}} {{selectedAdress.floor}} {{selectedAdress.departament}}                 
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="selectedAdress.observation.length  > 0">({{selectedAdress.observation}})</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-actions>
+      <div align="end">
+        <button mat-raised-button (click)="onClickEditAddress()" title="Editar">
+          Cambiar
+        </button>
+      </div>
+  </mat-card-actions>
 </mat-card>
 
-<mat-card>
+<div *ngIf="changeAddress" class="card">
+  <app-address
+              [client]="client" 
+              [selectionableAddress]="true"
+              (getClient)="onGetClient()" 
+              (selectedAddressEmit)="selectedAddress($event)">
+          </app-address>
+
+</div>
+<mat-card class="card">
   <h2>Dejá tu observación</h2>
   <mat-card-content>
   <form class="formFood" >
@@ -34,3 +56,4 @@
   </mat-card-content>    
 </mat-card>
 
+</div>

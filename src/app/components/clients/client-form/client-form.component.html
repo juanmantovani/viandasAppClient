@@ -1,21 +1,24 @@
 <form [formGroup]="form" id="myform" #f="ngForm">
 
-    <h3 *ngIf="data.actionForm == 'Alta'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
-        Necesitamos que ingreses los siguientes datos</h3>
-    <h3 *ngIf="data.actionForm == 'Edit'" mat-dialog-title align="center">{{data.userProfile?.firstName}} acá podes
-        actualizar tus datos</h3>
+    <h3 *ngIf="data.actionForm == 'Add'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
+        Completá tus datos</h3>
+    <h3 *ngIf="data.actionForm == 'Edit'" mat-dialog-title align="center">{{data.userProfile?.firstName}} actualizá tus datos</h3>
     <mat-dialog-content>
         <input type="hidden" formControlName="id" />
+        
+        <fieldset>
+            <legend>Datos personales</legend>
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de nacimiento</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="bornDate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
+                    class="error-input">
+                    Este campo es requerido</mat-hint>
+            </mat-form-field>
+        </fieldset>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="bornDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
-                class="error-input">
-                Este campo es requerido</mat-hint>
-        </mat-form-field>
 
         <mat-form-field appearance="fill" #phonePrimary>
             <mat-label>Teléfono</mat-label>

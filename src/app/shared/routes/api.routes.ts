@@ -64,11 +64,15 @@ export const API_ROUTES = {
     ORDER: {
         ADDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
         GETORDERVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
+        GETORDERBYID: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
+
     },
     DELIVERYDRIVER: {
         GETDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/getDeliveryDriver`,
         ADDDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/addDeliveryDriver`,
         EDITDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/editDeliveryDriver`,
         DELETEDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/deleteDeliveryDriver`,
+        GETORDERBYID:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
+
     }
 }

@@ -1,0 +1,28 @@
+
+
+<div class="container-fluid">
+
+  <div class="d-flex flex-wrap">
+    
+    <mat-card class="orders-card" *ngFor="let order of ordersViewer" [ngClass]="{'isActive': (orderDetails.id === order.id)}">
+      <!-- <mat-card-subtitle>Orden Nº {{order.id}} - Menu del {{order.dateStart | date:'dd/MM/YYYY'}} al {{order.dateEnd | date:'dd/MM/YYYY'}}</mat-card-subtitle> -->
+      <mat-card-subtitle>Orden Nº {{order.id}}</mat-card-subtitle>
+      <mat-card-title>Orden realizada el: {{order.date | date:'dd/MM/YYYY'}}</mat-card-title>
+      <div> TOTAL ${{order.total}} </div>
+      <div *ngIf="order.observation"> ({{ order.observation }}) </div>
+      <mat-card-content  *ngIf="orderDetails?.id === order.id">
+          <app-list-food
+            [order]="orderDetails"
+            [editAddress]="true">
+          </app-list-food>
+      </mat-card-content>
+
+      <mat-card-actions align="end">
+        <button mat-raised-button class="button" (click)="onViewDetailsOrder(order.id)" *ngIf="orderDetails?.id != order.id">Ver detalles</button>
+        <button mat-raised-button class="button" (click)="onHideDetailsOrder(order.id)" *ngIf="orderDetails?.id === order.id">Ocultar detalles</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="Select page">
+  </mat-paginator>
+</div>

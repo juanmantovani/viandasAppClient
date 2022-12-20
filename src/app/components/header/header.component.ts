@@ -54,11 +54,7 @@ export class HeaderComponent implements OnInit {
       this.router.navigateByUrl(this.ADMINISTRATION);
       return false
     }
-    
-    if (this.userRoles.indexOf('client') != -1){
       this.router.navigateByUrl(this.CLIENT);
-      return false
-    }
   }
   
   public logout() {

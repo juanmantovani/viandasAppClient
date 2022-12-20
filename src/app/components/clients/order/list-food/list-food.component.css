@@ -61,6 +61,10 @@ mat-card-title, mat-card-subtitle {
 
 }
 
+mat-icon  {
+  vertical-align: middle;
+}
+
 @media (min-width: 940px) {
   .food-card {
     max-width: 550px;

@@ -23,9 +23,13 @@ import { AddressFormComponent } from '../address-form/address-form.component';
 export class AddressComponent implements OnInit {
 
   @Input() client: Client;
+  @Input() selectionableAddress: boolean;
   @Output() getClient: EventEmitter<any> = new EventEmitter();
+  @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
+
 
   actionFormAddress: string;
+  selectedAddress : Address;
 
   constructor(private clientService: ClientService,
     public dialog: MatDialog,
@@ -150,6 +154,13 @@ export class AddressComponent implements OnInit {
     var address = addresses.find(a => a.favourite == true)
 
     return address?.id!
+  }
+
+  onSelectAddress(address: Address){
+    if (this.selectionableAddress){
+      this.selectedAddress = address;
+      this.selectedAddressEmit.emit(address);
+    }
   }
 
 }

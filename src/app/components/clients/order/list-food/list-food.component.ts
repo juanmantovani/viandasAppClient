@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Order } from 'src/app/shared/models/Order';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/utils';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,6 +15,8 @@ export class OrderListFoodComponent implements OnInit {
 
   
   @Input() order : Order;
+  @Input() editAddress : boolean;
+
 
 
   constructor() { }
@@ -25,6 +27,10 @@ export class OrderListFoodComponent implements OnInit {
 
   getDay(date: Date): string{
     return Utils.getDayOfDate(date);
+  }
+
+  onChangeAddress(addressId : number) {
+    
   }
 
 }

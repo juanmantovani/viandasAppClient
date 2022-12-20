@@ -14,14 +14,18 @@
     </mat-step>
     <mat-step label="Cantidad y observaciones">
       <app-list-food *ngIf="order" 
-        [order]="order">
+        [order]="order"
+        [editAddress]="false">
       </app-list-food>
     </mat-step>
     <mat-step label="Confirmar el menú">
       <app-finish-order *ngIf="viewOrderByDay"
         [order]="order"
-        [favoriteAdress]="favoriteAdress"
-        [daysOfMonth]="daysOfMonth">
+        [client]="client"
+        [selectedAdress]="selectedAdress"
+        [daysOfMonth]="daysOfMonth"
+        (getClient)="onGetClient()"
+        (selectedAddressEmit)="onChangeAddress($event)">
       </app-finish-order>
     </mat-step>
   </mat-stepper>

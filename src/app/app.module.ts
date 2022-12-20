@@ -46,6 +46,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 
@@ -90,6 +91,9 @@ import { FinishOrderComponent } from './components/clients/order/finish-order/fi
 import { AddressComponent } from './components/clients/address/address.component';
 import { DeliveryDriverComponent } from './components/administration/delivery-driver/delivery-driver.component';
 import { DeliveryDriverFormComponent } from './components/administration/delivery-driver-form/delivery-driver-form.component';
+import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
+import { AddressesComponent } from './components/clients/addresses/addresses.component';
+import { AvatarComponent } from './components/clients/avatar/avatar.component';
 
 
 
@@ -138,7 +142,10 @@ import { DeliveryDriverFormComponent } from './components/administration/deliver
     FinishOrderComponent,
     AddressComponent,
     DeliveryDriverComponent,
-    DeliveryDriverFormComponent
+    DeliveryDriverFormComponent,
+    InicioOrdersComponent,
+    AddressesComponent,
+    AvatarComponent,
 
   ],
   imports: [
@@ -180,7 +187,8 @@ import { DeliveryDriverFormComponent } from './components/administration/deliver
     LightboxModule,
     MatChipsModule,
     MatStepperModule,
-    CommonModule
+    CommonModule,
+    MatTooltipModule
   ],
   providers: [
     MatNotificationComponent,

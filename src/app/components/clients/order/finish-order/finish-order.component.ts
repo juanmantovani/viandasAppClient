@@ -1,8 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,EventEmitter  } from '@angular/core';
 import { Address } from 'src/app/shared/models/Address';
 import { Client } from 'src/app/shared/models/Client';
 import { Order } from 'src/app/shared/models/Order';
-import { Utils } from 'src/app/shared/utils';
+import { Utils } from 'src/app/utils';
+
+
 
 @Component({
   selector: 'app-finish-order',
@@ -12,8 +14,16 @@ import { Utils } from 'src/app/shared/utils';
 export class FinishOrderComponent implements OnInit {
 
   @Input() order : Order;
-  @Input() favoriteAdress : Address;
+  @Input() selectedAdress : Address;
   @Input() daysOfMonth : Date[];
+  @Input() client : Client;
+
+
+  @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
+  @Output() getClient: EventEmitter<any> = new EventEmitter();
+
+
+  changeAddress : boolean;
 
   constructor() { }
 
@@ -23,6 +33,18 @@ export class FinishOrderComponent implements OnInit {
 
   getDay(date: Date): string{
     return Utils.getDayOfDate(date);
+  }
+
+  onClickEditAddress() {
+    this.changeAddress = !this.changeAddress;
+  }
+
+  selectedAddress(address: Address){
+    this.selectedAddressEmit.emit(address)
+  }
+
+  onGetClient() {
+    this.getClient.emit()
   }
 
 

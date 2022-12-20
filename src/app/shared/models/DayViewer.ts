@@ -9,7 +9,7 @@ export class DayViewer {
     constructor(data:any) {
         if (data) {
           this.foodViewer = new FoodViewer(data.foodViewer);
-          this.foodViewer = new Food(data.food);
+          //this.foodViewer = new Food(data.food);
           this.date = new Date(data?.date);
         }
       }

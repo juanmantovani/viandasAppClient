@@ -1,0 +1,22 @@
+<div class="container-fluid">
+    <mat-card class="card">
+        <mat-card-header class="text">
+            <mat-card-title>Mis direcciones 
+                <mat-icon #tooltip="matTooltip"
+                matTooltip="Podrá seleccionar un domicilio como favorito para que sea utilizado por defecto en las ordenes realizadas"
+                matTooltipPosition="below"
+                matTooltipHideDelay="10000"
+                aria-label="">info</mat-icon>
+            </mat-card-title>
+        </mat-card-header>
+        <hr>
+        <mat-card-content *ngIf="client">
+            
+            <app-address [client]="client" 
+                [selectionableAddress]="false" 
+                (getClient)="getClientByIdUser()">
+            </app-address>
+
+        </mat-card-content>
+    </mat-card>
+</div>
