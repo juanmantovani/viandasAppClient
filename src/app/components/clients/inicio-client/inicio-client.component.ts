@@ -26,7 +26,14 @@ export class InicioClientComponent implements OnInit {
   PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.PROFILE;
 
 
-  constructor(public dialog: MatDialog, private readonly keycloak: KeycloakService, private clientService: ClientService, private router: Router) { }
+  constructor(
+    public dialog: MatDialog, 
+    private readonly keycloak: KeycloakService, 
+    private clientService: ClientService, 
+    private router: Router
+    ) { 
+
+    }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
@@ -35,7 +42,7 @@ export class InicioClientComponent implements OnInit {
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
-      if (res.client == undefined) {
+      if (true) {
         const dataForm: DataFormClient = {
           actionForm: "Alta",
           client: new Client(null),
@@ -77,7 +84,6 @@ export class InicioClientComponent implements OnInit {
     await this.clientService.registerClient(registerClientRequest).subscribe((res: RegisterClientResponse) => {
       if (res){
         this.router.navigateByUrl(this.PROFILE);
-
       };
     }
     );

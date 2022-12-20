@@ -18,15 +18,11 @@ export class NavCLientComponent implements OnInit {
   ORDERS = ROUTES.INTERNAL_ROUTES.ORDERS;
   ADDRESSES = ROUTES.INTERNAL_ROUTES.ADDRESSES;
 
-
-
   status: string;
   userProfile: KeycloakProfile | null = null;
 
   public isLoggedIn = false;
   public userRoles: string [] = [];
-
-
 
   constructor(private readonly keycloak: KeycloakService, private router : Router) { }
 
@@ -38,7 +34,7 @@ export class NavCLientComponent implements OnInit {
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
       this.userRoles = this.keycloak.getUserRoles()
-    }
+    } else this.logout();
   }
 
   public logout() {

@@ -17,3 +17,13 @@ p{
     align-items: center;
 }
 
+.responsive {
+    width: 40%;
+  }
+
+  @media (max-width: 600px) {
+    .responsive {
+      width: 100%;
+      
+    }
+}
