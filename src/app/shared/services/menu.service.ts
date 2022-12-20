@@ -40,7 +40,7 @@ export class MenuService {
 }
 
   addMenu(request: AddMenuRequest) : Observable<AddMenuResponse> {    
-    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.UPLOADMENU, JSON.stringify(request), this.OPTION ).pipe(
+    return this.http.post<AddMenuResponse>(ROUTES.API_ROUTES.MENU.ADDMENU, JSON.stringify(request), this.OPTION ).pipe(
     tap (res => new AddMenuResponse(res)))
   }
 

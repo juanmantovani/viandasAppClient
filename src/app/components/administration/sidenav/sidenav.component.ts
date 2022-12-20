@@ -18,6 +18,7 @@ export class SidenavComponent implements OnInit {
   CATEGORY = ROUTES.INTERNAL_ROUTES.CATEGORY;
   MENU = ROUTES.INTERNAL_ROUTES.MENU;
   PATHOLOGY = ROUTES.INTERNAL_ROUTES.PATHOLOGY;
+  DELIVERYDRIVER = ROUTES.INTERNAL_ROUTES.DELIVERYDRIVER;
   status: string;
 
   public userProfile: KeycloakProfile | null = null;

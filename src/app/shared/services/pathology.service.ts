@@ -29,7 +29,7 @@ export class PathologyService {
 }
 
 addPathology(request: AddPathologyRequest) : Observable<AddPathologyResponse> {    
-  return this.http.post<AddPathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.UPLOADPATHOLOGY, JSON.stringify(request), this.OPTION ).pipe(
+  return this.http.post<AddPathologyResponse>(ROUTES.API_ROUTES.PATHOLOGY.ADDPATHOLOGY, JSON.stringify(request), this.OPTION ).pipe(
   tap (res => new AddPathologyResponse(res)))
 }
 

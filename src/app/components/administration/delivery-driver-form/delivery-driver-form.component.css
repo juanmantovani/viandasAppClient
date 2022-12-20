@@ -1,0 +1,25 @@
+.mat-dialog-content {
+    text-align: center;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+.error-input {
+    color: tomato;
+    font-size: 12px;
+}
+
+::ng-deep .mat-form-field-infix {
+    width: auto !important;
+}
+
+@media (min-width: 800px) {
+    .mat-dialog-content {
+        width: 500px;
+    }
+}
+.tabla{
+    width: 100%;
+}
