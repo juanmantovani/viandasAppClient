@@ -25,9 +25,9 @@ import { CategoryService } from 'src/app/shared/services/category.service';
   styleUrls: ['./food.component.css']
 })
 export class FoodComponent implements OnInit {
-  displayedColumns: string[] = ['id','title', 'description', 'category', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'description', 'category', 'actions'];
   dataSource!: MatTableDataSource<Food>;
-  actionForm:string;
+  actionForm: string;
   listCategories: Category[];
 
 
@@ -43,7 +43,7 @@ export class FoodComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Food>();
   }
 
-   ngOnInit() {
+  ngOnInit() {
     this.getFood();
     this.getCategories();
     this.dataSource.paginator = this.paginator;
@@ -75,23 +75,23 @@ export class FoodComponent implements OnInit {
       listCategories: this.listCategories
     };
     this.gestionateForm(dataForm);
+  }
+
+  onClickEdit(food: any) {
+    this.actionForm = 'Edit';
+    const dataForm: DataFormFood = {
+      actionForm: "Edit",
+      food: food,
+      listCategories: this.listCategories
+
+    };
+    this.gestionateForm(dataForm);
+  }
+
+  async onClickDelete(food: any) {
+    if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+      await this.deleteFood(food);
     }
-
-    onClickEdit(food: any) {
-      this.actionForm = 'Edit';
-      const dataForm: DataFormFood = {
-        actionForm: "Edit",
-        food: food,
-        listCategories: this.listCategories
-
-      };
-      this.gestionateForm(dataForm);
-    }
-
-    async onClickDelete(food : any){
-      if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
-        await this.deleteFood(food);
-      }
   }
 
   async deleteFood(food: Food) {
@@ -99,7 +99,7 @@ export class FoodComponent implements OnInit {
       idFood: food.id
     }
     await this.foodService.deleteFood(request).subscribe(() => {
-     this.getFood();
+      this.getFood();
     });
   }
 
@@ -119,7 +119,7 @@ export class FoodComponent implements OnInit {
         return false;
       }
 
-      var result : any  = await this.onSubmit(data);
+      var result: any = await this.onSubmit(data);
       if (result) {
         return false;
       }
@@ -131,9 +131,9 @@ export class FoodComponent implements OnInit {
     })
   }
 
-  async onSubmit(food: Food){ 
+  async onSubmit(food: Food) {
     const resultOperation = this.actionForm == "Add" ? await this.addFood(food) : await this.editFood(food);
-  
+
     return resultOperation;
   }
 

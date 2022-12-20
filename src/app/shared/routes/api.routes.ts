@@ -72,7 +72,11 @@ export const API_ROUTES = {
         ADDDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/addDeliveryDriver`,
         EDITDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/editDeliveryDriver`,
         DELETEDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/deleteDeliveryDriver`,
-        GETORDERBYID:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
-
+    },
+    TANDA: {
+        GETTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/getTanda`,
+        ADDTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/addTanda`,
+        EDITTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/editTanda`,
+        DELETETANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/deleteTanda`,
     }
 }

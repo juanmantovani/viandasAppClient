@@ -1,52 +1,64 @@
 <mat-toolbar>
     <mat-toolbar-row>
         <a href="">
-            <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy" style="margin-top: -1px;"/>
+            <img src="../../../../assets/integral_sin.png" height="48" alt="" loading="lazy"
+                style="margin-top: -1px;" />
         </a>
         <button mat-button (click)="opened=!opened"><mat-icon>menu</mat-icon></button>
         <h4>Panel administración {{ status }}</h4>
 
-    <span class="spacer"></span>
-    <div class="row">
-    <div ngbDropdown class="d-inline-block">
-        <button *ngIf="isLoggedIn" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
-          Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
-        </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-          <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+        <span class="spacer"></span>
+        <div class="row">
+            <div ngbDropdown class="d-inline-block">
+                <button *ngIf="isLoggedIn" mat-raised-button class="drowdownitem login" id="dropdownBasic1"
+                    ngbDropdownToggle>
+                    Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </mat-toolbar-row>
+    </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
     <mat-sidenav [(opened)]="opened" mode="side">
-       
-       <mat-list>
-        <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]" (click)="status='> Carrousel'">
-            Carrousel
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Categorias'}" class="nav-link" [routerLink]="[CATEGORY]" (click)="status='> Categorias'"> 
-            Categorias
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]" (click)="status='> Platos'"> 
-            Platos
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]" (click)="status='> Menú'"> 
-            Menú
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Patologías'}" class="nav-link" [routerLink]="[PATHOLOGY]" (click)="status='> Patologías'"> 
-            Patologías
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === '> Repartidor'}" class="nav-link" [routerLink]="[DELIVERYDRIVER]" (click)="status='> Repartidor'"> 
-            Repartidores
-        </mat-list-item>
 
-       </mat-list>
-       
+        <mat-list>
+            <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]"
+                (click)="status='> Carrousel'">
+                Carrousel
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Categorias'}" class="nav-link" [routerLink]="[CATEGORY]"
+                (click)="status='> Categorias'">
+                Categorias
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]"
+                (click)="status='> Platos'">
+                Platos
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]"
+                (click)="status='> Menú'">
+                Menú
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Patologías'}" class="nav-link" [routerLink]="[PATHOLOGY]"
+                (click)="status='> Patologías'">
+                Patologías
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Repartidor'}" class="nav-link"
+                [routerLink]="[DELIVERYDRIVER]" (click)="status='> Repartidor'">
+                Repartidores
+            </mat-list-item>
+            <mat-list-item [ngClass]="{'active': status === '> Tandas'}" class="nav-link" [routerLink]="[TANDA]"
+                (click)="status='> Tandas'">
+                Tandas
+            </mat-list-item>
+
+        </mat-list>
+
     </mat-sidenav>
     <mat-sidenav-content>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
-    </mat-sidenav-container>
+</mat-sidenav-container>
