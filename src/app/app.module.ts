@@ -94,6 +94,8 @@ import { DeliveryDriverFormComponent } from './components/administration/deliver
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
 import { AddressesComponent } from './components/clients/addresses/addresses.component';
 import { AvatarComponent } from './components/clients/avatar/avatar.component';
+import { TandaComponent } from './components/administration/tanda/tanda.component';
+import { TandaFormComponent } from './components/administration/tanda-form/tanda-form.component';
 
 
 
@@ -146,6 +148,8 @@ import { AvatarComponent } from './components/clients/avatar/avatar.component';
     InicioOrdersComponent,
     AddressesComponent,
     AvatarComponent,
+    TandaComponent,
+    TandaFormComponent,
 
   ],
   imports: [

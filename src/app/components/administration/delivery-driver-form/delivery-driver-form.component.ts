@@ -58,6 +58,7 @@ export class DeliveryDriverFormComponent implements OnInit {
       brand: new FormControl(this.data.deliveryDriver.vehicle?.brand),
       model: new FormControl(this.data.deliveryDriver.vehicle?.model),
       patent: new FormControl(this.data.deliveryDriver.vehicle?.patent),
+      year: new FormControl(this.data.deliveryDriver.vehicle?.year),
     });
   }
 
@@ -85,7 +86,9 @@ export class DeliveryDriverFormComponent implements OnInit {
     this.result.vehicle.id = data["idVehicle"];
     this.result.vehicle.brand = data["brand"];
     this.result.vehicle.model = data["model"];
-    this.result.vehicle.patent = data["patent"];   
+    this.result.vehicle.patent = data["patent"];
+    this.result.vehicle.year = data["year"];   
+
   }
 
 }
