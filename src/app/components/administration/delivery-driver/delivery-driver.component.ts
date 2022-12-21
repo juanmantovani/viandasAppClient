@@ -23,7 +23,7 @@ import { DeleteDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/D
 })
 export class DeliveryDriverComponent implements OnInit {
 
-  displayedColumns: string[] = ['dni', 'name', 'lastName', 'actions'];
+  displayedColumns: string[] = ['dni', 'name', 'lastName','address','vehicle', 'actions'];
   dataSource!: MatTableDataSource<DeliveryDriver>;
   actionForm: string;
 
