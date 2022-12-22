@@ -47,7 +47,8 @@ export class DeliveryDriverFormComponent implements OnInit {
       dni: new FormControl(this.data.deliveryDriver?.dni, Validators.required),
       name: new FormControl(this.data.deliveryDriver?.name, Validators.required),
       lastName: new FormControl(this.data.deliveryDriver?.lastName, Validators.required),
-      phone: new FormControl(this.data.client?.phone, Validators.required),
+      phone: new FormControl(this.data.deliveryDriver?.phone, Validators.required),
+      bornDate: new FormControl(this.data.deliveryDriver?.bornDate, Validators.required),
       idAddress: new FormControl(this.data.deliveryDriver.address?.id),
       street: new FormControl(this.data.deliveryDriver.address?.street),
       number: new FormControl(this.data.deliveryDriver.address?.number),
@@ -74,9 +75,11 @@ export class DeliveryDriverFormComponent implements OnInit {
   mapperDeliveryDriver() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
+    this.result.dni = data["dni"];
     this.result.name = data["name"];
     this.result.lastName = data["lastName"];
     this.result.phone = data["phone"];
+    this.result.bornDate = data["bornDate"];
     this.result.address.id = data["idAddress"];
     this.result.address.street = data["street"];
     this.result.address.number = data["number"];
@@ -88,7 +91,6 @@ export class DeliveryDriverFormComponent implements OnInit {
     this.result.vehicle.model = data["model"];
     this.result.vehicle.patent = data["patent"];
     this.result.vehicle.year = data["year"];   
-
   }
 
 }

@@ -29,6 +29,16 @@
             </tr>
         </table>
 
+        <mat-form-field appearance="fill" class="date">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="bornDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
         <table class="tabla">
             <tr>
                 <td>
@@ -55,7 +65,7 @@
         </table>
 
 
-        <mat-form-field appearance="fill" #street>
+        <mat-form-field appearance="fill" #street class="street">
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
                 required />
