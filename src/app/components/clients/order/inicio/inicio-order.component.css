@@ -12,8 +12,18 @@
     .stepper {
       margin-left: -20px;
     }
-
-  }
-
+    .cardSuccess {
+      max-width: 550px;
+    }
   
+  }
+  
+.cardSuccess {
+  max-width: 450px;
+  width: 100%;
+  margin-top: 20px;
+
+}
+
+
   

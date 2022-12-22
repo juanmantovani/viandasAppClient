@@ -94,6 +94,7 @@ import { DeliveryDriverFormComponent } from './components/administration/deliver
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
 import { AddressesComponent } from './components/clients/addresses/addresses.component';
 import { AvatarComponent } from './components/clients/avatar/avatar.component';
+import { SuccessComponent } from './components/clients/order/success/success.component';
 
 
 
@@ -146,6 +147,7 @@ import { AvatarComponent } from './components/clients/avatar/avatar.component';
     InicioOrdersComponent,
     AddressesComponent,
     AvatarComponent,
+    SuccessComponent,
 
   ],
   imports: [

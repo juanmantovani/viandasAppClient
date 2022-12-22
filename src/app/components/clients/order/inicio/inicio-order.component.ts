@@ -58,6 +58,10 @@ export class InicioOrderComponent implements OnInit {
 
   public userProfile: KeycloakProfile | null;
 
+  orderInProgress : boolean = true;
+  orderSuccess : boolean;
+
+
   constructor(
     private _formBuilder: FormBuilder, 
     breakpointObserver: BreakpointObserver,
@@ -188,9 +192,14 @@ export class InicioOrderComponent implements OnInit {
       if (res){
         return false;
       } else {
-        this.router.navigateByUrl(this.ORDERS);
+        this.orderInProgress = false;
+        this.orderSuccess = true;
       }
     });
+  }
+
+  onClicOrders() {
+    this.router.navigateByUrl(this.ORDERS);
   }
 
   onViewOrderByDay(){
