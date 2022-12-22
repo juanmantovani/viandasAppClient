@@ -28,6 +28,7 @@ export class DeliveryDriverService {
   }
 
   addDeliveryDriver(request: AddDeliveryDriverRequest): Observable<AddDeliveryDriverResponse> {
+    console.log(JSON.stringify(request))
     return this.http.post<AddDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.ADDDELIVERYDRIVER, JSON.stringify(request), this.OPTION).pipe(
       tap(res => new AddDeliveryDriverResponse(res)))
   }
