@@ -33,7 +33,7 @@ export class DeliveryDriverFormComponent implements OnInit {
   ) {
     this.result = new DeliveryDriver(null)
     this.result.address = new Address(null),
-    this.result.vehicle = new Vehicle(null)
+      this.result.vehicle = new Vehicle(null)
     this.onSubmit = new EventEmitter<DeliveryDriver | null>();
     this.form = this.generateForm();
   }
@@ -69,7 +69,17 @@ export class DeliveryDriverFormComponent implements OnInit {
 
   onClickSave() {
     this.mapperDeliveryDriver();
+    if (this.validateDNI() == null)
+      return null;
     this.onSubmit.emit(this.result);
+  }
+
+  validateDNI() {
+    const dni = this.data.listDeliveryDriver.filter((d: any) => d.dni == this.result.dni);
+    if (dni.length > 0) {
+      this.messageError = "DNI ya se encuentra registrado";
+      return null;
+    }
   }
 
   mapperDeliveryDriver() {
@@ -90,7 +100,7 @@ export class DeliveryDriverFormComponent implements OnInit {
     this.result.vehicle.brand = data["brand"];
     this.result.vehicle.model = data["model"];
     this.result.vehicle.patent = data["patent"];
-    this.result.vehicle.year = data["year"];   
+    this.result.vehicle.year = data["year"];
   }
 
 }

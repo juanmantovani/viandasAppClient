@@ -49,6 +49,7 @@
                         <mat-hint *ngIf="form!.controls['dni']!.touched && form!.controls['dni']!.invalid"
                             class="error-input">
                             Este campo es requerido</mat-hint>
+                        <mat-hint *ngIf="messageError != null" class="error-input">{{messageError}}</mat-hint>
                     </mat-form-field>
                 </td>
                 <td>
