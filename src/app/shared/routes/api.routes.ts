@@ -42,9 +42,11 @@ export const API_ROUTES = {
 
     },
     CLIENT: {
+        GETCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClient`,
         REGISTERCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
         EDITCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`,
         GETCLIENTBYIDUSER: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByIdUser`,
+        GETCLIENTBYIDTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByIdTanda`,
     },
     PATHOLOGY: {
         GETPATHOLOGY: `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`,
@@ -78,5 +80,6 @@ export const API_ROUTES = {
         ADDTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/addTanda`,
         EDITTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/editTanda`,
         DELETETANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/deleteTanda`,
+        ASSIGNADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/assignAddressToTanda`,
     }
 }

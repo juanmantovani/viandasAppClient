@@ -6,8 +6,8 @@ export class GetTandaResponse extends BaseResponse{
 
     constructor(data : any) {
         super(data);
-        if(data)
-            this.tanda = data.map((t:any) => new Tanda(t));
+        if(data.tanda)
+            this.tanda = data.tanda.map((t:any) => new Tanda(t));
 
       }
 }

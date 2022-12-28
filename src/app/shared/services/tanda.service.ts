@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { AddTandaRequest } from '../dto/tanda/AddTandaRequest';
 import { AddTandaResponse } from '../dto/tanda/AddTandaResponse';
+import { AssignAddressToTandaRequest } from '../dto/tanda/AssignAddressToTandaRequest';
+import { AssignAddressToTandaResponse } from '../dto/tanda/AssignAddressToTandaResponse';
 import { DeleteTandaRequest } from '../dto/tanda/DeleteTandaRequest';
 import { DeleteTandaResponse } from '../dto/tanda/DeleteTandaResponse';
 import { EditTandaRequest } from '../dto/tanda/EditTandaRequest';
@@ -44,5 +46,12 @@ export class TandaService {
     return this.http.delete<DeleteTandaResponse>(ROUTES.API_ROUTES.TANDA.DELETETANDA, { params }).pipe(
       tap(res => new DeleteTandaResponse(res))
     );
+  }
+
+
+  assingAddressToTanda(request: AssignAddressToTandaRequest): Observable<AssignAddressToTandaResponse> {
+    console.log(JSON.stringify(request))
+    return this.http.post<AssignAddressToTandaResponse>(ROUTES.API_ROUTES.TANDA.ASSIGNADDRESSTOTANDA, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => new AssignAddressToTandaResponse(res)))
   }
 }
