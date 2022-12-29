@@ -174,4 +174,8 @@ export class TandaComponent implements OnInit {
     this.viewAssing = false;
   }
 
+  assignAddress(){
+    this.viewAssing = false;
+  }
+
 }

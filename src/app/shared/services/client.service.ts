@@ -21,8 +21,6 @@ export class ClientService {
   getClient():Observable<GetClientResponse>{
     return this.http.get<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENT).pipe(
       map((res:any) => {
-
-        console.log(res)
         return new GetClientResponse(res);
       })
     )

@@ -66,5 +66,5 @@
         <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
     </div>
 
-    <app-tanda-address *ngIf="viewAssing" [listTanda]="listTanda"></app-tanda-address>
+    <app-tanda-assign-address *ngIf="viewAssing" [listTanda]="listTanda" (assignAddress)="assignAddress()" ></app-tanda-assign-address>
 </div>

@@ -7,7 +7,7 @@ export class GetClientResponse extends BaseResponse {
     constructor(data: any) {
         super(data);
         if (data)
-            this.client = data.map((c: any) => new Client(c.client));
+            this.client = data.map((c: any) => new Client(c));
 
     }
 }

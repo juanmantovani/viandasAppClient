@@ -96,7 +96,8 @@ import { AddressesComponent } from './components/clients/addresses/addresses.com
 import { AvatarComponent } from './components/clients/avatar/avatar.component';
 import { TandaComponent } from './components/administration/tanda/tanda.component';
 import { TandaFormComponent } from './components/administration/tanda-form/tanda-form.component';
-import { TandaAddressComponent } from './components/administration/tanda-address/tanda-address.component';
+import { TandaAssignAddressComponent } from './components/administration/tanda-assign-address/tanda-assign-address.component';
+import { TandaRemoveAddressComponent } from './components/administration/tanda-remove-address/tanda-remove-address.component';
 
 
 
@@ -151,7 +152,8 @@ import { TandaAddressComponent } from './components/administration/tanda-address
     AvatarComponent,
     TandaComponent,
     TandaFormComponent,
-    TandaAddressComponent,
+    TandaAssignAddressComponent,
+    TandaRemoveAddressComponent,
 
   ],
   imports: [
