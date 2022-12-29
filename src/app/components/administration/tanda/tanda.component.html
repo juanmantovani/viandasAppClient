@@ -6,12 +6,15 @@
         <button mat-raised-button (click)="onClickAssign()" class="button">
             Asignar direcciones
         </button>
+        <button mat-raised-button (click)="onClickRemove()" class="button">
+            Quitar direcciones
+        </button>
         <button mat-raised-button (click)="onClickAdd()" class="button">
             Agregar
         </button>
     </div>
 
-    <div *ngIf="!viewAssing">
+    <div *ngIf="viewList">
         <mat-form-field appearance="standard">
             <mat-label>Buscar</mat-label>
             <input matInput (keyup)="onSearch($event)" placeholder="" #input>
@@ -66,5 +69,9 @@
         <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
     </div>
 
-    <app-tanda-assign-address *ngIf="viewAssing" [listTanda]="listTanda" (assignAddress)="assignAddress()" ></app-tanda-assign-address>
+    <app-tanda-assign-address *ngIf="viewAssign" [listTanda]="listTanda"
+        (assignAddress)="onClickList()"></app-tanda-assign-address>
+
+    <app-tanda-remove-address *ngIf="viewRemove" [listTanda]="listTanda"
+        (removeAddress)="onClickList()"></app-tanda-remove-address>
 </div>

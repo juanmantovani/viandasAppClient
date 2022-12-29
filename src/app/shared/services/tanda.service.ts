@@ -10,6 +10,8 @@ import { DeleteTandaResponse } from '../dto/tanda/DeleteTandaResponse';
 import { EditTandaRequest } from '../dto/tanda/EditTandaRequest';
 import { EditTandaResponse } from '../dto/tanda/EditTandaResponse';
 import { GetTandaResponse } from '../dto/tanda/GetTandaResponse';
+import { RemoveAddressToTandaRequest } from '../dto/tanda/RemoveAddressToTandaRequest';
+import { RemoveAddressToTandaResponse } from '../dto/tanda/RemoveAddressToTandaResponse';
 import * as ROUTES from '../routes/index.routes'
 
 @Injectable({
@@ -52,5 +54,10 @@ export class TandaService {
   assignAddressToTanda(request: AssignAddressToTandaRequest): Observable<AssignAddressToTandaResponse> {
     return this.http.post<AssignAddressToTandaResponse>(ROUTES.API_ROUTES.TANDA.ASSIGNADDRESSTOTANDA, JSON.stringify(request), this.OPTION).pipe(
       tap(res => new AssignAddressToTandaResponse(res)))
+  }
+
+  removeAddressToTanda(request: RemoveAddressToTandaRequest): Observable<RemoveAddressToTandaResponse> {
+    return this.http.post<RemoveAddressToTandaResponse>(ROUTES.API_ROUTES.TANDA.REMOVEADDRESSTOTANDA, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => new RemoveAddressToTandaResponse(res)))
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
 import { AssignAddressToTandaRequest } from 'src/app/shared/dto/tanda/AssignAddressToTandaRequest';
 import { AssignAddressToTandaResponse } from 'src/app/shared/dto/tanda/AssignAddressToTandaResponse';
@@ -22,10 +22,9 @@ export class TandaAssignAddressComponent implements OnInit {
 
   @Output() assignAddress: EventEmitter<boolean> = new EventEmitter();
 
-
   constructor(private clientService: ClientService,
     private dialogService: DialogService,
-    private tandaService : TandaService) {
+    private tandaService: TandaService) {
     this.listIdAddress = [];
   }
 
@@ -45,7 +44,7 @@ export class TandaAssignAddressComponent implements OnInit {
     })
   }
 
-  addAddressToTanda(address: Address) {
+  addAddressToList(address: Address) {
     if (!this.listIdAddress.includes(address.id)) {
       this.listIdAddress.push(address.id)
     }
@@ -54,9 +53,9 @@ export class TandaAssignAddressComponent implements OnInit {
     }
   }
 
-  async onClickAssign(){
+  async onClickAssign() {
     var tanda = this.listTanda.find(t => t.id == this.idTandaSelected)
-    if (await this.generateConfirm("Está a punto de asignar direcciones a "+ tanda?.description + ". ¿Está seguro de realizar esta operación?") === true) {
+    if (await this.generateConfirm("Está a punto de asignar direcciones a " + tanda?.description + ". ¿Está seguro de realizar esta operación?") === true) {
       await this.assignAddressToTanda();
     }
   }
@@ -65,16 +64,14 @@ export class TandaAssignAddressComponent implements OnInit {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  async assignAddressToTanda(){
+  async assignAddressToTanda() {
     const request: AssignAddressToTandaRequest = {
       idTanda: this.idTandaSelected,
-      idAddress : this.listIdAddress
+      idAddress: this.listIdAddress
     }
     await this.tandaService.assignAddressToTanda(request).subscribe((res: AssignAddressToTandaResponse) => {
       this.listIdAddress = [];
       this.assignAddress.emit();
-
-      //pensar que hacer acá
     }
     );
   }

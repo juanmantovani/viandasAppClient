@@ -15,7 +15,7 @@
             <mat-card class="card" *ngFor="let address of client.addresses">
                 <mat-card-content>
                     <p>
-                        <mat-checkbox (click)="addAddressToTanda(address)">{{client.name}} - {{address.street}}
+                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}} - {{address.street}}
                             {{address.number}} {{address.floor}} {{address.departament}}
                         </mat-checkbox>
                     </p>

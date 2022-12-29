@@ -30,7 +30,9 @@ export class TandaComponent implements OnInit {
   dataSource!: MatTableDataSource<Tanda>;
   actionForm: string;
   listDeliveryDriver: DeliveryDriver[];
-  viewAssing: boolean;
+  viewAssign: boolean;
+  viewRemove: boolean;
+  viewList: boolean;
   listTanda: Tanda[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -50,6 +52,7 @@ export class TandaComponent implements OnInit {
     this.getDeliveryDriver();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.viewList = true;
   }
 
   async getTanda() {
@@ -146,7 +149,7 @@ export class TandaComponent implements OnInit {
       idDeliveryDriver: tanda.deliveryDriver.id
     }
     addTandaRequest.tanda.deliveryDriver = new DeliveryDriver(null);
-    
+
     await this.tandaService.addTanda(addTandaRequest).subscribe((res: AddTandaResponse) => {
       this.getTanda()
       return res;
@@ -166,16 +169,22 @@ export class TandaComponent implements OnInit {
     })
   }
 
-  onClickAssign(){
-    this.viewAssing = true;
+  onClickAssign() {
+    this.viewList = false;
+    this.viewRemove = false;
+    this.viewAssign = true;
   }
 
-  onClickList(){
-    this.viewAssing = false;
+  onClickRemove() {
+    this.viewList = false;
+    this.viewAssign = false;
+    this.viewRemove = true;
   }
 
-  assignAddress(){
-    this.viewAssing = false;
+  onClickList() {
+    this.viewAssign = false;
+    this.viewRemove = false;
+    this.viewList = true;
   }
 
 }
