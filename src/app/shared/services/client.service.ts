@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { GetCityResponse } from '../dto/city/GetCityResponse';
+import { GetClientByIdTandaRequest } from '../dto/client/GetClientByIdTandaRequest';
 import { GetClientByIdUserResponse } from '../dto/client/GetClientByIdUserResponse';
 import { GetClientResponse } from '../dto/client/GetClientResponse';
 import { RegisterClientRequest } from '../dto/client/RegisterClientRequest';
@@ -60,11 +61,11 @@ export class ClientService {
   }
 
 
-  getClientByIdTanda(idTanda : number):Observable<GetClientResponse>{
-    let params = new HttpParams();
-    params = params.set('idTanda', idTanda);
-    return this.http.get<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDTANDA, {params}).pipe(
+  getClientByIdTanda(request : GetClientByIdTandaRequest):Observable<GetClientResponse>{
+    
+    return this.http.post<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYTANDA, JSON.stringify(request), this.OPTIONS).pipe(
       map((res:any) => {
+        console.log("lo que manda el raulo",res)
         return new GetClientResponse(res);
       })
     )

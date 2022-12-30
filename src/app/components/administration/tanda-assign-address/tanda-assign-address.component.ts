@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { GetClientByIdTandaRequest } from 'src/app/shared/dto/client/GetClientByIdTandaRequest';
 import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
 import { AssignAddressToTandaRequest } from 'src/app/shared/dto/tanda/AssignAddressToTandaRequest';
 import { AssignAddressToTandaResponse } from 'src/app/shared/dto/tanda/AssignAddressToTandaResponse';
@@ -32,14 +33,11 @@ export class TandaAssignAddressComponent implements OnInit {
     this.getAddresses();
   }
 
-  /*async getAddresses() {
-    await this.clientService.getClientByIdTanda(0).subscribe((res: GetClientResponse) => {
-      this.listClient = res.client
-    })
-  }*/
-
   async getAddresses() {
-    await this.clientService.getClient().subscribe((res: GetClientResponse) => {
+    const request: GetClientByIdTandaRequest = {
+      idTanda: []
+    }
+    await this.clientService.getClientByIdTanda(request).subscribe((res: GetClientResponse) => {
       this.listClient = res.client
     })
   }

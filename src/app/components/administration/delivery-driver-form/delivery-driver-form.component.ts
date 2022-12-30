@@ -69,17 +69,19 @@ export class DeliveryDriverFormComponent implements OnInit {
 
   onClickSave() {
     this.mapperDeliveryDriver();
-    if (this.validateDNI() == null)
+    if (!this.validateDNI())
       return null;
     this.onSubmit.emit(this.result);
   }
 
   validateDNI() {
-    const dni = this.data.listDeliveryDriver.filter((d: any) => d.dni == this.result.dni);
+    const dni = this.data.listDeliveryDriver.filter((d: any) => (d.dni == this.result.dni && d.id != this.result.id));
+    console.log(dni)
     if (dni.length > 0) {
       this.messageError = "DNI ya se encuentra registrado";
-      return null;
+      return false;
     }
+    return true;
   }
 
   mapperDeliveryDriver() {
