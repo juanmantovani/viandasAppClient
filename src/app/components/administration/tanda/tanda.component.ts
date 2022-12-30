@@ -30,6 +30,10 @@ export class TandaComponent implements OnInit {
   dataSource!: MatTableDataSource<Tanda>;
   actionForm: string;
   listDeliveryDriver: DeliveryDriver[];
+  viewAssign: boolean;
+  viewRemove: boolean;
+  viewList: boolean;
+  listTanda: Tanda[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -48,12 +52,13 @@ export class TandaComponent implements OnInit {
     this.getDeliveryDriver();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+    this.viewList = true;
   }
 
   async getTanda() {
     await this.tandaService.getTanda().subscribe((res: GetTandaResponse) => {
       this.dataSource = new MatTableDataSource(res.tanda);
+      this.listTanda = res.tanda
     })
   }
 
@@ -140,8 +145,11 @@ export class TandaComponent implements OnInit {
 
   async addTanda(tanda: Tanda) {
     const addTandaRequest: AddTandaRequest = {
-      tanda: tanda
+      tanda: tanda,
+      idDeliveryDriver: tanda.deliveryDriver.id
     }
+    addTandaRequest.tanda.deliveryDriver = new DeliveryDriver(null);
+
     await this.tandaService.addTanda(addTandaRequest).subscribe((res: AddTandaResponse) => {
       this.getTanda()
       return res;
@@ -151,12 +159,32 @@ export class TandaComponent implements OnInit {
 
   async editTanda(tanda: Tanda) {
     const editTandaRequest: EditTandaRequest = {
-      tanda: tanda
+      tanda: tanda,
+      idDeliveryDriver: tanda.deliveryDriver.id
     }
+    editTandaRequest.tanda.deliveryDriver = new DeliveryDriver(null);
     await this.tandaService.editTanda(editTandaRequest).subscribe((res: EditTandaResponse) => {
       this.getTanda()
       return res;
     })
+  }
+
+  onClickAssign() {
+    this.viewList = false;
+    this.viewRemove = false;
+    this.viewAssign = true;
+  }
+
+  onClickRemove() {
+    this.viewList = false;
+    this.viewAssign = false;
+    this.viewRemove = true;
+  }
+
+  onClickList() {
+    this.viewAssign = false;
+    this.viewRemove = false;
+    this.viewList = true;
   }
 
 }

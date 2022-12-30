@@ -37,7 +37,7 @@
             <mat-label>Repartidor</mat-label>
             <mat-select formControlName="deliveryDriver" name="deliveryDriver" [(ngModel)]="idDeliveryDriverSelected">
                 <mat-option *ngFor="let deliveryDriver of listDeliveryDriver" [value]="deliveryDriver.id">
-                    {{deliveryDriver.name}}
+                    {{deliveryDriver.name}} {{deliveryDriver.lastName}}
                 </mat-option>
             </mat-select>
             <mat-hint *ngIf="form!.controls['deliveryDriver']!.touched && idDeliveryDriverSelected == null"

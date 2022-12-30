@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 import { GetCityResponse } from '../dto/city/GetCityResponse';
+import { GetClientByIdTandaRequest } from '../dto/client/GetClientByIdTandaRequest';
 import { GetClientByIdUserResponse } from '../dto/client/GetClientByIdUserResponse';
+import { GetClientResponse } from '../dto/client/GetClientResponse';
 import { RegisterClientRequest } from '../dto/client/RegisterClientRequest';
 import { RegisterClientResponse } from '../dto/client/RegisterClientResponse';
 import { UpdateClientRequest } from '../dto/client/UpdateClientRequest';
@@ -17,7 +19,13 @@ export class ClientService {
   constructor(private http: HttpClient) { }
   OPTIONS = {headers: {'Content-Type': 'application/json'}};
 
-
+  getClient():Observable<GetClientResponse>{
+    return this.http.get<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENT).pipe(
+      map((res:any) => {
+        return new GetClientResponse(res);
+      })
+    )
+  }
   
   registerClient(request: RegisterClientRequest) : Observable<RegisterClientResponse> {
     return this.http.post<RegisterClientResponse>(ROUTES.API_ROUTES.CLIENT.REGISTERCLIENT, JSON.stringify(request), this.OPTIONS).pipe(
@@ -51,5 +59,18 @@ export class ClientService {
       })
     )
   }
+
+
+  getClientByIdTanda(request : GetClientByIdTandaRequest):Observable<GetClientResponse>{
+    
+    return this.http.post<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYTANDA, JSON.stringify(request), this.OPTIONS).pipe(
+      map((res:any) => {
+        console.log("lo que manda el raulo",res)
+        return new GetClientResponse(res);
+      })
+    )
+  }
+
+  
 
 }
