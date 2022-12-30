@@ -1,0 +1,33 @@
+<div class="container-fluid">
+    <div>
+        <mat-form-field appearance="fill">
+            <mat-label>Tanda</mat-label>
+            <mat-select [(ngModel)]="idTandaSelected" (selectionChange)="onChangeTanda($event)"> 
+                <mat-option *ngFor="let tanda of listTanda" [value]="tanda.id">
+                    {{tanda.description}} - {{tanda.deliveryDriver.name}}{{tanda.deliveryDriver.lastName}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="div-address">
+        <div *ngFor="let client of listClient">
+            <mat-card class="card" *ngFor="let address of client.addresses">
+                <mat-card-content>
+                    <p>
+                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}} - {{address.street}}
+                            {{address.number}} {{address.floor}} {{address.departament}}
+                        </mat-checkbox>
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <hr>
+    <div align="center">
+        <button mat-raised-button color="primary" (click)="onClickRemove()" class="btn-primary btn-azul"
+            [disabled]="idTandaSelected == null || listIdAddress.length == 0">
+            <mat-icon>save</mat-icon> QUITAR
+        </button>
+    </div>
+</div>

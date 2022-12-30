@@ -26,6 +26,7 @@ export class DeliveryDriverComponent implements OnInit {
   displayedColumns: string[] = ['dni', 'name', 'lastName','address','vehicle', 'actions'];
   dataSource!: MatTableDataSource<DeliveryDriver>;
   actionForm: string;
+  listDeliveryDriver : DeliveryDriver[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -48,6 +49,7 @@ export class DeliveryDriverComponent implements OnInit {
   async getDeliveryDriver() {
     await this.deliveryDriverService.getDeliveryDriver().subscribe((res: GetDeliveryDriverResponse) => {
       this.dataSource = new MatTableDataSource(res.deliveryDriver);
+      this.listDeliveryDriver = res.deliveryDriver;
     })
   }
 
@@ -61,6 +63,7 @@ export class DeliveryDriverComponent implements OnInit {
     const dataForm: DataFormDeliveryDriver = {
       actionForm: "Add",
       deliveryDriver: new DeliveryDriver(null),
+      listDeliveryDriver : this.listDeliveryDriver
     };
     this.gestionateForm(dataForm);
   }
@@ -70,6 +73,7 @@ export class DeliveryDriverComponent implements OnInit {
     const dataForm: DataFormDeliveryDriver = {
       actionForm: "Edit",
       deliveryDriver: deliveryDriver,
+      listDeliveryDriver : this.listDeliveryDriver
     };
     this.gestionateForm(dataForm);
   }

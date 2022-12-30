@@ -29,12 +29,12 @@
 
     <ng-container matColumnDef="address">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Dirección </th>
-      <td mat-cell *matCellDef="let element" class="hidden"> {{element.address.street}} </td>
+      <td mat-cell *matCellDef="let element" class="hidden"> {{element.address.street}} {{element.address.number}} {{element.address.floor}} {{element.address.departament}} </td>
     </ng-container>
 
     <ng-container matColumnDef="vehicle">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Vehículo </th>
-      <td mat-cell *matCellDef="let element" class="hidden"> {{element.vehicle.bread}} {{element.vehicle.bread}} </td>
+      <td mat-cell *matCellDef="let element" class="hidden"> {{element.vehicle.brand}} {{element.vehicle.model}} {{element.vehicle.year}} </td>
     </ng-container>
 
 
