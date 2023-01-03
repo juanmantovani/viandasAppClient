@@ -5,33 +5,52 @@
   <div *ngFor="let day of daysOfMonth">
     <mat-divider></mat-divider>
     {{ getDay(day) }} {{ day | date:'dd/MM' }}:
-    <mat-card-content>
-        <mat-chip-list class="listMenuByDay" *ngFor="let dayOrder of order.daysOrder let i=index">
+    <div>
+        <mat-chip-list class="listMenuByDay" *ngFor="let dayOrder of order.daysOrder">
           <mat-chip *ngIf="((dayOrder.dayFood.date | date:'dd/MM') == (day | date:'dd/MM') && dayOrder.cant > 0)" [style]="{'background-color': dayOrder.dayFood.category.color}">
             {{ dayOrder.cant }} x {{ dayOrder.dayFood.category.title }}
           </mat-chip>
         </mat-chip-list>
-    </mat-card-content>
+    </div>
+
+    <div *ngIf="personalizeAddresses">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Cambiar dirección</mat-label>
+        <mat-select [value]="defaultSelectAddress" (selectionChange)="changeAddressOnDay($event.value, day)">
+          <mat-option *ngFor="let address of client.addresses" [value]="address" >
+            {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </div>
 </mat-card>
 
 <mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
+  <h3>
+    <mat-radio-button [checked]="default" (click)="onClickSetDefaulAddress()">Todos tus pedidos serán entregados en</mat-radio-button>
+  </h3>
+  <div *ngIf="default" (click)="onClickSetDefaulAddress()">
+    <mat-card-header>
+      <div mat-card-avatar><mat-icon>place</mat-icon></div>
+      <mat-card-title>
+        {{selectedAdress.street}} Nº{{selectedAdress.number}} {{selectedAdress.floor}} {{selectedAdress.departament}}                 
+      </mat-card-title>
+      <mat-card-subtitle *ngIf="selectedAdress.observation.length  > 0">({{selectedAdress.observation}})</mat-card-subtitle>
+    </mat-card-header>
 
-  <mat-card-header>
-    <div mat-card-avatar><mat-icon>place</mat-icon></div>
-    <mat-card-title>        {{selectedAdress.street}} Nº{{selectedAdress.number}} {{selectedAdress.floor}} {{selectedAdress.departament}}                 
-    </mat-card-title>
-    <mat-card-subtitle *ngIf="selectedAdress.observation.length  > 0">({{selectedAdress.observation}})</mat-card-subtitle>
-  </mat-card-header>
-
-  <mat-card-actions>
-      <div align="end">
-        <button mat-raised-button (click)="onClickEditAddress()" title="Editar">
-          Cambiar
-        </button>
-      </div>
-  </mat-card-actions>
+    <mat-card-actions>
+        <div align="end">
+          <button mat-raised-button (click)="onClickEditAddress()" title="Editar">
+            Cambiar
+          </button>
+        </div>
+    </mat-card-actions>
+  </div>
+  <hr>
+  <h3 (click)="onClickPersonalizeAddresses()"><mat-radio-button class="example-margin" [checked]="personalizeAddresses">Personalizar domicilios de entrega</mat-radio-button></h3>
 </mat-card>
 
 <div *ngIf="changeAddress" class="card">

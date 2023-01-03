@@ -2,6 +2,7 @@
 
 .listMenuByDay {
     display: inline-flex;
+    margin-bottom: 5px;
 }
 
 .full-width {

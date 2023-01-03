@@ -47,6 +47,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -190,7 +192,9 @@ import { SuccessComponent } from './components/clients/order/success/success.com
     MatChipsModule,
     MatStepperModule,
     CommonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule,
+    MatRadioModule
   ],
   providers: [
     MatNotificationComponent,

@@ -27,14 +27,14 @@
     </mat-step>
   </mat-stepper>
 
-  <app-resume-order [isDisabledNext]="selectedCategories.length < 1" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
+  <app-resume-order [isDisabledNext]="disableNextButton" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
 </div>
 
 <div *ngIf="orderSuccess" >
   <div class="container-fluid" align="center">
     <mat-card class="cardSuccess" >
       <mat-card-header>
-        <mat-card-title>Solicitud procesada con éxito</mat-card-title>
+        <mat-card-title></mat-card-title>
       </mat-card-header>
       <mat-card-content>
         <app-success messaggeSuccess="Muchas gracias por su orden"></app-success>

@@ -31,6 +31,7 @@ import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import  * as ROUTES  from '../../../../shared/routes/index.routes'
+import { DialogService } from 'src/app/shared/services/dialog.service';
 
 
 @Component({
@@ -50,6 +51,7 @@ export class InicioOrderComponent implements OnInit {
   client : Client;
   selectedAdress: Address;
   viewOrderByDay : boolean;
+  disableNextButton: boolean;
   daysOfMonth : Date [];
   menu : Menu;
 
@@ -73,6 +75,7 @@ export class InicioOrderComponent implements OnInit {
     private readonly keycloak: KeycloakService,
     private router: Router,
     private route: ActivatedRoute,
+    private dialogService: DialogService
     ) 
     {
       this.stepperOrientation = breakpointObserver
@@ -106,6 +109,8 @@ export class InicioOrderComponent implements OnInit {
   selectCategory(event: Category[]){
     this.selectedCategories = event;
     this.firstStepCompleted = true;
+    if (this.selectedCategories.length < 1)
+      this.disableNextButton = true;
   }
 
   async onViewDetailsCategory(category: Category){
@@ -140,7 +145,7 @@ export class InicioOrderComponent implements OnInit {
       turn.days.forEach (dayFood => {
         const dayOrder : DayOrder = {
           id: 0,
-          address: new Address (null),
+          address: new Address (this.selectedAdress),
           cant: 1,
           dayFood: new DayFood(dayFood),
           observation: ""
@@ -168,13 +173,15 @@ export class InicioOrderComponent implements OnInit {
   }
 
   async sendOrder() {
-    var dayOrderRequestArray : DayOrderRequest[] = [];
 
+    if (await this.generateConfirm("Está a punto de realizar una order. ¿Está seguro de realizar esta operación?") === true)
+      {
+    var dayOrderRequestArray : DayOrderRequest[] = [];
 
     this.order.daysOrder.forEach(dayOrder => {
       const dayOrderRequest : DayOrderRequest = {
         cant: dayOrder.cant,
-        idAddress: new Address (this.selectedAdress).id,
+        idAddress: dayOrder.address.id == this.selectedAdress.id ? this.selectedAdress.id : dayOrder.address.id,
         idDayFood: dayOrder.dayFood.id,
         observation: dayOrder.observation
       }
@@ -196,6 +203,11 @@ export class InicioOrderComponent implements OnInit {
         this.orderSuccess = true;
       }
     });
+    }
+  }
+
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
   }
 
   onClicOrders() {

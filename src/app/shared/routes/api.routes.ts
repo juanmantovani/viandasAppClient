@@ -65,6 +65,7 @@ export const API_ROUTES = {
         ADDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
         GETORDERVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
         GETORDERBYID: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
+        EDITDAYORDERADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/updateDayOrderAddress`,
 
     },
     DELIVERYDRIVER: {
