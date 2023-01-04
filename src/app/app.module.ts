@@ -47,6 +47,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -98,6 +100,7 @@ import { TandaComponent } from './components/administration/tanda/tanda.componen
 import { TandaFormComponent } from './components/administration/tanda-form/tanda-form.component';
 import { TandaAssignAddressComponent } from './components/administration/tanda-assign-address/tanda-assign-address.component';
 import { TandaRemoveAddressComponent } from './components/administration/tanda-remove-address/tanda-remove-address.component';
+import { SuccessComponent } from './components/clients/order/success/success.component';
 
 
 
@@ -154,6 +157,7 @@ import { TandaRemoveAddressComponent } from './components/administration/tanda-r
     TandaFormComponent,
     TandaAssignAddressComponent,
     TandaRemoveAddressComponent,
+    SuccessComponent,
 
   ],
   imports: [
@@ -196,7 +200,9 @@ import { TandaRemoveAddressComponent } from './components/administration/tanda-r
     MatChipsModule,
     MatStepperModule,
     CommonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSlideToggleModule,
+    MatRadioModule
   ],
   providers: [
     MatNotificationComponent,

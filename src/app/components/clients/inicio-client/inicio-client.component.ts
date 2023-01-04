@@ -43,7 +43,8 @@ export class InicioClientComponent implements OnInit {
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       if (res.client == undefined) {
-        const dataForm: DataFormClient = {
+        //if (true) {
+          const dataForm: DataFormClient = {
           actionForm: "Add",
           client: new Client(null),
           userProfile: this.userProfile!
@@ -56,6 +57,8 @@ export class InicioClientComponent implements OnInit {
   async gestionateForm(dataForm: DataFormClient) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
+    dialogConfig.maxWidth = '95%';
+    dialogConfig.maxHeight = '90%';
     const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 

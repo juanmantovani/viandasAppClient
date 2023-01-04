@@ -12,6 +12,8 @@ import { DayOrder } from '../models/DayOrder';
 import { DayFood } from '../models/DayFood';
 import { Food } from '../models/Food';
 import { Address } from '../models/Address';
+import { EditDayOrderAddressRequest } from '../dto/order/EditDayOrderAddressRequest';
+import { EditDayOrderAddressResponse } from '../dto/order/EditDayOrderAddressResponse';
 
 
 
@@ -52,6 +54,7 @@ export class OrderService {
             food: new Food(dayOrder.food),
           }
           var daysOrder = {
+            id: dayOrder.id,
             observation: dayOrder.observation,
             address: dayOrder.address,
             cant: dayOrder.cant,
@@ -70,6 +73,15 @@ export class OrderService {
         return new GetOrderByIdResponse(order);
       })
     )
+  }
+
+  editDayOrderAddress(request: EditDayOrderAddressRequest) : Observable<EditDayOrderAddressResponse> {
+    let params = new HttpParams();
+    params = params.set('idAddress', request.idAddress.toString());
+    params = params.set('idDayOrder', request.idDayOrder.toString());
+    return this.http.get<EditDayOrderAddressResponse>(ROUTES.API_ROUTES.ORDER.EDITDAYORDERADDRESS, {params}).pipe(
+      tap (res => new EditDayOrderAddressResponse(res))
+    );
   }
 
 

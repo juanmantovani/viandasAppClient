@@ -6,8 +6,6 @@ import { OrderViewer } from 'src/app/shared/models/OrderViewer';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { MatPaginator } from '@angular/material/paginator';
 
-
-
 @Component({
   selector: 'app-inicio-orders',
   templateUrl: './inicio-orders.component.html',
@@ -20,8 +18,6 @@ export class InicioOrdersComponent implements OnInit  {
 
   @ViewChild(MatPaginator) paginator?:MatPaginator;
 
-
-
   constructor(private orderService: OrderService,
     ) {
       this.orderDetails = new Order(null);
@@ -31,7 +27,6 @@ export class InicioOrdersComponent implements OnInit  {
     this.getOrderViewer();
 
   }
-
 
   async getOrderViewer() {
     await this.orderService.getOrderViewer().subscribe((res: GetOrderViewerResponse) => {
@@ -47,6 +42,11 @@ export class InicioOrdersComponent implements OnInit  {
 
   onHideDetailsOrder(idOrder : number) {
     this.orderDetails = new Order(null);
+  }
+
+  async onGetOrderDetails(){
+    await this.onViewDetailsOrder(this.orderDetails.id)
+
   }
 
 }

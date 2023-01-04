@@ -29,11 +29,23 @@
       </mat-card-actions>
       <mat-card-actions *ngIf="editAddress">
         <hr>
-        <p>
+        <p *ngIf="changinAddress?.id != dayOrder.id">
           <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
-          <button mat-raised-button class="button" (click)="onChangeAddress(dayOrder.id)">Cambiar</button>
+          <button mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
 
         </p>
+        <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
+        <mat-form-field appearance="fill">
+          <mat-label>Cambiar dirección</mat-label>
+          <mat-select [(value)]="selectAddress">
+            <mat-option *ngFor="let address of client?.addresses" [value]="address" >
+              {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button class="button" (click)="onSaveChangeAddress(dayOrder)" [disabled]="selectAddress?.id == dayOrder.address.id">Aceptar</button>
+      </div>
+
 
       </mat-card-actions>
 
