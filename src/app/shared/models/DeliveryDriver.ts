@@ -9,6 +9,7 @@ export class DeliveryDriver {
     phone: string;
     address: Address;
     vehicle : Vehicle;
+    bornDate : Date
 
     constructor(data: any) {
         if (data) {
@@ -19,6 +20,7 @@ export class DeliveryDriver {
             this.phone = data.phone;
             this.address = new Address(data.address);
             this.vehicle = new Vehicle(data.vehicle);
+            this.bornDate = new Date(data.bornDate)
         }
     }
 }

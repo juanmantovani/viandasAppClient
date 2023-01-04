@@ -45,7 +45,6 @@ export class InicioOrdersComponent implements OnInit  {
   }
 
   async onGetOrderDetails(){
-    console.log("toy")
     await this.onViewDetailsOrder(this.orderDetails.id)
 
   }

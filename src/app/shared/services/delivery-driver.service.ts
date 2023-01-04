@@ -27,22 +27,22 @@ export class DeliveryDriverService {
     )
   }
 
-  addDeliveryDriver(request: AddDeliveryDriverRequest) : Observable<AddDeliveryDriverResponse> {    
-    return this.http.post<AddDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.ADDDELIVERYDRIVER, JSON.stringify(request), this.OPTION ).pipe(
-    tap (res => new AddDeliveryDriverResponse(res)))
+  addDeliveryDriver(request: AddDeliveryDriverRequest): Observable<AddDeliveryDriverResponse> {
+    return this.http.post<AddDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.ADDDELIVERYDRIVER, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => new AddDeliveryDriverResponse(res)))
   }
-  
-  editDeliveryDriver(request: EditDeliveryDriverRequest) : Observable<EditDeliveryDriverResponse>{
-    return this.http.put<EditDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.EDITDELIVERYDRIVER, JSON.stringify(request), this.OPTION ).pipe(
-      tap (res => new EditDeliveryDriverResponse(res)))
+
+  editDeliveryDriver(request: EditDeliveryDriverRequest): Observable<EditDeliveryDriverResponse> {
+    return this.http.put<EditDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.EDITDELIVERYDRIVER, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => new EditDeliveryDriverResponse(res)))
   }
-  
+
   deleteDeliveryDriver(request: DeleteDeliveryDriverRequest): Observable<DeleteDeliveryDriverResponse> {
     let params = new HttpParams();
     params = params.set('idDeliveryDriver', request.idDeliveryDriver?.toString());
-  
-    return this.http.delete<DeleteDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.DELETEDELIVERYDRIVER, {params}).pipe(
-    tap (res => new DeleteDeliveryDriverResponse(res))
+
+    return this.http.delete<DeleteDeliveryDriverResponse>(ROUTES.API_ROUTES.DELIVERYDRIVER.DELETEDELIVERYDRIVER, { params }).pipe(
+      tap(res => new DeleteDeliveryDriverResponse(res))
     );
   }
 

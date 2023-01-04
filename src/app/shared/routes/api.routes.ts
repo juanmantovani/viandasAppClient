@@ -42,9 +42,11 @@ export const API_ROUTES = {
 
     },
     CLIENT: {
+        GETCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClient`,
         REGISTERCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/registerClient`,
         EDITCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/updateClient`,
         GETCLIENTBYIDUSER: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByIdUser`,
+        GETCLIENTBYTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByTanda`,
     },
     PATHOLOGY: {
         GETPATHOLOGY: `${ENV.urlApi}/${INTERNAL_ROUTES.PATHOLOGY}/getPathology`,
@@ -73,7 +75,13 @@ export const API_ROUTES = {
         ADDDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/addDeliveryDriver`,
         EDITDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/editDeliveryDriver`,
         DELETEDELIVERYDRIVER: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERYDRIVER}/deleteDeliveryDriver`,
-        GETORDERBYID:`${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
-
+    },
+    TANDA: {
+        GETTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/getTanda`,
+        ADDTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/addTanda`,
+        EDITTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/editTanda`,
+        DELETETANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/deleteTanda`,
+        ASSIGNADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/assignAddressToTanda`,
+        REMOVEADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/removeAddressToTanda`,
     }
 }

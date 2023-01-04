@@ -29,16 +29,27 @@
             </tr>
         </table>
 
+        <mat-form-field appearance="fill" class="date">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="bornDate">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
         <table class="tabla">
             <tr>
                 <td>
                     <mat-form-field appearance="fill" #dni>
                         <mat-label>DNI</mat-label>
-                        <input type="text" matInput formControlName="dni" name="dni" id="dni" #dni
+                        <input type="number" matInput formControlName="dni" name="dni" id="dni" #dni
                             placeholder="Ingrese DNI" required />
                         <mat-hint *ngIf="form!.controls['dni']!.touched && form!.controls['dni']!.invalid"
                             class="error-input">
                             Este campo es requerido</mat-hint>
+                        <mat-hint *ngIf="messageError != null" class="error-input">{{messageError}}</mat-hint>
                     </mat-form-field>
                 </td>
                 <td>
@@ -55,7 +66,7 @@
         </table>
 
 
-        <mat-form-field appearance="fill" #street>
+        <mat-form-field appearance="fill" #street class="street">
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
                 required />
@@ -116,6 +127,13 @@
                         <mat-label>Patente</mat-label>
                         <input type="text" matInput formControlName="patent" name="patent" id="patent" #patent
                             placeholder="Patente" />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" #year>
+                        <mat-label>Año</mat-label>
+                        <input type="number" matInput formControlName="year" name="year" id="year" #year
+                            placeholder="Año" />
                     </mat-form-field>
                 </td>
             </tr>

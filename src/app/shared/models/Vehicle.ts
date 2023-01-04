@@ -3,6 +3,7 @@ export class Vehicle {
     brand: string;
     model: string;
     patent: string;
+    year : number;
 
     constructor(data: any) {
         if (data) {
@@ -10,6 +11,7 @@ export class Vehicle {
             this.brand = data.brand;
             this.model = data.model;
             this.patent = data.patent
+            this.year = data.year
         }
     }
 }

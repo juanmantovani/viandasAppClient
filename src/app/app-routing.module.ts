@@ -16,6 +16,7 @@ import { InicioOrderComponent } from './components/clients/order/inicio/inicio-o
 import { DeliveryDriverComponent } from './components/administration/delivery-driver/delivery-driver.component';
 import { InicioOrdersComponent } from './components/clients/orders/inicio-orders/inicio-orders.component';
 import { AddressesComponent } from './components/clients/addresses/addresses.component';
+import { TandaComponent } from './components/administration/tanda/tanda.component';
 
 
 
@@ -40,7 +41,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.CATEGORY, component: CategoryComponent },
       {path: ROUTES.INTERNAL_ROUTES.MENU, component: MenuInicioComponent},
       {path: ROUTES.INTERNAL_ROUTES.PATHOLOGY, component: PathologyComponent},
-      {path: ROUTES.INTERNAL_ROUTES.DELIVERYDRIVER, component: DeliveryDriverComponent}
+      {path: ROUTES.INTERNAL_ROUTES.DELIVERYDRIVER, component: DeliveryDriverComponent},
+      {path: ROUTES.INTERNAL_ROUTES.TANDA, component: TandaComponent}
     ],
     
     canActivate: [ AuthGuard ]

@@ -1,8 +1,10 @@
 import { DeliveryDriver } from "../../models/DeliveryDriver";
+import { Tanda } from "../../models/Tanda";
 
-export class DataFormDeliveryDriver {
+export class DataFormTanda {
 
-    deliveryDriver: DeliveryDriver = new DeliveryDriver(null);
+    tanda: Tanda = new Tanda(null);
     actionForm: string;
     listDeliveryDriver : DeliveryDriver[];
+  
   }

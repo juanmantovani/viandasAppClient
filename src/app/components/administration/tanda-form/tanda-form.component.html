@@ -1,0 +1,61 @@
+<h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nueva' : 'Editando' }} tanda</h1>
+
+<mat-dialog-content>
+
+    <form [formGroup]="form" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill" #description>
+            <mat-label>Descripción</mat-label>
+            <input type="text" matInput formControlName="description" name="description" id="description" #description
+                placeholder="Ingrese un Descripción" required />
+            <mat-hint *ngIf="form!.controls['description']!.touched && form!.controls['description']!.invalid"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+        <table align="center">
+            <tr>
+                <td>
+                    <mat-form-field appearance="fill" #hourStart>
+                        <mat-label>Inicio</mat-label>
+                        <input type="time" matInput formControlName="hourStart" name="hourStart" id="hourStart"
+                            #hourStart />
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field appearance="fill" #hourEnd>
+                        <mat-label>Fin</mat-label>
+                        <input type="time" matInput formControlName="hourEnd" name="hourEnd" id="hourEnd" #hourEnd />
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+
+        <mat-form-field appearance="fill">
+            <mat-label>Repartidor</mat-label>
+            <mat-select formControlName="deliveryDriver" name="deliveryDriver" [(ngModel)]="idDeliveryDriverSelected">
+                <mat-option *ngFor="let deliveryDriver of listDeliveryDriver" [value]="deliveryDriver.id">
+                    {{deliveryDriver.name}} {{deliveryDriver.lastName}}
+                </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form!.controls['deliveryDriver']!.touched && idDeliveryDriverSelected == null"
+                class="error-input">
+                Este campo es requerido</mat-hint>
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID' || idDeliveryDriverSelected == null ">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>
