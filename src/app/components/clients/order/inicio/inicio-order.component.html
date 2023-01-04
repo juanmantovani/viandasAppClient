@@ -1,7 +1,4 @@
-<ng-container [ngSwitch]="stepperOrientation | async">
-
-  </ng-container>
-  
+ <div *ngIf="orderInProgress">
   <mat-stepper  linear #stepper
     class="stepper"
     [orientation]="(stepperOrientation | async)!">
@@ -30,5 +27,21 @@
     </mat-step>
   </mat-stepper>
 
-  <app-resume-order [isDisabledNext]="selectedCategories.length < 1" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
-  
+  <app-resume-order [isDisabledNext]="disableNextButton" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
+</div>
+
+<div *ngIf="orderSuccess" >
+  <div class="container-fluid" align="center">
+    <mat-card class="cardSuccess" >
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-success messaggeSuccess="Muchas gracias por su orden"></app-success>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button class="button" (click)="onClicOrders()">Ver mis ordenes</button>
+      </mat-card-actions>
+    </mat-card> 
+  <div>
+</div>

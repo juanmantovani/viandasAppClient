@@ -5,15 +5,15 @@
   <div class="d-flex flex-wrap">
     
     <mat-card class="orders-card" *ngFor="let order of ordersViewer" [ngClass]="{'isActive': (orderDetails.id === order.id)}">
-      <!-- <mat-card-subtitle>Orden Nº {{order.id}} - Menu del {{order.dateStart | date:'dd/MM/YYYY'}} al {{order.dateEnd | date:'dd/MM/YYYY'}}</mat-card-subtitle> -->
-      <mat-card-subtitle>Orden Nº {{order.id}}</mat-card-subtitle>
-      <mat-card-title>Orden realizada el: {{order.date | date:'dd/MM/YYYY'}}</mat-card-title>
+      <mat-card-subtitle>Orden Nº {{order.id}} realizada el: {{order.date | date:'dd/MM/YYYY'}}</mat-card-subtitle>
+      <mat-card-title>Menu del {{order.dateStart | date:'dd/MM/YYYY'}} al {{order.dateEnd | date:'dd/MM/YYYY'}}</mat-card-title>
       <div> TOTAL ${{order.total}} </div>
-      <div *ngIf="order.observation"> ({{ order.observation }}) </div>
       <mat-card-content  *ngIf="orderDetails?.id === order.id">
+        <div *ngIf="order.observation">Observaciones: {{ order.observation }} </div>
           <app-list-food
             [order]="orderDetails"
-            [editAddress]="true">
+            [editAddress]="true"
+            (getOrderDetails)="onGetOrderDetails()">
           </app-list-food>
       </mat-card-content>
 

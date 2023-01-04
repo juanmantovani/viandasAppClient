@@ -27,10 +27,4 @@
     margin-bottom: 10px;
 }
 
-fieldset {
-    border: solid 1px #ced4da;
-}
 
-fieldset mat-form-field{
-    padding: 10px 0;
-}

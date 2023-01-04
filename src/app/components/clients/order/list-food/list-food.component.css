@@ -52,6 +52,11 @@ mat-card-title, mat-card-subtitle {
   width: 100%;
 }
 
+
+.full-width mat-form-field{
+  width: 70%;
+}
+
 .formFood {
   min-width: 150px;
   max-width: 500px;
