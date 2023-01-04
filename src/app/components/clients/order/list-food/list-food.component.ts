@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
@@ -27,6 +27,9 @@ export class OrderListFoodComponent implements OnInit {
   
   @Input() order : Order;
   @Input() editAddress : boolean;
+
+  @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
+
   changinAddress : DayOrder;
 
   public userProfile: KeycloakProfile | null;
@@ -74,19 +77,11 @@ export class OrderListFoodComponent implements OnInit {
         idDayOrder: dayOrder.id
       }
       this.orderService.editDayOrderAddress(request).subscribe((res: EditDayOrderAddressResponse) => {
-        if (res){
-          return false;
-        } 
+        this.getOrderDetails.emit();
+        this.changinAddress = new DayOrder(null);
       });
 
-
     }
-  }
-
-  changeAddressOnDay(nose: any){
-    console.log(nose)
-    console.log(this.selectAddress)
-
   }
 
   async generateConfirm(msg: string) {

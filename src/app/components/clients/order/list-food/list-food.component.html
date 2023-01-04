@@ -37,13 +37,13 @@
         <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
         <mat-form-field appearance="fill">
           <mat-label>Cambiar dirección</mat-label>
-          <mat-select [(value)]="selectAddress" (selectionChange)="changeAddressOnDay(dayOrder)">
+          <mat-select [(value)]="selectAddress">
             <mat-option *ngFor="let address of client?.addresses" [value]="address" >
               {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-raised-button class="button" (click)="onSaveChangeAddress(dayOrder)">Aceptar</button>
+        <button mat-raised-button class="button" (click)="onSaveChangeAddress(dayOrder)" [disabled]="selectAddress?.id == dayOrder.address.id">Aceptar</button>
       </div>
 
 

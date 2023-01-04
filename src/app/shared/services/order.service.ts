@@ -79,7 +79,7 @@ export class OrderService {
     let params = new HttpParams();
     params = params.set('idAddress', request.idAddress.toString());
     params = params.set('idDayOrder', request.idDayOrder.toString());
-    return this.http.put<EditDayOrderAddressResponse>(ROUTES.API_ROUTES.ORDER.EDITDAYORDERADDRESS, {params}).pipe(
+    return this.http.get<EditDayOrderAddressResponse>(ROUTES.API_ROUTES.ORDER.EDITDAYORDERADDRESS, {params}).pipe(
       tap (res => new EditDayOrderAddressResponse(res))
     );
   }

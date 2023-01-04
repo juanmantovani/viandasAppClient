@@ -138,7 +138,7 @@ export class InicioOrderComponent implements OnInit {
   generateOrder(menu : Menu) {
     this.order.daysOrder = [];
     var total = 0;
-    var cantMenus = 0;
+    //var cantMenus = 0;
     this.daysOfMonth = [];
 
     menu.turns.forEach(turn => {
@@ -152,7 +152,7 @@ export class InicioOrderComponent implements OnInit {
         }
         this.order.daysOrder.push(dayOrder)
         total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
-        cantMenus += cantMenus;
+        //cantMenus += cantMenus;
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)){//para evitar duplicados
           this.daysOfMonth.push(new Date(dayFood.date));
