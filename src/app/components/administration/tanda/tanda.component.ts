@@ -18,6 +18,10 @@ import { AddTandaRequest } from 'src/app/shared/dto/tanda/AddTandaRequest';
 import { AddTandaResponse } from 'src/app/shared/dto/tanda/AddTandaResponse';
 import { EditTandaRequest } from 'src/app/shared/dto/tanda/EditTandaRequest';
 import { EditTandaResponse } from 'src/app/shared/dto/tanda/EditTandaResponse';
+import { GetClientByIdTandaRequest } from 'src/app/shared/dto/client/GetClientByIdTandaRequest';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
+import { Client } from 'src/app/shared/models/Client';
 
 @Component({
   selector: 'app-tanda',
@@ -33,7 +37,12 @@ export class TandaComponent implements OnInit {
   viewAssign: boolean;
   viewRemove: boolean;
   viewList: boolean;
+  viewInfo: boolean;
   listTanda: Tanda[];
+  listIdTanda: number[];
+  listClient: Client[];
+  tandaSelected: Tanda;
+
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -42,7 +51,8 @@ export class TandaComponent implements OnInit {
     private tandaService: TandaService,
     public dialog: MatDialog,
     private deliveryDriverService: DeliveryDriverService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private clientService: ClientService
   ) {
     this.dataSource = new MatTableDataSource<Tanda>();
   }
@@ -53,6 +63,7 @@ export class TandaComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.viewList = true;
+    this.listIdTanda = [];
   }
 
   async getTanda() {
@@ -172,19 +183,43 @@ export class TandaComponent implements OnInit {
   onClickAssign() {
     this.viewList = false;
     this.viewRemove = false;
+    this.viewInfo = false;
     this.viewAssign = true;
   }
 
   onClickRemove() {
     this.viewList = false;
     this.viewAssign = false;
+    this.viewInfo = false;
     this.viewRemove = true;
   }
 
   onClickList() {
     this.viewAssign = false;
     this.viewRemove = false;
+    this.viewInfo = false;
     this.viewList = true;
+  }
+
+  onClickViewInfo(tanda: Tanda) {
+    this.showInfoTanda(tanda.id);
+    this.viewInfo = true;
+    this.viewAssign = false;
+    this.viewRemove = false;
+    this.viewList = false;
+    this.tandaSelected = tanda;
+  }
+
+  showInfoTanda(idTanda: number) {
+    this.listIdTanda.push(idTanda)
+    const request: GetClientByIdTandaRequest = {
+      idTanda: this.listIdTanda
+    }
+    this.clientService.getClientByIdTanda(request).subscribe((res: GetClientResponse) => {
+      this.listIdTanda = [];
+      this.listClient = res.client;
+    })
+
   }
 
 }
