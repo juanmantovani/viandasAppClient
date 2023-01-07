@@ -16,13 +16,6 @@ import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
 import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';
 import { defineFullCalendarElement,  } from '@fullcalendar/web-component';
-import { CalendarOptions } from '@fullcalendar/core';
-
-import dayGridPlugin from '@fullcalendar/daygrid';
-import { EventInput } from '@fullcalendar/web-component';
-import { Observable } from 'rxjs';
-
-
 
 defineFullCalendarElement();
 
