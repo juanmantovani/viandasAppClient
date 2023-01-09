@@ -43,16 +43,33 @@ export class ClientFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.client?.id),
-      phonePrimary: new FormControl(this.data.client?.phonePrimary, Validators.required),
-      phoneSecondary: new FormControl(this.data.client?.phoneSecondary),
-      street: new FormControl(),
+      phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
+      phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
+      street: new FormControl("",this.requiredValidator),
       number: new FormControl(),
       floor: new FormControl(),
       departament: new FormControl(),
-      bornDate: new FormControl(this.data.client?.bornDate, Validators.required),
+      bornDate: new FormControl(this.data.client?.bornDate, this.requiredValidator),
       obsClient: new FormControl(this.data.client?.observation),
       obsAddress: new FormControl()
     });
+  }
+
+  phoneValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && !/^(\d{2,5}[-,\s])?(\d{5,10})$/.test(value))
+      return {
+        mensaje: "Debe ingresar un número de teléfono válido. Sin 0 ni 15"
+      };
+    return null;
+  }
+
+  requiredValidator(formControl: any) {
+    const value = formControl.value;
+    if (Validators.required(formControl))
+      return { mensaje: "Este campo es requerido" };
+    return null;
+
   }
 
   onClickCancel() {
@@ -81,8 +98,8 @@ export class ClientFormComponent implements OnInit {
     this.result.phoneSecondary = data["phoneSecondary"];
 
     var address: Address = {
-      id : 0,
-      favourite : true,
+      id: 0,
+      favourite: true,
       street: data["street"],
       number: data["number"],
       floor: data["floor"],
@@ -93,19 +110,19 @@ export class ClientFormComponent implements OnInit {
     this.result.addresses.push(address)
   }
 
-  mapperPathology(){
-    if(this.data.actionForm == "Edit"){
+  mapperPathology() {
+    if (this.data.actionForm == "Edit") {
       this.listPathologies = [];
-      for (let pat of this.data.client?.pathologies){
-        this.listPathologies.push(new Pathology (pat))
+      for (let pat of this.data.client?.pathologies) {
+        this.listPathologies.push(new Pathology(pat))
       }
     }
-    else{
+    else {
       this.getPathologies()
-   }
+    }
   }
 
-  cleanList(){
+  cleanList() {
     this.listPathologies.forEach(pat => pat.checked = false)
   }
 }

@@ -43,8 +43,17 @@ export class TandaComponent implements OnInit {
   tandaSelected: Tanda;
   dataSource: any;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  private paginator: MatPaginator;
+  private sort: MatSort;
+
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+  }
+
 
   constructor(
     private tandaService: TandaService,
@@ -64,8 +73,8 @@ export class TandaComponent implements OnInit {
   async getTanda() {
     await this.tandaService.getTanda().subscribe((res: GetTandaResponse) => {
       this.dataSource = new MatTableDataSource(res.tanda);
-      this.dataSource.paginator = this.paginator
-      this.dataSource.sort = this.sort
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.listTanda = res.tanda;
     })
   }
