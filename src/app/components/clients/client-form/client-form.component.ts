@@ -45,7 +45,7 @@ export class ClientFormComponent implements OnInit {
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
-      street: new FormControl("", this.requiredValidator),
+      street: new FormControl(),
       number: new FormControl(),
       floor: new FormControl(),
       departament: new FormControl(),
@@ -101,7 +101,9 @@ export class ClientFormComponent implements OnInit {
   mapperClient() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
-    this.result.bornDate = new Date(data["bornDate"]);
+    const date = new Date(data["bornDate"]);
+    date.setDate(date.getDate() + 1);
+    this.result.bornDate = date;
     this.result.observation = data["obsClient"];
     this.result.phonePrimary = data["phonePrimary"];
     this.result.phoneSecondary = data["phoneSecondary"];
