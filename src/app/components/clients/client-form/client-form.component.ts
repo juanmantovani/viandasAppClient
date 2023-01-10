@@ -20,9 +20,9 @@ export class ClientFormComponent implements OnInit {
   URLAPI = environment.urlApi;
   listCities: City[];
   listPathologies: Pathology[];
+  date: Date = new Date();
 
   @Output() onSubmit: EventEmitter<Client | null>;
-
 
   constructor(
     public dialogRef: MatDialogRef<ClientFormComponent>,
@@ -45,11 +45,11 @@ export class ClientFormComponent implements OnInit {
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
-      street: new FormControl("",this.requiredValidator),
+      street: new FormControl("", this.requiredValidator),
       number: new FormControl(),
       floor: new FormControl(),
       departament: new FormControl(),
-      bornDate: new FormControl(this.data.client?.bornDate, this.requiredValidator),
+      bornDate: new FormControl(this.data.client?.bornDate, [this.requiredValidator, this.dateValidator]),
       obsClient: new FormControl(this.data.client?.observation),
       obsAddress: new FormControl()
     });
@@ -59,9 +59,18 @@ export class ClientFormComponent implements OnInit {
     const value = formControl.value;
     if (value && !/^(\d{2,5}[-,\s])?(\d{5,10})$/.test(value))
       return {
-        mensaje: "Debe ingresar un número de teléfono válido. Sin 0 ni 15"
+        mensaje: "Debe ingresar un número de teléfono válido"
       };
     return null;
+  }
+  dateValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && (new Date() < new Date(value)))
+      return {
+        mensaje: "Debe ingresar una fecha válida"
+      }
+    return null;
+
   }
 
   requiredValidator(formControl: any) {
@@ -92,7 +101,7 @@ export class ClientFormComponent implements OnInit {
   mapperClient() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
-    this.result.bornDate = data["bornDate"];
+    this.result.bornDate = new Date(data["bornDate"]);
     this.result.observation = data["obsClient"];
     this.result.phonePrimary = data["phonePrimary"];
     this.result.phoneSecondary = data["phoneSecondary"];
