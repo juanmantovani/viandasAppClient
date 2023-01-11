@@ -75,9 +75,8 @@ export class DeliveryDriverFormComponent implements OnInit {
   }
 
   validateDNI() {
-    const dni = this.data.listDeliveryDriver.filter((d: any) => (d.dni == this.result.dni && d.id != this.result.id));
-    console.log(dni)
-    if (dni.length > 0) {
+    const dni = this.data.listDeliveryDriver?.filter((d: any) => (d.dni == this.result.dni && d.id != this.result.id));
+    if (dni && (dni.length > 0)) {
       this.messageError = "DNI ya se encuentra registrado";
       return false;
     }

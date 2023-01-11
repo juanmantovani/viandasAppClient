@@ -51,7 +51,9 @@ export class InicioOrderComponent implements OnInit {
   client : Client;
   selectedAdress: Address;
   viewOrderByDay : boolean;
-  disableNextButton: boolean;
+  disableNextButton: boolean = true;
+  disableBackButton: boolean = true;
+
   daysOfMonth : Date [];
   menu : Menu;
 
@@ -109,8 +111,7 @@ export class InicioOrderComponent implements OnInit {
   selectCategory(event: Category[]){
     this.selectedCategories = event;
     this.firstStepCompleted = true;
-    if (this.selectedCategories.length < 1)
-      this.disableNextButton = true;
+    this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
   async onViewDetailsCategory(category: Category){
@@ -164,7 +165,9 @@ export class InicioOrderComponent implements OnInit {
       this.order.observation = "";
       this.order.total = total;
     });
-  }
+
+  } 
+  
 
   existeFecha(array: any, fecha: Date) {
     return array.some((f: any) => {
@@ -181,7 +184,7 @@ export class InicioOrderComponent implements OnInit {
     this.order.daysOrder.forEach(dayOrder => {
       const dayOrderRequest : DayOrderRequest = {
         cant: dayOrder.cant,
-        idAddress: dayOrder.address.id == this.selectedAdress.id ? this.selectedAdress.id : dayOrder.address.id,
+        idAddress: dayOrder.address.id,
         idDayFood: dayOrder.dayFood.id,
         observation: dayOrder.observation
       }
@@ -216,18 +219,25 @@ export class InicioOrderComponent implements OnInit {
 
   onViewOrderByDay(){
     this.viewOrderByDay = true;
+    if (this.order.total == 0){
+      this.disableNextButton = true;
+    }
+  }
 
+  onClickBack(steps : any){
+    this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
+    this.disableBackButton = steps <= 1 ? true : false;
   }
 
  onStepComplete(steps : any){
   switch(steps) { 
     case 0: { 
+      this.disableBackButton = false;
       this.onGetMenu();
       break; 
     } 
     case 1: { 
-      //this.createOrder()
-
+      this.disableBackButton = false;
       this.onViewOrderByDay()
       break; 
     } 
@@ -244,6 +254,11 @@ export class InicioOrderComponent implements OnInit {
  }
 
  onChangeAddress(address : any){
+  
+  this.order.daysOrder.forEach(dayOrder => {
+      dayOrder.address = address;
+    })
+
   this.selectedAdress = new Address(address)
  }
 

@@ -24,12 +24,12 @@ export class AddressComponent implements OnInit {
 
   @Input() client: Client;
   @Input() selectionableAddress: boolean;
+  @Input() selectedAddress: Address;
   @Output() getClient: EventEmitter<any> = new EventEmitter();
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
 
 
   actionFormAddress: string;
-  selectedAddress : Address;
 
   constructor(private clientService: ClientService,
     public dialog: MatDialog,
@@ -84,9 +84,7 @@ export class AddressComponent implements OnInit {
   }
 
   async onSubmit(address: Address) {
-
     const resultOperation = this.actionFormAddress == "Add" ? await this.addAddress(address) : await this.updateAddress(address);
-
     return resultOperation;
   }
 

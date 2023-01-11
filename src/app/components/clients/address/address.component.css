@@ -11,3 +11,34 @@
     margin: 10px;
 }
 
+hr {
+    margin-top: 0px;
+}
+
+mat-card-actions {
+    margin-bottom: 2px;
+}
+
+mat-card-subtitle{
+    margin-bottom: 2px;
+}
+
+.inline {
+    display: -webkit-inline-box;
+}
+
+.mat-card-header-text {
+    margin: 0 !important;
+}
+
+.address-margin {
+    margin-left: -15px;
+    margin-right: -15px;
+
+}
+
+.container-fluid {
+    padding-top: 10px;
+}
+
+
