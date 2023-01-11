@@ -55,11 +55,12 @@
 
 <div *ngIf="changeAddress" class="card">
   <app-address
-              [client]="client" 
-              [selectionableAddress]="true"
-              (getClient)="onGetClient()" 
-              (selectedAddressEmit)="selectedAddress($event)">
-          </app-address>
+      [client]="client" 
+      [selectionableAddress]="true"
+      [selectedAddress]="selectedAdress"
+      (getClient)="onGetClient()" 
+      (selectedAddressEmit)="onSelectedAddress($event)">
+  </app-address>
 
 </div>
 <mat-card class="card">

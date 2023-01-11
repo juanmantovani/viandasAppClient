@@ -9,6 +9,10 @@
       </mat-icon>
       <span>Top Tracks</span>
     </button> -->
+    <div >
+      <button align="start" mat-raised-button (click)="onClickBack()" [disabled]="isDisabledBack"><mat-icon>keyboard_arrow_left</mat-icon>Anterior
+      </button>
+      </div>
     <span class="spacer"></span>
     <div >
       <button align="end" mat-raised-button class="button btn-azul" color="primary" (click)="onClickNext()" [disabled]="isDisabledNext">Siguiente<mat-icon>keyboard_arrow_right</mat-icon>

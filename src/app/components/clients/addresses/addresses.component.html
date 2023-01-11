@@ -3,20 +3,19 @@
         <mat-card-header class="text">
             <mat-card-title>Mis direcciones 
                 <mat-icon #tooltip="matTooltip"
-                matTooltip="Podrá seleccionar un domicilio como favorito para que sea utilizado por defecto en las ordenes realizadas"
+                matTooltip="Haciendo click en la estrella, podrá establecer un domicilio como favorito para que sea utilizado por defecto en las ordenes realizadas"
                 matTooltipPosition="below"
                 matTooltipHideDelay="10000"
                 aria-label="">info</mat-icon>
             </mat-card-title>
         </mat-card-header>
         <hr>
-        <mat-card-content *ngIf="client">
-            
-            <app-address [client]="client" 
-                [selectionableAddress]="false" 
-                (getClient)="getClientByIdUser()">
-            </app-address>
+            <div *ngIf="client">
+                <app-address [client]="client" 
+                    [selectionableAddress]="false" 
+                    (getClient)="getClientByIdUser()">
+                </app-address>
+            </div>
 
-        </mat-card-content>
     </mat-card>
 </div>

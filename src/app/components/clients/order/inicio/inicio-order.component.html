@@ -27,7 +27,11 @@
     </mat-step>
   </mat-stepper>
 
-  <app-resume-order [isDisabledNext]="disableNextButton" (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"></app-resume-order>
+  <app-resume-order [isDisabledNext]="disableNextButton" 
+    [isDisabledBack]="disableBackButton"
+    (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"
+    (stepBack)="onClickBack(stepper._getFocusIndex()); stepper.previous()"
+    ></app-resume-order>
 </div>
 
 <div *ngIf="orderSuccess" >

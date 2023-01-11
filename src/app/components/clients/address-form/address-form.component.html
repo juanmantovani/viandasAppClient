@@ -1,4 +1,5 @@
 <form [formGroup]="form" id="myform" #f="ngForm">
+    <h1 mat-dialog-title>Editar dirección</h1>
 
     <mat-dialog-content>
         <input type="hidden" formControlName="id" />
@@ -46,7 +47,7 @@
     </mat-dialog-content>
 
     <mat-dialog-actions align="center">
-        <button  mat-button color="primary" (click)="onClickCancel()">
+        <button  mat-button color="primary"mat-dialog-close>
             <mat-icon>clear</mat-icon> CANCELAR
         </button>
         <button mat-raised-button color="primary" (click)="onClickSave()" class="btn-primary btn-azul"

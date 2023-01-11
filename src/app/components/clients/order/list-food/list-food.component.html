@@ -18,11 +18,11 @@
           </mat-form-field>
         </form>
         <div class="cant">
-          <button mat-icon-button aria-label="Clear" (click)="dayOrder.cant=dayOrder.cant-1" class="removeButton" [disabled]="dayOrder.cant < 1">
+          <button mat-icon-button aria-label="Clear" (click)="removeFood(dayOrder)" class="removeButton" [disabled]="dayOrder.cant < 1">
             <mat-icon>remove</mat-icon>
           </button>
           <span class="center">{{dayOrder.cant}}</span>
-          <button mat-icon-button aria-label="Clear" (click)="dayOrder.cant=dayOrder.cant+1">
+          <button mat-icon-button aria-label="Clear" (click)="addFood(dayOrder)" [disabled]="dayOrder.cant > 14">
             <mat-icon>add</mat-icon>
           </button>
         </div>

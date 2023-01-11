@@ -29,7 +29,7 @@ h4 {
 .cant {
   border: 1px solid #ccc;
   border-radius: 10px;
-  width: 112px;
+  width: 120px;
   margin-right: 8px;
   margin-top: 8px;
   height: 40px;
@@ -54,7 +54,7 @@ mat-card-title, mat-card-subtitle {
 
 
 .full-width mat-form-field{
-  width: 70%;
+  width: 65%;
 }
 
 .formFood {

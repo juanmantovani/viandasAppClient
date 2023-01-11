@@ -45,7 +45,7 @@ export class FinishOrderComponent implements OnInit {
     this.changeAddress = !this.changeAddress;
   }
 
-  selectedAddress(address: Address){
+  onSelectedAddress(address: Address){
     if (address.id != this.selectedAdress.id){
     this.selectedAddressEmit.emit(address)
     this.changeAddress = false;

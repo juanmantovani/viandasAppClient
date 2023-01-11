@@ -8,7 +8,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class ResumeOrderComponent implements OnInit {
 
   @Input() isDisabledNext : boolean;
+  @Input() isDisabledBack : boolean;
+
   @Output() stepComplete : EventEmitter <boolean> = new EventEmitter();
+  @Output() stepBack : EventEmitter <boolean> = new EventEmitter();
+
 
   constructor() { }
 
@@ -17,6 +21,10 @@ export class ResumeOrderComponent implements OnInit {
 
   onClickNext() {
     this.stepComplete.emit();
+  }
+
+  onClickBack() {
+    this.stepBack.emit();
   }
 
 }

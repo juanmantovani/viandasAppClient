@@ -88,4 +88,17 @@ export class OrderListFoodComponent implements OnInit {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
+  removeFood(dayOrder : DayOrder){
+    dayOrder.cant=dayOrder.cant-1
+    this.order.total = this.order.total - dayOrder.dayFood.category.price;
+  }
+
+  addFood(dayOrder : DayOrder){
+    dayOrder.cant=dayOrder.cant+1
+    this.order.total = this.order.total + dayOrder.dayFood.category.price;
+  }
+
+
+
+
 }
