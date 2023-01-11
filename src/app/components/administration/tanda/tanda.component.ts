@@ -31,7 +31,6 @@ import { Client } from 'src/app/shared/models/Client';
 export class TandaComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'description', 'hourStart', 'hourEnd', 'deliveryDriver', 'actions'];
-  dataSource!: MatTableDataSource<Tanda>;
   actionForm: string;
   listDeliveryDriver: DeliveryDriver[];
   viewAssign: boolean;
@@ -42,10 +41,19 @@ export class TandaComponent implements OnInit {
   listIdTanda: number[];
   listClient: Client[];
   tandaSelected: Tanda;
+  dataSource: any;
 
+  private paginator: MatPaginator;
+  private sort: MatSort;
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) set matSort(ms: MatSort) {
+    this.sort = ms;
+  }
+
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    this.paginator = mp;
+  }
+
 
   constructor(
     private tandaService: TandaService,
@@ -53,15 +61,11 @@ export class TandaComponent implements OnInit {
     private deliveryDriverService: DeliveryDriverService,
     private dialogService: DialogService,
     private clientService: ClientService
-  ) {
-    this.dataSource = new MatTableDataSource<Tanda>();
-  }
+  ) { }
 
   ngOnInit() {
     this.getTanda();
     this.getDeliveryDriver();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.viewList = true;
     this.listIdTanda = [];
   }
@@ -69,7 +73,9 @@ export class TandaComponent implements OnInit {
   async getTanda() {
     await this.tandaService.getTanda().subscribe((res: GetTandaResponse) => {
       this.dataSource = new MatTableDataSource(res.tanda);
-      this.listTanda = res.tanda
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.listTanda = res.tanda;
     })
   }
 

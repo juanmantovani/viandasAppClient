@@ -22,127 +22,125 @@ import { PathologyFormComponent } from '../pathology-form/pathology-form.compone
   styleUrls: ['./pathology.component.css']
 })
 export class PathologyComponent implements OnInit {
-  displayedColumns: string[] = ['id','description', 'actions'];
-  dataSource!: MatTableDataSource<Pathology>;
+  displayedColumns: string[] = ['id', 'description', 'actions'];
   actionForm: string;
+  dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private pathologyService: PathologyService,
     public dialog: MatDialog,
-    private dialogService: DialogService) { 
-      this.dataSource = new MatTableDataSource<Pathology>();
+    private dialogService: DialogService
+  ) { }
 
+  ngOnInit() {
+    this.getPathologies();
+    this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+  }
+
+  async getPathologies() {
+    await this.pathologyService.getPathology().subscribe((res: GetPathologyResponse) => {
+      this.dataSource = new MatTableDataSource(res.pathologies);
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
+    })
+  }
+
+  onSearch(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  onClickAdd() {
+    this.actionForm = 'Add';
+    const dataForm: DataFormPathology = {
+      actionForm: "Add",
+      pathology: new Pathology(null),
+    };
+    this.gestionateForm(dataForm);
+  }
+
+  onClickEdit(Pathology: any) {
+    this.actionForm = 'Edit';
+    const dataForm: DataFormPathology = {
+      actionForm: "Edit",
+      pathology: Pathology,
+
+    };
+    this.gestionateForm(dataForm);
+  }
+
+  async onClickDelete(Pathology: any) {
+    if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+      await this.deletePathology(Pathology);
     }
+  }
 
-    ngOnInit(): void {
+  async deletePathology(pathology: Pathology) {
+    const request: DeletePathologyRequest = {
+      idPathology: pathology.id
+    }
+    await this.pathologyService.deletePathology(request).subscribe(() => {
       this.getPathologies();
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
-    }
+    });
+  }
 
-    async getPathologies() {
-      await this.pathologyService.getPathology().subscribe((res: GetPathologyResponse) => {
-        this.dataSource = new MatTableDataSource(res.pathologies);
-      })
-    }
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
+  }
 
-    onSearch(event: Event) {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
-    }
-  
-    onClickAdd() {
-      this.actionForm = 'Add';
-      const dataForm: DataFormPathology = {
-        actionForm: "Add",
-        pathology: new Pathology(null),
-      };
-      this.gestionateForm(dataForm);
-    }
+  async gestionateForm(dataForm: DataFormPathology) {
+    const dialogConfig = Utils.matDialogConfigDefault();
+    dialogConfig.data = dataForm;
+    const dialogRef = this.dialog.open(PathologyFormComponent, dialogConfig);
+    const componentInstance = dialogRef.componentInstance;
 
-    onClickEdit(Pathology: any) {
-      this.actionForm = 'Edit';
-      const dataForm: DataFormPathology = {
-        actionForm: "Edit",
-        pathology: Pathology,
-  
-      };
-      this.gestionateForm(dataForm);
-    }
-  
-    async onClickDelete(Pathology: any) {
-      if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
-        await this.deletePathology(Pathology);
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
+        dialogRef.close();
+        return false;
       }
+
+      var result: any = await this.onSubmit(data);
+      if (result) {
+        return false;
+      }
+      else {
+        dialogRef.close();
+        await this.getPathologies();
+        return true;
+      }
+    })
+  }
+
+  async onSubmit(pathology: Pathology) {
+    const resultOperation = this.actionForm == "Add" ? await this.addPathology(pathology) : await this.editPathology(pathology);
+
+    return resultOperation;
+  }
+
+  async addPathology(pathology: Pathology) {
+    const addPathologyRequest: AddPathologyRequest = {
+      pathology: pathology
     }
 
-    async deletePathology(pathology: Pathology) {
-      const request: DeletePathologyRequest = {
-        idPathology: pathology.id
-      }
-      await this.pathologyService.deletePathology(request).subscribe(() => {
-        this.getPathologies();
-      });
+    await this.pathologyService.addPathology(addPathologyRequest).subscribe((res: AddPathologyResponse) => {
+      this.getPathologies()
+      return res;
     }
-  
-    async generateConfirm(msg: string) {
-      return await this.dialogService.openConfirmDialog(msg);
-    }
+    );
+  }
 
-    async gestionateForm(dataForm: DataFormPathology) {
-      const dialogConfig = Utils.matDialogConfigDefault();
-      dialogConfig.data = dataForm;
-      const dialogRef = this.dialog.open(PathologyFormComponent, dialogConfig);
-      const componentInstance = dialogRef.componentInstance;
-  
-      componentInstance.onSubmit.subscribe(async (data) => {
-        if (!data) {
-          dialogRef.close();
-          return false;
-        }
-  
-        var result : any  = await this.onSubmit(data);
-        if (result) {
-          return false;
-        }
-        else {
-          dialogRef.close();
-          await this.getPathologies();
-          return true;
-        }
-      })
+  async editPathology(pathology: Pathology) {
+    const editPathologyRequest: EditPathologyRequest = {
+      pathology: pathology
     }
+    await this.pathologyService.editPathology(editPathologyRequest).subscribe((res: EditPathologyResponse) => {
+      this.getPathologies()
+      return res;
+    })
+  }
 
-    async onSubmit(pathology: Pathology){ 
-      const resultOperation = this.actionForm == "Add" ? await this.addPathology(pathology) : await this.editPathology(pathology);
-    
-      return resultOperation;
-    }
-  
-    async addPathology(pathology: Pathology) {
-      const addPathologyRequest: AddPathologyRequest = {
-        pathology: pathology
-      }
-  
-      await this.pathologyService.addPathology(addPathologyRequest).subscribe((res: AddPathologyResponse) => {
-        this.getPathologies()
-        return res;
-      }
-      );
-    }
-  
-    async editPathology(pathology: Pathology) {
-      const editPathologyRequest: EditPathologyRequest = {
-        pathology: pathology
-      }
-      await this.pathologyService.editPathology(editPathologyRequest).subscribe((res: EditPathologyResponse) => {
-        this.getPathologies()
-        return res;
-      })
-    }
-  
 
 }

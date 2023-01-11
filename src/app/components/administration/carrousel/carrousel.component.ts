@@ -24,8 +24,8 @@ import { GetBannerResponse } from 'src/app/shared/dto/carrousel/GetBannerRespons
 })
 export class CarrouselComponent implements OnInit {
   displayedColumns: string[] = ['title', 'start', 'end', 'actions'];
-  dataSource!: MatTableDataSource<Banner>;
-  actionForm:string;
+  dataSource: any;
+  actionForm: string;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -35,19 +35,18 @@ export class CarrouselComponent implements OnInit {
     public dialog: MatDialog,
     private dialogService: DialogService
   ) {
-    this.dataSource = new MatTableDataSource<Banner>();
   }
 
-  async ngOnInit() {
-    await this.getBanners();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit() {
+    this.getBanners();
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
   async getBanners() {
     await this.carrouselService.getBanners().subscribe((res: GetBannerResponse) => {
       this.dataSource = new MatTableDataSource(res.banners);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 
@@ -63,7 +62,7 @@ export class CarrouselComponent implements OnInit {
       banner: new Banner(null)
     };
     this.gestionateForm(dataForm);
-    };
+  };
 
   onClickEdit(banner: any) {
     this.actionForm = 'Edit';
@@ -74,10 +73,10 @@ export class CarrouselComponent implements OnInit {
     this.gestionateForm(dataForm);
   }
 
-  async onClickDelete(banner:any){
-      if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
-        await this.deleteBanner(banner);
-      }
+  async onClickDelete(banner: any) {
+    if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+      await this.deleteBanner(banner);
+    }
   }
 
   async deleteBanner(banner: Banner) {
@@ -85,8 +84,8 @@ export class CarrouselComponent implements OnInit {
       idBanner: banner.id
     }
     await this.carrouselService.deleteBanner(request).subscribe(() => {
-    this.getBanners();
-    } );
+      this.getBanners();
+    });
   }
 
   async generateConfirm(msg: string) {
@@ -106,7 +105,7 @@ export class CarrouselComponent implements OnInit {
         return false;
       }
 
-      var result : any  = await this.onSubmit(data);
+      var result: any = await this.onSubmit(data);
       if (result) {
         return false;
       }
@@ -118,12 +117,12 @@ export class CarrouselComponent implements OnInit {
     })
   }
 
-  async onSubmit(banner: Banner){ 
+  async onSubmit(banner: Banner) {
     const resultOperation = this.actionForm == "Add" ? await this.addBanner(banner) : await this.editBanner(banner);
-  
+
     return resultOperation;
   }
-  
+
   async addBanner(banner: Banner) {
     const addBannerRequest: AddBannerRequest = {
       banner: banner
@@ -132,8 +131,8 @@ export class CarrouselComponent implements OnInit {
       this.getBanners();
       return res;
     }
-    
- );
+
+    );
   }
 
   async editBanner(banner: Banner) {

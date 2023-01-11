@@ -1,0 +1,62 @@
+<div class="container-fluid">
+ 
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="onSearch($event)" placeholder="" #input>
+    </mat-form-field>
+  
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nombre y Apellido</th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.name}}{{element.lastName}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="phonePrimary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Teléfono </th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.phonePrimary}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="phoneSecondary">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Teléfono secundario </th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.phoneSecondary}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="bornDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha de nacimiento </th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.bornDate | date: 'dd/MM/yyyy'}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Email </th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="observation">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Observacion </th>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.observation}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pathologies">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Patologías </th>
+        <td mat-cell *matCellDef="let element"><span *ngFor="let pat of element.pathologies"><span *ngIf="pat.checked">
+            {{pat.description}} </span> </span> </td>
+    </ng-container>
+  
+   
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
+      </tr>
+    </table>
+    <br>
+    <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+  </div>
+  

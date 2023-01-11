@@ -26,9 +26,9 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 })
 export class FoodComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'description', 'category', 'actions'];
-  dataSource!: MatTableDataSource<Food>;
   actionForm: string;
   listCategories: Category[];
+  dataSource: any;
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -39,21 +39,19 @@ export class FoodComponent implements OnInit {
     private categoryService: CategoryService,
     public dialog: MatDialog,
     private dialogService: DialogService
-  ) {
-    this.dataSource = new MatTableDataSource<Food>();
-  }
+  ) { }
 
   ngOnInit() {
     this.getFood();
     this.getCategories();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
   async getFood() {
     await this.foodService.getFood().subscribe((res: GetFoodResponse) => {
       this.dataSource = new MatTableDataSource(res.food);
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
     })
   }
   async getCategories() {

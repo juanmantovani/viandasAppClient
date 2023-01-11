@@ -4,6 +4,7 @@
 
 .mat-form-field {
     width: 100%;
+    margin-bottom: 5px;
 }
 
 .error-input {
@@ -27,4 +28,19 @@
     margin-bottom: 10px;
 }
 
+h5 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
 
+h5 span {
+    background: #fff;
+    padding: 0 10px;
+}
+
+table {
+    width: 100%;
+}

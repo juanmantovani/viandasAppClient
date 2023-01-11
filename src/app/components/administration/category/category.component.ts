@@ -22,9 +22,9 @@ import { CategoryFormComponent } from '../category-form/category-form.component'
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-  displayedColumns: string[] = ['id','title','description', 'price','color', 'actions'];
-  dataSource!: MatTableDataSource<Category>;
+  displayedColumns: string[] = ['id', 'title', 'description', 'price', 'color', 'actions'];
   actionForm: string;
+  dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -35,18 +35,17 @@ export class CategoryComponent implements OnInit {
     public dialog: MatDialog,
     private dialogService: DialogService
   ) {
-    this.dataSource = new MatTableDataSource<Category>();
   }
 
   ngOnInit(): void {
     this.getCategories();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
   async getCategories() {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
       this.dataSource = new MatTableDataSource(res.categories);
+      this.dataSource.paginator = this.paginator
+      this.dataSource.sort = this.sort
     })
   }
   onSearch(event: Event) {
@@ -104,7 +103,7 @@ export class CategoryComponent implements OnInit {
         return false;
       }
 
-      var result : any  = await this.onSubmit(data);
+      var result: any = await this.onSubmit(data);
       if (result) {
         return false;
       }
@@ -116,9 +115,9 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  async onSubmit(category: Category){ 
+  async onSubmit(category: Category) {
     const resultOperation = this.actionForm == "Add" ? await this.addCategory(category) : await this.editCategory(category);
-  
+
     return resultOperation;
   }
 
