@@ -23,10 +23,10 @@ import { DeleteDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/D
 })
 export class DeliveryDriverComponent implements OnInit {
 
-  displayedColumns: string[] = ['dni', 'name', 'lastName','address','vehicle', 'actions'];
-  dataSource!: MatTableDataSource<DeliveryDriver>;
+  displayedColumns: string[] = ['dni', 'name', 'lastName', 'address', 'vehicle', 'actions'];
   actionForm: string;
-  listDeliveryDriver : DeliveryDriver[];
+  listDeliveryDriver: DeliveryDriver[];
+  dataSource: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -36,19 +36,18 @@ export class DeliveryDriverComponent implements OnInit {
     public dialog: MatDialog,
     private dialogService: DialogService
   ) {
-    this.dataSource = new MatTableDataSource<DeliveryDriver>();
   }
 
   ngOnInit() {
     this.getDeliveryDriver();
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
   async getDeliveryDriver() {
     await this.deliveryDriverService.getDeliveryDriver().subscribe((res: GetDeliveryDriverResponse) => {
       this.dataSource = new MatTableDataSource(res.deliveryDriver);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.listDeliveryDriver = res.deliveryDriver;
     })
   }
@@ -63,7 +62,7 @@ export class DeliveryDriverComponent implements OnInit {
     const dataForm: DataFormDeliveryDriver = {
       actionForm: "Add",
       deliveryDriver: new DeliveryDriver(null),
-      listDeliveryDriver : this.listDeliveryDriver
+      listDeliveryDriver: this.listDeliveryDriver
     };
     this.gestionateForm(dataForm);
   }
@@ -73,7 +72,7 @@ export class DeliveryDriverComponent implements OnInit {
     const dataForm: DataFormDeliveryDriver = {
       actionForm: "Edit",
       deliveryDriver: deliveryDriver,
-      listDeliveryDriver : this.listDeliveryDriver
+      listDeliveryDriver: this.listDeliveryDriver
     };
     this.gestionateForm(dataForm);
   }
@@ -121,9 +120,9 @@ export class DeliveryDriverComponent implements OnInit {
     })
   }
 
-  async onSubmit(deliveryDriver: DeliveryDriver){ 
+  async onSubmit(deliveryDriver: DeliveryDriver) {
     const resultOperation = this.actionForm == "Add" ? await this.addDeliveryDriver(deliveryDriver) : await this.editDeliveryDriver(deliveryDriver);
-  
+
     return resultOperation;
   }
 

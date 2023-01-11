@@ -101,6 +101,8 @@ import { TandaFormComponent } from './components/administration/tanda-form/tanda
 import { TandaAssignAddressComponent } from './components/administration/tanda-assign-address/tanda-assign-address.component';
 import { TandaRemoveAddressComponent } from './components/administration/tanda-remove-address/tanda-remove-address.component';
 import { SuccessComponent } from './components/clients/order/success/success.component';
+import { TandaInfoComponent } from './components/administration/tanda-info/tanda-info.component';
+import { ClientComponent } from './components/administration/client/client.component';
 
 
 
@@ -158,6 +160,8 @@ import { SuccessComponent } from './components/clients/order/success/success.com
     TandaAssignAddressComponent,
     TandaRemoveAddressComponent,
     SuccessComponent,
+    TandaInfoComponent,
+    ClientComponent,
 
   ],
   imports: [

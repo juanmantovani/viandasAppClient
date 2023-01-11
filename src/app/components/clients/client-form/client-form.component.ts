@@ -20,9 +20,9 @@ export class ClientFormComponent implements OnInit {
   URLAPI = environment.urlApi;
   listCities: City[];
   listPathologies: Pathology[];
+  date: Date = new Date();
 
   @Output() onSubmit: EventEmitter<Client | null>;
-
 
   constructor(
     public dialogRef: MatDialogRef<ClientFormComponent>,
@@ -43,16 +43,42 @@ export class ClientFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.client?.id),
-      phonePrimary: new FormControl(this.data.client?.phonePrimary, Validators.required),
-      phoneSecondary: new FormControl(this.data.client?.phoneSecondary),
+      phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
+      phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
       street: new FormControl(),
       number: new FormControl(),
       floor: new FormControl(),
       departament: new FormControl(),
-      bornDate: new FormControl(this.data.client?.bornDate, Validators.required),
+      bornDate: new FormControl(this.data.client?.bornDate, [this.requiredValidator, this.dateValidator]),
       obsClient: new FormControl(this.data.client?.observation),
       obsAddress: new FormControl()
     });
+  }
+
+  phoneValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && !/^(\d{2,5}[-,\s])?(\d{5,10})$/.test(value))
+      return {
+        mensaje: "Debe ingresar un número de teléfono válido"
+      };
+    return null;
+  }
+  dateValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && (new Date() < new Date(value)))
+      return {
+        mensaje: "Debe ingresar una fecha válida"
+      }
+    return null;
+
+  }
+
+  requiredValidator(formControl: any) {
+    const value = formControl.value;
+    if (Validators.required(formControl))
+      return { mensaje: "Este campo es requerido" };
+    return null;
+
   }
 
   onClickCancel() {
@@ -75,14 +101,16 @@ export class ClientFormComponent implements OnInit {
   mapperClient() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
-    this.result.bornDate = data["bornDate"];
+    const date = new Date(data["bornDate"]);
+    date.setDate(date.getDate() + 1);
+    this.result.bornDate = date;
     this.result.observation = data["obsClient"];
     this.result.phonePrimary = data["phonePrimary"];
     this.result.phoneSecondary = data["phoneSecondary"];
 
     var address: Address = {
-      id : 0,
-      favourite : true,
+      id: 0,
+      favourite: true,
       street: data["street"],
       number: data["number"],
       floor: data["floor"],
@@ -93,19 +121,19 @@ export class ClientFormComponent implements OnInit {
     this.result.addresses.push(address)
   }
 
-  mapperPathology(){
-    if(this.data.actionForm == "Edit"){
+  mapperPathology() {
+    if (this.data.actionForm == "Edit") {
       this.listPathologies = [];
-      for (let pat of this.data.client?.pathologies){
-        this.listPathologies.push(new Pathology (pat))
+      for (let pat of this.data.client?.pathologies) {
+        this.listPathologies.push(new Pathology(pat))
       }
     }
-    else{
+    else {
       this.getPathologies()
-   }
+    }
   }
 
-  cleanList(){
+  cleanList() {
     this.listPathologies.forEach(pat => pat.checked = false)
   }
 }

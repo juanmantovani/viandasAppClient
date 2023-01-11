@@ -1,0 +1,37 @@
+<div class="container-fluid">
+
+
+    <mat-card class="card-tanda">
+        <mat-card-content>
+            <h3><strong>{{tanda.description}}</strong></h3>
+            <p>Horario: {{tanda.hourStart}}hs-{{tanda.hourEnd}}hs</p>
+            <hr>
+            <label for=""> <i class="material-icons">sports_motorsports</i> Repartidor:</label>
+            <h3>{{tanda.deliveryDriver.name}}{{tanda.deliveryDriver.lastName}}</h3>
+            <label for=""><i class="material-icons">motorcycle</i> Vehiculo:</label>
+            <h3>{{tanda.deliveryDriver.vehicle.brand}} {{tanda.deliveryDriver.vehicle.model}}
+                {{tanda.deliveryDriver.vehicle.year}}
+                <br>
+                Patente: {{tanda.deliveryDriver.vehicle.patent}}
+            </h3>
+
+        </mat-card-content>
+    </mat-card>
+    <h3 *ngIf="listClient">
+        Direcciones:
+    </h3>
+    <div class="div-address">
+        <div *ngFor="let client of listClient">
+            <mat-card class="card" *ngFor="let address of client.addresses">
+                <mat-card-content>
+                    <p>
+                        {{client.name}} - {{address.street}}
+                        {{address.number}} {{address.floor}} {{address.departament}}
+
+                    </p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <hr>
+</div>
