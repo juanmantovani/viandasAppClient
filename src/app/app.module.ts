@@ -103,6 +103,7 @@ import { TandaRemoveAddressComponent } from './components/administration/tanda-r
 import { SuccessComponent } from './components/clients/order/success/success.component';
 import { TandaInfoComponent } from './components/administration/tanda-info/tanda-info.component';
 import { ClientComponent } from './components/administration/client/client.component';
+import { OrderComponent } from './components/administration/order/order.component';
 
 
 
@@ -162,6 +163,7 @@ import { ClientComponent } from './components/administration/client/client.compo
     SuccessComponent,
     TandaInfoComponent,
     ClientComponent,
+    OrderComponent,
 
   ],
   imports: [

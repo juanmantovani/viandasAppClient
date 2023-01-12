@@ -26,6 +26,10 @@
     <mat-sidenav [(opened)]="opened" mode="side">
 
         <mat-list>
+            <mat-list-item [ngClass]="{'active': status === '> Ordenes'}" class="nav-link" [routerLink]="[ORDER]"
+                (click)="status='> Ordenes'">
+                Ordenes
+            </mat-list-item>
             <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]"
                 (click)="status='> Carrousel'">
                 Carrousel
