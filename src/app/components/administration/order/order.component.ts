@@ -17,7 +17,7 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'title', 'description', 'category', 'actions'];
+  displayedColumns: string[] = ['client', 'address'];
   listTandaTable: TandaTable[];
   listcategoryTable : CategoryTable[];
   dataSource: any;
@@ -41,6 +41,7 @@ export class OrderComponent implements OnInit {
     }
     await this.orderService.getOrders(request).subscribe((res: GetOrdersResponse) => {
       this.dataSource = new MatTableDataSource(res.tandaTable);
+      this.listcategoryTable = res.categoryTable;
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
     })
