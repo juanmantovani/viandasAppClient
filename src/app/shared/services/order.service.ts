@@ -11,9 +11,10 @@ import { Client } from '../models/Client';
 import { DayOrder } from '../models/DayOrder';
 import { DayFood } from '../models/DayFood';
 import { Food } from '../models/Food';
-import { Address } from '../models/Address';
 import { EditDayOrderAddressRequest } from '../dto/order/EditDayOrderAddressRequest';
 import { EditDayOrderAddressResponse } from '../dto/order/EditDayOrderAddressResponse';
+import { GetOrdersRequest } from '../dto/order/GetOrdersRequest';
+import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
 
 
 
@@ -37,6 +38,14 @@ export class OrderService {
     return this.http.get<GetOrderViewerResponse>(ROUTES.API_ROUTES.ORDER.GETORDERVIEWER).pipe(
       map((res: any) => {
         return new GetOrderViewerResponse(res);
+      })
+    )
+  }
+
+  getOrders(request : GetOrdersRequest): Observable<GetOrdersResponse>{
+    return this.http.post<GetOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETORDERS, JSON.stringify(request), this.OPTION).pipe(
+      map((res: any) => {
+        return new GetOrdersResponse(res);
       })
     )
   }

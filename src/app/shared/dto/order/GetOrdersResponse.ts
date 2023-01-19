@@ -2,7 +2,7 @@ import { CategoryTable } from "../../models/CategoryTable";
 import { TandaTable } from "../../models/TandaTable";
 import { BaseResponse } from "../BaseResponse";
 
-export class getOrdersResponse extends BaseResponse {
+export class GetOrdersResponse extends BaseResponse {
     tandaTable: TandaTable[];
     categoryTable: CategoryTable[];
 

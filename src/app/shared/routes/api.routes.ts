@@ -64,6 +64,7 @@ export const API_ROUTES = {
         SETFAVOURITEADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/setFavouriteAddress`,
     },
     ORDER: {
+        GETORDERS : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrders`, 
         ADDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
         GETORDERVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
         GETORDERBYID: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
