@@ -29,16 +29,19 @@
 
 <mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
+  <h3 (click)="onClickPersonalizeAddresses()"><mat-radio-button class="example-margin" [checked]="personalizeAddresses">Personalizar domicilios de entrega</mat-radio-button></h3>
+  <hr>
   <h3>
     <mat-radio-button [checked]="default" (click)="onClickSetDefaulAddress()">Todos tus pedidos serán entregados en</mat-radio-button>
   </h3>
   <div *ngIf="default" (click)="onClickSetDefaulAddress()">
     <mat-card-header>
-      <div mat-card-avatar><mat-icon>place</mat-icon></div>
+      <div mat-card-avatar align="end" class="header-image"><mat-icon>place</mat-icon></div>
       <mat-card-title>
         {{selectedAdress.street}} Nº{{selectedAdress.number}} {{selectedAdress.floor}} {{selectedAdress.departament}}                 
       </mat-card-title>
       <mat-card-subtitle *ngIf="selectedAdress.observation.length  > 0">({{selectedAdress.observation}})</mat-card-subtitle>
+
     </mat-card-header>
 
     <mat-card-actions>
@@ -49,8 +52,7 @@
         </div>
     </mat-card-actions>
   </div>
-  <hr>
-  <h3 (click)="onClickPersonalizeAddresses()"><mat-radio-button class="example-margin" [checked]="personalizeAddresses">Personalizar domicilios de entrega</mat-radio-button></h3>
+  
 </mat-card>
 
 <div *ngIf="changeAddress" class="card">

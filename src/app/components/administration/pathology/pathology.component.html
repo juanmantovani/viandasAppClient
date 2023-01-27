@@ -1,7 +1,9 @@
 <div class="container-fluid">
+  <h1 class="title-component">Administrar Patologías</h1>
+
     <div class="button-container">
       <button mat-raised-button (click)="onClickAdd()" title="Agregar paatología" class="button">
-        Agregar
+        <mat-icon>add</mat-icon>Agregar Patología
       </button>
   
     </div>
@@ -12,35 +14,48 @@
       <input matInput (keyup)="onSearch($event)" placeholder="" #input>
     </mat-form-field>
   
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-      </ng-container>
+    <div class="table-width-pathology">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripción </th>
-        <td mat-cell *matCellDef="let element" class="hidden"> {{element.description}} </td>
-      </ng-container>
-  
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-raised-button class="button" (click)="onClickEdit(element)" title="Editar paatología">Editar</button>
-          &nbsp;
-          <button mat-raised-button class="button"class="button" (click)="onClickDelete(element)" title="Editar paatología">Borrar</button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
-      </tr>
-    </table>
-    <br>
-    <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+        <colgroup>
+          <col style="width:'10%'"/>
+          <col style="width:'55%'"/>
+          <col style="width:'35%'"/>
+        </colgroup>
+    
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripción </th>
+          <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
+            [matTooltip]="element.description" matTooltipPosition="below"> {{element.description}} 
+          </td>
+        </ng-container>
+    
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="actions-button-container">
+            <button mat-stroked-button class="button" (click)="onClickEdit(element)" title="Editar paatología">          
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button class="button"class="button" (click)="onClickDelete(element)" title="Editar paatología">          
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
+        </tr>
+      </table>
+      <br>
+      <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
   

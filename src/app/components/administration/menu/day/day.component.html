@@ -8,9 +8,9 @@
 
           <mat-form-field appearance="fill">
             <mat-label>{{daysOfMonth[i].day}} {{daysOfMonth[i].date | date:'dd/MM'}}</mat-label>            
-            <mat-select formControlName="food" name="food"  >
-              <mat-option *ngFor="let food of listFood" [value]="food">
-                {{food.title}}
+            <mat-select formControlName="food" name="food">
+              <mat-option *ngFor="let food of selectedFood" [value]="food">
+                {{food.id}} - {{food.title}}
               </mat-option>
             </mat-select>
    

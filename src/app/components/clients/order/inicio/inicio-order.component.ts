@@ -53,6 +53,7 @@ export class InicioOrderComponent implements OnInit {
   viewOrderByDay : boolean;
   disableNextButton: boolean = true;
   disableBackButton: boolean = true;
+  finishButton: boolean;
 
   daysOfMonth : Date [];
   menu : Menu;
@@ -167,7 +168,6 @@ export class InicioOrderComponent implements OnInit {
     });
 
   } 
-  
 
   existeFecha(array: any, fecha: Date) {
     return array.some((f: any) => {
@@ -227,6 +227,8 @@ export class InicioOrderComponent implements OnInit {
   onClickBack(steps : any){
     this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
     this.disableBackButton = steps <= 1 ? true : false;
+    this.finishButton = false;
+
   }
 
  onStepComplete(steps : any){
@@ -237,7 +239,8 @@ export class InicioOrderComponent implements OnInit {
       break; 
     } 
     case 1: { 
-      this.disableBackButton = false;
+      //this.disableBackButton = false;
+      this.finishButton = true;
       this.onViewOrderByDay()
       break; 
     } 

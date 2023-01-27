@@ -16,11 +16,11 @@ hr {
 }
 
 mat-card-actions {
-    margin-bottom: 2px;
+    margin-bottom: 0px;
 }
 
 mat-card-subtitle{
-    margin-bottom: 2px;
+    margin-bottom: 0px;
 }
 
 .inline {

@@ -26,36 +26,28 @@
     <mat-sidenav [(opened)]="opened" mode="side">
 
         <mat-list>
-            <mat-list-item [ngClass]="{'active': status === '> Carrousel'}" class="nav-link" [routerLink]="[CARROUSEL]"
-                (click)="status='> Carrousel'">
+            <mat-list-item class="nav-link" [routerLink]="[CARROUSEL]" routerLinkActive="active">
                 Carrousel
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Categorias'}" class="nav-link" [routerLink]="[CATEGORY]"
-                (click)="status='> Categorias'">
-                Categorias
+            <mat-list-item class="nav-link" [routerLink]="[CATEGORY]" routerLinkActive="active">
+                Categorías
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Platos'}" class="nav-link" [routerLink]="[FOOD]"
-                (click)="status='> Platos'">
+            <mat-list-item class="nav-link" [routerLink]="[FOOD]" routerLinkActive="active">
                 Platos
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Menú'}" class="nav-link" [routerLink]="[MENU]"
-                (click)="status='> Menú'">
+            <mat-list-item class="nav-link" [routerLink]="[MENU]" routerLinkActive="active">
                 Menú
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Clientes'}" class="nav-link" [routerLink]="[CLIENT]"
-                (click)="status='> Clientes'">
+            <mat-list-item class="nav-link" [routerLink]="[CLIENT]" routerLinkActive="active">
                 Clientes
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Patologías'}" class="nav-link" [routerLink]="[PATHOLOGY]"
-                (click)="status='> Patologías'">
+            <mat-list-item class="nav-link" [routerLink]="[PATHOLOGY]" routerLinkActive="active">
                 Patologías
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Repartidor'}" class="nav-link"
-                [routerLink]="[DELIVERYDRIVER]" (click)="status='> Repartidor'">
+            <mat-list-item class="nav-link" [routerLink]="[DELIVERYDRIVER]" routerLinkActive="active">
                 Repartidores
             </mat-list-item>
-            <mat-list-item [ngClass]="{'active': status === '> Tandas'}" class="nav-link" [routerLink]="[TANDA]"
-                (click)="status='> Tandas'">
+            <mat-list-item class="nav-link" [routerLink]="[TANDA]" routerLinkActive="active">
                 Tandas
             </mat-list-item>
 

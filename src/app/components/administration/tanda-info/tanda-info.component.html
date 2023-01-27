@@ -1,36 +1,64 @@
 <div class="container-fluid">
-
-
+    <h2>Info de la tanda #{{tanda.id}}</h2>
     <mat-card class="card-tanda">
-        <mat-card-content>
-            <h3><strong>{{tanda.description}}</strong></h3>
-            <p>Horario: {{tanda.hourStart}}hs-{{tanda.hourEnd}}hs</p>
-            <hr>
-            <label for=""> <i class="material-icons">sports_motorsports</i> Repartidor:</label>
-            <h3>{{tanda.deliveryDriver.name}}{{tanda.deliveryDriver.lastName}}</h3>
-            <label for=""><i class="material-icons">motorcycle</i> Vehiculo:</label>
-            <h3>{{tanda.deliveryDriver.vehicle.brand}} {{tanda.deliveryDriver.vehicle.model}}
-                {{tanda.deliveryDriver.vehicle.year}}
-                <br>
-                Patente: {{tanda.deliveryDriver.vehicle.patent}}
-            </h3>
+        <mat-card-header>
+            <div mat-card-avatar class="header-image"><mat-icon>av_timer</mat-icon></div>
+            <mat-card-subtitle>Horario: {{tanda.hourStart}}hs-{{tanda.hourEnd}}hs</mat-card-subtitle>
+            <mat-card-title>{{tanda.description}}</mat-card-title>
+        </mat-card-header>
+        <hr>
+        <mat-card-header>
+            <div mat-card-avatar class="header-image"><i class="material-icons">sports_motorsports</i></div>
+            <mat-card-subtitle>Repartidor</mat-card-subtitle>
+            <mat-card-title>
+                {{tanda.deliveryDriver.name}} {{tanda.deliveryDriver.lastName}}
+            </mat-card-title>
+        </mat-card-header>
+        <hr>
+        <mat-card-header>
+            <div mat-card-avatar class="header-image"><i class="material-icons">motorcycle</i></div>
+            <mat-card-subtitle class="subtitle">Vehículo</mat-card-subtitle>
+            <mat-card-title>
+                {{tanda.deliveryDriver.vehicle.brand}} {{tanda.deliveryDriver.vehicle.model}} {{tanda.deliveryDriver.vehicle.year}}
+            </mat-card-title>
+        </mat-card-header>
 
-        </mat-card-content>
     </mat-card>
-    <h3 *ngIf="listClient">
-        Direcciones:
-    </h3>
-    <div class="div-address">
-        <div *ngFor="let client of listClient">
-            <mat-card class="card" *ngFor="let address of client.addresses">
-                <mat-card-content>
-                    <p>
-                        {{client.name}} - {{address.street}}
-                        {{address.number}} {{address.floor}} {{address.departament}}
 
-                    </p>
-                </mat-card-content>
-            </mat-card>
+    <div class="button-container">
+        <button mat-raised-button (click)="onClickViewList()" title="Ver listado de direcciones asociadas" [ngClass]="{'active' : viewListClient}">
+            <mat-icon>list</mat-icon>Listado de direcciones asociadas
+        </button>
+        <button mat-raised-button (click)="onClickAssign()" title="Asignar direcciones a tanda" [ngClass]="{'active' : viewAssign}">
+            <mat-icon>check_box</mat-icon>Asignar direcciones a esta tanda
+        </button>
+        <button mat-raised-button (click)="onClickRemove()" title="Quitar direcciones a tanda" [ngClass]="{'active' : viewRemove}">
+            <mat-icon>remove_circle_outline</mat-icon>Quitar direcciones de esta tanda
+        </button>
+    </div>
+    <app-tanda-assign-address *ngIf="viewAssign" [tanda]="tanda"
+        (assignAddress)="getAddresses()"></app-tanda-assign-address>
+
+    <app-tanda-remove-address *ngIf="viewRemove" [tanda]="tanda"
+        (removeAddress)="getAddresses()"></app-tanda-remove-address>
+
+
+    <div *ngIf="viewListClient">
+        <h2>
+            Direcciones asociadas:
+        </h2>
+        <div class="div-address">
+            <div *ngFor="let client of listClient">
+                <mat-card class="card" *ngFor="let address of client.addresses">
+                    <mat-card-content class="hidden">
+                        <p class="hidden">
+                            {{client.name}} {{client.lastName}} - {{address.street}} 
+                            {{address.number}} {{address.floor}} {{address.departament}}
+
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
     <hr>

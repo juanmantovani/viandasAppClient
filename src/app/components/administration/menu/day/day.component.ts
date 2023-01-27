@@ -24,6 +24,8 @@ export class DayComponent implements OnInit {
   viewForm: boolean = false;
   form: FormGroup;
   listFood: Food[];
+  selectedFood: Food[] = []; 
+
 
   constructor( private fb: FormBuilder, private foodService : FoodService ) {
   }
@@ -35,6 +37,8 @@ export class DayComponent implements OnInit {
     }
     await this.foodService.getFoodByCategory(request).subscribe((res: GetFoodResponse) => {
       this.listFood = res.food;
+      this.selectedFood = this.listFood.map((f:any) => new Food(f)); 
+
     })
   }
 
@@ -71,6 +75,7 @@ export class DayComponent implements OnInit {
   get days(): FormArray {
     return this.form.get('days') as FormArray;
   }
+  
 
   onClickSave(){  
     this.daysCharged.emit(this.days.getRawValue())

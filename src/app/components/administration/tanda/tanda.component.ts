@@ -186,20 +186,6 @@ export class TandaComponent implements OnInit {
     })
   }
 
-  onClickAssign() {
-    this.viewList = false;
-    this.viewRemove = false;
-    this.viewInfo = false;
-    this.viewAssign = true;
-  }
-
-  onClickRemove() {
-    this.viewList = false;
-    this.viewAssign = false;
-    this.viewInfo = false;
-    this.viewRemove = true;
-  }
-
   onClickList() {
     this.viewAssign = false;
     this.viewRemove = false;

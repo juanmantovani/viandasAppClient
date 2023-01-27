@@ -6,17 +6,31 @@ table{
     font-size: 14px;
     width: 20%;
 }
-
-.button-container {
-    padding-bottom: 16px;
+.title-component{
+    text-align: center;
     margin-top: 10px;
 }
-
-.button:hover  {
-	background: #E3AE06;
-	color: #ffffff;
+.button-container button {
+    margin-right: 10px;
 }
+
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  
+.hidden{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+  }
 
 .mat-row:hover {
     background-color: rgba(65, 65, 65, 0.07);
   }
+
+.table-width-carrousel {
+    width: 90%;
+}
+

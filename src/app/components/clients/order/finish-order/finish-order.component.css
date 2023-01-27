@@ -25,3 +25,14 @@
     }
   
   }
+
+  mat-card-actions {
+    margin-bottom: 0px;
+    padding: 0px;
+}
+mat-card-subtitle{
+  margin-bottom: 2px;
+}
+::ng-deep .mat-card-header-text {
+  margin: 0 5px;
+}

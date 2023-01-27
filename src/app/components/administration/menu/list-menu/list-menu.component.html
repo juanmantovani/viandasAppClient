@@ -3,39 +3,42 @@
     <input matInput (keyup)="onSearch($event)" placeholder="" #input>
   </mat-form-field>
 
+  <div class="table-width-menu">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    
+    <colgroup>
+      <col style="width:'10%'"/>
+      <col style="width:'25%'"/>
+      <col style="width:'25%'"/>
+      <col style="width:'40%'"/>
+   </colgroup>
 
     <ng-container matColumnDef="ID">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.id}} </td>
     </ng-container>
 
     <ng-container matColumnDef="start">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Desde </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateStart | date: 'dd/MM/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.dateStart | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="end">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </th>
-      <td mat-cell *matCellDef="let element"> {{element.dateEnd | date: 'dd/MM/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.dateEnd | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button class="button" (click)="onClickDelete(element)">Borrar</button>
-        &nbsp;
-        <button mat-raised-button class="button" (click)="onClickViewMenu(element)">Ver menú</button>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}" class="actions-button-container">
+        <button mat-stroked-button class="button" (click)="onClickDelete(element)">          
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-stroked-button class="button" (click)="onClickViewMenu(element)">
+          <mat-icon>remove_red_eye</mat-icon>
+        </button>
       </td>
     </ng-container>
-
-    <ng-container matColumnDef="activeMenu">
-      <th mat-header-cell *matHeaderCellDef class="activeMenu"> </th>
-        <td mat-cell *matCellDef="let element"> 
-          <div [ngClass]="{'isActive': element.isCurrent}" *ngIf="element.isCurrent" class="alignIcon"><mat-icon>arrow_back</mat-icon>Menu activo</div> 
-        </td>
-    </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
@@ -45,3 +48,4 @@
   </table>
   <br>
   <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+  </div>
