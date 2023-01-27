@@ -33,7 +33,7 @@
 }
 
 .fullCalendarContainer {
-  width: 70%;
+  width: 600px;
   height: auto;
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   padding: 5px;
@@ -50,6 +50,10 @@
   background-color: rgba(255, 255, 255, 0.65);
 }
 
+.title-component{
+  text-align: center;
+  margin-top: 10px;
+}
 
 
 
@@ -95,12 +99,6 @@
     margin-top: 10px;
 }
 
-  .button:hover{
-    background: #E3AE06;
-    color: #ffffff;
-      font-weight: 600;
-  }
-  
   .button{
       display: inline;
       font-weight: 500;

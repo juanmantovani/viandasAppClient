@@ -9,10 +9,10 @@ export class ResumeOrderComponent implements OnInit {
 
   @Input() isDisabledNext : boolean;
   @Input() isDisabledBack : boolean;
+  @Input() finishButton : boolean;
 
   @Output() stepComplete : EventEmitter <boolean> = new EventEmitter();
   @Output() stepBack : EventEmitter <boolean> = new EventEmitter();
-
 
   constructor() { }
 

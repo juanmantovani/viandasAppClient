@@ -16,8 +16,7 @@ import { TandaService } from 'src/app/shared/services/tanda.service';
   styleUrls: ['./tanda-assign-address.component.css']
 })
 export class TandaAssignAddressComponent implements OnInit {
-  @Input() listTanda: Tanda[]
-  idTandaSelected: number;
+  @Input() tanda: Tanda;
   listClient: Client[];
   listIdAddress: number[];
 
@@ -52,7 +51,7 @@ export class TandaAssignAddressComponent implements OnInit {
   }
 
   async onClickAssign() {
-    var tanda = this.listTanda.find(t => t.id == this.idTandaSelected)
+    var tanda = this.tanda
     if (await this.generateConfirm("Está a punto de asignar direcciones a " + tanda?.description + ". ¿Está seguro de realizar esta operación?") === true) {
       await this.assignAddressToTanda();
     }
@@ -64,7 +63,7 @@ export class TandaAssignAddressComponent implements OnInit {
 
   async assignAddressToTanda() {
     const request: AssignAddressToTandaRequest = {
-      idTanda: this.idTandaSelected,
+      idTanda: this.tanda.id,
       idAddress: this.listIdAddress
     }
     await this.tandaService.assignAddressToTanda(request).subscribe((res: AssignAddressToTandaResponse) => {

@@ -207,6 +207,7 @@ import { OrderComponent } from './components/administration/order/order.componen
     MatStepperModule,
     CommonModule,
     MatTooltipModule,
+    BrowserAnimationsModule, 
     MatSlideToggleModule,
     MatRadioModule
   ],

@@ -1,14 +1,6 @@
 <div class="container-fluid">
-    <div>
-        <mat-form-field appearance="fill">
-            <mat-label>Tanda</mat-label>
-            <mat-select [(ngModel)]="idTandaSelected">
-                <mat-option *ngFor="let tanda of listTanda" [value]="tanda.id">
-                    {{tanda.description}} - {{tanda.deliveryDriver.name}}{{tanda.deliveryDriver.lastName}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
+
+    <h3>Seleccione las direcciones que desee asignar a la tanda:</h3>
 
     <div class="div-address">
         <div *ngFor="let client of listClient">
@@ -26,7 +18,7 @@
     <hr>
     <div align="center">
         <button mat-raised-button color="primary" (click)="onClickAssign()" class="btn-primary btn-azul"
-            [disabled]="idTandaSelected == null || listIdAddress.length == 0">
+            [disabled]="listIdAddress.length == 0">
             <mat-icon>save</mat-icon> ASIGNAR
         </button>
     </div>

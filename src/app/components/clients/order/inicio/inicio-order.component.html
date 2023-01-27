@@ -29,6 +29,7 @@
 
   <app-resume-order [isDisabledNext]="disableNextButton" 
     [isDisabledBack]="disableBackButton"
+    [finishButton]="finishButton"
     (stepComplete)="onStepComplete(stepper._getFocusIndex()); stepper.next()"
     (stepBack)="onClickBack(stepper._getFocusIndex()); stepper.previous()"
     ></app-resume-order>

@@ -1,14 +1,16 @@
+<h1 mat-dialog-title>Editar un Menú</h1>
 <mat-dialog-content>
-        <mat-form-field appearance="fill">
-            <mat-label>Fecha</mat-label>
-            <input matInput [matDatepicker]="picker" [(ngModel)]="date">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
-          [disabled]="date == null">
-          <mat-icon>check</mat-icon> Ok
-        </button>
+  <h3>A continuación, ingrese la fecha del menú que desea modificar </h3>
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
+  [disabled]="date == null">
+    <mat-icon>check</mat-icon> Ok
+  </button>
 
         <mat-error *ngIf="!existFoodInDay"> No hay platos en la fecha seleccionada</mat-error>
 

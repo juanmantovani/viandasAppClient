@@ -40,11 +40,12 @@ export class SidenavComponent implements OnInit {
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
       this.userRoles = this.keycloak.getUserRoles()
-    }
+    } else this.logout();
   }
 
   public logout() {
     this.keycloak.logout();
+    this.router.navigate(['/inicio'])
   }
 
  }

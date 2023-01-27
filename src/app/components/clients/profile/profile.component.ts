@@ -52,6 +52,7 @@ export class ProfileComponent implements OnInit {
   async gestionateForm(dataForm: DataFormClient) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
+    dialogConfig.maxWidth = '95%';
     const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 

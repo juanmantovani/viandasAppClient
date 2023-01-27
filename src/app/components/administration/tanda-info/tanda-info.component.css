@@ -6,6 +6,46 @@
     column-count: 3;
 }
 
-.card-tanda{
+.card-tanda {
     margin-bottom: 10px;
+    max-width: 400px;
 }
+
+mat-card {
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.hidden {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.header-image, mat-card-header{
+    align-items: center;
+}
+
+mat-card-subtitle{
+    margin-bottom: 5px;
+}
+.mat-card-title{
+    font-size: medium;
+}
+
+hr {
+    margin-top: 0px;
+}
+
+.button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+  }
+  
+  .button-container button {
+    margin-right: 10px;
+  }
+
+  .active {
+    background-color: #f2d26b5a;
+  }
