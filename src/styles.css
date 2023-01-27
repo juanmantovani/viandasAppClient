@@ -41,3 +41,7 @@ mat-chip {
     margin-right: 10px !important;
 }
 
+.mat-tooltip-panel .mat-tooltip { 
+    font-size:  12px;
+    margin-top: 0px;
+} 

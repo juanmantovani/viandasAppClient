@@ -1,23 +1,38 @@
 <div class="container-fluid">
-
-  <div class="button-container">
-    <button mat-raised-button (click)="onClickAdd()" title="Agregar banner" class="button">
-      Agregar
+<h1 class="title-component">Administrar Carrousel</h1>
+  <div>
+    <button mat-raised-button color="green" (click)="onClickAdd()" title="Agregar banner" class="button">
+      <mat-icon>add</mat-icon>Agregar Banner
     </button>
-
   </div>
-
 
   <mat-form-field appearance="standard">
     <mat-label>Buscar</mat-label>
     <input matInput (keyup)="onSearch($event)" placeholder="" #input>
   </mat-form-field>
 
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+  <div class="table-width-carrousel">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 ">
+
+    <colgroup>
+      <col style="width:'6%'"/>
+      <col style="width:'34%'"/>
+      <col style="width:'15%'"/>
+      <col style="width:'15%'"/>
+      <col style="width:'30%'"/>
+   </colgroup>
+
+   <ng-container matColumnDef="ID">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+   </ng-container>
 
     <ng-container matColumnDef="title">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Título </th>
-      <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Título </th>
+      <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
+      [matTooltip]="element.title" matTooltipPosition="below"> 
+        {{element.title}} 
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="start">
@@ -32,10 +47,13 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button class="button" (click)="onClickEdit(element)" title="Editar banner">Editar</button>
-        &nbsp;
-        <button mat-raised-button class="button" (click)="onClickDelete(element)" title="Borrar banner">Borrar</button>
+      <td mat-cell *matCellDef="let element" class="button-container">
+        <button mat-stroked-button (click)="onClickEdit(element)" title="Editar banner">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-stroked-button (click)="onClickDelete(element)" title="Borrar banner">
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -45,7 +63,9 @@
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
     </tr>
+
   </table>
   <br>
-  <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+</div>
 </div>

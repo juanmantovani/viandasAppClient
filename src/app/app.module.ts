@@ -205,6 +205,7 @@ import { ClientComponent } from './components/administration/client/client.compo
     MatStepperModule,
     CommonModule,
     MatTooltipModule,
+    BrowserAnimationsModule, 
     MatSlideToggleModule,
     MatRadioModule
   ],

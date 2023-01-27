@@ -23,7 +23,7 @@ import { GetBannerResponse } from 'src/app/shared/dto/carrousel/GetBannerRespons
   styleUrls: ['./carrousel.component.css'],
 })
 export class CarrouselComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'start', 'end', 'actions'];
+  displayedColumns: string[] = ['ID', 'title', 'start', 'end', 'actions'];
   dataSource: any;
   actionForm: string;
 
@@ -144,4 +144,5 @@ export class CarrouselComponent implements OnInit {
       return res;
     })
   }
+
 }

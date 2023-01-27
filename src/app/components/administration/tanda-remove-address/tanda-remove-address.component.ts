@@ -17,8 +17,7 @@ import { TandaService } from 'src/app/shared/services/tanda.service';
 })
 export class TandaRemoveAddressComponent implements OnInit {
 
-  @Input() listTanda: Tanda[]
-  idTandaSelected: number;
+  @Input() tanda: Tanda;
   listClient: Client[];
   listIdAddress: number[];
   listIdTanda: number[];
@@ -34,11 +33,12 @@ export class TandaRemoveAddressComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.onChangeTanda()
   }
 
-  onChangeTanda(event: any) {
+  onChangeTanda() {
     this.listIdTanda = []
-    this.listIdTanda.push(event.value)
+    this.listIdTanda.push(this.tanda.id)
     this.getAddresses()
   }
 
@@ -61,7 +61,7 @@ export class TandaRemoveAddressComponent implements OnInit {
   }
 
   async onClickRemove() {
-    var tanda = this.listTanda.find(t => t.id == this.idTandaSelected)
+    var tanda = this.tanda
     if (await this.generateConfirm("Está a punto de quitar direcciones a " + tanda?.description + ". ¿Está seguro de realizar esta operación?") === true) {
       await this.removeAddressToTanda();
     }
@@ -73,7 +73,7 @@ export class TandaRemoveAddressComponent implements OnInit {
 
   async removeAddressToTanda() {
     const request: RemoveAddressToTandaRequest = {
-      idTanda: this.idTandaSelected,
+      idTanda: this.tanda.id,
       idAddress: this.listIdAddress
     }
     await this.tandaService.removeAddressToTanda(request).subscribe((res: RemoveAddressToTandaResponse) => {

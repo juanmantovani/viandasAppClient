@@ -1,16 +1,12 @@
 <div class="container-fluid">
+    <h1 class="title-component">Administrar Tandas</h1>
+
     <div class="button-container">
-        <button mat-raised-button (click)="onClickList()" title="Ver tandas" class="button">
-            Listado
-        </button>
         <button mat-raised-button (click)="onClickAdd()" title="Agregar tanda" class="button">
-            Agregar
+            <mat-icon>add</mat-icon>Agregar Tanda
         </button>
-        <button mat-raised-button (click)="onClickAssign()" title="Asignar direcciones a tanda" class="button">
-            Asignar
-        </button>
-        <button mat-raised-button (click)="onClickRemove()" title="Quitar direcciones a tanda" class="button">
-            Quitar
+        <button mat-raised-button (click)="onClickList()" title="Ver tandas" class="button"> 
+            <mat-icon>list</mat-icon>Listado Tandas
         </button>
     </div>
 
@@ -20,63 +16,73 @@
             <input matInput (keyup)="onSearch($event)" placeholder="" #input>
         </mat-form-field>
 
-        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <div class="table-width-tanda">
+            <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-            <ng-container matColumnDef="id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-            </ng-container>
+                <colgroup>
+                    <col style="width:'7%'"/>
+                    <col style="width:'18%'"/>
+                    <col style="width:'10%'"/>
+                    <col style="width:'10%'"/>
+                    <col style="width:'25%'"/>
+                    <col style="width:'35%'"/>
+                </colgroup>
 
-            <ng-container matColumnDef="description">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripción </th>
-                <td mat-cell *matCellDef="let element" class="hidden"> {{element.description}} </td>
-            </ng-container>
+                <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="hourStart">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Inicio </th>
-                <td mat-cell *matCellDef="let element" class="hidden"> {{element.hourStart}} </td>
-            </ng-container>
+                <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripción </th>
+                    <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
+                        [matTooltip]="element.description" matTooltipPosition="below"> {{element.description}} 
+                    </td>
+                </ng-container>
 
-            <ng-container matColumnDef="hourEnd">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fin </th>
-                <td mat-cell *matCellDef="let element" class="hidden"> {{element.hourEnd}} </td>
-            </ng-container>
+                <ng-container matColumnDef="hourStart">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Inicio </th>
+                    <td mat-cell *matCellDef="let element"> {{element.hourStart}} </td>
+                </ng-container>
 
-            <ng-container matColumnDef="deliveryDriver">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Repartidor </th>
-                <td mat-cell *matCellDef="let element" class="hidden">
-                    {{element.deliveryDriver.name}}{{element.deliveryDriver.lastName}} </td>
-            </ng-container>
+                <ng-container matColumnDef="hourEnd">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Fin </th>
+                    <td mat-cell *matCellDef="let element"> {{element.hourEnd}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="deliveryDriver">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Repartidor </th>
+                    <td mat-cell *matCellDef="let element" class="hidden">
+                        {{element.deliveryDriver.name}}{{element.deliveryDriver.lastName}} </td>
+                </ng-container>
 
 
-            <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                <td mat-cell *matCellDef="let element">
-                    <button mat-raised-button (click)="onClickViewInfo(element)" title="Ver Info"><i
-                            class="material-icons">info</i></button>
-                    &nbsp;
-                    <button mat-raised-button (click)="onClickEdit(element)" title="Editar tanda">Editar</button>
-                    &nbsp;
-                    <button mat-raised-button (click)="onClickDelete(element)" title="Borrar tanda">Borrar</button>
-                </td>
-            </ng-container>
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let element" class="actions-button-container">
+                        <button mat-stroked-button (click)="onClickViewInfo(element)" title="Ver Info">
+                            <mat-icon>info</mat-icon>
+                            </button>
+                        <button mat-stroked-button (click)="onClickEdit(element)" title="Editar tanda">          
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-stroked-button (click)="onClickDelete(element)" title="Borrar tanda">          
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-            <tr class="mat-row" *matNoDataRow>
-                <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
-            </tr>
-        </table>
-        <br>
-        <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+                <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
+                </tr>
+            </table>
+            <br>
+            <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+        </div>
     </div>
-
-    <app-tanda-assign-address *ngIf="viewAssign" [listTanda]="listTanda"
-        (assignAddress)="onClickList()"></app-tanda-assign-address>
-
-    <app-tanda-remove-address *ngIf="viewRemove" [listTanda]="listTanda"
-        (removeAddress)="onClickList()"></app-tanda-remove-address>
 
     <app-tanda-info *ngIf="viewInfo" [listClient]="listClient" [tanda]="tandaSelected"></app-tanda-info>
 </div>

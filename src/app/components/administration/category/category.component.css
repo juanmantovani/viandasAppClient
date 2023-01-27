@@ -12,9 +12,8 @@ table{
     margin-top: 10px;
 }
 
-.button:hover  {
-	background: #E3AE06;
-	color: #ffffff;
+.actions-button-container button {
+  margin-right: 10px;
 }
   
 .mat-row:hover {
@@ -35,3 +34,11 @@ table{
   mat-icon {
     vertical-align: middle;
   }
+
+.table-width-category {
+  width: 90%;
+}
+.title-component{
+  text-align: center;
+  margin-top: 10px;
+}

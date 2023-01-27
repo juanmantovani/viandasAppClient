@@ -12,11 +12,6 @@ table{
     margin-top: 10px;
 }
 
-.button:hover  {
-	background: #E3AE06;
-	color: #ffffff;
-}
-
 .activeMenu {
     min-width: auto;
 
@@ -27,14 +22,25 @@ table{
 }
 
 .isActive {
-    background-color: lightgreen;
-    border-radius: 7px;
-    width: fit-content;
-    padding: 6px;
+    background-color: rgba(144, 238, 144, 0.473);
+
 }
+
+.actions-button-container button {
+    margin-right: 10px;
+  }
   
 
 .mat-row:hover {
     background-color: rgba(65, 65, 65, 0.07);
-  }
+}
 
+
+.table-width-menu {
+    width: 50%;
+}
+
+.title-component{
+    text-align: center;
+    margin-top: 10px;
+}

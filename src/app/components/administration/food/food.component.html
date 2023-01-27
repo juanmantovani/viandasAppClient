@@ -1,7 +1,9 @@
 <div class="container-fluid">
+  <h1 class="title-component">Administrar Platos</h1>
+
   <div class="button-container">
     <button mat-raised-button (click)="onClickAdd()" title="Agregar plato" class="button">
-      Agregar
+      <mat-icon>add</mat-icon>Agregar Plato
     </button>
   </div>
 
@@ -10,7 +12,16 @@
     <input matInput (keyup)="onSearch($event)" placeholder="" #input>
   </mat-form-field>
 
+  <div class="table-width-food">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <colgroup>
+      <col style="width:'6%'"/>
+      <col style="width:'27%'"/>
+      <col style="width:'27%'"/>
+      <col style="width:'20%'"/>
+      <col style="width:'20%'"/>
+   </colgroup>
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
@@ -19,25 +30,32 @@
 
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Título </th>
-      <td mat-cell *matCellDef="let element" class="hidden"> {{element.title}} </td>
+      <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
+        [matTooltip]="element.title" matTooltipPosition="below"> {{element.title}} 
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripcion </th>
-      <td mat-cell *matCellDef="let element" class="hidden"> {{element.description}} </td>
+      <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
+        [matTooltip]="element.description" matTooltipPosition="below"> {{element.description}} 
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoria </th>
-      <td mat-cell *matCellDef="let element"><span *ngFor="let cat of element.categories"><span *ngIf="cat.checked">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Categorias </th>
+      <td mat-cell *matCellDef="let element" class="hidden"><span *ngFor="let cat of element.categories"><span *ngIf="cat.checked">
             {{cat.title}} </span> </span> </td>
     </ng-container>
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-raised-button class="button" (click)="onClickEdit(element)" title="Editar plato">Editar</button>
-        &nbsp;
-        <button mat-raised-button class="button" (click)="onClickDelete(element)" title="Borrar plato">Borrar</button>
+      <td mat-cell *matCellDef="let element" class="actions-button-container">
+        <button mat-stroked-button class="button" (click)="onClickEdit(element)" title="Editar plato">          
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-stroked-button class="button" (click)="onClickDelete(element)" title="Borrar plato">          
+          <mat-icon>delete</mat-icon>
+        </button>
       </td>
     </ng-container>
 
@@ -50,4 +68,6 @@
   </table>
   <br>
   <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+</div>  
+
 </div>

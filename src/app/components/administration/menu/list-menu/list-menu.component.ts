@@ -12,7 +12,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
   styleUrls: ['./list-menu.component.css']
 })
 export class ListMenuComponent implements OnInit {
-  displayedColumns: string[] = ['ID', 'start', 'end', 'actions', 'activeMenu'];
+  displayedColumns: string[] = ['ID', 'start', 'end', 'actions'];
 
   @Input() dataSource : MatTableDataSource<Menu>;
   @Output() deleteMenu : EventEmitter <Menu> = new EventEmitter();

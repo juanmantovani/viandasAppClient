@@ -1,12 +1,24 @@
 <div class="container-fluid">
- 
+  <h1 class="title-component">Listado de Clientes</h1>
     <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="onSearch($event)" placeholder="" #input>
     </mat-form-field>
   
+    <div class="table-width-client">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   
+      <colgroup>
+        <col style="width:'5%'"/>
+        <col style="width:'10%'"/>
+        <col style="width:'15%'"/>
+        <col style="width:'15%'"/>
+        <col style="width:'15%'"/>
+        <col style="width:'10%'"/>
+        <col style="width:'15%'"/>
+        <col style="width:'15%'"/>
+      </colgroup>
+
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -14,7 +26,7 @@
       
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nombre y Apellido</th>
-        <td mat-cell *matCellDef="let element" class="hidden"> {{element.name}}{{element.lastName}} </td>
+        <td mat-cell *matCellDef="let element" class="hidden"> {{element.name}} {{element.lastName}} </td>
       </ng-container>
   
       <ng-container matColumnDef="phonePrimary">
@@ -44,7 +56,7 @@
 
       <ng-container matColumnDef="pathologies">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Patologías </th>
-        <td mat-cell *matCellDef="let element"><span *ngFor="let pat of element.pathologies"><span *ngIf="pat.checked">
+        <td mat-cell *matCellDef="let element" class="hidden"><span *ngFor="let pat of element.pathologies"><span *ngIf="pat.checked">
             {{pat.description}} </span> </span> </td>
     </ng-container>
   
@@ -58,5 +70,6 @@
     </table>
     <br>
     <mat-paginator [pageSizeOptions]="[  3 , 10 , 20]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
   

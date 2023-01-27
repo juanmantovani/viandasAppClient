@@ -1,18 +1,19 @@
 <div class="container-fluid">
+  <h1 class="title-component">Administrar Menús</h1>
 
   <div class="button-container">
-    <button mat-raised-button (click)="onClickListAllMenus()" title="Ver menús" class="button">
-      Listado
+    <button mat-raised-button (click)="onClickAdd()" title="Agregar menú" class="button">
+      <mat-icon>add</mat-icon>Agregar Menú
     </button>
-    <button mat-raised-button (click)="onClickCalendar()" class="button">
-      Ver Calendario
+    <button mat-raised-button (click)="onClickListAllMenus()" title="Ver menús" class="button">
+      <mat-icon>list</mat-icon>Listado de Menús
     </button>
     <button mat-raised-button (click)="onClickEdit()" title="Editar plato de un día" class="button">
-      Editar
+      <mat-icon>border_color</mat-icon>Editar Menú Diario
     </button>
-    <button mat-raised-button (click)="onClickAdd()" title="Agregar menú" class="button">
-      Agregar
-    </button>
+    <!-- <button mat-raised-button (click)="onClickCalendar()" class="button">
+      <mat-icon>remove_red_eye</mat-icon>Ver Calendario
+    </button> -->
 
 
   </div>
@@ -54,14 +55,13 @@
   </div>
 
   <div *ngIf="listMenu">
-    <h2>Acciones</h2>
     <app-list-menu [dataSource]="dataSource" 
       (menuId)="onViewMenu($event)"
       (deleteMenu)="deleteMenu($event)">
     </app-list-menu>
   </div>
 
-  <div *ngIf="viewCalendarFood&&eventsFood.length > 1">
+  <!-- <div *ngIf="viewCalendarFood&&eventsFood.length > 1"> Esto para la version 2.0
     <div class="fullCalendarContainer">
       <h1>Calendario</h1>
       <div class="calendarMenu">
@@ -69,9 +69,8 @@
           (selectMenu)="onViewMenu($event)"></app-calendar-food>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <hr>
   <div class="fadeInDown" >
     <app-categories *ngIf="viewCategories" 
       [dateStart]="dateStart"
