@@ -72,7 +72,7 @@ export class MenuService {
      )
   }
 
-  getMenuByCategory(idCategory: number): Observable<GetMenuResponse>{
+  getMenuViewerByCategory(idCategory: number): Observable<GetMenuResponse>{
     let params = new HttpParams();
     params = params.set('idCategory', idCategory?.toString());
    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUBYCATEGORY, {params}).pipe(

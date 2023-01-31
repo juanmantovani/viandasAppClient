@@ -54,6 +54,7 @@ export class InicioOrderComponent implements OnInit {
   disableNextButton: boolean = true;
   disableBackButton: boolean = true;
   finishButton: boolean;
+  personalizeOrder: boolean;
 
   daysOfMonth : Date [];
   menu : Menu;
@@ -115,8 +116,13 @@ export class InicioOrderComponent implements OnInit {
     this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
+  selectPersonalize(event: Category[]) {
+    this.selectCategory(event);
+    this.personalizeOrder = true
+  }
+
   async onViewDetailsCategory(category: Category){
-    await this.menuService.getMenuByCategory(category.id).subscribe((res: GetMenuResponse) => {
+    await this.menuService.getMenuViewerByCategory(category.id).subscribe((res: GetMenuResponse) => {
       this.showDetailsCategory(new MenuViewer(res.menuViewer))
     })
   }
@@ -148,7 +154,7 @@ export class InicioOrderComponent implements OnInit {
         const dayOrder : DayOrder = {
           id: 0,
           address: new Address (this.selectedAdress),
-          cant: 1,
+          cant: this.personalizeOrder ? 0 : 1,
           dayFood: new DayFood(dayFood),
           observation: ""
         }
@@ -219,8 +225,10 @@ export class InicioOrderComponent implements OnInit {
 
   onViewOrderByDay(){
     this.viewOrderByDay = true;
+    this.finishButton = true;
     if (this.order.total == 0){
       this.disableNextButton = true;
+      this.finishButton = false;
     }
   }
 
@@ -240,7 +248,6 @@ export class InicioOrderComponent implements OnInit {
     } 
     case 1: { 
       //this.disableBackButton = false;
-      this.finishButton = true;
       this.onViewOrderByDay()
       break; 
     } 

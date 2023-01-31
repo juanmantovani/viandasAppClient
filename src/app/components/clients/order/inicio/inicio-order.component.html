@@ -6,6 +6,7 @@
       <app-order-categories *ngIf="categories"
         [categories]="categories"
         (selectCategory)="selectCategory($event)"
+        (selectPersonalize)="selectPersonalize($event)"
         (viewDetailsCategory)="onViewDetailsCategory($event)">
         </app-order-categories>
     </mat-step>

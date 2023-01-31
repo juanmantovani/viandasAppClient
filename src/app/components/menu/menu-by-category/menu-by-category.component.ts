@@ -41,7 +41,7 @@ export class MenuByCategoryComponent implements OnInit {
   }
 
   getMenuByCategory(){
-    this.menuService.getMenuByCategory(this.category.id).subscribe((res: GetMenuResponse) => {
+    this.menuService.getMenuViewerByCategory(this.category.id).subscribe((res: GetMenuResponse) => {
       this.menuViewer = new MenuViewer (res.menuViewer);
       this.showMenu = true;
     })

@@ -10,7 +10,9 @@ export class OrderCategoriesComponent implements OnInit {
 
   @Input() categories : Category[];
   choseCategory : Category[] = [];
+  chosePersonalize : boolean;
   @Output() selectCategory : EventEmitter <Category []> = new EventEmitter();
+  @Output() selectPersonalize : EventEmitter <Category []> = new EventEmitter();
   @Output() viewDetailsCategory : EventEmitter <Category> = new EventEmitter();
 
 
@@ -21,6 +23,7 @@ export class OrderCategoriesComponent implements OnInit {
   }
   
   onSelectCategory(cat : Category) {
+    this.chosePersonalize = false;
     if (this.isSelectedCategory(cat)){
       this.choseCategory = this.choseCategory.filter(category => category != cat)
     } else {
@@ -35,6 +38,20 @@ export class OrderCategoriesComponent implements OnInit {
 
   isSelectedCategory(category : Category) : boolean{
     return this.choseCategory.includes(category);  
+  }
+
+  isSelectedPersonalize() : boolean{
+    return this.chosePersonalize;  
+  }
+
+  onSelectPersonalize() {
+    this.choseCategory = [];
+    this.selectPersonalize.emit(this.categories);
+    this.chosePersonalize = !this.chosePersonalize;
+
+  }
+  onViewDetailsPersonalize(){
+    console.log("personalize")
   }
 
 }
