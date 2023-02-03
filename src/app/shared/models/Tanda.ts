@@ -16,6 +16,7 @@ export class Tanda {
             this.hourEnd = data.hourEnd;
             this.description = data.description;
             this.deliveryDriver = new DeliveryDriver(data.deliveryDriver)
+            if(data.addresses)
             this.addresses = data.addresses?.map((a: any) => new Address(a));
         }
     }

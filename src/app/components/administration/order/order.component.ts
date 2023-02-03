@@ -17,18 +17,16 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['client', 'address'];
+  displayedColumns: string[] = ['idOrder','client', 'address','observation','proteico','general','liviano','veggie'];
   listTandaTable: TandaTable[];
-  listcategoryTable : CategoryTable[];
-  dataSource: any;
+  listCategoryTable : CategoryTable[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private orderService: OrderService,
-    public dialog: MatDialog,
-    private dialogService: DialogService
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -40,12 +38,11 @@ export class OrderComponent implements OnInit {
       date : new Date()
     }
     await this.orderService.getOrders(request).subscribe((res: GetOrdersResponse) => {
-      this.dataSource = new MatTableDataSource(res.tandaTable);
-      this.listcategoryTable = res.categoryTable;
-      this.dataSource.paginator = this.paginator
-      this.dataSource.sort = this.sort
+      this.listTandaTable =res.tandaTable;
+      this.listCategoryTable = res.categoryTable;
     })
   }
+
 
 
 }
