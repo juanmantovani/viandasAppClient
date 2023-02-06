@@ -17,9 +17,9 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrder','client', 'address','observation','proteico','general','liviano','veggie'];
+  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation'];
   listTandaTable: TandaTable[];
-  listCategoryTable : CategoryTable[];
+  listCategoryTable: CategoryTable[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -35,14 +35,27 @@ export class OrderComponent implements OnInit {
 
   async getOrders() {
     const request: GetOrdersRequest = {
-      date : new Date()
+      date: new Date()
     }
     await this.orderService.getOrders(request).subscribe((res: GetOrdersResponse) => {
-      this.listTandaTable =res.tandaTable;
+      this.listTandaTable = res.tandaTable;
       this.listCategoryTable = res.categoryTable;
+      this.addColumToTable();
     })
   }
 
+  addColumToTable() {
+    this.listCategoryTable.forEach(c => {
+      this.displayedColumns.push(c.category.title.toLowerCase())
+    })
+  }
 
-
+  getTotal(idCategory: number, tandaTable: TandaTable) {
+    var cant;
+    tandaTable.categoryTable.forEach(c => {
+      if (c.category.id == idCategory)
+        cant = c.cant
+    })
+    return cant;
+  }
 }
