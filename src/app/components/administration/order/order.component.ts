@@ -51,7 +51,7 @@ export class OrderComponent implements OnInit {
       })
   }
 
-  getTotal(idCategory: number, tandaTable: TandaTable) {
+  getSubTotal(idCategory: number, tandaTable: TandaTable) {
     var cant;
     tandaTable.categoryTable.forEach(c => {
       if (c.category.id == idCategory)
