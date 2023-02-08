@@ -73,3 +73,7 @@ ul, li, ol{
 	padding: 0px;
 }
 
+.contact p :hover{
+	cursor: pointer;
+}
+

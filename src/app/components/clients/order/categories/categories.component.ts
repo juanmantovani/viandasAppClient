@@ -11,9 +11,12 @@ export class OrderCategoriesComponent implements OnInit {
   @Input() categories : Category[];
   choseCategory : Category[] = [];
   chosePersonalize : boolean;
+  cant: number = 1;
   @Output() selectCategory : EventEmitter <Category []> = new EventEmitter();
   @Output() selectPersonalize : EventEmitter <Category []> = new EventEmitter();
   @Output() viewDetailsCategory : EventEmitter <Category> = new EventEmitter();
+  @Output() viewDetailsPersonalize : EventEmitter <boolean> = new EventEmitter();
+  @Output() cantEmit : EventEmitter <number> = new EventEmitter();
 
 
 
@@ -51,7 +54,17 @@ export class OrderCategoriesComponent implements OnInit {
 
   }
   onViewDetailsPersonalize(){
-    console.log("personalize")
+    this.viewDetailsPersonalize.emit(true);
+  }
+
+  removeFood(category : Category){
+    this.cant-=1;
+    this.cantEmit.emit(this.cant);
+  }
+
+  addFood(category : Category){
+    this.cant+=1;
+    this.cantEmit.emit(this.cant);
   }
 
 }

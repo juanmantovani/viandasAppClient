@@ -29,11 +29,9 @@ export class MenuService {
   OPTION = {headers: {'Content-Type': 'application/json'}};
 
 
-  getMenu(): Observable<GetMenuResponse> {
-    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENU).pipe(
+  getMenuViewer(): Observable<GetMenuResponse> {
+    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUVIEWER).pipe(
     map((res: any) => {
-      console.log(res);
-
      return new GetMenuResponse(res);
    })
  )

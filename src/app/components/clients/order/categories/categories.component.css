@@ -15,4 +15,21 @@ mat-card {
   border-right: 10px solid lightgray;
 }
 
+.cant {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 115px;
+  margin-right: 8px;
+  height: 40px;
+}
+
+.removeButton {
+  float: left;
+}
+
+.center {
+  margin: inherit;
+  width: 40%;
+}
+
 

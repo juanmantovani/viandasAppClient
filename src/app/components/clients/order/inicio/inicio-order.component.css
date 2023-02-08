@@ -2,8 +2,12 @@
     margin-bottom: 40px;
   }
 
+  .title-component{
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 5px;
+  }
 
-  
   .mat-mdc-form-field {
     margin-top: 16px;
   }

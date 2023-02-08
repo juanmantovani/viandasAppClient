@@ -2,13 +2,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
 import { Category } from 'src/app/shared/models/Category';
-import { MenuViewer } from 'src/app/shared/models/MenuViewer';
-import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
-import { MenuService } from 'src/app/shared/services/menu.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -30,6 +26,7 @@ export class InicioComponent implements OnInit {
   category : Category;
   categories : Category[] = [];
   listUrlImage : string[] = [];
+  panelOpenState = false;
 
 
   constructor(config: NgbCarouselConfig, 

@@ -1,11 +1,12 @@
 
 
 <div class="container-fluid">
+  <h1 class="title-component">Mis ordenes</h1>
 
   <div class="d-flex flex-wrap">
     
     <mat-card class="orders-card" *ngFor="let order of ordersViewer" [ngClass]="{'isActive': (orderDetails.id === order.id)}">
-      <mat-card-subtitle>Orden Nº {{order.id}} realizada el: {{order.date | date:'dd/MM/YYYY'}}</mat-card-subtitle>
+      <mat-card-subtitle>Transacción #{{order.id}} realizada el: {{order.date | date:'dd/MM/YYYY'}}</mat-card-subtitle>
       <mat-card-title>Menu del {{order.dateStart | date:'dd/MM/YYYY'}} al {{order.dateEnd | date:'dd/MM/YYYY'}}</mat-card-title>
       <div> TOTAL ${{order.total}} </div>
       <mat-card-content  *ngIf="orderDetails?.id === order.id">

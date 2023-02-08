@@ -55,6 +55,7 @@ export class InicioOrderComponent implements OnInit {
   disableBackButton: boolean = true;
   finishButton: boolean;
   personalizeOrder: boolean;
+  cant: number;
 
   daysOfMonth : Date [];
   menu : Menu;
@@ -127,6 +128,16 @@ export class InicioOrderComponent implements OnInit {
     })
   }
 
+  onSetCant(cant : number) {
+    this.cant = cant;
+  }
+
+  async onViewDetailsPersonalize(event: boolean){
+    await this.menuService.getMenuViewer().subscribe((res: GetMenuResponse) => {
+      this.showDetailsCategory(new MenuViewer(res.menuViewer))
+    })
+  }
+
   showDetailsCategory(menuViewer: MenuViewer) {
     const dialogConfig = Utils.matDialogConfigMenu();
     dialogConfig.data = menuViewer;
@@ -154,7 +165,7 @@ export class InicioOrderComponent implements OnInit {
         const dayOrder : DayOrder = {
           id: 0,
           address: new Address (this.selectedAdress),
-          cant: this.personalizeOrder ? 0 : 1,
+          cant: this.personalizeOrder ? 0 : this.cant,
           dayFood: new DayFood(dayFood),
           observation: ""
         }

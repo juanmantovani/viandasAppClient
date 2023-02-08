@@ -32,7 +32,7 @@ export const API_ROUTES = {
         ADDMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/uploadMenu`,
         EDITMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/editMenu`,
         GETDAYMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getDayMenu`,
-        GETMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenu`,
+        GETMENUVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getMenuViewer`,
         VALIDATEDATEMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/validateDateMenu`,
         GETALLMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/getAllMenu`,
         DELETEMENU: `${ENV.urlApi}/${INTERNAL_ROUTES.MENU}/deleteMenu`,

@@ -1,0 +1,9 @@
+
+@media (max-width: 600px) {
+    mat-dialog-content{
+        padding-left: 5px;
+        padding-right: 5px;
+    
+    }
+  
+  }

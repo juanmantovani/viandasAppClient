@@ -13,7 +13,8 @@
               Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+              <button ngbDropdownItem [routerLink]="[PROFILE]"><mat-icon>person</mat-icon> Mi perfil</button>
+              <button ngbDropdownItem (click)="logout()"><mat-icon>exit_to_app</mat-icon> Cerrar sesión</button>
             </div>
           </div>
         </div>
@@ -24,22 +25,23 @@
     <mat-sidenav [(opened)]="opened" mode="over">
        
        <mat-list>
-        <mat-list-item [ngClass]="{'active': status === 'Mi perfil'}" class="nav-link" [routerLink]="[PROFILE]" (click)="status='Mi perfil'; opened = !opened">
+        <!-- <mat-list-item class="nav-link" [routerLink]="[PROFILE]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>account_box</mat-icon> <div class="item">Mi perfil</div>
-        </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === 'Mis direcciones'}" class="nav-link" [routerLink]="[ADDRESSES]" (click)="status='Mis direcciones'; opened = !opened">
+        </mat-list-item> -->
+            <div class="logo" align="center">
+                <img [routerLink]="[INICIO]" src="../../../../assets/integral_sin.png" height="70" alt="Inicio" loading="lazy"/>
+            </div>
+        <mat-list-item class="nav-link" [routerLink]="[ADDRESSES]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>place</mat-icon> <div class="item">Mis direcciones</div>
         </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === 'Pedir'}" class="nav-link" [routerLink]="[ORDER]" (click)="status='Pedir'; opened = !opened">
+        <mat-list-item class="nav-link" [routerLink]="[ORDER]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>assignment</mat-icon> <div class="item">Pedir</div>
         </mat-list-item>
-        <mat-list-item [ngClass]="{'active': status === 'Mis ordenes'}" class="nav-link" [routerLink]="[ORDERS]" (click)="status='Mis ordenes'; opened = !opened">
+        <mat-list-item class="nav-link" [routerLink]="[ORDERS]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>list_alt</mat-icon> <div class="item">Mis ordenes</div>
         </mat-list-item>
         
-        <mat-list-item>
 
-        </mat-list-item>
 
        </mat-list>
        
