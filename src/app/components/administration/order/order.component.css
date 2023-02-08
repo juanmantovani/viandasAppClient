@@ -39,10 +39,31 @@ table{
     margin-top: 10px;
 }
 
+.totales{
+  margin-bottom: 20px;
+}
+
 .total{
   margin: 10px;
   display: flex;
 }
 .total-item{
   width: 100px;
+}
+
+.title-component{
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-azul{ 
+  margin-left: 10px;
+}
+
+th h4{
+  margin-bottom: 0px;
+}
+
+tr.mat-header-row{
+  height: 40px;
 }
