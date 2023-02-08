@@ -1,4 +1,18 @@
 <div class="container-fluid">
+    <h1 class="title-component">Administrar Ordenes</h1>
+
+    <span>Buscar por día: </span>
+    <mat-form-field appearance="fill">
+        <mat-label>Fecha</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
+      [disabled]="date == null">
+        <mat-icon>check</mat-icon> Ok
+      </button>
+
     <div *ngFor="let tandaTable of listTandaTable">
         <div *ngIf="tandaTable.categoryTable">
 
@@ -80,7 +94,7 @@
 
     <div *ngIf="listCategoryTable">
 
-        <table mat-table class="mat-elevation-z8">
+        <table mat-table class="mat-elevation-z8 totales">
 
             <colgroup>
                 <col style="width:'5%'" />

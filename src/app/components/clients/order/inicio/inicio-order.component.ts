@@ -55,7 +55,7 @@ export class InicioOrderComponent implements OnInit {
   disableBackButton: boolean = true;
   finishButton: boolean;
   personalizeOrder: boolean;
-  cant: number;
+  cant: number = 1;
 
   daysOfMonth : Date [];
   menu : Menu;
@@ -67,7 +67,6 @@ export class InicioOrderComponent implements OnInit {
 
   orderInProgress : boolean = true;
   orderSuccess : boolean;
-
 
   constructor(
     private _formBuilder: FormBuilder, 

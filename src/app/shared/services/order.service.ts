@@ -45,7 +45,6 @@ export class OrderService {
   getOrders(request : GetOrdersRequest): Observable<GetOrdersResponse>{
     return this.http.post<GetOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETORDERS, JSON.stringify(request), this.OPTION).pipe(
       map((res: any) => {
-        console.log(res.getOrdersResponse)
         return new GetOrdersResponse(res.getOrdersResponse);
       })
     )
