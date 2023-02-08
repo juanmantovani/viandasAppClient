@@ -1,3 +1,5 @@
+<h1 class="title-component">Realizar una orden</h1>
+
  <div *ngIf="orderInProgress">
   <mat-stepper  linear #stepper
     class="stepper"
@@ -6,7 +8,10 @@
       <app-order-categories *ngIf="categories"
         [categories]="categories"
         (selectCategory)="selectCategory($event)"
-        (viewDetailsCategory)="onViewDetailsCategory($event)">
+        (selectPersonalize)="selectPersonalize($event)"
+        (viewDetailsPersonalize)="onViewDetailsPersonalize($event)"
+        (viewDetailsCategory)="onViewDetailsCategory($event)"
+        (cantEmit)="onSetCant($event)">
         </app-order-categories>
     </mat-step>
     <mat-step label="Cantidad y observaciones">

@@ -65,7 +65,6 @@ export class ClientService {
     
     return this.http.post<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYTANDA, JSON.stringify(request), this.OPTIONS).pipe(
       map((res:any) => {
-        console.log("lo que manda el raulo",res)
         return new GetClientResponse(res);
       })
     )

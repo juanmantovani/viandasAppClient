@@ -13,6 +13,10 @@ mat-toolbar{
     background-color: #00a6b5b4;
 }
 
+mat-icon {
+    vertical-align: middle;
+  }
+
 .nav-link:hover  {
     background-color: rgba(0,0,0,.04);
     color: #333;
@@ -51,6 +55,10 @@ mat-toolbar{
 
 .item {
     margin-left: 10px;
+}
+
+.logo {
+    cursor: pointer;
 }
 
 

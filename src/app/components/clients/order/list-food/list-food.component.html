@@ -4,7 +4,7 @@
       <mat-card-subtitle>{{ getDay(dayOrder.dayFood.date)}} - {{ dayOrder.dayFood.date | date: 'dd/MM' }} ({{ dayOrder.dayFood.category.title }})</mat-card-subtitle>
       <mat-card-title><h4><span *ngIf="editAddress"> {{ dayOrder.cant }} X</span> {{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
       <mat-card-subtitle class="descriptionSubtitle">{{ dayOrder.dayFood.food.description }}</mat-card-subtitle>
-      <mat-card-title *ngIf="!editAddress"><h4>${{ dayOrder.dayFood.category.price }}</h4></mat-card-title>
+      <!-- <mat-card-title *ngIf="!editAddress"><h4>${{ dayOrder.dayFood.category.price }}</h4></mat-card-title> -->
 
         <img *ngIf="dayOrder.dayFood.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.dayFood.food.urlImage}}" class="foodCardImg">
         <img *ngIf="!dayOrder.dayFood.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCardImg">

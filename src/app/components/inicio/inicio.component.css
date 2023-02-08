@@ -12,28 +12,115 @@
     background: rgba(170, 170, 170, 0.1);
   }
 
+  .gray-steps {
+    background: #2c2c2c;
+    color: #ffffff;
+    padding-bottom: 20px;
+  }
+
+  .green-about {
+    background: rgba(47, 142, 47, 0.48);
+    color: #2c2c2c;
+    padding-bottom: 20px;
+  }
+
   app-categories-cards {
     margin: 10px;
   }
 
-  .title {
+  .title, .title-step {
     padding-top: 20px;
   }
-  .title h1{
+
+  .title-step, .title-about {
+    width: fit-content;
+    padding-bottom: 10px;
+  }
+
+  .title-step h1{
+    border-bottom: 2px solid rgba(207, 166, 113, 0.5);
+  }
+
+  .title-about h1{
+    border-bottom: 2px solid #000;
+  }
+
+  .title-map h1{
+    padding-top: 20px;
+  }
+
+  .title h1, .title-step h1{
     margin-bottom: 0px;
   }
 
+  .steps{
+    width: 85%;
+  }
+
+  .step{
+    text-align: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .step h2{
+    margin-bottom: 5px;
+  }
+
+  .step mat-icon{
+    color: rgb(64, 130, 64);
+    height: 55px;
+    width: 55px;
+    font-size: 40px;
+    border-radius: 50px;
+    border: 2px solid rgb(64, 130, 64);
+    padding: 5px;
+    
+  }
+
+  .step-description{
+    width: 70%;
+    font-size: larger;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+   .map{
+    margin-bottom: 20px;
+
+  } 
+  .map-responsive{
+    height: 450px;
+    width: 100%;
+  }
+
+  .questions {
+    padding-bottom: 20px;
+    width: 60%;
+  }
 
   @media (max-width: 600px) {
     .responsive {
       width: 100%;
       height: auto;
-      max-height: 200px;
+      /* max-height: 200px; */
       
     }
     
     .top {
       margin-top: -5px;
+    }
+
+    .step-description{
+      width: 100%;
+    }
+
+    .steps{
+      width: 95%;
+    }
+
+    .questions {
+      width: 95%;
     }
   }
 
