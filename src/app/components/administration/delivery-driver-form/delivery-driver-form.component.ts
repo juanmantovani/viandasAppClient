@@ -23,6 +23,8 @@ export class DeliveryDriverFormComponent implements OnInit {
   form: FormGroup;
   URLAPI = environment.urlApi;
   messageError = "";
+  date: Date = new Date();
+
 
   @Output() onSubmit: EventEmitter<DeliveryDriver | null>;
 
@@ -44,13 +46,13 @@ export class DeliveryDriverFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.deliveryDriver?.id),
-      dni: new FormControl(this.data.deliveryDriver?.dni, Validators.required),
-      name: new FormControl(this.data.deliveryDriver?.name, Validators.required),
-      lastName: new FormControl(this.data.deliveryDriver?.lastName, Validators.required),
-      phone: new FormControl(this.data.deliveryDriver?.phone, Validators.required),
-      bornDate: new FormControl(this.data.deliveryDriver?.bornDate, Validators.required),
+      dni: new FormControl(this.data.deliveryDriver?.dni, this.requiredValidator),
+      name: new FormControl(this.data.deliveryDriver?.name, this.requiredValidator),
+      lastName: new FormControl(this.data.deliveryDriver?.lastName, this.requiredValidator),
+      phone: new FormControl(this.data.deliveryDriver?.phone, this.requiredValidator),
+      bornDate: new FormControl(this.data.deliveryDriver?.bornDate, [this.requiredValidator, this.dateValidator]),
       idAddress: new FormControl(this.data.deliveryDriver.address?.id),
-      street: new FormControl(this.data.deliveryDriver.address?.street),
+      street: new FormControl(this.data.deliveryDriver.address?.street, this.requiredValidator),
       number: new FormControl(this.data.deliveryDriver.address?.number),
       floor: new FormControl(this.data.deliveryDriver.address?.floor),
       departament: new FormControl(this.data.deliveryDriver?.address?.departament),
@@ -61,6 +63,24 @@ export class DeliveryDriverFormComponent implements OnInit {
       patent: new FormControl(this.data.deliveryDriver.vehicle?.patent),
       year: new FormControl(this.data.deliveryDriver.vehicle?.year),
     });
+  }
+
+  dateValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && (new Date() < new Date(value)))
+      return {
+        mensaje: "Debe ingresar una fecha válida"
+      }
+    return null;
+
+  }
+
+  requiredValidator(formControl: any) {
+    const value = formControl.value;
+    if (Validators.required(formControl))
+      return { mensaje: "Este campo es requerido" };
+    return null;
+
   }
 
   onClickCancel() {
