@@ -20,6 +20,7 @@ export class OrderComponent implements OnInit {
   displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation'];
   listTandaTable: TandaTable[];
   listCategoryTable: CategoryTable[];
+  date: Date;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -30,12 +31,20 @@ export class OrderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getOrders();
+    this.date = new Date();
+    this.getOrders(this.date);
   }
 
-  async getOrders() {
+  onClickOk(){
+    this.listTandaTable = [];
+    this.listCategoryTable = [];
+    this.displayedColumns = ['idOrder', 'client', 'address', 'observation'];
+    this.getOrders(this.date) 
+  }
+
+  async getOrders(date : Date) {
     const request: GetOrdersRequest = {
-      date: new Date()
+      date: date
     }
     await this.orderService.getOrders(request).subscribe((res: GetOrdersResponse) => {
       this.listTandaTable = res.tandaTable;
