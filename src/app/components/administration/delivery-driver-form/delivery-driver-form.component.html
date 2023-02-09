@@ -11,7 +11,7 @@
                         <mat-label>Nombre</mat-label>
                         <input type="text" matInput formControlName="name" name="name" id="name" #name
                             placeholder="Ingrese un nombre" required />
-                        <mat-hint *ngIf="form!.controls['name']!.touched && form!.controls['name']!.invalid"
+                        <mat-hint *ngIf="form!.controls['name']!.touched && form!.controls['name']!.errors?.mensaje"
                             class="error-input">
                             Este campo es requerido</mat-hint>
                     </mat-form-field>
@@ -21,7 +21,7 @@
                         <mat-label>Apellido</mat-label>
                         <input type="text" matInput formControlName="lastName" name="lastName" id="lastName" #lastName
                             placeholder="Ingrese un apellido" required />
-                        <mat-hint *ngIf="form!.controls['lastName']!.touched && form!.controls['lastName']!.invalid"
+                        <mat-hint *ngIf="form!.controls['lastName']!.touched && form!.controls['lastName']!.errors?.mensaje"
                             class="error-input">
                             Este campo es requerido</mat-hint>
                     </mat-form-field>
@@ -31,13 +31,12 @@
 
         <mat-form-field appearance="fill" class="date">
             <mat-label>Fecha de nacimiento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="bornDate">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.invalid"
+            <input matInput  type="date" formControlName="bornDate" [ngModel] ="data.deliveryDriver?.bornDate | date:'yyyy-MM-dd'" max="{{date | date:'yyyy-MM-dd'}}">
+            <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.errors?.mensaje"
                 class="error-input">
-                Este campo es requerido</mat-hint>
+                {{form!.controls['bornDate']!.errors?.mensaje}}</mat-hint>
         </mat-form-field>
+
 
         <table class="tabla">
             <tr>
@@ -46,7 +45,7 @@
                         <mat-label>DNI</mat-label>
                         <input type="number" matInput formControlName="dni" name="dni" id="dni" #dni
                             placeholder="Ingrese DNI" required />
-                        <mat-hint *ngIf="form!.controls['dni']!.touched && form!.controls['dni']!.invalid"
+                        <mat-hint *ngIf="form!.controls['dni']!.touched && form!.controls['dni']!.errors?.mensaje"
                             class="error-input">
                             Este campo es requerido</mat-hint>
                         <mat-hint *ngIf="messageError != null" class="error-input">{{messageError}}</mat-hint>
@@ -57,7 +56,7 @@
                         <mat-label>Teléfono</mat-label>
                         <input type="text" matInput formControlName="phone" name="phone" id="phone" #phone
                             placeholder="Teléfono" required />
-                        <mat-hint *ngIf="form!.controls['phone']!.touched && form!.controls['phone']!.invalid"
+                        <mat-hint *ngIf="form!.controls['phone']!.touched && form!.controls['phone']!.errors?.mensaje"
                             class="error-input">
                             Este campo es requerido</mat-hint>
                     </mat-form-field>
@@ -65,12 +64,13 @@
             </tr>
         </table>
 
+        <h5 ><span>Dirección</span></h5>
 
         <mat-form-field appearance="fill" #street class="street">
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
                 required />
-            <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
+            <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.errors?.mensaje"
                 class="error-input">
                 Este campo es requerido</mat-hint>
         </mat-form-field>
@@ -105,8 +105,9 @@
                 rows="2"></textarea>
         </mat-form-field>
 
+        <h5 ><span>Datos del vehículo</span></h5>
+
         <table>
-            <label>Datos del vehículo</label>
             <tr>
                 <td>
                     <mat-form-field appearance="fill" #brand>
