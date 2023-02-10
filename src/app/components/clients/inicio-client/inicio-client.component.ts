@@ -59,6 +59,7 @@ export class InicioClientComponent implements OnInit {
     dialogConfig.data = dataForm;
     dialogConfig.maxWidth = '95%';
     dialogConfig.maxHeight = '90%';
+    dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 

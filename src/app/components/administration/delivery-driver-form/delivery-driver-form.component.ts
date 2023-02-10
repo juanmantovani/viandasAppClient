@@ -110,7 +110,9 @@ export class DeliveryDriverFormComponent implements OnInit {
     this.result.name = data["name"];
     this.result.lastName = data["lastName"];
     this.result.phone = data["phone"];
-    this.result.bornDate = data["bornDate"];
+    const date = new Date(data["bornDate"]);
+    date.setDate(date.getDate() + 1);
+    this.result.bornDate = date;
     this.result.address.id = data["idAddress"];
     this.result.address.street = data["street"];
     this.result.address.number = data["number"];

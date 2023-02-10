@@ -23,17 +23,16 @@
       </div>
     </ng-template>
   </ngb-carousel>
-  
+
   <div class="container" id="menu">
     <div class="row gray">
       <div class="m-0 justify-content-center align-items-center title">
         <h1 class="col-auto text-center">Nuestros variedades disponibles</h1>
       </div>
-        <div class="col-md" *ngFor="let category of categories">
-          <app-categories-cards [category]="category"
-          (onCategory)="showMenuByCategory($event)">
-          </app-categories-cards>
-        </div>
+      <div class="col-md" *ngFor="let category of categories">
+        <app-categories-cards [category]="category" (onCategory)="showMenuByCategory($event)">
+        </app-categories-cards>
+      </div>
     </div>
   </div>
 
@@ -50,20 +49,20 @@
           <h2>Elegí tu menú</h2>
           <div align="center">
             <p class="step-description">
-              Seleccioná el menú que desees tildando la casilla correpsondiente. 
-              Si querés elegir platos que pertenecen a distintos menú, podés 
+              Seleccioná el menú que desees tildando la casilla correpsondiente.
+              Si querés elegir platos que pertenecen a distintos menú, podés
               elegir el menu personalizado.
             </p>
           </div>
         </div>
-      </div>  
+      </div>
       <div class="col-md-4 col-sm-12">
         <div class="step">
           <mat-icon> add_comment</mat-icon>
           <h2>Seleccioná las cantidades</h2>
           <div align="center">
             <p class="step-description">
-              Repasá los platos que componen al menú seleccionado, cargá 
+              Repasá los platos que componen al menú seleccionado, cargá
               las cantidades deseadas para cada uno de ellos y agregá las
               observaciones que te gustaría hacer sobre los mismos.
             </p>
@@ -90,108 +89,109 @@
       <div class="m-0 justify-content-center align-items-center title-map">
         <h1 class="col-auto text-center">Zonas y costos de envío</h1>
       </div>
-        <div class="col-md">
-          <div class="step">
-            <mat-icon>location_on</mat-icon>
-            <h2>Paraná</h2>
-            <div align="center">
-              <p class="step-description">
-                A continuación, verificá nuestras zonas de envíos en Paraná - Entre Ríos y los costos de los mismos
-              </p>
-              <p>> Zona 1: $250</p>
-              <p>> Zona 2: $300</p>
-              <p>> Zona 3: $350</p>
-            </div>
-
+      <div class="col-md">
+        <div class="step">
+          <mat-icon>location_on</mat-icon>
+          <h2>Paraná</h2>
+          <div align="center">
+            <p class="step-description">
+              A continuación, verificá nuestras zonas de envíos en Paraná - Entre Ríos y los costos de los mismos
+            </p>
+            <p>> Zona 1: $250</p>
+            <p>> Zona 2: $300</p>
+            <p>> Zona 3: $350</p>
           </div>
+
         </div>
-        <div class="col-md map">
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54285.631851838494!2d-60.54998246895897!3d-31.747240722015007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b44df2b9835231%3A0x554ebde0aa5cfa9a!2zUGFyYW7DoSwgRW50cmUgUsOtb3M!5e0!3m2!1ses!2sar!4v1675437128765!5m2!1ses!2sar" class="map-responsive" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>      
-        </div>
+      </div>
+      <div class="col-md map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d54285.631851838494!2d-60.54998246895897!3d-31.747240722015007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95b44df2b9835231%3A0x554ebde0aa5cfa9a!2zUGFyYW7DoSwgRW50cmUgUsOtb3M!5e0!3m2!1ses!2sar!4v1675437128765!5m2!1ses!2sar"
+          class="map-responsive" style="border:0;" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </div>
   </div>
-  
+
   <div class="green-about responsive" align="center" id="about">
-      <div class="container">
-        <div class="m-0 justify-content-center align-items-center title-about title">
-          <h1 class="col-auto text-center">Acerca de nosotros</h1>
-        </div>
-        <div class="row">
+    <div class="container">
+      <div class="m-0 justify-content-center align-items-center title-about title">
+        <h1 class="col-auto text-center">Acerca de nosotros</h1>
+      </div>
+      <div class="row">
         <div class="col-md-12 col-sm-11">
-          <p class="step-description">Nuestras viandas son pensadas y elaboradas por Licenciadas en Nutrición, por lo tanto los menús son completos, variados, saludables y sabrosos 
-          Tenemos en claro que se puede comer de manera saludable sin renunciar al placer de un plato sabroso.
-          Ofrecemos diferentes tipos de menús: General- Liviano/Fitness/Light -Veggie (Vegetariano) y adecuados a Patologías (Diabetes, Hipertensión, Patologías Intestinales, entre otras).
-          Sí estas buscando una vianda diferente, no dudes en comunicarte con nosotras 
-          Podes retirarla o la envíamos domicilio
-          Si queres comer de manera más saludable, comida casera y sabrosa, no dudes en llamarnos.</p>
+          <p class="step-description">Nuestras viandas son pensadas y elaboradas por Licenciadas en Nutrición, por lo
+            tanto los menús son completos, variados, saludables y sabrosos
+            Tenemos en claro que se puede comer de manera saludable sin renunciar al placer de un plato sabroso.
+            Ofrecemos diferentes tipos de menús: General- Liviano/Fitness/Light -Veggie (Vegetariano) y adecuados a
+            Patologías (Diabetes, Hipertensión, Patologías Intestinales, entre otras).
+            Sí estas buscando una vianda diferente, no dudes en comunicarte con nosotras
+            Podes retirarla o la envíamos domicilio
+            Si queres comer de manera más saludable, comida casera y sabrosa, no dudes en llamarnos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="quest">
+    <div class="gray">
+      <div class="m-0 justify-content-center align-items-center title-map">
+        <h1 class="col-auto text-center">Preguntas frecuentes</h1>
+      </div>
+      <div class="questions container">
+        <div>
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  ¿Cómo puedo abonar?
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>Podrá abonar las viandas a través de...</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  ¿Emiten factura A?
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>En el caso que desee facura, podrá solicitarla a través de</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  ¿Ofrecen menú sin TAC?
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>En el caso que desee facura, podrá solicitarla a través de</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  ¿Qué hago si no me gusta o no tolero algún ingrediente?
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>En el caso que desee facura, podrá solicitarla a través de</p>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  ¿Ofrecen menú adaptado a patologías?
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <p>En el caso que desee facura, podrá solicitarla a través de</p>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container" id="quest">
-  <div class="gray">
-    <div class="m-0 justify-content-center align-items-center title-map">
-      <h1 class="col-auto text-center">Preguntas frecuentes</h1>
-    </div>
-    <div class="questions container">
-      <div>
-        <mat-accordion>
-          <mat-expansion-panel (opened)="panelOpenState = true"
-                               (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                ¿Cómo puedo abonar?
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>Podrá abonar las viandas a través de...</p>
-          </mat-expansion-panel>
-          
-          <mat-expansion-panel (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-              ¿Emiten factura A?
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>En el caso que desee facura, podrá solicitarla a través de</p>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-              ¿Ofrecen menú sin TAC?
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>En el caso que desee facura, podrá solicitarla a través de</p>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-              ¿Qué hago si no me gusta o no tolero algún ingrediente?
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>En el caso que desee facura, podrá solicitarla a través de</p>
-          </mat-expansion-panel>
-
-          <mat-expansion-panel (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-              ¿Ofrecen menú adaptado a patologías?
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <p>En el caso que desee facura, podrá solicitarla a través de</p>
-          </mat-expansion-panel>
-        </mat-accordion>  
-      </div>
-  </div>
-</div>
-</div>
 
 <div *ngIf="viewMenuByCategory">
   <app-menu-by-category [category]="category">

@@ -21,8 +21,9 @@
                 <colgroup>
                     <col style="width:'5%'" />
                     <col style="width:'20%'" />
-                    <col style="width:'25%'" />
-                    <col style="width:'30%'" />
+                    <col style="width:'20%'" />
+                    <col style="width:'20%'" />
+                    <col style="width:'15%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
@@ -64,9 +65,16 @@
                 <ng-container matColumnDef="observation">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
                     <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.observation}}
-                        <span *ngIf="element.observation != ''">, {{element.observation}}</span>
+                        <span *ngIf="element.observation != ''">{{element.observation}}</span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pathologies">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"><span *ngFor="let pat of element.client.pathologies">
+                        {{pat.description}}  </span> </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
                 </ng-container>
 
                 <ng-container *ngFor="let categoryTable of listCategoryTable"
@@ -99,8 +107,9 @@
             <colgroup>
                 <col style="width:'5%'" />
                 <col style="width:'20%'" />
-                <col style="width:'25%'" />
-                <col style="width:'30%'" />
+                <col style="width:'20%'" />
+                <col style="width:'20%'" />
+                <col style="width:'15%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
@@ -135,6 +144,11 @@
             <ng-container matColumnDef="observation">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
 
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="pathologies">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
