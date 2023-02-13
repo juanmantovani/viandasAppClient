@@ -38,7 +38,7 @@ export class OrderComponent implements OnInit {
   onClickOk(){
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.displayedColumns = ['idOrder', 'client', 'address', 'observation'];
+    this.displayedColumns = ['idOrder', 'client', 'address', 'observation','pathologies'];
     this.getOrders(this.date) 
   }
 
