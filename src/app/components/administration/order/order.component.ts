@@ -45,9 +45,10 @@ export class OrderComponent implements OnInit {
   }
 
   addColumToTable() {
-    this.listCategoryTable.forEach(c => {
-      this.displayedColumns.push(c.category.title.toLowerCase())
-    })
+    if (this.listCategoryTable)
+      this.listCategoryTable.forEach(c => {
+        this.displayedColumns.push(c.category.title.toLowerCase())
+      })
   }
 
   getTotal(idCategory: number, tandaTable: TandaTable) {

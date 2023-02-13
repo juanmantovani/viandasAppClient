@@ -19,7 +19,6 @@
                     <col style="width:'5%'" />
                 </colgroup>
 
-
                 <ng-container matColumnDef="idOrder">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Orden </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
@@ -28,9 +27,9 @@
                 </ng-container>
                 <ng-container matColumnDef="client">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cliente </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}} {{element.client.lastName}} </td>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}}
+                        {{element.client.lastName}} </td>
                     <td mat-footer-cell *matFooterCellDef> </td>
-
                 </ng-container>
 
                 <ng-container matColumnDef="address">
@@ -39,51 +38,29 @@
                         {{element.address.number}}
                         {{element.address.floor}} {{element.address.departament}}</td>
                     <td mat-footer-cell *matFooterCellDef> </td>
-
                 </ng-container>
 
                 <ng-container matColumnDef="observation">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.observation}} </td>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.observation}}
+                        <span *ngIf="element.observation != ''">, {{element.observation}}</span>
+                    </td>
                     <td mat-footer-cell *matFooterCellDef> </td>
-
                 </ng-container>
 
-                <ng-container matColumnDef="proteico">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Proteico </th>
+                <ng-container *ngFor="let categoryTable of listCategoryTable"
+                    matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
+                    </th>
                     <td mat-cell *matCellDef="let element" style="text-align: center;"><span
-                            *ngFor="let categoryTable of element.categoryTable"><span
-                                *ngIf="categoryTable.category.id == 2 ">{{categoryTable.cant}}</span></span> </td>
-                    <td mat-footer-cell *matFooterCellDef style="text-align: center;"><strong>{{getTotal(2,tandaTable)}}</strong></td>
-
+                            *ngFor="let catTable of element.categoryTable"><span
+                                *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span></span>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef style="text-align: center;">
+                        <strong>{{getTotal(categoryTable.category.id,tandaTable)}}</strong>
+                    </td>
                 </ng-container>
-
-                <ng-container matColumnDef="general">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> General </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"><span
-                            *ngFor="let categoryTable of element.categoryTable"><span
-                                *ngIf="categoryTable.category.id == 3 ">{{categoryTable.cant}}</span></span> </td>
-                    <td mat-footer-cell *matFooterCellDef style="text-align: center;"><strong>{{getTotal(3,tandaTable)}}</strong></td>
-
-                </ng-container>
-
-                <ng-container matColumnDef="liviano">
-                    <th mat-header-cell *matHeaderCellDef> Liviano </th>
-                    <td mat-cell *matCellDef="let element"><span
-                            *ngFor="let categoryTable of element.categoryTable"><span
-                                *ngIf="categoryTable.category.id == 4 ">{{categoryTable.cant}}</span></span> </td>
-                    <td mat-footer-cell *matFooterCellDef><strong>{{getTotal(4,tandaTable)}}</strong></td>
-
-                </ng-container>
-
-                <ng-container matColumnDef="veggie">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Veggie </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"><span
-                            *ngFor="let categoryTable of element.categoryTable"><span
-                                *ngIf="categoryTable.category.id == 1 ">{{categoryTable.cant}}</span></span> </td>
-                    <td mat-footer-cell *matFooterCellDef style="text-align: center;"><strong>{{getTotal(1,tandaTable)}}</strong> </td>
-
-                </ng-container>
+                
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>

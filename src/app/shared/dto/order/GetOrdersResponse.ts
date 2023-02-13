@@ -9,6 +9,7 @@ export class GetOrdersResponse extends BaseResponse {
     constructor(data: any) {
         super(data);
         if (data) {
+            if(data.tandaTable)
             this.tandaTable = data.tandaTable.map((t: TandaTable) => new TandaTable(t));
             if(data.categoryTable)
             this.categoryTable = data.categoryTable.map((c: CategoryTable) => new CategoryTable(c));
