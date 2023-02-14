@@ -22,7 +22,7 @@ import { PathologyFormComponent } from '../pathology-form/pathology-form.compone
   styleUrls: ['./pathology.component.css']
 })
 export class PathologyComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'description', 'actions'];
+  displayedColumns: string[] = ['id', 'description', 'color', 'actions'];
   actionForm: string;
   dataSource: any;
 

@@ -7,11 +7,11 @@
         <input matInput [matDatepicker]="picker" [(ngModel)]="date">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
-      [disabled]="date == null">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="onClickOk()" type="submit" class="btn-primary btn-azul"
+        [disabled]="date == null">
         <mat-icon>check</mat-icon> Ok
-      </button>
+    </button>
 
     <div *ngFor="let tandaTable of listTandaTable">
         <div *ngIf="tandaTable.categoryTable">
@@ -21,8 +21,9 @@
                 <colgroup>
                     <col style="width:'5%'" />
                     <col style="width:'20%'" />
-                    <col style="width:'25%'" />
-                    <col style="width:'30%'" />
+                    <col style="width:'20%'" />
+                    <col style="width:'20%'" />
+                    <col style="width:'15%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
@@ -64,7 +65,17 @@
                 <ng-container matColumnDef="observation">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
                     <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.observation}}
-                        <span *ngIf="element.observation != ''">, {{element.observation}}</span>
+                        <span *ngIf="element.observation != ''">{{element.observation}}</span>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+
+                <ng-container matColumnDef="pathologies">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"><mat-icon
+                            *ngFor="let pat of element.client.pathologies"
+                            [style]="{'color': pat.color}" #tooltip="matTooltip"
+                            [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
                     </td>
                     <td mat-footer-cell *matFooterCellDef> </td>
                 </ng-container>
@@ -99,8 +110,9 @@
             <colgroup>
                 <col style="width:'5%'" />
                 <col style="width:'20%'" />
-                <col style="width:'25%'" />
-                <col style="width:'30%'" />
+                <col style="width:'20%'" />
+                <col style="width:'20%'" />
+                <col style="width:'15%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
@@ -135,6 +147,11 @@
             <ng-container matColumnDef="observation">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
 
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="pathologies">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
