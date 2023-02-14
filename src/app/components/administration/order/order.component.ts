@@ -17,7 +17,7 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation'];
+  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation','pathologies'];
   listTandaTable: TandaTable[];
   listCategoryTable: CategoryTable[];
   date: Date;
@@ -38,7 +38,7 @@ export class OrderComponent implements OnInit {
   onClickOk(){
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.displayedColumns = ['idOrder', 'client', 'address', 'observation'];
+    this.displayedColumns = ['idOrder', 'client', 'address', 'observation','pathologies'];
     this.getOrders(this.date) 
   }
 

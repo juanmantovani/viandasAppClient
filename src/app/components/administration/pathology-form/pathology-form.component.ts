@@ -32,6 +32,7 @@ export class PathologyFormComponent implements OnInit {
     return new FormGroup({
       id: new FormControl(this.data.pathology?.id),
       description: new FormControl(this.data.pathology?.description),
+      color: new FormControl(this.data.pathology?.color)
     });
   }
 
