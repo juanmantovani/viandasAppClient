@@ -13,6 +13,10 @@
         <mat-icon>check</mat-icon> Ok
       </button>
 
+      <div *ngIf="!listTandaTable">
+        <mat-error align="center"><h2>No hay ordenes para mostrar en la fecha indicada</h2></mat-error>
+      </div>
+
     <div *ngFor="let tandaTable of listTandaTable">
         <div *ngIf="tandaTable.categoryTable">
 

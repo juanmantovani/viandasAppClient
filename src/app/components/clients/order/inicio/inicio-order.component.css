@@ -12,6 +12,11 @@
     margin-top: 16px;
   }
 
+  .select-date{
+    height: 350px;
+
+  }
+
   @media (max-width: 600px) {
     .stepper {
       margin-left: -20px;

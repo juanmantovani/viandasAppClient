@@ -4,7 +4,24 @@
   <mat-stepper  linear #stepper
     class="stepper"
     [orientation]="(stepperOrientation | async)!">
-    <mat-step label="Selecciona la opción deseada" [completed]="firstStepCompleted">
+     <mat-step label="Elegí el rango de fecha que vas a pedir" [completed]="firstStepCompleted">
+      <div class="select-date">
+        <mat-form-field appearance="fill">
+          <mat-label>Ingrese el rango de fechas</mat-label>
+          <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minDate">
+            <input matStartDate formControlName="start" placeholder="Desde">
+            <input matEndDate formControlName="end" placeholder="Hasta" (dateChange)="onDateChange($event)">
+          </mat-date-range-input>
+          <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+          <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">Fecha de inicio inválida</mat-error>
+          <mat-error *ngIf="range.controls['end'].hasError('matEndDateInvalid')">Fecha de fin inválida</mat-error>
+        </mat-form-field>
+      </div>
+      
+    </mat-step>
+    <mat-step label="Selecciona la opción deseada">
       <app-order-categories *ngIf="categories"
         [categories]="categories"
         (selectCategory)="selectCategory($event)"
@@ -47,10 +64,11 @@
         <mat-card-title></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <app-success messaggeSuccess="Muchas gracias por su orden"></app-success>
+        <app-success messaggeSuccess="Muchas gracias por su orden" messaggeSuccess2="A continuación, envíe el siguiente mensaje de WhatsApp para coordinar el pago"></app-success>
       </mat-card-content>
+        <span>Mensaje: {{textWhatsApp}}</span>
       <mat-card-actions>
-        <button mat-raised-button class="button" (click)="onClicOrders()">Ver mis ordenes</button>
+        <a href="{{'https://api.whatsapp.com/send?phone=5493434549868&text='+textWhatsApp}}"><button mat-raised-button class="button" >Enviar mensaje de WhatsApp</button></a>
       </mat-card-actions>
     </mat-card> 
   <div>

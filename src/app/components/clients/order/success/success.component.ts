@@ -7,6 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SuccessComponent implements OnInit {
   @Input() messaggeSuccess : string | null;
+  @Input() messaggeSuccess2 : string | null;
+
 
   constructor() { }
 
