@@ -18,6 +18,7 @@ import { GetAllMenuResponse } from '../dto/menu/GetAllMenuResponse';
 import { GetMenuByCategoriesRequest } from '../dto/menu/GetMenuByCategoryRequest';
 import { getMenuByCategoriesResponse } from '../dto/menu/getMenuByCategoriesResponse';
 import { Menu } from '../models/Menu';
+import { GetMenuViewerByRangeOfDateRequest } from '../dto/menu/GetMenuViewerByRangeOfDateRequest';
 
 
 @Injectable({
@@ -29,8 +30,8 @@ export class MenuService {
   OPTION = {headers: {'Content-Type': 'application/json'}};
 
 
-  getMenuViewer(): Observable<GetMenuResponse> {
-    return this.http.get<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUVIEWER).pipe(
+  getMenuViewer(request: GetMenuViewerByRangeOfDateRequest): Observable<GetMenuResponse> {
+    return this.http.post<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUVIEWER, JSON.stringify(request), this.OPTION ).pipe(
     map((res: any) => {
      return new GetMenuResponse(res);
    })

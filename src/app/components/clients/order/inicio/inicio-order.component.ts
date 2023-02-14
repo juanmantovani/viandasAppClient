@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BreakpointObserver} from '@angular/cdk/layout';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from 'rxjs';
@@ -32,6 +32,8 @@ import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import  * as ROUTES  from '../../../../shared/routes/index.routes'
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { GetMenuViewerByRangeOfDateRequest } from 'src/app/shared/dto/menu/GetMenuViewerByRangeOfDateRequest';
+import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 
 
 @Component({
@@ -47,6 +49,10 @@ export class InicioOrderComponent implements OnInit {
   selectedCategories : Category[] = [];
   firstStepCompleted: boolean;
   order : Order;
+  range: FormGroup;
+  minDate : Date;
+  menuViewer : MenuViewer;
+
 
   client : Client;
   selectedAdress: Address;
@@ -61,7 +67,7 @@ export class InicioOrderComponent implements OnInit {
   menu : Menu;
 
   ORDERS: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.ORDERS;
-
+  textWhatsApp: string;
 
   public userProfile: KeycloakProfile | null;
 
@@ -82,12 +88,20 @@ export class InicioOrderComponent implements OnInit {
     private dialogService: DialogService
     ) 
     {
+      this.range = this.generateFormWeeks();
       this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
       this.order = new Order(null);
-      
+      this.minDate = new Date();
       this.order.daysOrder = [];
+    }
+
+    generateFormWeeks(): FormGroup {
+      return new FormGroup({
+        start: new FormControl(null, Validators.required),
+        end: new FormControl(null, Validators.required),
+      });
     }
 
  async ngOnInit() {
@@ -102,17 +116,21 @@ export class InicioOrderComponent implements OnInit {
     })
   }
 
+  onDateChange(event : any){
+    this.disableNextButton = event.target.valid;//ver xq no anda
+    this.firstStepCompleted = true;
+
+  }
+
   async getClientByIdUser(){
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
       this.selectedAdress = new Address(this.client.addresses.find( address => address.favourite));
-
     })
   }
 
   selectCategory(event: Category[]){
     this.selectedCategories = event;
-    this.firstStepCompleted = true;
     this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
@@ -122,9 +140,12 @@ export class InicioOrderComponent implements OnInit {
   }
 
   async onViewDetailsCategory(category: Category){
-    await this.menuService.getMenuViewerByCategory(category.id).subscribe((res: GetMenuResponse) => {
-      this.showDetailsCategory(new MenuViewer(res.menuViewer))
+    var menuViewerByCategory = new MenuViewer(this.menuViewer);
+    menuViewerByCategory.turnsViewer.forEach((turn: TurnViewer, index:number) => {
+      turn.categoryViewer = this.menuViewer.turnsViewer[index].categoryViewer.filter(c => c.category.id == category.id)
     })
+    
+    this.showDetailsCategory(menuViewerByCategory)
   }
 
   onSetCant(cant : number) {
@@ -132,10 +153,20 @@ export class InicioOrderComponent implements OnInit {
   }
 
   async onViewDetailsPersonalize(event: boolean){
-    await this.menuService.getMenuViewer().subscribe((res: GetMenuResponse) => {
-      this.showDetailsCategory(new MenuViewer(res.menuViewer))
-    })
+    this.showDetailsCategory(this.menuViewer)
   }
+
+  async getMenuViewer(){
+    var request : GetMenuByCategoriesRequest = {
+      idCategory: this.categories,
+      dateStart: this.range.getRawValue().start,
+      dateEnd: this.range.getRawValue().end
+    }
+  await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
+   this.menuViewer = new MenuViewer(res.menuViewer)
+  })
+}
+  
 
   showDetailsCategory(menuViewer: MenuViewer) {
     const dialogConfig = Utils.matDialogConfigMenu();
@@ -146,8 +177,13 @@ export class InicioOrderComponent implements OnInit {
   }
 
   async onGetMenu(){
-    let request = new GetMenuByCategoriesRequest(this.selectedCategories);
-    await this.menuService.getMenuByCategories(request).subscribe((res: getMenuByCategoriesResponse) => {
+    var request = {
+      idCategory: this.selectedCategories,
+      dateStart: this.range.getRawValue().start,
+      dateEnd: this.range.getRawValue().end
+    };
+    var getMenuByCategoriesRequest = new GetMenuByCategoriesRequest(request)
+    await this.menuService.getMenuByCategories(getMenuByCategoriesRequest).subscribe((res: getMenuByCategoriesResponse) => {
       this.menu = res.menu;
       this.generateOrder(res.menu)
     })
@@ -220,18 +256,22 @@ export class InicioOrderComponent implements OnInit {
       } else {
         this.orderInProgress = false;
         this.orderSuccess = true;
+        // setTimeout(() => {
+        //   this.router.navigateByUrl(this.WHATSAPPURL)
+        // }, 5000);
       }
     });
     }
+    this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido N ' + this.order.id + ' por el total de $' + this.order.total + ', quisiera coordinar el pago el mismo.';
   }
 
   async generateConfirm(msg: string) {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  onClicOrders() {
-    this.router.navigateByUrl(this.ORDERS);
-  }
+  // onClicSendWhatsApp() {
+  //   this.router.navigateByUrl(this.ORDERS);
+  // }
 
   onViewOrderByDay(){
     this.viewOrderByDay = true;
@@ -243,7 +283,6 @@ export class InicioOrderComponent implements OnInit {
   }
 
   onClickBack(steps : any){
-    this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
     this.disableBackButton = steps <= 1 ? true : false;
     this.finishButton = false;
 
@@ -253,19 +292,25 @@ export class InicioOrderComponent implements OnInit {
   switch(steps) { 
     case 0: { 
       this.disableBackButton = false;
-      this.onGetMenu();
+      this.disableNextButton = true;
+      this.getMenuViewer();
       break; 
     } 
     case 1: { 
       //this.disableBackButton = false;
-      this.onViewOrderByDay()
+      this.onGetMenu();
       break; 
     } 
     case 2: { 
-      this.sendOrder();
+      this.onViewOrderByDay()
       //this.onGenerateOrder();
       break; 
    } 
+    case 3: { 
+      this.sendOrder();
+      //this.onGenerateOrder();
+      break; 
+    } 
     default: { 
        //statements; 
        break; 

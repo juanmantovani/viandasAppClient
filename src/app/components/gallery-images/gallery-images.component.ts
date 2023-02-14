@@ -19,18 +19,18 @@ export class GalleryImagesComponent implements OnInit {
 
   }
 
-
   ngOnInit() {
 
     const galleryRef: GalleryRef = this.gallery.ref(this.galleryId);
-
     this.imagesCategory?.forEach(image => {
       //this.images.push(new ImageItem({src: this.URLAPI+image.urlImage, thumb: this.URLAPI+image.urlImage}));
-      galleryRef.addImage({
-        src: this.URLAPI+image.urlImage,
-        thumb: this.URLAPI+image.urlImage,
-        title: image.title
-      });
+      if (image.urlImage != ''){
+        galleryRef.addImage({
+          src: this.URLAPI+image.urlImage,
+          thumb: this.URLAPI+image.urlImage,
+          title: image.title
+        });
+      }
     })
 
   }
