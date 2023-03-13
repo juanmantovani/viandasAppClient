@@ -1,10 +1,12 @@
-<h1 class="title-component">Realizar una orden</h1>
+<h1 class="title-component">Realizar un pedido</h1>
 
  <div *ngIf="orderInProgress">
   <mat-stepper  linear #stepper
     class="stepper"
     [orientation]="(stepperOrientation | async)!">
-     <mat-step label="Elegí el rango de fecha que vas a pedir" [completed]="firstStepCompleted">
+     <mat-step label="¿En qué fecha vas a pedir?" [completed]="firstStepCompleted">
+      <h4>Para comenzar, elegí el rango de fecha que queres pedir</h4>
+
       <div class="select-date">
         <mat-form-field appearance="fill">
           <mat-label>Ingrese el rango de fechas</mat-label>
@@ -21,7 +23,8 @@
       </div>
       
     </mat-step>
-    <mat-step label="Selecciona la opción deseada">
+    <mat-step label="¿Qué menú vas a elegir?">
+      <h4>A continuación, seleccioná el menú que vas a pedir y la cantidad de viandas para cada día</h4>
       <app-order-categories *ngIf="categories"
         [categories]="categories"
         (selectCategory)="selectCategory($event)"
@@ -31,13 +34,16 @@
         (cantEmit)="onSetCant($event)">
         </app-order-categories>
     </mat-step>
-    <mat-step label="Cantidad y observaciones">
+    <mat-step label="Verifica los platos y las cantidades">
+      <h4>Repasá las viandas propuestas para cada día y personalizá la cantidad que queres</h4>
       <app-list-food *ngIf="order" 
         [order]="order"
         [editAddress]="false">
       </app-list-food>
     </mat-step>
-    <mat-step label="Confirmar el menú">
+    <mat-step label="Dirección de entraga y confirmar el menú">
+      <h4>Por último, elegí la dirección donde querés que entregemos las viandas y confirmá tu pedido</h4>
+
       <app-finish-order *ngIf="viewOrderByDay"
         [order]="order"
         [client]="client"

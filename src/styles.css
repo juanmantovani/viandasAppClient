@@ -2,7 +2,7 @@
 
 html, body, app-root { height: 100%; }
 body { margin: 0; 
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: Roboto;
     background-color: #f9f6f4;
  }
 

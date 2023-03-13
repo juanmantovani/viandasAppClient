@@ -5,7 +5,7 @@
 
   <ngb-carousel class="top" *ngIf="listUrlImage.length > 0">
     <ng-template ngbSlide *ngFor="let img of listUrlImage">
-      <div class="picsum-img-wrapper">
+      <div class="">
         <img src="{{URLAPI}}{{img}}" alt="Random first slide" class="responsive">
       </div>
       <!-- <div class="carousel-caption">
@@ -18,7 +18,7 @@
 
   <ngb-carousel class="top" *ngIf="listUrlImage.length == 0">
     <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
+      <div class="">
         <img src="../../../assets/defaultCarousell.jpg" alt="Random first slide" class="responsive">
       </div>
     </ng-template>
@@ -27,9 +27,9 @@
   <div class="container" id="menu">
     <div class="row gray">
       <div class="m-0 justify-content-center align-items-center title">
-        <h1 class="col-auto text-center">Nuestros variedades disponibles</h1>
+        <h1 class="col-auto text-center">Nuestras variedades disponibles</h1>
       </div>
-      <div class="col-md" *ngFor="let category of categories">
+      <div class="col-md categories-cards" *ngFor="let category of categories">
         <app-categories-cards [category]="category" (onCategory)="showMenuByCategory($event)">
         </app-categories-cards>
       </div>
@@ -40,7 +40,7 @@
 
   <div class="gray-steps responsive" align="center" id="order">
     <div class="m-0 justify-content-center align-items-center title-step">
-      <h1 class="col-auto text-center">Realizá tu pedido en 3 simples pasos</h1>
+      <h1 class="col-auto text-center">Realizá tu pedido en simples pasos</h1>
     </div>
     <div class="row steps">
       <div class="col-md-4 col-sm-12">
@@ -49,7 +49,7 @@
           <h2>Elegí tu menú</h2>
           <div align="center">
             <p class="step-description">
-              Seleccioná el menú que desees tildando la casilla correpsondiente.
+              Seleccioná la fecha y luego el menú que desees tildando la casilla correpsondiente.
               Si querés elegir platos que pertenecen a distintos menú, podés
               elegir el menu personalizado.
             </p>
@@ -62,9 +62,8 @@
           <h2>Seleccioná las cantidades</h2>
           <div align="center">
             <p class="step-description">
-              Repasá los platos que componen al menú seleccionado, cargá
-              las cantidades deseadas para cada uno de ellos y agregá las
-              observaciones que te gustaría hacer sobre los mismos.
+              Repasá los platos que componen el menú seleccionado y cargá
+              las cantidades deseadas para cada uno de ellos.
             </p>
           </div>
         </div>
@@ -75,8 +74,7 @@
           <h2>Indicanos la dirección de entrega</h2>
           <div align="center">
             <p class="step-description">
-              Seleccioná el domicilio donde querés recibir tus viandas (podrás elegir uno diferente para cada día).
-              Agregá alguna observación para que tengamos en cuenta y confirmá tu orden.
+              Seleccioná de tus direcciones, el domicilio donde querés recibir las viandas (podrás elegir uno diferente para cada día). Verificá que este todo OK y confirmá tu orden.
             </p>
           </div>
         </div>

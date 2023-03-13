@@ -8,6 +8,11 @@
 
   }
 
+  .categories-cards{
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
  .gray {
     background: rgba(170, 170, 170, 0.1);
   }

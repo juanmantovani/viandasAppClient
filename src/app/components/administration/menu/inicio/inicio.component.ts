@@ -34,6 +34,7 @@ export class MenuInicioComponent implements OnInit {
   dataSource!: MatTableDataSource<Menu>;
   menuViewer : MenuViewer;
   viewCalendarFood: boolean;
+  showFullCalendar: boolean = true;
 
   eventsMenu: any[] = [];
   eventsFood: any[] = [];
@@ -76,6 +77,7 @@ export class MenuInicioComponent implements OnInit {
       if(this.validDateMenu){
         this.setDaysOfMonth()
         this.viewCategories = true;
+        this.showFullCalendar = false;
       }
     })
   }
@@ -235,6 +237,10 @@ export class MenuInicioComponent implements OnInit {
  async onClickCalendar() {
     await this.completeCalendarFood();
     this.viewCalendarFood = true;
+  }
+
+  onShowFullCalendar(){
+    this.showFullCalendar = !this.showFullCalendar;
   }
 
 

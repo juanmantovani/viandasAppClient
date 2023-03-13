@@ -24,14 +24,16 @@
 
                 <colgroup>
                     <col style="width:'5%'" />
+                    <col style="width:'17%'" />
                     <col style="width:'20%'" />
                     <col style="width:'20%'" />
-                    <col style="width:'20%'" />
-                    <col style="width:'15%'" />
+                    <col style="width:'13%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
+                    <col style="width:'5%'" />
+
                 </colgroup>
 
                 <ng-container matColumnDef="header-row-first-group">
@@ -88,9 +90,10 @@
                     matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
                     </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"><span
-                            *ngFor="let catTable of element.categoryTable"><span
-                                *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span></span>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;">
+                        <span *ngFor="let catTable of element.categoryTable">
+                            <span *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span>
+                        </span>
                     </td>
                     <td mat-footer-cell *matFooterCellDef style="text-align: center;">
                         <strong>{{getSubTotal(categoryTable.category.id,tandaTable)}}</strong>
@@ -113,10 +116,11 @@
 
             <colgroup>
                 <col style="width:'5%'" />
+                <col style="width:'17%'" />
                 <col style="width:'20%'" />
                 <col style="width:'20%'" />
-                <col style="width:'20%'" />
-                <col style="width:'15%'" />
+                <col style="width:'13%'" />
+                <col style="width:'5%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />

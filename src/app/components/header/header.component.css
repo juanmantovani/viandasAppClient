@@ -1,4 +1,7 @@
 
+mat-icon {
+    vertical-align: middle;
+}
 
 .drowdownitem:hover{
     background: #E3AE06;

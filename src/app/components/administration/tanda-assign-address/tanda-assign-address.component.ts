@@ -68,6 +68,7 @@ export class TandaAssignAddressComponent implements OnInit {
     }
     await this.tandaService.assignAddressToTanda(request).subscribe((res: AssignAddressToTandaResponse) => {
       this.listIdAddress = [];
+      this.getAddresses();
       this.assignAddress.emit();
     }
     );

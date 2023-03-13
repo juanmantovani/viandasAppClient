@@ -14,19 +14,18 @@
                 Este campo es requerido</mat-hint>
         </mat-form-field>
 
-        <table align="center">
+        <table align="center" class="tabla">
             <tr>
                 <td>
                     <mat-form-field appearance="fill" #hourStart>
                         <mat-label>Inicio</mat-label>
-                        <input type="time" matInput formControlName="hourStart" name="hourStart" id="hourStart"
-                            #hourStart />
+                        <input type="time" class="hour" matInput formControlName="hourStart" name="hourStart" id="hourStart" #hourStart />
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill" #hourEnd>
                         <mat-label>Fin</mat-label>
-                        <input type="time" matInput formControlName="hourEnd" name="hourEnd" id="hourEnd" #hourEnd />
+                        <input type="time" class="hour" matInput formControlName="hourEnd" name="hourEnd" id="hourEnd" #hourEnd />
                     </mat-form-field>
                 </td>
             </tr>

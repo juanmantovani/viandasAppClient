@@ -23,17 +23,16 @@
 
 .container-week{
     width: 90%;
-    margin-left: 25px;
     margin-top: 25px;
 }
 
 .container-week mat-form-field{
     max-width: 400px;
-    margin: 0 10px 0 10px;
+    margin-right: 10px;
 }
 
 .fullCalendarContainer {
-  width: 600px;
+  width: 550px;
   height: auto;
   box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   padding: 5px;
@@ -44,6 +43,10 @@
 
 .fullCalendarContainer h1 {
   text-align: center;
+}
+
+.button-full-calendar{
+  float: right;
 }
 
 .calendarMenu {

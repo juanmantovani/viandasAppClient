@@ -1,11 +1,10 @@
-<div class="container-fluid">
 <h3>Seleccione las direcciones que desee quitar de la tanda:</h3>
     <div class="div-address">
         <div *ngFor="let client of listClient">
             <mat-card class="card" *ngFor="let address of client.addresses">
                 <mat-card-content>
                     <p>
-                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}} - {{address.street}}
+                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}}  {{client.lastName}} - {{address.street}}
                             {{address.number}} {{address.floor}} {{address.departament}}
                         </mat-checkbox>
                     </p>
@@ -20,4 +19,3 @@
             <mat-icon>save</mat-icon> QUITAR
         </button>
     </div>
-</div>

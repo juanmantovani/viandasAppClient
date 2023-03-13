@@ -1,4 +1,3 @@
-<div class="container-fluid">
 
     <h3>Seleccione las direcciones que desee asignar a la tanda:</h3>
 
@@ -7,7 +6,7 @@
             <mat-card class="card" *ngFor="let address of client.addresses">
                 <mat-card-content>
                     <p>
-                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}} - {{address.street}}
+                        <mat-checkbox (click)="addAddressToList(address)">{{client.name}}  {{client.lastName}} - {{address.street}}
                             {{address.number}} {{address.floor}} {{address.departament}}
                         </mat-checkbox>
                     </p>
@@ -18,8 +17,7 @@
     <hr>
     <div align="center">
         <button mat-raised-button color="primary" (click)="onClickAssign()" class="btn-primary btn-azul"
-            [disabled]="listIdAddress.length == 0">
+            [disabled]="listIdAddress.length == 0 || tanda.id == null">
             <mat-icon>save</mat-icon> ASIGNAR
         </button>
     </div>
-</div>
