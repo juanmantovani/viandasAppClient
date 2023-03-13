@@ -12,6 +12,10 @@ mat-toolbar{
     background-color: #f2d26bc4;
 }
 
+mat-icon {
+    vertical-align: middle;
+  }
+  
 .nav-link:hover  {
 	background: #f2d26be1;
 	color: #575757;
@@ -60,3 +64,16 @@ mat-toolbar{
 
 }
 
+.notification-addressesUnassignabled {
+    background-color: tomato;
+    color: #FFFF;
+    padding: 0 8px;
+    min-height: 20px;
+    font-size: 12px;
+}
+
+mat-chip-list {
+    margin-left: 7px;
+    height: min-content;
+
+}

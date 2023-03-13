@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-<div [formGroup]="form" class="example-form" >
+<div [formGroup]="form" class="form-days" >
   <div formArrayName="days"> 
 
     <div *ngFor="let day of days.controls; let i = index">
@@ -9,7 +9,7 @@
           <mat-form-field appearance="fill">
             <mat-label>{{daysOfMonth[i].day}} {{daysOfMonth[i].date | date:'dd/MM'}}</mat-label>            
             <mat-select formControlName="food" name="food">
-              <mat-option *ngFor="let food of selectedFood" [value]="food">
+              <mat-option *ngFor="let food of selectedFood" [value]="food" class="test">
                 {{food.id}} - {{food.title}}
               </mat-option>
             </mat-select>
@@ -18,12 +18,14 @@
 
         </div>
     </div>
-    <button *ngIf="!lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
-    Siguiente<mat-icon>chevron_right</mat-icon> 
-    </button>
-    <button *ngIf="lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
-      <mat-icon>save</mat-icon> GUARDAR
+    <div align="center">
+      <button *ngIf="!lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+      Siguiente<mat-icon>chevron_right</mat-icon> 
       </button>
+      <button *ngIf="lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+      </button>
+    </div>
   </div>
 </div>
 </div>

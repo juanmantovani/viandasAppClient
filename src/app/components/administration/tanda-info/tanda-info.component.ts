@@ -20,6 +20,7 @@ export class TandaInfoComponent implements OnInit {
   constructor(private clientService: ClientService,) { }
 
   ngOnInit(): void {
+    this.getAddresses();
   }
 
   onClickAssign() {
@@ -46,6 +47,7 @@ export class TandaInfoComponent implements OnInit {
     }
     this.clientService.getClientByIdTanda(request).subscribe((res: GetClientResponse) => {
       this.listClient = res.client
+      this.onClickViewList();
     })
   }
 

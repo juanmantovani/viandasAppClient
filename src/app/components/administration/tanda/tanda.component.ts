@@ -42,6 +42,8 @@ export class TandaComponent implements OnInit {
   listClient: Client[];
   tandaSelected: Tanda;
   dataSource: any;
+  viewUnassignableAddresses: boolean;
+
 
   private paginator: MatPaginator;
   private sort: MatSort;
@@ -191,6 +193,8 @@ export class TandaComponent implements OnInit {
     this.viewRemove = false;
     this.viewInfo = false;
     this.viewList = true;
+    this.viewUnassignableAddresses = false;
+
   }
 
   onClickViewInfo(tanda: Tanda) {
@@ -200,6 +204,7 @@ export class TandaComponent implements OnInit {
     this.viewRemove = false;
     this.viewList = false;
     this.tandaSelected = tanda;
+    this.viewUnassignableAddresses = false;
   }
 
   showInfoTanda(idTanda: number) {
@@ -212,6 +217,24 @@ export class TandaComponent implements OnInit {
       this.listClient = res.client;
     })
 
+  }
+
+  onClickviewUnassignableAddresses(){
+    this.viewList = false;
+    this.viewInfo = false;
+    this.tandaSelected = new Tanda(null);
+    this.viewUnassignableAddresses = true;
+
+  }
+
+  getAddresses(){
+    const request: GetClientByIdTandaRequest = {
+      idTanda: []
+    }
+    this.clientService.getClientByIdTanda(request).subscribe((res: GetClientResponse) => {
+      this.listClient = res.client;
+      this.onClickviewUnassignableAddresses();
+    })
   }
 
 }

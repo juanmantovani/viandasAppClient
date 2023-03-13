@@ -15,7 +15,7 @@
                     Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
                 </button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                    <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+                    <button ngbDropdownItem (click)="logout()"><mat-icon>exit_to_app</mat-icon>Cerrar sesión</button>
                 </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
 <mat-sidenav-container>
     <mat-sidenav [(opened)]="opened" mode="side">
 
-        <mat-list>
+        <mat-list (click)="getAddressesUnassignabled()">
             <mat-list-item  class="nav-link" [routerLink]="[ORDER]" routerLinkActive="active">
                 Ordenes
             </mat-list-item>
@@ -51,8 +51,10 @@
                 Repartidores
             </mat-list-item>
             <mat-list-item class="nav-link" [routerLink]="[TANDA]" routerLinkActive="active">
-                Tandas
+                Tandas <mat-chip-list *ngIf="addressesUnassignabled > 0"><mat-chip class="notification-addressesUnassignabled" matTooltip="Direcciones sin asignar">{{addressesUnassignabled}}</mat-chip></mat-chip-list>
+
             </mat-list-item>
+
 
         </mat-list>
 

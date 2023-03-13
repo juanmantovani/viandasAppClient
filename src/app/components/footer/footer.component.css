@@ -36,7 +36,7 @@
 }
 .footer-area h3{
 	color: #ffffff;
-	text-transform: uppercase;
+	/* text-transform: uppercase; */
 	font-size: 18px;
 	font-weight: 500;
 	border-bottom: 2px solid rgba(207, 166, 113, 0.5);

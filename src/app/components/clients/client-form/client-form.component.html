@@ -83,7 +83,7 @@
         </table>
 
         <mat-form-field appearance="fill" #obsAddress *ngIf="data.actionForm == 'Add'">
-            <mat-label>Indicaciones</mat-label>
+            <mat-label>Indicaciones del domicilio (por ejemplo: casa de rejas negras, entre calle y calle)</mat-label>
             <textarea type="text" matInput formControlName="obsAddress" name="obsAddress" id="obsAddress" #obsAddress
                 rows="2"></textarea>
         </mat-form-field>
@@ -96,7 +96,7 @@
         </section>
 
         <mat-form-field appearance="fill" #obsClient>
-            <mat-label>Observación</mat-label>
+            <mat-label>Observaciones gustos o preferencias (por ejemplo: no me gusta el repollo)</mat-label>
             <textarea type="text" matInput formControlName="obsClient" name="obsClient" id="obsClient" #obsClient
                 rows="2"></textarea>
         </mat-form-field>

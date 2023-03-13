@@ -17,7 +17,8 @@
     
         <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
           <ul class="navbar-nav ms-auto">
-            <span class="button cool-link" onclick="location.href='inicio#menu'" (click)="collapsed = !collapsed">Menú</span>
+            <span class="button cool-link" onclick="location.href='inicio'" (click)="collapsed = !collapsed">Inicio</span>
+            <span class="button cool-link" onclick="location.href='inicio#menu'" (click)="collapsed = !collapsed">Variedades</span>
             <span class="button cool-link" onclick="location.href='inicio#order'" (click)="collapsed = !collapsed">Cómo pedir</span>
             <span class="button cool-link" onclick="location.href='inicio#map'" (click)="collapsed = !collapsed">Envíos</span>
             <span class="button cool-link" onclick="location.href='inicio#about'" (click)="collapsed = !collapsed">Nosotros</span>
@@ -31,11 +32,10 @@
                 Hola {{userProfile?.firstName}} {{userProfile?.lastName}}<mat-icon>keyboard_arrow_down</mat-icon>
               </button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                <button ngbDropdownItem (click)="onClickIngresar()">Ingresar</button>
-                <button ngbDropdownItem>Another Action</button>
-                <button ngbDropdownItem (click)="logout()">Cerrar sesión</button>
+                <button ngbDropdownItem (click)="onClickIngresar()"><mat-icon>person</mat-icon>Ingresar</button>
+                <button ngbDropdownItem (click)="logout()"><mat-icon>exit_to_app</mat-icon>Cerrar sesión</button>
               </div>
-              <button mat-raised-button class="drowdownitem login" *ngIf="!isLoggedIn" (click)="login()">Iniciá sesión acá</button>
+              <button mat-raised-button class="drowdownitem login" *ngIf="!isLoggedIn" (click)="login()">Ingresar</button>
             </div>
           </div>
         </div>

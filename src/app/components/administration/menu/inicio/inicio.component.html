@@ -18,41 +18,51 @@
 
   </div>
 
-  <div class="container-week" *ngIf="chargeMenu">
-    <form [formGroup]="range" id="range" #f="ngForm">
-      <span>Ingrese las fechas del mes que desa cargar: </span>
-
-      <mat-form-field appearance="fill">
-        <mat-label>Ingrese el rango de fechas</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Desde">
-          <input matEndDate formControlName="end" placeholder="Hasta">
-        </mat-date-range-input>
-        <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-
-      <button mat-raised-button (click)="onClickWeeks()" type="submit"
-      [disabled]="range.status == 'INVALID'">
-        <mat-icon>check</mat-icon> Ok
-      </button>
-      <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
-
-      <div *ngIf="!validDateMenu">
-      <mat-error>Se encontraron platos asignados a los días ingresados</mat-error>
+  <div class="row" *ngIf="chargeMenu">
+    <div class="col">
+      <div class="container-week" >
+        <form [formGroup]="range" id="range" #f="ngForm">
+          <mat-form-field appearance="fill">
+            <mat-label>Ingrese el rango de fechas que desea cargar</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Desde">
+              <input matEndDate formControlName="end" placeholder="Hasta">
+            </mat-date-range-input>
+            <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+    
+          <button mat-raised-button (click)="onClickWeeks()" type="submit"
+          [disabled]="range.status == 'INVALID'">
+            <mat-icon>check</mat-icon> Ok
+          </button>
+          <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid') || range.controls['end'].hasError('matEndDateInvalid')">Rango de fecha inválido</mat-error>
+    
+          <div *ngIf="!validDateMenu">
+          <mat-error>Se encontraron platos asignados a los días ingresados</mat-error>
+          </div>
+    
+        </form>
       </div>
+    </div>
+    <div class="col">
       <div *ngIf="eventsMenu.length > 0">
         <div class="fullCalendarContainer">
-          <h1>Calendario de menús</h1>
-          <div class="calendarMenu">
+          <h1>Calendario de menús           
+            <button class="button-full-calendar" mat-raised-button *ngIf="!showFullCalendar" (click)="onShowFullCalendar()">Ver</button>
+            <button class="button-full-calendar" mat-raised-button *ngIf="showFullCalendar" (click)="onShowFullCalendar()">Ocultar</button>
+          </h1>
+          <div class="calendarMenu" *ngIf="showFullCalendar">
             <app-calendar-menu [events]="eventsMenu"
               (selectMenu)="onViewMenu($event)"></app-calendar-menu>
           </div>
         </div>
       </div>
-    </form>
+    </div>
+
   </div>
+
 
   <div *ngIf="listMenu">
     <app-list-menu [dataSource]="dataSource" 

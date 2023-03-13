@@ -36,7 +36,7 @@ export class ServerErrorInterceptor implements HttpInterceptor {
       retryWhen((error) => {
         return error.pipe(
           mergeMap((error, index) => {
-            if (error.status == 400 && (error.error.search("token contains an invalid number of segments") != -1)){
+            if ((error.status == 400 && (error.error.search("token contains an invalid number of segments") != -1)) || (error.status == 403)){
               this.router.navigate(['/inicio'])
             }
             if (index < maxRetries && error.status == 500) {

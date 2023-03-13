@@ -67,3 +67,7 @@ th h4{
 tr.mat-header-row{
   height: 40px;
 }
+
+tr.mat-row {
+  height: 30px;
+}

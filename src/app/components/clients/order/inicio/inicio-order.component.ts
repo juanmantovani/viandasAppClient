@@ -252,17 +252,15 @@ export class InicioOrderComponent implements OnInit {
     }
     this.orderService.addOrder(request).subscribe((res: AddOrderResponse) => {
       if (res){
-        return false;
-      } else {
         this.orderInProgress = false;
         this.orderSuccess = true;
-        // setTimeout(() => {
-        //   this.router.navigateByUrl(this.WHATSAPPURL)
-        // }, 5000);
+        this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido #' + res.idOrder + ' por el total de $' + this.order.total;
+
+      } else {
+        return false;
       }
     });
     }
-    this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido N ' + this.order.id + ' por el total de $' + this.order.total + ', quisiera coordinar el pago el mismo.';
   }
 
   async generateConfirm(msg: string) {

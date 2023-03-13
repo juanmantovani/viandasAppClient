@@ -20,6 +20,7 @@ export class Client {
           this.lastName = data.lastName;
           this.phonePrimary = data.phonePrimary;
           this.phoneSecondary = data.phoneSecondary;
+          this.email = data.email;
           this.bornDate = new Date(data.bornDate);
            if(data.addresses)
           this.addresses  = data.addresses.map((a : any) => new Address(a))

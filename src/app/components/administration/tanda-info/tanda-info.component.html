@@ -44,9 +44,9 @@
 
 
     <div *ngIf="viewListClient">
-        <h2>
-            Direcciones asociadas:
-        </h2>
+        <h3>
+            Listado de direcciones asociadas:
+        </h3>
         <div class="div-address">
             <div *ngFor="let client of listClient">
                 <mat-card class="card" *ngFor="let address of client.addresses">
@@ -61,5 +61,4 @@
             </div>
         </div>
     </div>
-    <hr>
 </div>
