@@ -1,35 +1,38 @@
 <div class="container-fluid">
-  <h1 class="title-component">Listado de Clientes</h1>
-    <mat-form-field appearance="standard">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="onSearch($event)" placeholder="" #input>
-    </mat-form-field>
-  
-    <div class="table-width-client">
+  <div *ngIf="!viewOrdersClient"> 
+  <h1  class="title-component">Listado de Clientes</h1>
+  <mat-form-field appearance="standard">
+    <mat-label>Buscar</mat-label>
+    <input matInput (keyup)="onSearch($event)" placeholder="" #input>
+  </mat-form-field>
+
+  <div class="table-width-client">
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  
+
       <colgroup>
-        <col style="width:'5%'"/>
-        <col style="width:'16%'"/>
-        <col style="width:'9%'"/>
-        <col style="width:'9%'"/>
-        <col style="width:'13%'"/>
-        <col style="width:'16%'"/>
-        <col style="width:'19%'"/>
-        <col style="width:'13%'"/>
+        <col style="width:'5%'" />
+        <col style="width:'16%'" />
+        <col style="width:'8%'" />
+        <col style="width:'8%'" />
+        <col style="width:'11%'" />
+        <col style="width:'16%'" />
+        <col style="width:'19%'" />
+        <col style="width:'9%'" />
+        <col style="width:'8%'" />
       </colgroup>
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
-      
+
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nombre y Apellido</th>
         <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
-        [matTooltip]="element.name+' '+element.lastName" matTooltipPosition="below"> {{element.name}} {{element.lastName}} </td>
+          [matTooltip]="element.name+' '+element.lastName" matTooltipPosition="below"> {{element.name}}
+          {{element.lastName}} </td>
       </ng-container>
-  
+
       <ng-container matColumnDef="phonePrimary">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Teléfono </th>
         <td mat-cell *matCellDef="let element" class="hidden"> {{element.phonePrimary}} </td>
@@ -41,43 +44,59 @@
       </ng-container>
 
       <ng-container matColumnDef="bornDate">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha de nacimiento </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha de nacimiento</th>
         <td mat-cell *matCellDef="let element" class="hidden"> {{element.bornDate | date: 'dd/MM/yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Email </th>
-        <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
-        [matTooltip]="element.email" matTooltipPosition="below"> {{element.email}} </td>
+        <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.email"
+          matTooltipPosition="below"> {{element.email}} </td>
       </ng-container>
 
       <ng-container matColumnDef="observation">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Observacion </th>
-        <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip"
-        [matTooltip]="element.observation" matTooltipPosition="below"> {{element.observation}} </td>
+        <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.observation"
+          matTooltipPosition="below"> {{element.observation}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pathologies">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Patologías </th>
         <td mat-cell *matCellDef="let element" class="hidden">
           <span *ngFor="let pat of element.pathologies">
-            <mat-icon *ngIf="pat.checked"
-              [style]="{'color': pat.color}" #tooltip="matTooltip"
+            <mat-icon *ngIf="pat.checked" [style]="{'color': pat.color}" #tooltip="matTooltip"
               [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
           </span>
-          </td>
-    </ng-container>
-  
-   
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let element" class="actions-button-container">
+          <button mat-stroked-button class="button" (click)="onClickShowOrders(element)" title="Ver pedidos">
+            <mat-icon>list_alt</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  
+
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
       </tr>
     </table>
     <br>
-    <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
-    </div>
   </div>
   
+  <mat-paginator  [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+  
+  <div *ngIf="viewOrdersClient" class="button-container">
+    <button mat-raised-button class="button" (click)="onClickBack()" class="button" title="Volver">Volver
+    </button>
+    <app-inicio-orders [clientSelected]="clientSelected"></app-inicio-orders>
+  </div>
+
+</div>

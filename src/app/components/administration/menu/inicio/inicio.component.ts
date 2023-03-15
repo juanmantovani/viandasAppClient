@@ -11,7 +11,7 @@ import { ValidateDateMenuResponse } from 'src/app/shared/dto/menu/ValidateDateMe
 import { MatTableDataSource } from '@angular/material/table';
 import { Menu } from 'src/app/shared/models/Menu';
 import { DeleteMenuRequest } from 'src/app/shared/dto/menu/DeleteMenuRequest';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
 import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';

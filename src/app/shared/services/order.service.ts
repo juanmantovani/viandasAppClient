@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AddOrderRequest } from '../dto/order/AddOrderRequest';
 import { AddOrderResponse } from '../dto/order/AddOrderResponse';
-import  * as ROUTES  from '../routes/index.routes'
+import * as ROUTES from '../routes/index.routes'
 import { map, Observable, tap } from 'rxjs';
 import { GetOrderViewerResponse } from '../dto/order/GetOrderViewerResponse';
 import { GetOrderByIdResponse } from '../dto/order/GetOrderByIdResponse';
@@ -15,6 +15,7 @@ import { EditDayOrderAddressRequest } from '../dto/order/EditDayOrderAddressRequ
 import { EditDayOrderAddressResponse } from '../dto/order/EditDayOrderAddressResponse';
 import { GetOrdersRequest } from '../dto/order/GetOrdersRequest';
 import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
+import { GetMenuResponse } from '../dto/menu/getMenuResponse';
 
 
 
@@ -24,14 +25,14 @@ import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
 export class OrderService {
 
   constructor(private http: HttpClient) { }
-  OPTION = {headers: {'Content-Type': 'application/json'}};
+  OPTION = { headers: { 'Content-Type': 'application/json' } };
 
 
-  addOrder(request: AddOrderRequest) : Observable<AddOrderResponse> {
-    return this.http.post<AddOrderResponse>(ROUTES.API_ROUTES.ORDER.ADDORDER, JSON.stringify(request), this.OPTION ).pipe(
-      tap (res => {
+  addOrder(request: AddOrderRequest): Observable<AddOrderResponse> {
+    return this.http.post<AddOrderResponse>(ROUTES.API_ROUTES.ORDER.ADDORDER, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => {
         new AddOrderResponse(res);
-      }))  
+      }))
   }
 
   getOrderViewer(): Observable<GetOrderViewerResponse> {
@@ -42,7 +43,17 @@ export class OrderService {
     )
   }
 
-  getOrders(request : GetOrdersRequest): Observable<GetOrdersResponse>{
+  getOrderViewerByClient(idClient: number): Observable<GetOrderViewerResponse> {
+    let params = new HttpParams();
+    params = params.set('idClient', idClient?.toString());
+    return this.http.get<GetOrderViewerResponse>(ROUTES.API_ROUTES.ORDER.GETORDERSBYCLIENT, { params }).pipe(
+      map((res: any) => {
+        return new GetOrderViewerResponse(res);
+      })
+    )
+  }
+
+  getOrders(request: GetOrdersRequest): Observable<GetOrdersResponse> {
     return this.http.post<GetOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETORDERS, JSON.stringify(request), this.OPTION).pipe(
       map((res: any) => {
         return new GetOrdersResponse(res.getOrdersResponse);
@@ -53,9 +64,9 @@ export class OrderService {
   getOrderById(idOrder: number): Observable<GetOrderByIdResponse> {
     let params = new HttpParams();
     params = params.set('idOrder', idOrder?.toString());
-    return this.http.get<GetOrderByIdResponse>(ROUTES.API_ROUTES.ORDER.GETORDERBYID, {params}).pipe(
+    return this.http.get<GetOrderByIdResponse>(ROUTES.API_ROUTES.ORDER.GETORDERBYID, { params }).pipe(
       map((res: any) => {
-        var daysOrderArray : DayOrder[] = [];
+        var daysOrderArray: DayOrder[] = [];
         res.daysOrder.forEach((dayOrder: any) => {
           var dayFood = {
             category: dayOrder.category,
@@ -71,7 +82,7 @@ export class OrderService {
           }
           daysOrderArray.push(new DayOrder(daysOrder))
         });
-        var order : Order = {
+        var order: Order = {
           client: new Client(null),
           date: res.date,
           id: res.id,
@@ -84,12 +95,12 @@ export class OrderService {
     )
   }
 
-  editDayOrderAddress(request: EditDayOrderAddressRequest) : Observable<EditDayOrderAddressResponse> {
+  editDayOrderAddress(request: EditDayOrderAddressRequest): Observable<EditDayOrderAddressResponse> {
     let params = new HttpParams();
     params = params.set('idAddress', request.idAddress.toString());
     params = params.set('idDayOrder', request.idDayOrder.toString());
-    return this.http.get<EditDayOrderAddressResponse>(ROUTES.API_ROUTES.ORDER.EDITDAYORDERADDRESS, {params}).pipe(
-      tap (res => new EditDayOrderAddressResponse(res))
+    return this.http.get<EditDayOrderAddressResponse>(ROUTES.API_ROUTES.ORDER.EDITDAYORDERADDRESS, { params }).pipe(
+      tap(res => new EditDayOrderAddressResponse(res))
     );
   }
 

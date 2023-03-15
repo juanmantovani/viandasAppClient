@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { CategoryViewer } from 'src/app/shared/models/CategoryViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { MenuService } from 'src/app/shared/services/menu.service';
