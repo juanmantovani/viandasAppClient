@@ -19,6 +19,7 @@ export class InicioOrdersComponent implements OnInit {
   ordersViewer: OrderViewer[];
   orderDetails: Order;
   textWhatsApp: string = 'https://api.whatsapp.com/send?phone=5493434549868&text=';
+  showOrdersForAdmin:boolean;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
