@@ -34,6 +34,7 @@ import  * as ROUTES  from '../../../../shared/routes/index.routes'
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { GetMenuViewerByRangeOfDateRequest } from 'src/app/shared/dto/menu/GetMenuViewerByRangeOfDateRequest';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
+import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 
 
 @Component({
@@ -47,6 +48,7 @@ export class InicioOrderComponent implements OnInit {
 
   categories : Category[] = [];
   selectedCategories : Category[] = [];
+  cantFoodOfCategory : CategoryTable [] = [];
   firstStepCompleted: boolean;
   order : Order;
   range: FormGroup;
@@ -113,6 +115,12 @@ export class InicioOrderComponent implements OnInit {
   async getCategories() {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
       this.categories = res.categories;
+      this.categories.forEach(cat => {
+        this.cantFoodOfCategory.push({
+          category: cat,
+          cant: 1,
+        })
+      })
     })
   }
 
@@ -130,12 +138,14 @@ export class InicioOrderComponent implements OnInit {
   }
 
   selectCategory(event: Category[]){
+    this.personalizeOrder = false;
     this.selectedCategories = event;
     this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
   selectPersonalize(event: Category[]) {
-    this.selectCategory(event);
+    this.selectedCategories = event;
+    this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
     this.personalizeOrder = true
   }
 
@@ -148,8 +158,8 @@ export class InicioOrderComponent implements OnInit {
     this.showDetailsCategory(menuViewerByCategory)
   }
 
-  onSetCant(cant : number) {
-    this.cant = cant;
+  onSetCant(cant : CategoryTable[]) {
+    this.cantFoodOfCategory = cant;
   }
 
   async onViewDetailsPersonalize(event: boolean){
@@ -200,7 +210,7 @@ export class InicioOrderComponent implements OnInit {
         const dayOrder : DayOrder = {
           id: 0,
           address: new Address (this.selectedAdress),
-          cant: this.personalizeOrder ? 0 : this.cant,
+          cant: this.personalizeOrder ? 0 : this.getCant(dayFood.category.id),
           dayFood: new DayFood(dayFood),
           observation: ""
         }
@@ -220,6 +230,15 @@ export class InicioOrderComponent implements OnInit {
     });
 
   } 
+
+  getCant(categoryId : number) : number {
+    var cant = 0;
+    this.cantFoodOfCategory.forEach(c => {
+      if (c.category.id === categoryId)
+        cant = c.cant
+    })
+    return cant
+  }
 
   existeFecha(array: any, fecha: Date) {
     return array.some((f: any) => {
@@ -254,7 +273,7 @@ export class InicioOrderComponent implements OnInit {
       if (res){
         this.orderInProgress = false;
         this.orderSuccess = true;
-        this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido #' + res.idOrder + ' por el total de $' + this.order.total;
+        this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido número ' + res.idOrder + ' por el total de $' + this.order.total;
 
       } else {
         return false;

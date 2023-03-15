@@ -21,6 +21,7 @@ import { ServerErrorInterceptor } from './shared/interceptors/server-error.inter
 import { GlobalErrorHandler } from './shared/global-error-handler';
 import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
 import { CategoriesCardsComponent } from './components/categories-cards/categories-cards.component'
+import { DatePipe } from '@angular/common'
 
 //material
 import { MatTableModule } from '@angular/material/table';
@@ -214,6 +215,7 @@ import { OrderComponent } from './components/administration/order/order.componen
   providers: [
     MatNotificationComponent,
     MatDatepickerModule,
+    DatePipe,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
