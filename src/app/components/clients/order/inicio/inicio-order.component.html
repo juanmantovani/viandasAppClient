@@ -27,6 +27,7 @@
       <h4>A continuación, seleccioná el menú que vas a pedir y la cantidad de viandas para cada día</h4>
       <app-order-categories *ngIf="categories"
         [categories]="categories"
+        [cantFoodOfCategory]="cantFoodOfCategory"
         (selectCategory)="selectCategory($event)"
         (selectPersonalize)="selectPersonalize($event)"
         (viewDetailsPersonalize)="onViewDetailsPersonalize($event)"

@@ -21,6 +21,8 @@
         <mat-card-actions align="end">
           <button mat-raised-button class="button" (click)="onViewDetailsOrder(order.id)" *ngIf="orderDetails?.id != order.id">Ver detalles</button>
           <button mat-raised-button class="button" (click)="onHideDetailsOrder(order.id)" *ngIf="orderDetails?.id === order.id">Ocultar detalles</button>
+          <button mat-raised-button class="button" (click)="onClickSendWhatsApp()" *ngIf="orderDetails?.id === order.id">Enviar mensaje de WhatsApp</button>
+
         </mat-card-actions>
       </mat-card>
     </div>
