@@ -72,7 +72,7 @@ export class OrderService {
           daysOrderArray.push(new DayOrder(daysOrder))
         });
         var order : Order = {
-          client: new Client(null),
+          client: new Client(res.client),
           date: res.date,
           id: res.id,
           observation: res.observation,

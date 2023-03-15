@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Category } from 'src/app/shared/models/Category';
+import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 
 @Component({
   selector: 'app-order-categories',
@@ -9,16 +10,15 @@ import { Category } from 'src/app/shared/models/Category';
 export class OrderCategoriesComponent implements OnInit {
 
   @Input() categories : Category[];
-  choseCategory : Category[] = [];
-  chosePersonalize : boolean;
-  cant: number = 1;
+  @Input() cantFoodOfCategory : CategoryTable[];
   @Output() selectCategory : EventEmitter <Category []> = new EventEmitter();
   @Output() selectPersonalize : EventEmitter <Category []> = new EventEmitter();
   @Output() viewDetailsCategory : EventEmitter <Category> = new EventEmitter();
   @Output() viewDetailsPersonalize : EventEmitter <boolean> = new EventEmitter();
-  @Output() cantEmit : EventEmitter <number> = new EventEmitter();
+  @Output() cantEmit : EventEmitter <CategoryTable[]> = new EventEmitter();
 
-
+  choseCategory : Category[] = [];
+  chosePersonalize : boolean;
 
   constructor() { }
 
@@ -58,13 +58,32 @@ export class OrderCategoriesComponent implements OnInit {
   }
 
   removeFood(category : Category){
-    this.cant-=1;
-    this.cantEmit.emit(this.cant);
+    this.cantFoodOfCategory.forEach(c => {
+      if (c.category.id === category.id){
+        c.cant-=1
+        return false
+      }
+    })
+    this.cantEmit.emit(this.cantFoodOfCategory);
   }
 
   addFood(category : Category){
-    this.cant+=1;
-    this.cantEmit.emit(this.cant);
+    this.cantFoodOfCategory.forEach(c => {
+      if (c.category.id === category.id){
+        c.cant+=1
+        return false
+      }
+    })
+    this.cantEmit.emit(this.cantFoodOfCategory);
+  }
+
+  getCant(categoryId : number) : number {
+    var cant = 0;
+    this.cantFoodOfCategory.forEach(c => {
+      if (c.category.id === categoryId)
+        cant = c.cant
+    })
+    return cant
   }
 
 }

@@ -10,21 +10,20 @@
     </mat-card-header>
     <mat-card-actions align="end">
       <div class="cant" *ngIf="isSelectedCategory(category)">
-        <button mat-icon-button aria-label="Clear" (click)="removeFood(category)" class="removeButton" [disabled]="cant < 1">
+        <button mat-icon-button aria-label="Clear" (click)="removeFood(category)" class="removeButton" [disabled]="getCant(category.id) < 1">
           <mat-icon>remove</mat-icon>
         </button>
-        <span class="center">{{cant}}</span>
-        <button mat-icon-button aria-label="Clear" (click)="addFood(category)" [disabled]="cant > 14">
+        <span class="center">{{getCant(category.id)}}</span>
+        <button mat-icon-button aria-label="Clear" (click)="addFood(category)" [disabled]="getCant(category.id) > 14">
           <mat-icon>add</mat-icon>
         </button>
       </div>
       <span class="spacer"></span>
-
       <button mat-raised-button class="button" (click)="onViewDetailsCategory(category)">Ver detalles</button>
     </mat-card-actions>
   </mat-card>
-  
 </div>
+
 
 <mat-card class="card personalize" [ngStyle]="(isSelectedPersonalize()) ? {'backgroundColor':'#d3d3d33b'} : {}">
   <mat-card-header (click)="onSelectPersonalize()">
