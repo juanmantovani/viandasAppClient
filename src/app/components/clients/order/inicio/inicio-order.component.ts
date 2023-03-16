@@ -8,7 +8,7 @@ import { Category } from 'src/app/shared/models/Category';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { MenuService } from 'src/app/shared/services/menu.service';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { Order } from 'src/app/shared/models/Order';
 import { Utils } from 'src/app/utils';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';

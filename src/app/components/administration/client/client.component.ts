@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -16,9 +16,11 @@ import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
 })
 export class ClientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name','phonePrimary','phoneSecondary','bornDate','email','observation','pathologies'];
+  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'phoneSecondary', 'bornDate', 'email', 'observation', 'pathologies', 'actions'];
   listClients: Client[];
   dataSource: any;
+  clientSelected: Client;
+  viewOrdersClient: boolean;
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -32,7 +34,8 @@ export class ClientComponent implements OnInit {
 
   ngOnInit() {
     this.getClient();
-    this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+    if (this.viewOrdersClient)
+      this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
   async getClient() {
@@ -46,7 +49,15 @@ export class ClientComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  onClickShowOrders(client: Client) {
+    this.clientSelected = client;
+    this.viewOrdersClient = true;
+  }
 
-  
+  onClickBack() {
+    this.viewOrdersClient = false;
+  }
+
+
 
 }

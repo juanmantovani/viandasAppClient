@@ -1,7 +1,9 @@
 
 
 <div class="container-fluid">
-  <h1 class="title-component">Mis ordenes</h1>
+  <h1 class="title-component" *ngIf="!showOrdersForAdmin">Mis ordenes</h1>
+  <h1 class="title-component" *ngIf="showOrdersForAdmin">Ordenes de {{clientSelected.name}} {{clientSelected.lastName}}</h1>
+
   <div *ngIf="ordersViewer">
     <div class="d-flex flex-wrap">
       

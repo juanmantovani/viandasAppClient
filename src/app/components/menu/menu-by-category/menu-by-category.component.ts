@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { GetImageByCategoryRequest } from 'src/app/shared/dto/food/GetImageByCategoryRequest';
 import { GetImageByCategoryResponse } from 'src/app/shared/dto/food/GetImageByCategoryResponse';
-import { GetMenuResponse } from 'src/app/shared/dto/menu/GetMenuResponse';
+import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { Category } from 'src/app/shared/models/Category';
 import { FoodViewer } from 'src/app/shared/models/FoodViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';

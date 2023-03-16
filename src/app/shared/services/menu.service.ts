@@ -5,7 +5,6 @@ import { AddMenuRequest } from '../dto/menu/AddMenuRequest';
 import { AddMenuResponse } from '../dto/menu/AddMenuResponse';
 import { EditMenuRequest } from '../dto/menu/EditMenuRequest';
 import { EditMenuResponse } from '../dto/menu/EditMenuResponse';
-import { GetMenuResponse } from '../dto/menu/GetMenuResponse';
 import { GetDayRequest } from '../dto/menu/GetDaysRequest';
 import { GetDayResponse } from '../dto/menu/GetDaysResponse';
 import  * as ROUTES  from '../routes/index.routes'
@@ -16,9 +15,10 @@ import { DeleteMenuResponse } from '../dto/menu/DeleteMenuResponse';
 import { DeleteMenuRequest } from '../dto/menu/DeleteMenuRequest';
 import { GetAllMenuResponse } from '../dto/menu/GetAllMenuResponse';
 import { GetMenuByCategoriesRequest } from '../dto/menu/GetMenuByCategoryRequest';
-import { getMenuByCategoriesResponse } from '../dto/menu/getMenuByCategoriesResponse';
 import { Menu } from '../models/Menu';
 import { GetMenuViewerByRangeOfDateRequest } from '../dto/menu/GetMenuViewerByRangeOfDateRequest';
+import { GetMenuResponse } from '../dto/menu/getMenuResponse';
+import { getMenuByCategoriesResponse } from '../dto/menu/getMenuByCategoriesResponse';
 
 
 @Injectable({

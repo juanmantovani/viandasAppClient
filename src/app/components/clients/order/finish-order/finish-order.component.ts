@@ -35,6 +35,7 @@ export class FinishOrderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.order.observation = this.client.observation;
   }
 
   getDay(date: Date): string{
