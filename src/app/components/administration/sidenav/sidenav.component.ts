@@ -5,13 +5,13 @@ import { KeycloakProfile } from 'keycloak-js';
 import { GetClientByIdTandaRequest } from 'src/app/shared/dto/client/GetClientByIdTandaRequest';
 import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
 import { ClientService } from 'src/app/shared/services/client.service';
-import  * as ROUTES  from '../../../shared/routes/index.routes'
+import * as ROUTES from '../../../shared/routes/index.routes'
 
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css','../../../app.component.css']
+  styleUrls: ['./sidenav.component.css', '../../../app.component.css']
 })
 export class SidenavComponent implements OnInit {
 
@@ -27,17 +27,15 @@ export class SidenavComponent implements OnInit {
   TANDA = ROUTES.INTERNAL_ROUTES.TANDA;
   CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT;
   ORDER = ROUTES.INTERNAL_ROUTES.ORDER;
+  INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
 
   status: string;
 
   public userProfile: KeycloakProfile | null = null;
   public isLoggedIn = false;
-  public userRoles: string [] = [];
+  public userRoles: string[] = [];
 
-
-
-
-  constructor(private readonly keycloak: KeycloakService, private router : Router, private clientService: ClientService ) { }
+  constructor(private readonly keycloak: KeycloakService, private router: Router, private clientService: ClientService) { }
 
   public async ngOnInit() {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
@@ -48,23 +46,22 @@ export class SidenavComponent implements OnInit {
       this.getAddressesUnassignabled();
     } else this.logout();
 
-    if (this.userRoles.indexOf('admin') == -1){
+    if (this.userRoles.indexOf('admin') == -1) {
       this.router.navigate(['/inicio'])
 
     }
   }
 
   public logout() {
-    this.keycloak.logout();
-    this.router.navigate(['/inicio'])
+    this.keycloak.logout(location.origin + '/' + this.INICIO);
   }
 
-  async getAddressesUnassignabled(){
+  async getAddressesUnassignabled() {
     const request: GetClientByIdTandaRequest = {
       idTanda: []
     }
     await this.clientService.getClientByIdTanda(request).subscribe((res: GetClientResponse) => {
-      if(res.client){
+      if (res.client) {
         this.addressesUnassignabled = 0;
         res.client.forEach(client => {
           this.addressesUnassignabled = this.addressesUnassignabled + client.addresses?.length;
@@ -73,4 +70,4 @@ export class SidenavComponent implements OnInit {
     })
   }
 
- }
+}

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
-import  * as ROUTES  from '../../../shared/routes/index.routes'
+import * as ROUTES from '../../../shared/routes/index.routes'
 
 
 @Component({
@@ -23,13 +23,13 @@ export class NavCLientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
 
   public isLoggedIn = false;
-  public userRoles: string [] = [];
+  public userRoles: string[] = [];
 
-  constructor(private readonly keycloak: KeycloakService, private router : Router) { }
+  constructor(private readonly keycloak: KeycloakService, private router: Router) { }
 
   async ngOnInit() {
-    this.userProfile = await this.keycloak.loadUserProfile(); 
-    
+    this.userProfile = await this.keycloak.loadUserProfile();
+
     this.isLoggedIn = await this.keycloak.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -39,10 +39,9 @@ export class NavCLientComponent implements OnInit {
   }
 
   public logout() {
-    this.keycloak.logout();
-    this.router.navigate(['/inicio'])
+    this.keycloak.logout(location.origin + '/' + this.INICIO);
   }
 
-  
+
 
 }
