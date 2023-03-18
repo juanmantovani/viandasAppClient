@@ -1,11 +1,16 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 import { GetBannerIndexResponse } from 'src/app/shared/dto/carrousel/GetBannerIndexResponse';
 import { GetCategoryResponse } from 'src/app/shared/dto/category/GetCategoryResponse';
 import { Category } from 'src/app/shared/models/Category';
 import { CarrouselService } from 'src/app/shared/services/carrousel.service';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { environment } from 'src/environments/environment';
+import { Router } from '@angular/router';
+import  * as ROUTES  from '../../shared/routes/index.routes'
+
 
 @Component({
   selector: 'app-inicio',
@@ -19,6 +24,10 @@ import { environment } from 'src/environments/environment';
 
 
 export class InicioComponent implements OnInit {
+  ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION+'/'+ROUTES.INTERNAL_ROUTES.ORDER;
+  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT+'/'+ROUTES.INTERNAL_ROUTES.ORDER
+  INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
+
   URLAPI = environment.urlApi;
   mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
   aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías.";
@@ -27,13 +36,17 @@ export class InicioComponent implements OnInit {
   categories : Category[] = [];
   listUrlImage : string[] = [];
   panelOpenState = false;
+  public isLoggedIn = false;
+  public userRoles: string [] = [];
+  public userProfile: KeycloakProfile | null = null;
 
 
   constructor(config: NgbCarouselConfig, 
     private carrouselService : CarrouselService,
     //private menuService: MenuService,
     private categoryService: CategoryService,
-
+    private readonly keycloak: KeycloakService,
+    private router: Router,
     ) {
     config.interval = 6000;
     config.wrap = true;
@@ -44,10 +57,20 @@ export class InicioComponent implements OnInit {
 
   }
 
+  public login() {
+    this.keycloak.login();
+  }
 
  async ngOnInit() {
   this.getBannersIndex();
   await this.getCategories();
+
+  this.isLoggedIn = await this.keycloak.isLoggedIn();
+
+  if (this.isLoggedIn) {
+    this.userProfile = await this.keycloak.loadUserProfile();
+    this.userRoles = this.keycloak.getUserRoles()
+  }
   }
   
   async getBannersIndex() {
@@ -56,6 +79,14 @@ export class InicioComponent implements OnInit {
     })
   }
 
+  onClickIngresar(){
+    if (this.userRoles.indexOf('admin') != -1)
+    {
+      this.router.navigateByUrl(this.ADMINISTRATION);
+      return false
+    }
+      this.router.navigateByUrl(this.CLIENT);
+  }
 
 
   async getCategories() {
@@ -67,6 +98,10 @@ export class InicioComponent implements OnInit {
   showMenuByCategory(category : Category){
     this.viewMenuByCategory = true;
     this.category = category;
+  }
+
+  onClickBack(){
+    this.viewMenuByCategory = false
   }
 
 }
