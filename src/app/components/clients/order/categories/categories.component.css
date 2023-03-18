@@ -32,4 +32,30 @@ mat-card {
   width: 40%;
 }
 
+.text-cant{
+  color: rgba(0,0,0,.54);
+  margin-right: 5px;
+  font-size: 14px;
+  margin-top: 10px;
+}
 
+.button{
+  height: 40px;
+}
+
+.mat-card-avatar {
+  width: min-content;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-card {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.mat-card-header-text {
+  padding-left: 10px;
+  padding-right: 10px;
+}

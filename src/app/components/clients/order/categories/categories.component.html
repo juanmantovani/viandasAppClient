@@ -7,8 +7,11 @@
       </div>
       <mat-card-title> Menú {{category.title}}</mat-card-title>
       <mat-card-subtitle>${{category.price}}</mat-card-subtitle>
+      <span class="spacer"></span>
+      <button mat-raised-button class="button" (click)="onViewDetailsCategory(category)">Ver menú</button>
     </mat-card-header>
     <mat-card-actions align="end">
+      <p class="text-cant" *ngIf="isSelectedCategory(category)">Cantidad de menús por día</p>
       <div class="cant" *ngIf="isSelectedCategory(category)">
         <button mat-icon-button aria-label="Clear" (click)="removeFood(category)" class="removeButton" [disabled]="getCant(category.id) < 1">
           <mat-icon>remove</mat-icon>
@@ -18,8 +21,6 @@
           <mat-icon>add</mat-icon>
         </button>
       </div>
-      <span class="spacer"></span>
-      <button mat-raised-button class="button" (click)="onViewDetailsCategory(category)">Ver detalles</button>
     </mat-card-actions>
   </mat-card>
 </div>
@@ -31,10 +32,11 @@
       <mat-icon *ngIf="isSelectedPersonalize()" class="check">check_box</mat-icon>
       <mat-icon *ngIf="!isSelectedPersonalize()">check_box_outline_blank</mat-icon>
     </div>
-    <mat-card-title> Menú Personalizado</mat-card-title>
-    <mat-card-subtitle></mat-card-subtitle>
+    <mat-card-title> Menú variado</mat-card-title>
+    <mat-card-subtitle> Elegí diferentes menú para cada día</mat-card-subtitle>
+    <span class="spacer"></span>
+    <button mat-raised-button class="button" (click)="onViewDetailsPersonalize()">Ver menú</button>
   </mat-card-header>
   <mat-card-actions align="end">
-    <button mat-raised-button class="button" (click)="onViewDetailsPersonalize()">Ver detalles</button>
   </mat-card-actions>
 </mat-card>
