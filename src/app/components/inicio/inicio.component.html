@@ -2,6 +2,9 @@
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 
 <div *ngIf="!viewMenuByCategory">
+  <button class="float-btn" *ngIf="!isLoggedIn" (click)="login()">Iniciá sesion acá y empeza a pedir</button>
+  <button class="float-btn" *ngIf="isLoggedIn" (click)="onClickIngresar()"><mat-icon>person</mat-icon>Ingresar</button>
+
 
   <ngb-carousel class="top" *ngIf="listUrlImage.length > 0">
     <ng-template ngbSlide *ngFor="let img of listUrlImage">
@@ -24,6 +27,7 @@
     </ng-template>
   </ngb-carousel>
 
+
   <div class="container" id="menu">
     <div class="row gray">
       <div class="m-0 justify-content-center align-items-center title">
@@ -43,7 +47,18 @@
       <h1 class="col-auto text-center">Realizá tu pedido en simples pasos</h1>
     </div>
     <div class="row steps">
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
+        <div class="step">
+          <mat-icon>verified_user</mat-icon>
+          <h2>Ingresá a tu cuenta</h2>
+          <div align="center">
+            <p class="step-description">
+              Para comenzar ingresá a tu cuenta (recordá que podes crearte una desde <a href="" (click)="login()">acá</a>).
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-12">
         <div class="step">
           <mat-icon>playlist_add_check</mat-icon>
           <h2>Elegí tu menú</h2>
@@ -56,7 +71,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
         <div class="step">
           <mat-icon> add_comment</mat-icon>
           <h2>Seleccioná las cantidades</h2>
@@ -68,7 +83,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-12">
+      <div class="col-md-3 col-sm-12">
         <div class="step">
           <mat-icon> location_on</mat-icon>
           <h2>Indicanos la dirección de entrega</h2>
@@ -104,7 +119,7 @@
       </div>
       <div class="col-md map">
         <iframe
-          src="https://www.google.com/maps/d/viewer?mid=1tVljziwtxmNlARoUpsQfOpzyP_Jd16si&ll=-31.72575095821431%2C-60.516058407582356&z=15"
+          src="https://www.google.com/maps/d/embed?mid=1tVljziwtxmNlARoUpsQfOpzyP_Jd16si&ehbc=2E312F"
           class="map-responsive" style="border:0;" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
@@ -192,6 +207,11 @@
 
 
 <div *ngIf="viewMenuByCategory">
+  <div class="back-button"> 
+    <button mat-button (click)="onClickBack()" >
+      <mat-icon>keyboard_arrow_left</mat-icon>Inicio
+    </button>
+  </div>
   <app-menu-by-category [category]="category">
   </app-menu-by-category>
 </div>
