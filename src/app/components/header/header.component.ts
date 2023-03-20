@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, ElementRef, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import  * as ROUTES  from '../../shared/routes/index.routes'
+import * as ROUTES from '../../shared/routes/index.routes'
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 
@@ -15,23 +15,23 @@ export class HeaderComponent implements OnInit {
 
   @ViewChild("myNameElem") myNameElem: ElementRef;
   @ViewChild("myNameElem2") myNameElem2: ElementRef;
-  
+
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
-  ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION+'/'+ROUTES.INTERNAL_ROUTES.ORDER;
-  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT+'/'+ROUTES.INTERNAL_ROUTES.ORDER
+  ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION + '/' + ROUTES.INTERNAL_ROUTES.ORDER;
+  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDER
 
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
-  public userRoles: string [] = [];
+  public userRoles: string[] = [];
 
   collapsed = true;
 
   constructor(private router: Router,
     private readonly keycloak: KeycloakService
-    ) {
-   }
+  ) {
+  }
 
-   public async ngOnInit() {
+  public async ngOnInit() {
     this.isLoggedIn = await this.keycloak.isLoggedIn();
 
     if (this.isLoggedIn) {
@@ -40,7 +40,7 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-  mostrarMenu(){
+  mostrarMenu() {
     this.myNameElem2.nativeElement.classList.toggle("list--show");
   }
 
@@ -48,17 +48,16 @@ export class HeaderComponent implements OnInit {
     this.keycloak.login();
   }
 
-  onClickIngresar(){
-    if (this.userRoles.indexOf('admin') != -1)
-    {
+  onClickIngresar() {
+    if (this.userRoles.indexOf('admin') != -1) {
       this.router.navigateByUrl(this.ADMINISTRATION);
       return false
     }
-      this.router.navigateByUrl(this.CLIENT);
+    this.router.navigateByUrl(this.CLIENT);
   }
-  
+
   public logout() {
-    this.keycloak.logout();
+    this.keycloak.logout(location.origin + '/' + this.INICIO);
   }
 
 }
