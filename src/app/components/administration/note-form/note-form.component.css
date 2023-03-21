@@ -1,0 +1,21 @@
+.mat-dialog-content{
+    width: 500px;
+    text-align: center;
+}
+.mat-form-field{ 
+    width:85%;
+    margin-bottom: 10px;
+}
+.error-input{
+    color:tomato;
+    font-size: 12px;
+}
+.preview-image{
+    width: 70%;
+    height: auto;
+    margin-bottom: 10px;
+}
+.changeImage{
+    margin-bottom: 10px;
+
+}

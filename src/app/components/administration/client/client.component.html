@@ -10,15 +10,16 @@
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <colgroup>
-        <col style="width:'5%'" />
-        <col style="width:'16%'" />
-        <col style="width:'8%'" />
+        <col style="width:'4%'" />
+        <col style="width:'15%'" />
+        <col style="width:'7%'" />
+        <col style="width:'7%'" />
+        <col style="width:'11%'" />
+        <col style="width:'12%'" />
+        <col style="width:'15%'" />
+        <col style="width:'12%'" />
         <col style="width:'8%'" />
         <col style="width:'11%'" />
-        <col style="width:'16%'" />
-        <col style="width:'19%'" />
-        <col style="width:'9%'" />
-        <col style="width:'8%'" />
       </colgroup>
 
       <ng-container matColumnDef="id">
@@ -60,6 +61,12 @@
           matTooltipPosition="below"> {{element.observation}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nota </th>
+        <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.note.note"
+          matTooltipPosition="below"> {{element.note.note}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="pathologies">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Patologías </th>
         <td mat-cell *matCellDef="let element" class="hidden">
@@ -75,6 +82,9 @@
         <td mat-cell *matCellDef="let element" class="actions-button-container">
           <button mat-stroked-button class="button" (click)="onClickShowOrders(element)" title="Ver pedidos">
             <mat-icon>list_alt</mat-icon>
+          </button>
+          <button mat-stroked-button class="button" (click)="onClickNote(element)" title="Notas">
+            <mat-icon>note_alt</mat-icon>
           </button>
         </td>
       </ng-container>

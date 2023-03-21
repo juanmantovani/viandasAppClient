@@ -85,5 +85,9 @@ export const API_ROUTES = {
         DELETETANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/deleteTanda`,
         ASSIGNADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/assignAddressToTanda`,
         REMOVEADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/removeAddressToTanda`,
+    },
+    NOTE:{
+        ADDNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/addNote`,
+        EDITNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/editNote`
     }
 }

@@ -7,6 +7,15 @@ import { ClientService } from 'src/app/shared/services/client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
+import { Note } from 'src/app/shared/models/Note';
+import { DataFormNote } from 'src/app/shared/dto/note/DataFormNote';
+import { Utils } from 'src/app/utils';
+import { NoteFormComponent } from '../note-form/note-form.component';
+import { AddNoteRequest } from 'src/app/shared/dto/note/AddNoteRequest';
+import { AddNoteResponse } from 'src/app/shared/dto/note/AddNoteResponse';
+import { EditNoteRequest } from 'src/app/shared/dto/note/EditNoteRequest';
+import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
+
 
 
 @Component({
@@ -16,11 +25,13 @@ import { GetClientResponse } from 'src/app/shared/dto/client/GetClientResponse';
 })
 export class ClientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'phoneSecondary', 'bornDate', 'email', 'observation', 'pathologies', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'phoneSecondary', 'bornDate', 'email', 'observation','note', 'pathologies', 'actions'];
   listClients: Client[];
   dataSource: any;
   clientSelected: Client;
   viewOrdersClient: boolean;
+  actionFormNote: string;
+
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -56,6 +67,79 @@ export class ClientComponent implements OnInit {
 
   onClickBack() {
     this.viewOrdersClient = false;
+  }
+
+  onClickNote(client: Client) {
+    var dataForm = new DataFormNote();
+    if (client.note.id== 0) {
+      this.actionFormNote = "Add"
+      dataForm = {
+        actionForm: "Add",
+        note: new Note(null),
+        client : client
+      };
+    } else {
+      this.actionFormNote = "Edit"
+      dataForm = {
+        actionForm: "Edit",
+        note: client.note,
+        client : client
+      };
+    }
+    this.gestionateForm(dataForm);
+  }
+
+  async gestionateForm(dataForm: DataFormNote) {
+    const dialogConfig = Utils.matDialogConfigDefault();
+    dialogConfig.data = dataForm;
+    const dialogRef = this.dialog.open(NoteFormComponent, dialogConfig);
+    const componentInstance = dialogRef.componentInstance;
+
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
+        dialogRef.close();
+        return false;
+      }
+
+      var result: any = await this.onSubmitNote(data,dataForm.client);
+      if (result) {
+        return false;
+      }
+      else {
+        dialogRef.close();
+        await this.getClient();
+        return true;
+      }
+    })
+  }
+
+  async onSubmitNote(note: Note, client : Client) {
+    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note,client) : await this.editNote(note);
+
+    return resultOperation;
+  }
+
+  async addNote(note: Note, client : Client) {
+    const addNoteRequest: AddNoteRequest = {
+      note: note,
+      idClient: client.id
+    }
+
+    await this.clientService.addNote(addNoteRequest).subscribe((res: AddNoteResponse) => {
+      this.getClient()
+      return res;
+    }
+    );
+  }
+
+  async editNote(note: Note) {
+    const editNoteRequest: EditNoteRequest = {
+      note: note
+    }
+    await this.clientService.editNote(editNoteRequest).subscribe((res: EditNoteResponse) => {
+      this.getClient()
+      return res;
+    })
   }
 
 

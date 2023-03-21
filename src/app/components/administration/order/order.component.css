@@ -71,3 +71,12 @@ tr.mat-header-row{
 tr.mat-row {
   height: 30px;
 }
+
+.note{
+  width: 45%;
+  display: inline-block; 
+}
+.icon {
+  vertical-align: -3px;
+  font-size: 1.2em;
+}

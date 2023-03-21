@@ -23,11 +23,12 @@
             <table mat-table [dataSource]="tandaTable.order" class="mat-elevation-z8">
 
                 <colgroup>
-                    <col style="width:'5%'" />
-                    <col style="width:'17%'" />
-                    <col style="width:'20%'" />
-                    <col style="width:'20%'" />
-                    <col style="width:'13%'" />
+                    <col style="width:'3%'" />
+                    <col style="width:'12%'" />
+                    <col style="width:'18%'" />
+                    <col style="width:'18%'" />
+                    <col style="width:'12%'" />
+                    <col style="width:'12%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
                     <col style="width:'5%'" />
@@ -47,7 +48,7 @@
                 </ng-container>
 
                 <ng-container matColumnDef="idOrder">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Orden </th>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                     <td mat-footer-cell *matFooterCellDef></td>
 
@@ -71,6 +72,11 @@
                 <ng-container matColumnDef="observation">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
                     <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.observation}}</td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <ng-container matColumnDef="notes">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" title="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
                     <td mat-footer-cell *matFooterCellDef> </td>
                 </ng-container>
 
@@ -113,11 +119,12 @@
         <table mat-table class="mat-elevation-z8 totales">
 
             <colgroup>
-                <col style="width:'5%'" />
-                <col style="width:'17%'" />
-                <col style="width:'20%'" />
-                <col style="width:'20%'" />
-                <col style="width:'13%'" />
+                <col style="width:'3%'" />
+                <col style="width:'12%'" />
+                <col style="width:'18%'" />
+                <col style="width:'18%'" />
+                <col style="width:'12%'" />
+                <col style="width:'12%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
                 <col style="width:'5%'" />
@@ -151,6 +158,12 @@
             </ng-container>
 
             <ng-container matColumnDef="observation">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
+                <td mat-footer-cell *matFooterCellDef></td>
+            </ng-container>
+
+            <ng-container matColumnDef="notes">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
 
                 <td mat-footer-cell *matFooterCellDef></td>

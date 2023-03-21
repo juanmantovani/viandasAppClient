@@ -9,6 +9,17 @@ import { TandaTable } from 'src/app/shared/models/TandaTable';
 import { GetOrdersRequest } from 'src/app/shared/dto/order/GetOrdersRequest';
 import { GetOrdersResponse } from 'src/app/shared/dto/order/GetOrdersResponse';
 import { CategoryTable } from 'src/app/shared/models/CategoryTable';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { Client } from 'src/app/shared/models/Client';
+import { DataFormNote } from 'src/app/shared/dto/note/DataFormNote';
+import { Note } from 'src/app/shared/models/Note';
+import { Utils } from 'src/app/utils';
+import { NoteFormComponent } from '../note-form/note-form.component';
+import { AddNoteRequest } from 'src/app/shared/dto/note/AddNoteRequest';
+import { AddNoteResponse } from 'src/app/shared/dto/note/AddNoteResponse';
+import { EditNoteRequest } from 'src/app/shared/dto/note/EditNoteRequest';
+import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
+
 
 @Component({
   selector: 'app-order',
@@ -17,17 +28,19 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation','pathologies'];
+  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation','notes','pathologies'];
   listTandaTable: TandaTable[];
   listCategoryTable: CategoryTable[];
   date: Date;
+  actionFormNote:string;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private orderService: OrderService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private clientService: ClientService
   ) { }
 
   ngOnInit() {
@@ -38,7 +51,7 @@ export class OrderComponent implements OnInit {
   onClickOk(){
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.displayedColumns = ['idOrder', 'client', 'address', 'observation','pathologies'];
+    this.displayedColumns = ['idOrder', 'client', 'address', 'observation','notes','pathologies'];
     this.getOrders(this.date) 
   }
 
@@ -67,5 +80,78 @@ export class OrderComponent implements OnInit {
         cant = c.cant
     })
     return cant;
+  }
+
+  onClickNote(client: Client) {
+    var dataForm = new DataFormNote();
+    if (client.note.id== 0) {
+      this.actionFormNote = "Add"
+      dataForm = {
+        actionForm: "Add",
+        note: new Note(null),
+        client : client
+      };
+    } else {
+      this.actionFormNote = "Edit"
+      dataForm = {
+        actionForm: "Edit",
+        note: client.note,
+        client : client
+      };
+    }
+    this.gestionateForm(dataForm);
+  }
+
+  async gestionateForm(dataForm: DataFormNote) {
+    const dialogConfig = Utils.matDialogConfigDefault();
+    dialogConfig.data = dataForm;
+    const dialogRef = this.dialog.open(NoteFormComponent, dialogConfig);
+    const componentInstance = dialogRef.componentInstance;
+
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
+        dialogRef.close();
+        return false;
+      }
+
+      var result: any = await this.onSubmitNote(data,dataForm.client);
+      if (result) {
+        return false;
+      }
+      else {
+        dialogRef.close();
+        await this.getOrders(this.date);
+        return true;
+      }
+    })
+  }
+
+  async onSubmitNote(note: Note, client : Client) {
+    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note,client) : await this.editNote(note);
+
+    return resultOperation;
+  }
+
+  async addNote(note: Note, client : Client) {
+    const addNoteRequest: AddNoteRequest = {
+      note: note,
+      idClient: client.id
+    }
+
+    await this.clientService.addNote(addNoteRequest).subscribe((res: AddNoteResponse) => {
+      this.getOrders(this.date);
+      return res;
+    }
+    );
+  }
+
+  async editNote(note: Note) {
+    const editNoteRequest: EditNoteRequest = {
+      note: note
+    }
+    await this.clientService.editNote(editNoteRequest).subscribe((res: EditNoteResponse) => {
+      this.getOrders(this.date);
+      return res;
+    })
   }
 }
