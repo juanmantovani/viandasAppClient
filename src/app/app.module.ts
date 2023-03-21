@@ -105,6 +105,7 @@ import { SuccessComponent } from './components/clients/order/success/success.com
 import { TandaInfoComponent } from './components/administration/tanda-info/tanda-info.component';
 import { ClientComponent } from './components/administration/client/client.component';
 import { OrderComponent } from './components/administration/order/order.component';
+import { NoteFormComponent } from './components/administration/note-form/note-form.component';
 
 
 
@@ -165,6 +166,7 @@ import { OrderComponent } from './components/administration/order/order.componen
     TandaInfoComponent,
     ClientComponent,
     OrderComponent,
+    NoteFormComponent,
 
   ],
   imports: [

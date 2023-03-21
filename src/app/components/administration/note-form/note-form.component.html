@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Nota a {{data.client.name}} {{data.client.lastName}}</h1>
+
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill" #note>
+            <mat-label>Nota</mat-label>
+            <input type="text" matInput formControlName="note" name="note"
+                id="note" #note placeholder="Ingrese una nota" required />
+        </mat-form-field>
+       
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

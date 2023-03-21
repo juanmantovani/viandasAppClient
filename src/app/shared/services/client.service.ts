@@ -9,6 +9,10 @@ import { RegisterClientRequest } from '../dto/client/RegisterClientRequest';
 import { RegisterClientResponse } from '../dto/client/RegisterClientResponse';
 import { UpdateClientRequest } from '../dto/client/UpdateClientRequest';
 import { UpdateClientResponse } from '../dto/client/UpdateClientResponse';
+import { AddNoteRequest } from '../dto/note/AddNoteRequest';
+import { AddNoteResponse } from '../dto/note/AddNoteResponse';
+import { EditNoteRequest } from '../dto/note/EditNoteRequest';
+import { EditNoteResponse } from '../dto/note/EditNoteResponse';
 import  * as ROUTES  from '../routes/index.routes'
 
 
@@ -70,6 +74,20 @@ export class ClientService {
     )
   }
 
-  
+  addNote(request : AddNoteRequest):Observable<AddNoteResponse>{
+    return this.http.post<AddNoteResponse>(ROUTES.API_ROUTES.NOTE.ADDNOTE,JSON.stringify(request), this.OPTIONS).pipe(
+      map((res:any) => {
+        return new AddNoteResponse(res);
+      })
+    )
+  }
+
+  editNote(request : EditNoteRequest):Observable<EditNoteResponse>{
+    return this.http.post<EditNoteResponse>(ROUTES.API_ROUTES.NOTE.EDITNOTE,JSON.stringify(request), this.OPTIONS).pipe(
+      map((res:any) => {
+        return new EditNoteResponse(res);
+      })
+    )
+  }
 
 }
