@@ -101,6 +101,11 @@
                 rows="2"></textarea>
         </mat-form-field>
 
+        <div align="center">
+            <mat-checkbox [(ngModel)]="result.isCompany" class="checbox-pat"
+            [ngModelOptions]="{standalone: true}"><i>Voy a pedir para una empresa</i></mat-checkbox>
+        </div>
+
     </mat-dialog-content>
 
     <mat-dialog-actions align="center">
