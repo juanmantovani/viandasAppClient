@@ -30,7 +30,6 @@ export class InicioComponent implements OnInit {
 
   URLAPI = environment.urlApi;
   mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
-  aboutUsText = "Somos Valentina y Mariana, ambas Licenciadas en Nutrición. Realizamos viandas equilibradas y adaptadas a patologías.";
   viewMenuByCategory : boolean = false;
   category : Category;
   categories : Category[] = [];
