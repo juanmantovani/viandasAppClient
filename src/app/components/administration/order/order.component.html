@@ -23,17 +23,13 @@
             <table mat-table [dataSource]="tandaTable.order" class="mat-elevation-z8">
 
                 <colgroup>
-                    <col style="width:'3%'" />
-                    <col style="width:'12%'" />
-                    <col style="width:'18%'" />
-                    <col style="width:'18%'" />
-                    <col style="width:'12%'" />
-                    <col style="width:'12%'" />
-                    <col style="width:'5%'" />
-                    <col style="width:'5%'" />
-                    <col style="width:'5%'" />
-                    <col style="width:'5%'" />
-                    <col style="width:'5%'" />
+                    <col style="width:'4%'" /><!--ID Col-->
+                    <col style="width:'12%'" /><!--Name Col-->
+                    <col *ngFor="let cat of listCategoryTable" [style]="{'width':(25/listCategoryTable.length)+'%'}"/><!--Categoryes Col-->
+                    <col style="width:'10%'" /><!--Patologies Col-->
+                    <col style="width:'18%'" /><!--Observation Col-->
+                    <col style="width:'13%'" /><!--Note Col-->
+                    <col style="width:'18%'" /><!--Address Col-->
 
                 </colgroup>
 
@@ -61,35 +57,6 @@
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="address">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dirección </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.address.street}}
-                        {{element.address.number}}
-                        {{element.address.floor}} {{element.address.departament}}</td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-
-                <ng-container matColumnDef="observation">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.observation}}</td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-                <ng-container matColumnDef="notes">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" title="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-
-                <ng-container matColumnDef="pathologies">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"><mat-icon
-                            *ngFor="let pat of element.client.pathologies"
-                            [style]="{'color': pat.color}" #tooltip="matTooltip"
-                            [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
-                </ng-container>
-
                 <ng-container *ngFor="let categoryTable of listCategoryTable"
                     matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
@@ -104,8 +71,35 @@
                     </td>
                 </ng-container>
 
+                <ng-container matColumnDef="pathologies">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"><mat-icon
+                            *ngFor="let pat of element.client.pathologies"
+                            [style]="{'color': pat.color}" #tooltip="matTooltip"
+                            [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
 
+                <ng-container matColumnDef="observation">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.observation}}</td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                <ng-container matColumnDef="notes">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" title="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
 
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dirección </th>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.address.street}}
+                        {{element.address.number}}
+                        {{element.address.floor}} {{element.address.departament}}</td>
+                    <td mat-footer-cell *matFooterCellDef> </td>
+                </ng-container>
+                
                 <tr mat-header-row *matHeaderRowDef="['header-row-first-group']"></tr>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -119,17 +113,14 @@
         <table mat-table class="mat-elevation-z8 totales">
 
             <colgroup>
-                <col style="width:'3%'" />
-                <col style="width:'12%'" />
-                <col style="width:'18%'" />
-                <col style="width:'18%'" />
-                <col style="width:'12%'" />
-                <col style="width:'12%'" />
-                <col style="width:'5%'" />
-                <col style="width:'5%'" />
-                <col style="width:'5%'" />
-                <col style="width:'5%'" />
-                <col style="width:'5%'" />
+                <col style="width:'4%'" /><!--ID Col-->
+                <col style="width:'12%'" /><!--Name Col-->
+                <col *ngFor="let cat of listCategoryTable" [style]="{'width':(25/listCategoryTable.length)+'%'}"/><!--Categoryes Col-->
+                <col style="width:'10%'" /><!--Patologies Col-->
+                <col style="width:'18%'" /><!--Observation Col-->
+                <col style="width:'13%'" /><!--Note Col-->
+                <col style="width:'18%'" /><!--Address Col-->
+
             </colgroup>
 
             <ng-container matColumnDef="header-row-first-group">
@@ -151,9 +142,17 @@
                 <td mat-footer-cell *matFooterCellDef><strong>Totales</strong></td>
             </ng-container>
 
-            <ng-container matColumnDef="address">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+            <ng-container *ngFor="let categoryTable of listCategoryTable"
+                matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
+                </th>
+                <td mat-footer-cell *matFooterCellDef style="text-align: center;">
+                    <span><strong>{{categoryTable.cant}}</strong></span>
+                </td>
+            </ng-container>
 
+            <ng-container matColumnDef="pathologies">
+                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
@@ -169,18 +168,10 @@
                 <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
-            <ng-container matColumnDef="pathologies">
+            <ng-container matColumnDef="address">
                 <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
 
-            <ng-container *ngFor="let categoryTable of listCategoryTable"
-                matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
-                </th>
-                <td mat-footer-cell *matFooterCellDef style="text-align: center;">
-                    <span><strong>{{categoryTable.cant}}</strong></span>
-                </td>
+                <td mat-footer-cell *matFooterCellDef></td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="['header-row-first-group']"></tr>

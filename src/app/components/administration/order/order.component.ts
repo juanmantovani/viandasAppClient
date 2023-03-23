@@ -28,7 +28,7 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrder', 'client', 'address', 'observation','notes','pathologies'];
+  displayedColumns: string[] = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
   listTandaTable: TandaTable[];
   listCategoryTable: CategoryTable[];
   date: Date;
@@ -51,7 +51,7 @@ export class OrderComponent implements OnInit {
   onClickOk(){
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.displayedColumns = ['idOrder', 'client', 'address', 'observation','notes','pathologies'];
+    this.displayedColumns = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
     this.getOrders(this.date) 
   }
 
@@ -69,7 +69,7 @@ export class OrderComponent implements OnInit {
   addColumToTable() {
     if (this.listCategoryTable)
       this.listCategoryTable.forEach(c => {
-        this.displayedColumns.push(c.category.title.toLowerCase())
+        this.displayedColumns.splice(2,0,c.category.title.toLowerCase())
       })
   }
 
