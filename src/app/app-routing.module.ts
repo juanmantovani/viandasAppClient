@@ -19,6 +19,7 @@ import { AddressesComponent } from './components/clients/addresses/addresses.com
 import { TandaComponent } from './components/administration/tanda/tanda.component';
 import { ClientComponent } from './components/administration/client/client.component';
 import { OrderComponent } from './components/administration/order/order.component';
+import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
 
 
 
@@ -47,6 +48,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.TANDA, component: TandaComponent},
       {path: ROUTES.INTERNAL_ROUTES.CLIENT, component: ClientComponent},
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: OrderComponent },
+      {path: ROUTES.INTERNAL_ROUTES.SETTING, component: InicioSettingComponent },
+
     ],
     
     canActivate: [ AuthGuard ]

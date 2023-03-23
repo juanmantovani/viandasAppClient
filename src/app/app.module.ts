@@ -106,6 +106,11 @@ import { TandaInfoComponent } from './components/administration/tanda-info/tanda
 import { ClientComponent } from './components/administration/client/client.component';
 import { OrderComponent } from './components/administration/order/order.component';
 import { NoteFormComponent } from './components/administration/note-form/note-form.component';
+import { ZoneComponent } from './components/administration/setting/zone/zone.component';
+import { DiscountComponent } from './components/administration/setting/discount/discount.component';
+import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
+import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
+import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
 
 
 
@@ -167,6 +172,11 @@ import { NoteFormComponent } from './components/administration/note-form/note-fo
     ClientComponent,
     OrderComponent,
     NoteFormComponent,
+    ZoneComponent,
+    DiscountComponent,
+    InicioSettingComponent,
+    DiscountFormComponent,
+    ZoneFormComponent,
 
   ],
   imports: [

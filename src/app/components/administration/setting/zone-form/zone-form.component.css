@@ -1,0 +1,16 @@
+.mat-dialog-content{
+    width: 500px;
+    text-align: center;
+}
+.mat-form-field{ 
+    width:100%;
+    margin-bottom: 10px;
+}
+
+.mat-form-field imput{ 
+    width:100%;
+}
+.error-input{
+    color:tomato;
+    font-size: 12px;
+}

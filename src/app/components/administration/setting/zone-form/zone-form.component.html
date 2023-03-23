@@ -1,0 +1,45 @@
+<h1 mat-dialog-title *ngIf="data.actionForm == 'Add'">Agregar zona</h1>
+<h1 mat-dialog-title *ngIf="data.actionForm == 'Edit'">Editando zona</h1>
+
+
+<mat-dialog-content>
+
+    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+        <input type="hidden" formControlName="id" />
+        <div class="row">
+            <div class="col-md-12">
+                <mat-form-field appearance="fill" #description>
+                    <mat-label>Descripción</mat-label>
+                    <input type="text" matInput formControlName="description" name="description"
+                        id="description" #description placeholder="Ingrese una descripción" required />
+                        <mat-hint *ngIf="form!.controls['description']!.touched && form!.controls['description']!.invalid"
+                        class="error-input">
+                        Este campo es requerido</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <mat-form-field appearance="fill" #price>
+                    <mat-label>Costo</mat-label>
+                    <input type="number" matInput formControlName="price" name="price"
+                        id="price" #price placeholder="Ingrese el costo" required />
+                        <mat-hint *ngIf="form!.controls['price']!.touched && form!.controls['price']!.invalid"
+                        class="error-input">
+                        Este campo es requerido</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" type="submit" class="btn-primary btn-azul" [disabled]="form.status == 'INVALID' ">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+
+</mat-dialog-actions>

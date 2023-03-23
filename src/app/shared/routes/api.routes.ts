@@ -89,5 +89,16 @@ export const API_ROUTES = {
     NOTE:{
         ADDNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/addNote`,
         EDITNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/editNote`
+    },
+    SETTING:{
+        ADDZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/addZone`,
+        EDITZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editZone`,
+        DELETEZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteZone`,
+        GETZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getZone`,
+        ADDDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/addDiscount`,
+        EDITDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editDiscount`,
+        DELETEDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteDiscount`,
+        GETDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getDiscount`
     }
+
 }

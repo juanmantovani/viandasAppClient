@@ -7,7 +7,6 @@ import { FoodViewer } from 'src/app/shared/models/FoodViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
-import { Utils } from 'src/app/shared/utils';
 import { environment } from 'src/environments/environment';
 
 

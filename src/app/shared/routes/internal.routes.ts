@@ -18,6 +18,8 @@ export const INTERNAL_ROUTES = {
     DELIVERYDRIVER: 'deliveryDriver',
     ADDRESSES : 'addresses',
     TANDA : 'tanda',
+    SETTING : 'setting',
+
 
 
 

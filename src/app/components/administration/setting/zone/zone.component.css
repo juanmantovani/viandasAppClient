@@ -1,0 +1,28 @@
+.button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+}
+
+.actions-button-container button {
+    margin-right: 10px;
+    min-width: 40px;
+    padding: 0;
+  }
+
+.table-width-zone {
+    width: 100%;
+  }
+
+.table-width-zone table {
+  width: 100%;
+}
+
+
+.mat-elevation-z8{
+  box-shadow: none;
+  border: 1px
+}
+
+.mat-row:hover {
+  background-color: rgba(65, 65, 65, 0.07);
+}
