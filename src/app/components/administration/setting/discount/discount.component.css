@@ -4,12 +4,16 @@
 }
 
 .actions-button-container button {
-    margin-right: 10px;
-    min-width: 40px;
+    margin-right: 7px;
+    min-width: 35px;
     padding: 0;
   }
 
 .table-width-discount {
+    width: 100%;
+  }
+
+  .table-width-discount table{
     width: 100%;
   }
 
