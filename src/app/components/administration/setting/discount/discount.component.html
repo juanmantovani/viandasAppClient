@@ -1,0 +1,71 @@
+<mat-card> 
+    <mat-card-header>
+        <mat-card-subtitle>
+            Administre la configuración de los descuentos desde aquí
+        </mat-card-subtitle>
+        <mat-card-title>
+            Descuentos
+        </mat-card-title>
+    </mat-card-header> 
+    <mat-card-content>
+        <div class="container-fluid">
+
+            <div class="button-container">
+                <button mat-raised-button (click)="onClickDesc()" title="Agregar descuento" class="button">
+                <mat-icon>add</mat-icon>Agregar descuento
+                </button>
+            </div>
+
+            
+            <div *ngIf="!dataSource">
+                <mat-error align="center"><h2>No hay descuentos</h2></mat-error>
+            </div>
+
+            <div class="table-width-discount" *ngIf="dataSource">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+                    <colgroup>
+                    <col style="width:'40%'"/>
+                    <col style="width:'20%'"/>
+                    <col style="width:'15%'"/>
+                    <col style="width:'25%'"/>
+                    </colgroup>
+                
+                    <ng-container matColumnDef="description">
+                        <th mat-header-cell *matHeaderCellDef> Descripción </th>
+                        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="cant">
+                        <th mat-header-cell *matHeaderCellDef> Cant de platos </th>
+                        <td mat-cell *matCellDef="let element"> {{element.cant}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="percentage">
+                        <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                        <td mat-cell *matCellDef="let element"> {{element.percentage}}% </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                        <td mat-cell *matCellDef="let element" class="actions-button-container">
+                            <button mat-stroked-button class="button" (click)="onClickDesc(element)" title="Editar descuento">          
+                                <mat-icon>edit</mat-icon>
+                              </button>
+                              <button mat-stroked-button class="button" (click)="onClickDelete(element)" title="Borrar descuento">          
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                
+                    <tr class="mat-row" *matNoDataRow>
+                    <td class="mat-cell" colspan="4">No se encontró información</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

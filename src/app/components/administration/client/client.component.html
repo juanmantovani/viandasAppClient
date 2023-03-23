@@ -10,16 +10,13 @@
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <colgroup>
-        <col style="width:'4%'" />
-        <col style="width:'15%'" />
-        <col style="width:'7%'" />
-        <col style="width:'7%'" />
-        <col style="width:'11%'" />
-        <col style="width:'12%'" />
-        <col style="width:'15%'" />
-        <col style="width:'12%'" />
+        <col style="width:'6%'" />
+        <col style="width:'16%'" />
+        <col style="width:'10%'" />
+        <col style="width:'20%'" />
+        <col style="width:'17%'" />
         <col style="width:'8%'" />
-        <col style="width:'11%'" />
+        <col style="width:'23%'" />
       </colgroup>
 
       <ng-container matColumnDef="id">
@@ -35,40 +32,40 @@
       </ng-container>
 
       <ng-container matColumnDef="phonePrimary">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Teléfono </th>
+        <th mat-header-cell *matHeaderCellDef  class="hidden"> Teléfono </th>
         <td mat-cell *matCellDef="let element" class="hidden"> {{element.phonePrimary}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="phoneSecondary">
+      <!-- <ng-container matColumnDef="phoneSecondary">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Teléfono sec </th>
         <td mat-cell *matCellDef="let element" class="hidden"> {{element.phoneSecondary}} </td>
-      </ng-container>
+      </ng-container> -->
 
-      <ng-container matColumnDef="bornDate">
+      <!-- <ng-container matColumnDef="bornDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha de nacimiento</th>
         <td mat-cell *matCellDef="let element" class="hidden"> {{element.bornDate | date: 'dd/MM/yyyy'}} </td>
-      </ng-container>
+      </ng-container> -->
 
-      <ng-container matColumnDef="email">
+      <!-- <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Email </th>
         <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.email"
           matTooltipPosition="below"> {{element.email}} </td>
-      </ng-container>
+      </ng-container> -->
 
       <ng-container matColumnDef="observation">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Observacion </th>
+        <th mat-header-cell *matHeaderCellDef class="hidden"> Observacion </th>
         <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.observation"
           matTooltipPosition="below"> {{element.observation}} </td>
       </ng-container>
 
       <ng-container matColumnDef="note">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nota </th>
+        <th mat-header-cell *matHeaderCellDef class="hidden"> Nota </th>
         <td mat-cell *matCellDef="let element" class="hidden" #tooltip="matTooltip" [matTooltip]="element.note.note"
           matTooltipPosition="below"> {{element.note.note}} </td>
       </ng-container>
 
       <ng-container matColumnDef="pathologies">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Patologías </th>
+        <th mat-header-cell *matHeaderCellDef class="hidden"> Patologías </th>
         <td mat-cell *matCellDef="let element" class="hidden">
           <span *ngFor="let pat of element.pathologies">
             <mat-icon *ngIf="pat.checked" [style]="{'color': pat.color}" #tooltip="matTooltip"
@@ -86,6 +83,9 @@
           <button mat-stroked-button class="button" (click)="onClickNote(element)" title="Notas">
             <mat-icon>note_alt</mat-icon>
           </button>
+          <!-- <button mat-stroked-button class="button" (click)="onViewProfile(element)" title="Ver perfil">
+            <mat-icon>person</mat-icon>
+          </button> -->
         </td>
       </ng-container>
 

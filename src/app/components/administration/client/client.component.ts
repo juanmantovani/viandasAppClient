@@ -25,7 +25,7 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 })
 export class ClientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'phoneSecondary', 'bornDate', 'email', 'observation','note', 'pathologies', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'observation','note', 'pathologies', 'actions'];
   listClients: Client[];
   dataSource: any;
   clientSelected: Client;
@@ -35,7 +35,7 @@ export class ClientComponent implements OnInit {
 
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) matSort: MatSort;
 
   constructor(
     private clientService: ClientService,
@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
     await this.clientService.getClient().subscribe((res: GetClientResponse) => {
       this.dataSource = new MatTableDataSource(res.client);
       this.dataSource.paginator = this.paginator
-      this.dataSource.sort = this.sort
+      this.dataSource.sort = this.matSort
     })
   }
   onSearch(event: Event) {

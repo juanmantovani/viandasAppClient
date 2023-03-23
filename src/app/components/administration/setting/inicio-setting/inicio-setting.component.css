@@ -1,0 +1,12 @@
+.title-component{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.setting {
+    margin: 20px;
+}
+
+.mat-elevation-z8{
+    box-shadow: none;
+  }

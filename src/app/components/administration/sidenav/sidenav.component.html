@@ -54,6 +54,10 @@
                 Tandas <mat-chip-list *ngIf="addressesUnassignabled > 0"><mat-chip class="notification-addressesUnassignabled" matTooltip="Direcciones sin asignar">{{addressesUnassignabled}}</mat-chip></mat-chip-list>
 
             </mat-list-item>
+            <mat-list-item class="nav-link" [routerLink]="[SETTING]" routerLinkActive="active">
+                Configuraciones
+
+            </mat-list-item>
 
 
         </mat-list>
