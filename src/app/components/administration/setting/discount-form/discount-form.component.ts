@@ -18,7 +18,6 @@ export class DiscountFormComponent implements OnInit {
 
   @Output() onSubmit: EventEmitter<Discount | null>;
 
-
   constructor(
     public dialogRef: MatDialogRef<DiscountFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
