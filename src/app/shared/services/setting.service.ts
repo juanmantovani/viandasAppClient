@@ -30,7 +30,7 @@ export class SettingService {
   getZone(): Observable<GetZoneResponse>{
     return this.http.get<GetZoneResponse>(ROUTES.API_ROUTES.SETTING.GETZONE).pipe(
       map((res:any) => {
-        return new GetZoneResponse(res);
+        return new GetZoneResponse(res.zone);
       })
     )
   }

@@ -109,9 +109,7 @@
             <p class="step-description">
               A continuación, verificá nuestras zonas de envíos en Paraná - Entre Ríos y los costos de los mismos
             </p>
-            <p>> Zona 1: $250</p>
-            <p>> Zona 2: $300</p>
-            <p>> Zona 3: $350</p>
+            <div class="coso" *ngFor="let zone of zones"><p >> {{zone.description}}: ${{zone.price}}</p></div>
           </div>
 
         </div>

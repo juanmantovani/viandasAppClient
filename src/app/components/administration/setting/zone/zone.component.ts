@@ -22,35 +22,6 @@ import { ZoneFormComponent } from '../zone-form/zone-form.component';
 })
 export class ZoneComponent implements OnInit {
 
-
-  zones: Zone[] = [
-    {
-      "id": 1,
-      "description": "Zone A",
-      "price": 10.99
-    },
-    {
-      "id": 2,
-      "description": "Zone B",
-      "price": 9.99
-    },
-    {
-      "id": 3,
-      "description": "Zone C",
-      "price": 12.99
-    },
-    {
-      "id": 4,
-      "description": "Zone D",
-      "price": 11.99
-    },
-    {
-      "id": 5,
-      "description": "Zone E",
-      "price": 8.99
-    }
-  ];
-
   actionFormZone: string;
   dataSource: any;
   displayedColumns: string[] = ['description', 'price', 'actions'];
@@ -69,7 +40,6 @@ export class ZoneComponent implements OnInit {
     await this.settingSerive.getZone().subscribe((res: GetZoneResponse) => {
       this.dataSource = new MatTableDataSource(res.zones);
     })
-    this.dataSource = new MatTableDataSource(this.zones);
 
   }
 
