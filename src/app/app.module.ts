@@ -111,6 +111,7 @@ import { DiscountComponent } from './components/administration/setting/discount/
 import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
 import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
+import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 
 
 
@@ -177,6 +178,7 @@ import { ZoneFormComponent } from './components/administration/setting/zone-form
     InicioSettingComponent,
     DiscountFormComponent,
     ZoneFormComponent,
+    ListOrderComponent,
 
   ],
   imports: [

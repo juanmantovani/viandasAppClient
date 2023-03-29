@@ -69,7 +69,8 @@ export const API_ROUTES = {
         GETORDERVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
         GETORDERBYID: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
         EDITDAYORDERADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/updateDayOrderAddress`,
-        GETORDERSBYCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByIdClient`
+        GETORDERSBYCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByIdClient`,
+        GETALLORDERS : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getAllOrders`,
 
     },
     DELIVERYDRIVER: {

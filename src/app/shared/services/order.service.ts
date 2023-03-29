@@ -16,6 +16,7 @@ import { EditDayOrderAddressResponse } from '../dto/order/EditDayOrderAddressRes
 import { GetOrdersRequest } from '../dto/order/GetOrdersRequest';
 import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
 import { GetMenuResponse } from '../dto/menu/getMenuResponse';
+import { GetAllOrdersResponse } from '../dto/order/GetAllOrdersResponse';
 
 
 
@@ -61,6 +62,14 @@ export class OrderService {
     )
   }
 
+  getAllOrders(): Observable<GetAllOrdersResponse>{
+    return this.http.get<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS).pipe(
+      map((res: any) => {
+        return new GetAllOrdersResponse(res);
+      })
+    )
+  }
+
   getOrderById(idOrder: number): Observable<GetOrderByIdResponse> {
     let params = new HttpParams();
     params = params.set('idOrder', idOrder?.toString());
@@ -82,7 +91,7 @@ export class OrderService {
           }
           daysOrderArray.push(new DayOrder(daysOrder))
         });
-        var order : Order = {
+        var order: Order = {
           client: new Client(res.client),
           date: res.date,
           id: res.id,

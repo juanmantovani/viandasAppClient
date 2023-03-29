@@ -20,6 +20,7 @@ import { TandaComponent } from './components/administration/tanda/tanda.componen
 import { ClientComponent } from './components/administration/client/client.component';
 import { OrderComponent } from './components/administration/order/order.component';
 import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
+import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 
 
 
@@ -49,6 +50,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.CLIENT, component: ClientComponent},
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: OrderComponent },
       {path: ROUTES.INTERNAL_ROUTES.SETTING, component: InicioSettingComponent },
+      {path: ROUTES.INTERNAL_ROUTES.LISTORDER, component: ListOrderComponent },
+      
 
     ],
     
