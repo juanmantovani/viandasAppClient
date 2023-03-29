@@ -62,7 +62,7 @@ export class OrderService {
     )
   }
 
-  getAllOrders(): Observable<GetAllOrdersResponse>{
+  getAllOrders(): Observable<GetAllOrdersResponse> {
     return this.http.get<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS).pipe(
       map((res: any) => {
         return new GetAllOrdersResponse(res);
