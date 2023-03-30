@@ -54,7 +54,7 @@ export class InicioOrderComponent implements OnInit {
   range: FormGroup;
   minDate : Date;
   menuViewer : MenuViewer;
-
+  existDayFood: boolean;
 
   client : Client;
   selectedAdress: Address;
@@ -167,13 +167,20 @@ export class InicioOrderComponent implements OnInit {
   }
 
   async getMenuViewer(){
+    this.existDayFood = false;
     var request : GetMenuByCategoriesRequest = {
       idCategory: this.categories,
       dateStart: this.range.getRawValue().start,
       dateEnd: this.range.getRawValue().end
     }
   await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
-   this.menuViewer = new MenuViewer(res.menuViewer)
+    if (res){
+      this.menuViewer = new MenuViewer(res.menuViewer);
+      this.existDayFood = true;
+    } else {
+      this.existDayFood = false;
+    }
+
   })
 }
   
