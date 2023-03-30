@@ -1,12 +1,12 @@
-import { Order } from "../../models/Order";
+import { OrderTable } from "../../models/OrderTable";
 import { BaseResponse } from "../BaseResponse";
 
 export class GetAllOrdersResponse extends BaseResponse {
-    order: Order[];
+    order: OrderTable[];
 
     constructor(data: any) {
         super(data);
         if (data)
-            this.order = data.map((o: any) => new Order(o));
+            this.order = data.map((o: any) => new OrderTable(o));
     }
 }

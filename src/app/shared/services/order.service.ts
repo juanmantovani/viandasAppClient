@@ -17,6 +17,7 @@ import { GetOrdersRequest } from '../dto/order/GetOrdersRequest';
 import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
 import { GetMenuResponse } from '../dto/menu/getMenuResponse';
 import { GetAllOrdersResponse } from '../dto/order/GetAllOrdersResponse';
+import { GetAllOrdersRequest } from '../dto/order/GetAllOrdersRequest';
 
 
 
@@ -62,8 +63,8 @@ export class OrderService {
     )
   }
 
-  getAllOrders(): Observable<GetAllOrdersResponse> {
-    return this.http.get<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS).pipe(
+  getAllOrders(request : GetAllOrdersRequest): Observable<GetAllOrdersResponse> {
+    return this.http.post<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS, JSON.stringify(request),this.OPTION).pipe(
       map((res: any) => {
         return new GetAllOrdersResponse(res);
       })
