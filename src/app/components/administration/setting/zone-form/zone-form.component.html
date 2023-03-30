@@ -4,7 +4,7 @@
 
 <mat-dialog-content>
 
-    <form [formGroup]="form" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
+    <form [formGroup]="form" (keyup.enter)="form.status == 'VALID' ? onClickSave() : ''" (ngSubmit)="onClickSave()" id="myform" #f="ngForm">
         <input type="hidden" formControlName="id" />
         <div class="row">
             <div class="col-md-12">
