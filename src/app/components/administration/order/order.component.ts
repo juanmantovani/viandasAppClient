@@ -51,11 +51,11 @@ export class OrderComponent implements OnInit {
   onClickOk(){
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.displayedColumns = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
     this.getOrders(this.date) 
   }
 
   async getOrders(date : Date) {
+    this.displayedColumns = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
     const request: GetOrdersRequest = {
       date: date
     }
@@ -139,7 +139,7 @@ export class OrderComponent implements OnInit {
     }
 
     await this.clientService.addNote(addNoteRequest).subscribe((res: AddNoteResponse) => {
-      this.getOrders(this.date);
+      //this.getOrders(this.date);
       return res;
     }
     );
@@ -150,7 +150,7 @@ export class OrderComponent implements OnInit {
       note: note
     }
     await this.clientService.editNote(editNoteRequest).subscribe((res: EditNoteResponse) => {
-      this.getOrders(this.date);
+      //this.getOrders(this.date);
       return res;
     })
   }

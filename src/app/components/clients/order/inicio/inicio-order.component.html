@@ -25,6 +25,7 @@
     </mat-step>
     <mat-step label="¿Qué menú vas a elegir?">
       <h4>A continuación, seleccioná el menú que vas a pedir y la cantidad de viandas para cada día</h4>
+      <div *ngIf="existDayFood">
       <app-order-categories *ngIf="categories"
         [categories]="categories"
         [cantFoodOfCategory]="cantFoodOfCategory"
@@ -34,6 +35,12 @@
         (viewDetailsCategory)="onViewDetailsCategory($event)"
         (cantEmit)="onSetCant($event)">
         </app-order-categories>
+        {{menuViewer |json}}
+
+      </div>
+      <div *ngIf="!existDayFood">
+        No hay menú disponible en la fecha seleccionada
+      </div>
     </mat-step>
     <mat-step label="Verifica los platos y las cantidades">
       <h4>Repasá las viandas propuestas para cada día y personalizá la cantidad que queres</h4>
