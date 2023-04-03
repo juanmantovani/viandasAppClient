@@ -71,6 +71,8 @@ export const API_ROUTES = {
         EDITDAYORDERADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/updateDayOrderAddress`,
         GETORDERSBYCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByIdClient`,
         GETALLORDERS : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getAllOrders`,
+        PAIDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/paid`,
+        CANCELORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancel`,
 
     },
     DELIVERYDRIVER: {

@@ -11,6 +11,7 @@ export class OrderTable {
     categoryTable: CategoryTable[];
     paid: boolean;
     status: boolean;
+    date: Date
 
     constructor(data: any) {
         if (data) {
@@ -20,6 +21,7 @@ export class OrderTable {
             this.total = data.total;
             this.paid = data.paid;
             this.status = data.status;
+            this.date = new Date(data.date)
             this.address = new Address(data.address);
             if (data.categoryTable)
                 this.categoryTable = data.categoryTable.map((d: any) => new CategoryTable(d));
