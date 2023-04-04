@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <h1 class="title-component">Administrar Ordenes</h1>
+
+    <div class="search">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Ingrese el rango de fechas</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate [(ngModel)]="request.dateStart" placeholder="Desde">
+                <input matEndDate [(ngModel)]="request.dateEnd" placeholder="Hasta">
+            </mat-date-range-input>
+            <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+
+        </mat-form-field>
+        <mat-checkbox [(ngModel)]="request.paid" class="checkbox"
+            [ngModelOptions]="{standalone: true}">Pagadas</mat-checkbox>
+        <mat-checkbox [(ngModel)]="request.notPaid" class="checkbox" [ngModelOptions]="{standalone: true}">No
+            Pagadas</mat-checkbox>
+        <mat-checkbox [(ngModel)]="request.active" class="checkbox"
+            [ngModelOptions]="{standalone: true}">Activas</mat-checkbox>
+        <mat-checkbox [(ngModel)]="request.inactive" class="checkbox" [ngModelOptions]="{standalone: true}">Dadas de
+            baja</mat-checkbox>
+
+        <button mat-raised-button (click)="onClickSearch()" title="Buscar ordenes" class="button">
+            <mat-icon>search</mat-icon>Buscar
+        </button>
+        <button mat-button (click)="reset()">Limpiar filtros</button>
+
+    </div>
+
+    <mat-form-field appearance="standard">
+        <mat-label>Buscar</mat-label>
+        <input matInput (keyup)="onSearch($event)" placeholder="" #input>
+    </mat-form-field>
+
+    <div class="table-width-food">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+            <colgroup>
+                <col style="width:'5%'" />
+                <col style="width:'25%'" />
+                <col style="width:'10%'" />
+                <col style="width:'10%'" />
+                <col style="width:'10%'" />
+                <col style="width:'20%'" />
+                <col style="width:'20%'" />
+
+            </colgroup>
+
+            <ng-container matColumnDef="idOrden">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="client">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Cliente </th>
+                <td mat-cell *matCellDef="let element" class="hidden"> {{element.client.name}}
+                    {{element.client.lastName}}
+                </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha orden </th>
+                <td mat-cell *matCellDef="let element" class="hidden"> {{element.date | date:'dd/MM/YYYY'}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Total </th>
+                <td mat-cell *matCellDef="let element" class="hidden"> ${{element.total}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Estado </th>
+                <td mat-cell *matCellDef="let element" class="hidden"> {{element.status ? 'Activa' : 'Cancelada' }}
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="paid">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Pago </th>
+                <td mat-cell *matCellDef="let element" class="hidden"> {{element.paid ? 'Pagada' : 'Pendiente de pago'
+                    }}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element" class="actions-button-container">
+                    <button mat-stroked-button class="button" (click)="onClickPaid(element)" title="Marcar como pagado"
+                        *ngIf="!element.paid && element.status">
+                        <mat-icon>attach_money</mat-icon>
+                    </button>
+                    <button mat-stroked-button class="button" (click)="onClickDelete(element)" title="Dar de baja"
+                        *ngIf="element.status">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
+            </tr>
+        </table>
+        <br>
+        <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>
