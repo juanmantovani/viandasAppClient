@@ -4,5 +4,6 @@ export class GetAllOrdersRequest {
     paid: boolean;
     notPaid: boolean;
     active: boolean;
-    inactive: boolean;
+    cancel: boolean;
+    finished: boolean;
 }

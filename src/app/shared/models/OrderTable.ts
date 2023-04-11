@@ -1,6 +1,7 @@
 import { Address } from "./Address";
 import { CategoryTable } from "./CategoryTable";
 import { Client } from "./Client";
+import { StatusOrder } from "./StatusOrder";
 
 export class OrderTable {
     id: number;
@@ -10,7 +11,7 @@ export class OrderTable {
     address: Address;
     categoryTable: CategoryTable[];
     paid: boolean;
-    status: boolean;
+    status: StatusOrder;
     date: Date
 
     constructor(data: any) {
@@ -20,7 +21,7 @@ export class OrderTable {
             this.observation = data.observation;
             this.total = data.total;
             this.paid = data.paid;
-            this.status = data.status;
+            this.status = new StatusOrder(data.status);
             this.date = new Date(data.date)
             this.address = new Address(data.address);
             if (data.categoryTable)

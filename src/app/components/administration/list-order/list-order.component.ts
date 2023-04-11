@@ -39,7 +39,6 @@ export class ListOrderComponent implements OnInit {
   async getOrders() {
     await this.orderService.getAllOrders(this.request).subscribe((res: GetAllOrdersResponse) => {
       this.dataSource = new MatTableDataSource(res.order);
-      console.log(res.order)
       this.dataSource.paginator = this.paginator
       this.dataSource.sort = this.sort
     })
@@ -50,7 +49,7 @@ export class ListOrderComponent implements OnInit {
   }
 
   onSearch(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
@@ -61,13 +60,16 @@ export class ListOrderComponent implements OnInit {
       paid: false,
       notPaid: true,
       active: true,
-      inactive: false,
+      cancel: false,
+      finished: false,
     }
+    this.getOrders();
+
   }
 
-  async onClickDelete(order: OrderTable) {
-    if ( await this.generateConfirm("Está a punto de dar de baja la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
-      this.deleteOrder(order.id);
+  async onClickCancel(order: OrderTable) {
+    if ( await this.generateConfirm("Está a punto de cancelar la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
+      this.cancelOrder(order.id);
     }
   }
 
@@ -81,11 +83,11 @@ export class ListOrderComponent implements OnInit {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  async deleteOrder(idOrder: number) {
+  async cancelOrder(idOrder: number) {
     const request: DeleteOrderRequest = {
       idOrder: idOrder
     }
-    await this.orderService.deleteOrder(request).subscribe(() => {
+    await this.orderService.cancelOrder(request).subscribe(() => {
       this.getOrders();
     });
   }
