@@ -68,7 +68,6 @@ export class OrderService {
   }
 
   getAllOrders(request : GetAllOrdersRequest): Observable<GetAllOrdersResponse> {
-    console.log(request)
     return this.http.post<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS, JSON.stringify(request),this.OPTION).pipe(
       map((res: any) => {
         return new GetAllOrdersResponse(res);
@@ -119,10 +118,10 @@ export class OrderService {
     );
   }
 
-  deleteOrder(request : DeleteOrderRequest): Observable<DeleteOrderResponse>{
+  cancelOrder(request : DeleteOrderRequest): Observable<DeleteOrderResponse>{
     let params = new HttpParams();
     params = params.set('idOrder', request.idOrder.toString());
-    return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.PAIDORDER, { params }).pipe(
+    return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELORDER, { params }).pipe(
       tap(res => new PaidOrderResponse(res))
     );
   }
@@ -130,7 +129,7 @@ export class OrderService {
   paidOrder(request : PaidOrderRequest): Observable<PaidOrderResponse>{
     let params = new HttpParams();
     params = params.set('idOrder', request.idOrder.toString());
-    return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELORDER, { params }).pipe(
+    return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.PAIDORDER, { params }).pipe(
       tap(res => new PaidOrderResponse(res))
     );
   }
