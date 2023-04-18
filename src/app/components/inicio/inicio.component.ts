@@ -14,7 +14,6 @@ import { SettingService } from 'src/app/shared/services/setting.service';
 import { GetZoneResponse } from 'src/app/shared/dto/setting/GetZoneResponse';
 import { Zone } from 'src/app/shared/models/Zone';
 
-
 @Component({
   selector: 'app-inicio',
   templateUrl: './inicio.component.html',
@@ -23,8 +22,6 @@ import { Zone } from 'src/app/shared/models/Zone';
   encapsulation: ViewEncapsulation.None
 
 })
-
-
 
 export class InicioComponent implements OnInit {
   ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION+'/'+ROUTES.INTERNAL_ROUTES.ORDER;
@@ -42,7 +39,6 @@ export class InicioComponent implements OnInit {
   public userRoles: string [] = [];
   public userProfile: KeycloakProfile | null = null;
   zones: Zone[] = [];
-
 
   constructor(config: NgbCarouselConfig, 
     private carrouselService : CarrouselService,
@@ -66,17 +62,17 @@ export class InicioComponent implements OnInit {
     this.keycloak.login();
   }
 
- async ngOnInit() {
-  this.getBannersIndex();
-  await this.getCategories();
-  await this.getZone();
+  async ngOnInit() {
+    this.getBannersIndex();
+    await this.getCategories();
+    await this.getZone();
 
-  this.isLoggedIn = await this.keycloak.isLoggedIn();
+    this.isLoggedIn = await this.keycloak.isLoggedIn();
 
-  if (this.isLoggedIn) {
-    this.userProfile = await this.keycloak.loadUserProfile();
-    this.userRoles = this.keycloak.getUserRoles()
-  }
+    if (this.isLoggedIn) {
+      this.userProfile = await this.keycloak.loadUserProfile();
+      this.userRoles = this.keycloak.getUserRoles()
+    }
   }
 
   async getZone() {
@@ -100,7 +96,6 @@ export class InicioComponent implements OnInit {
     }
       this.router.navigateByUrl(this.CLIENT);
   }
-
 
   async getCategories() {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {

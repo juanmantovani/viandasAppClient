@@ -2,56 +2,87 @@
     <h1 mat-dialog-title>Editar dirección</h1>
 
     <mat-dialog-content>
+        <div *ngIf="!validateAddress">
+
+        <div *ngIf="!map">
+
         <input type="hidden" formControlName="id" />
+        <input type="hidden" formControlName="lat" />
+        <input type="hidden" formControlName="lng" />
+        <input type="hidden" formControlName="idZone" />
 
         <mat-form-field appearance="fill" #street >
             <mat-label>Calle</mat-label>
-            <input type="text" matInput formControlName="street" name="street" id="street" #street placeholder="Calle"
+            <input type="text" matInput formControlName="street" name="street" id="street" maxlength="50" #street placeholder="Calle"
                 required />
-            <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
+            <!-- <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
                 class="error-input">
-                Este campo es requerido</mat-hint>
+                Este campo es requerido</mat-hint> -->
+                <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.errors?.mensaje"
+                        class="error-input">
+                        {{form!.controls['street']!.errors?.mensaje}}</mat-hint>
         </mat-form-field>
+        {{ form!.controls['street']!.errors | json }}
         <table >
             <tr>
                 <td>
                     <mat-form-field appearance="fill" #number>
                         <mat-label>Número</mat-label>
-                        <input type="text" matInput formControlName="number" name="number" id="number" #number
-                            placeholder="Número" />
+                        <input type="text" matInput formControlName="number" maxlength="4" name="number" id="number" 
+                            #number placeholder="Número" required/>
+                        <mat-hint *ngIf="form!.controls['number']!.touched && form!.controls['number']!.errors?.mensaje"
+                                    class="error-input">
+                                    {{form!.controls['number']!.errors?.mensaje}}
+                        </mat-hint>
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill" #floor>
                         <mat-label>Piso</mat-label>
-                        <input type="text" matInput formControlName="floor" name="floor" id="floor" #floor
+                        <input type="text" matInput formControlName="floor" maxlength="2" name="floor" id="floor" #floor
                             placeholder="Piso" />
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field appearance="fill" #departament>
                         <mat-label>Dpto</mat-label>
-                        <input type="text" matInput formControlName="departament" name="departament" id="departament"
+                        <input type="text" matInput formControlName="departament" maxlength="2" name="departament" id="departament"
                             #departament placeholder="Dpto" />
                     </mat-form-field>
                 </td>
             </tr>
         </table>
+        
         <mat-form-field appearance="fill" #observation >
             <mat-label>Indicaciones</mat-label>
             <textarea type="text" matInput formControlName="observation" name="observation" id="observation" #observation
                 rows="2"></textarea>
         </mat-form-field>
 
+        <button mat-raised-button color="primary" (click)="onClickSearchAddress()" class="btn-primary btn-azul"
+        [disabled]="form!.controls['street']!.errors != null || form!.controls['number']!.errors != null">
+        Validar domicilio
+        </button>
+        </div>
+        <div *ngIf="map">
+            <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
+                    (geoCodingResult)="geoCodingResult($event)"
+                    (clickBack)="onClickBack()">
+            </app-map>
+        </div>
+        </div>
+        <h3 *ngIf="validateAddress"><span><mat-icon  class="confirm-address">location_on</mat-icon>{{form.getRawValue()['street']}} {{form.getRawValue()['number']}}</span> </h3>
+
+
 
     </mat-dialog-content>
 
-    <mat-dialog-actions align="center">
+    <mat-dialog-actions align="center" >
         <button  mat-button color="primary"mat-dialog-close>
             <mat-icon>clear</mat-icon> CANCELAR
         </button>
         <button mat-raised-button color="primary" (click)="onClickSave()" class="btn-primary btn-azul"
-            [disabled]="form.status == 'INVALID'">
+            [disabled]="form.status == 'INVALID' || !validateAddress">
             <mat-icon>save</mat-icon> GUARDAR
         </button>
 

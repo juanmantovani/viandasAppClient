@@ -25,7 +25,6 @@ export class InicioClientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
   PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.PROFILE;
 
-
   constructor(
     public dialog: MatDialog, 
     private readonly keycloak: KeycloakService, 
@@ -58,7 +57,7 @@ export class InicioClientComponent implements OnInit {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
     dialogConfig.maxWidth = '95%';
-    dialogConfig.maxHeight = '90%';
+    dialogConfig.maxHeight = '95%';
     dialogConfig.disableClose = true;
     const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;

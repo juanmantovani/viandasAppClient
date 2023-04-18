@@ -112,6 +112,10 @@ import { InicioSettingComponent } from './components/administration/setting/inic
 import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
 
+//maps
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MapComponent } from './components/clients/map/map.component';
+
 
 
 @NgModule({
@@ -177,6 +181,7 @@ import { ZoneFormComponent } from './components/administration/setting/zone-form
     InicioSettingComponent,
     DiscountFormComponent,
     ZoneFormComponent,
+    MapComponent,
 
   ],
   imports: [
@@ -222,7 +227,8 @@ import { ZoneFormComponent } from './components/administration/setting/zone-form
     MatTooltipModule,
     BrowserAnimationsModule, 
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
+    GoogleMapsModule
   ],
   providers: [
     MatNotificationComponent,
@@ -231,7 +237,8 @@ import { ZoneFormComponent } from './components/administration/setting/zone-form
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
+
 
   ],
   bootstrap: [AppComponent],
