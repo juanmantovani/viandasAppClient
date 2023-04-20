@@ -90,7 +90,7 @@ import { OrderListFoodComponent } from './components/clients/order/list-food/lis
 import { ViewDetailsCategoryComponent } from './components/clients/order/view-details-category/view-details-category.component';
 import { ResumeOrderComponent } from './components/clients/order/resume-order/resume-order.component'
 import { AddressFormComponent } from './components/clients/address-form/address-form.component'
-import { FinishOrderComponent } from './components/clients/order/finish-order/finish-order.component';
+import { SelectedAddressComponent } from './components/clients/order/selected-address/selected-address.component';
 import { AddressComponent } from './components/clients/address/address.component';
 import { DeliveryDriverComponent } from './components/administration/delivery-driver/delivery-driver.component';
 import { DeliveryDriverFormComponent } from './components/administration/delivery-driver-form/delivery-driver-form.component';
@@ -112,6 +112,7 @@ import { InicioSettingComponent } from './components/administration/setting/inic
 import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
 import { ListOrderComponent } from './components/administration/list-order/list-order.component';
+import { ConfirmationComponent } from './components/clients/order/confirmation/confirmation.component';
 
 
 
@@ -157,7 +158,7 @@ import { ListOrderComponent } from './components/administration/list-order/list-
     ViewDetailsCategoryComponent,
     ResumeOrderComponent,
     AddressFormComponent,
-    FinishOrderComponent,
+    SelectedAddressComponent,
     AddressComponent,
     DeliveryDriverComponent,
     DeliveryDriverFormComponent,
@@ -179,6 +180,7 @@ import { ListOrderComponent } from './components/administration/list-order/list-
     DiscountFormComponent,
     ZoneFormComponent,
     ListOrderComponent,
+    ConfirmationComponent,
 
   ],
   imports: [

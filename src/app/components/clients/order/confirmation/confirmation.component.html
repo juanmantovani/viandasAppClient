@@ -1,0 +1,18 @@
+<mat-card class="card">
+    <h2>Dejá tu observación</h2> 
+    <mat-card-content>
+    <form class="formFood" >
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput placeholder="Aclaraciones generales" [(ngModel)]="order.observation" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+      </form> 
+      <div align="end"> 
+      <p class="discount-sum">Pedido: ${{ order.subTotal }} </p>
+      <p *ngIf="order.discount! > 0" class="discount-rest"><i>Descuento por cantidad: -${{ order.discount }} </i></p>
+      <p class="discount-sum">Costo de envío: ${{ order.delivery }} </p>
+      <hr>  
+      <h2>TOTAL ${{ order.total }}</h2>
+    </div>
+    </mat-card-content>    
+  </mat-card>

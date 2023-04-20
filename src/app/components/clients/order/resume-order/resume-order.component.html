@@ -16,7 +16,7 @@
       </div>
     <span class="spacer"></span>
     <div >
-      <button align="end" mat-raised-button class="button btn-azul" color="primary" (click)="onClickNext()" *ngIf="finishButton">
+      <button align="end" mat-raised-button class="button btn-azul" color="primary" (click)="onClickNext()" *ngIf="finishButton" [disabled]="isDisabledNext">
         Finalizar<mat-icon>keyboard_arrow_right</mat-icon>
       </button>
       <button align="end" mat-raised-button class="button btn-azul" color="primary" (click)="onClickNext()" *ngIf="!finishButton" [disabled]="isDisabledNext">

@@ -50,9 +50,7 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.CLIENT, component: ClientComponent},
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: OrderComponent },
       {path: ROUTES.INTERNAL_ROUTES.SETTING, component: InicioSettingComponent },
-      {path: ROUTES.INTERNAL_ROUTES.LISTORDER, component: ListOrderComponent },
-      
-
+      {path: ROUTES.INTERNAL_ROUTES.LISTORDER, component: ListOrderComponent },    
     ],
     
     canActivate: [ AuthGuard ]
@@ -65,9 +63,6 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: InicioOrderComponent },
       {path: ROUTES.INTERNAL_ROUTES.ORDERS, component: InicioOrdersComponent },
       {path: ROUTES.INTERNAL_ROUTES.ADDRESSES, component: AddressesComponent }
-
-
-
     ],
     canActivate: [ AuthGuard ]
   },
