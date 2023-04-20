@@ -149,6 +149,7 @@
         </h3>
         <i>Podes arrastrar hasta la ubicación correcta</i>
         <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
+                [lat]="0" [lng]="0"
                 (geoCodingResult)="geoCodingResult($event)"
                 (clickBack)="onClickBack()">
         </app-map>

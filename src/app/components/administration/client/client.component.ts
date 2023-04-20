@@ -25,7 +25,7 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 })
 export class ClientComponent implements OnInit {
 
-  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'observation','note', 'pathologies', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'phonePrimary', 'observation', 'note', 'pathologies', 'actions'];
   listClients: Client[];
   dataSource: any;
   clientSelected: Client;
@@ -45,8 +45,7 @@ export class ClientComponent implements OnInit {
 
   ngOnInit() {
     this.getClient();
-    if (this.viewOrdersClient)
-      this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+    this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
   }
 
   async getClient() {
@@ -71,19 +70,19 @@ export class ClientComponent implements OnInit {
 
   onClickNote(client: Client) {
     var dataForm = new DataFormNote();
-    if (client.note.id== 0) {
+    if (client.note.id == 0) {
       this.actionFormNote = "Add"
       dataForm = {
         actionForm: "Add",
         note: new Note(null),
-        client : client
+        client: client
       };
     } else {
       this.actionFormNote = "Edit"
       dataForm = {
         actionForm: "Edit",
         note: client.note,
-        client : client
+        client: client
       };
     }
     this.gestionateForm(dataForm);
@@ -101,7 +100,7 @@ export class ClientComponent implements OnInit {
         return false;
       }
 
-      var result: any = await this.onSubmitNote(data,dataForm.client);
+      var result: any = await this.onSubmitNote(data, dataForm.client);
       if (result) {
         return false;
       }
@@ -113,13 +112,13 @@ export class ClientComponent implements OnInit {
     })
   }
 
-  async onSubmitNote(note: Note, client : Client) {
-    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note,client) : await this.editNote(note);
+  async onSubmitNote(note: Note, client: Client) {
+    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note, client) : await this.editNote(note);
 
     return resultOperation;
   }
 
-  async addNote(note: Note, client : Client) {
+  async addNote(note: Note, client: Client) {
     const addNoteRequest: AddNoteRequest = {
       note: note,
       idClient: client.id

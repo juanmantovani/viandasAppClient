@@ -15,14 +15,10 @@
             <mat-label>Calle</mat-label>
             <input type="text" matInput formControlName="street" name="street" id="street" maxlength="50" #street placeholder="Calle"
                 required />
-            <!-- <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.invalid"
-                class="error-input">
-                Este campo es requerido</mat-hint> -->
                 <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.errors?.mensaje"
                         class="error-input">
                         {{form!.controls['street']!.errors?.mensaje}}</mat-hint>
         </mat-form-field>
-        {{ form!.controls['street']!.errors | json }}
         <table >
             <tr>
                 <td>
@@ -65,7 +61,10 @@
         </button>
         </div>
         <div *ngIf="map">
+            <i>Podes arrastrar hasta la ubicación correcta</i>
             <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
+                    [lat]="lat"
+                    [lng]="lng"
                     (geoCodingResult)="geoCodingResult($event)"
                     (clickBack)="onClickBack()">
             </app-map>

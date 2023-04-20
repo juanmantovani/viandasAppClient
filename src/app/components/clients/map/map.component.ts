@@ -12,12 +12,15 @@ export class MapComponent implements OnInit {
 
   @Input() street: string;
   @Input() number: string;
+  @Input() lat: number;
+  @Input() lng: number;
 
   @Output() geoCodingResult: EventEmitter<any> = new EventEmitter();
   @Output() clickBack: EventEmitter<boolean> = new EventEmitter();
 
   widthMap: string = '100%';
   heightMap: string = '450';
+  notGeocoding: string = '';
 
   display: any;
   zonesMap: any = [];
@@ -30,28 +33,37 @@ export class MapComponent implements OnInit {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   }
 
+  polygonOptions = {
+    visible: false
+  }
+
   markerOptions: google.maps.MarkerOptions = {
     draggable: true
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
 
-  addMarker(event: google.maps.MapMouseEvent) {
-    if (event.latLng != null) this.selectAddress = new google.maps.LatLng(event.latLng.toJSON());
+
+  constructor(private geocoder: MapGeocoder) {
 
   }
-
-  constructor(private geocoder: MapGeocoder) { }
 
   async ngOnInit() {
     if(window.screen.height < 800){
       this.heightMap = '300';
     }
     this.zonesMap = Utils.getZones();
-    this.geocoder.geocode({
-      address: this.street +' '+ this.number + ', Paraná, Entre Ríos, Argentina'
-    }).subscribe(({
-      results
-      }) => {
+    if (this.lat == 0 && this.lng == 0) {
+      this.geocodingStreet();
+    } else {
+      this.setMarker();
+    }
+    
+  }
+
+  geocodingStreet(){
+    var address = this.street +' '+ this.number + ', Paraná, Entre Ríos, Argentina'
+    this.geocoder.geocode({ address: address }).subscribe(({ results, status }) => {
+      if (status == 'OK') {
         var address = { 
           lat: results[0].geometry?.location?.lat(), 
           lng: results[0].geometry?.location?.lng() 
@@ -59,11 +71,25 @@ export class MapComponent implements OnInit {
         this.markerPositions.push(address);
         this.center = new google.maps.LatLng(address);
         this.selectAddress = new google.maps.LatLng(address);
+        } else {
+          this.notGeocoding = 'No fue posible encontrar la dirección ingresada'
+        }
 
       });
   }
-  
-  ngAfterViewInit(){
+
+  setMarker(){
+    var address = { 
+      lat: this.lat, 
+      lng: this.lng 
+    }
+    this.markerPositions.push(address);
+    this.center = new google.maps.LatLng(address);
+    this.selectAddress = new google.maps.LatLng(address);
+  }
+
+  addMarker(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.selectAddress = new google.maps.LatLng(event.latLng.toJSON());
 
   }
 
@@ -79,12 +105,10 @@ export class MapComponent implements OnInit {
   }
 
   moveMap(event: google.maps.MapMouseEvent) {
-    console.log(event)
-
     if (event.latLng != null) this.center = (event.latLng);
   }
 
-  async onClickValidateeAddress(){
+  async onClickValidateAddress(){
     var address = { 
       lat: this.selectAddress?.lat(), 
       lng: this.selectAddress?.lng(),

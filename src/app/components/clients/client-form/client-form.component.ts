@@ -22,7 +22,6 @@ export class ClientFormComponent implements OnInit {
   listPathologies: Pathology[];
   date: Date = new Date();
   address: Address = new Address(null);
-  autocomplete: google.maps.places.Autocomplete;
 
   validateAddress: boolean = false;
   map: boolean = false;
@@ -65,16 +64,6 @@ export class ClientFormComponent implements OnInit {
   }
   
   ngAfterViewInit() {
-    this.initAutocomplete();
-  }
-
-  initAutocomplete(){
-    const input = document.getElementById("street") as HTMLInputElement;
-    const options = {
-      componentRestrictions: { country: "ar" },
-      setTypes: ['address']
-    }
-    this.autocomplete = new google.maps.places.Autocomplete(input, options)
   }
 
   phoneValidator(formControl: any) {
@@ -139,8 +128,8 @@ export class ClientFormComponent implements OnInit {
       departament: data["departament"],
       observation: data["obsAddress"],
       city: new City(null),
-      lat: this.address.lat.toString(),
-      lng: this.address.lng.toString(),
+      lat: this.address.lat?.toString(),
+      lng: this.address.lng?.toString(),
       idZone: this.address.idZone
     }
     this.result.addresses.push(address)

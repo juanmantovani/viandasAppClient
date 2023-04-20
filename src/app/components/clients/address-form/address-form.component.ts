@@ -2,8 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Inject, AfterViewInit } from '
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Address } from 'src/app/shared/models/Address';
-import { AddressService } from 'src/app/shared/services/address.service';
-import { DialogService } from 'src/app/shared/services/dialog.service';
 
 @Component({
   selector: 'app-address-form',
@@ -16,7 +14,8 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
   map: boolean;
   validateAddress: boolean;
   autocomplete: google.maps.places.Autocomplete;
-
+  lat: number;
+  lng: number;
 
   @Output() onSubmit: EventEmitter<Address | null>;
 
@@ -30,14 +29,21 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.initAutocomplete();
+    //this.initAutocomplete();
   }
 
   ngOnInit(): void {
-
-    this.form.valueChanges.subscribe((value) => {
-     console.log(this.form.controls);
-     });
+      this.setLatLng()
+  }
+  
+  setLatLng() {
+      if  (this.data.actionForm == 'Edit') {
+        this.lat = +this.data.address?.lat;
+        this.lng = +this.data.address?.lng;
+      } else {
+        this.lat = 0;
+        this.lng = 0;
+      } 
   }
 
   generateForm(): FormGroup {
@@ -48,9 +54,9 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
       floor: new FormControl(this.data.address?.floor),
       departament: new FormControl(this.data.address?.departament),
       observation: new FormControl(this.data.address?.observation),
-      lat: new FormControl(''),
-      lng: new FormControl(''),
-      idZone: new FormControl(''),
+      lat: new FormControl(this.data.address?.lat),
+      lng: new FormControl(this.data.address?.lng),
+      idZone: new FormControl(this.data.address?.idZone),
     });
   }
 
@@ -84,26 +90,38 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
     if (result.idZone){
       this.validateAddress = true;
       this.map = false;
-      // this.result.lat = result.lat;
-      // this.result.lng = result.lng;
-      // this.result.idZone = result.idZone
+      this.form.controls.lat.setValue(result.lat.toString());
+      this.form.controls.lng.setValue(result.lng.toString());
+      this.form.controls.idZone.setValue(result.idZone);
     } else {
-      console.log(this.form.controls.street)
       this.map = false;
-      this.form.controls.street.setErrors({invalid: true, mensaje: 'El domicilio debe estar dentro de la zona de reparto'});
-      console.log(this.form.controls.street)
-
+      setTimeout(() => {
+      this.form.controls.street.setErrors({invalid: true, mensaje: 'El domicilio se encuentra fuera de la zona de envíos'});
+      })
     }
   }
 
-  initAutocomplete(){
-    const input = document.getElementById("street") as HTMLInputElement;
-    const options = {
-      componentRestrictions: { country: "ar" },
-      setTypes: ['address']
-    }
-    this.autocomplete = new google.maps.places.Autocomplete(input, options)
-  }
+  //Se limita la busqueda de direccioens a newBounds (contiene un rectangulo definido por southwest y northeast)
+  // initAutocomplete(){
+  //   const input = document.getElementById("street") as HTMLInputElement;
+  //   const southwest = { lat: -31.766946, lng: -60.561824 };
+  //   const northeast = { lat: -31.709393, lng: -60.475880 };
+  //   const newBounds = new google.maps.LatLngBounds(southwest, northeast);
+  //   const options = {
+  //     componentRestrictions: { country: "ar"  },
+  //     setTypes: ['address'],
+  //     strictBounds: true
+  //   }
+  //   this.autocomplete = new google.maps.places.Autocomplete(input, options)
+  //   this.autocomplete.setBounds(newBounds);
+
+  //   google.maps.event.addListener(this.autocomplete, 'place_changed', (event: any) => {
+  //     const place = this.autocomplete.getPlace();
+  //     console.log(place.address_components?[0].long_name?)
+  //     this.form.controls.street.setValue(place?.formatted_address)
+
+  //   })
+  // }
 
   
 

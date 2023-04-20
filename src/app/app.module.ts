@@ -111,11 +111,10 @@ import { DiscountComponent } from './components/administration/setting/discount/
 import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
 import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
-
+import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 //maps
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/clients/map/map.component';
-
 
 
 @NgModule({
@@ -181,7 +180,9 @@ import { MapComponent } from './components/clients/map/map.component';
     InicioSettingComponent,
     DiscountFormComponent,
     ZoneFormComponent,
-    MapComponent,
+    MapComponent,    
+    ListOrderComponent,
+
 
   ],
   imports: [
