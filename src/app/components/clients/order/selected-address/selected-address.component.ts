@@ -8,11 +8,11 @@ import { Utils } from 'src/app/utils';
 
 
 @Component({
-  selector: 'app-finish-order',
-  templateUrl: './finish-order.component.html',
-  styleUrls: ['./finish-order.component.css']
+  selector: 'app-selected-address',
+  templateUrl: './selected-address.component.html',
+  styleUrls: ['./selected-address.component.css']
 })
-export class FinishOrderComponent implements OnInit {
+export class SelectedAddressComponent implements OnInit {
 
   @Input() order : Order;
   @Input() selectedAdress : Address;

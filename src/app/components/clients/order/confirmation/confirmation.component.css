@@ -9,6 +9,14 @@
     height: fit-content;
   }
 
+  .discount-sum{
+    color:green;
+  }
+  .discount-rest{
+    color:tomato
+  }
+  
+
   
 @media (min-width: 940px) {
     .card {

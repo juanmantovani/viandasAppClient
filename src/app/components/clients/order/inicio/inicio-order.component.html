@@ -50,14 +50,14 @@
     <mat-step label="Dirección de entraga">
       <h4>Elegí la dirección donde querés que entregemos las viandas</h4>
 
-      <app-finish-order *ngIf="viewOrderByDay"
+      <app-selected-address *ngIf="viewOrderByDay"
         [order]="order"
         [client]="client"
         [selectedAdress]="selectedAdress"
         [daysOfMonth]="daysOfMonth"
         (getClient)="onGetClient()"
         (selectedAddressEmit)="onChangeAddress($event)">
-      </app-finish-order>
+      </app-selected-address>
     </mat-step>
     <mat-step label="Confirmación">
       <h4>Por último, confirmá tu pedido</h4>
