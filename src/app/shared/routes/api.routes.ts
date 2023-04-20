@@ -64,15 +64,16 @@ export const API_ROUTES = {
         SETFAVOURITEADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/setFavouriteAddress`,
     },
     ORDER: {
-        GETORDERS : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrders`, 
+        GETORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrders`,
         ADDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/uploadOrder`,
         GETORDERVIEWER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderViewer`,
         GETORDERBYID: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByID`,
         EDITDAYORDERADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/updateDayOrderAddress`,
-        GETORDERSBYCLIENT : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByIdClient`,
-        GETALLORDERS : `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getAllOrders`,
+        GETORDERSBYCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrderByIdClient`,
+        GETALLORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getAllOrders`,
         PAIDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/paid`,
         CANCELORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancel`,
+        GETTOTAL: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getTotal`,
 
     },
     DELIVERYDRIVER: {
@@ -89,11 +90,11 @@ export const API_ROUTES = {
         ASSIGNADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/assignAddressToTanda`,
         REMOVEADDRESSTOTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.TANDA}/removeAddressToTanda`,
     },
-    NOTE:{
+    NOTE: {
         ADDNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/addNote`,
         EDITNOTE: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/editNote`
     },
-    SETTING:{
+    SETTING: {
         ADDZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/addZone`,
         EDITZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editZone`,
         DELETEZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteZone`,

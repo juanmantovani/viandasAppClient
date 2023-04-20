@@ -22,6 +22,7 @@ import { DeleteOrderRequest } from '../dto/order/DeleteOrderRequest';
 import { PaidOrderRequest } from '../dto/order/PaidOrderRequest';
 import { DeleteOrderResponse } from '../dto/order/DeleteOrderResponse';
 import { PaidOrderResponse } from '../dto/order/PaidOrderResponse';
+import { GetTotalOrderResponse } from '../dto/order/GetTotalOrderResponse';
 
 
 
@@ -40,6 +41,14 @@ export class OrderService {
         new AddOrderResponse(res);
       }))
   }
+
+  getTotal(request: AddOrderRequest): Observable<GetTotalOrderResponse> {
+    return this.http.post<GetTotalOrderResponse>(ROUTES.API_ROUTES.ORDER.GETTOTAL, JSON.stringify(request), this.OPTION).pipe(
+      tap(res => {
+        new GetTotalOrderResponse(res);
+      }))
+  }
+
 
   getOrderViewer(): Observable<GetOrderViewerResponse> {
     return this.http.get<GetOrderViewerResponse>(ROUTES.API_ROUTES.ORDER.GETORDERVIEWER).pipe(
@@ -67,8 +76,8 @@ export class OrderService {
     )
   }
 
-  getAllOrders(request : GetAllOrdersRequest): Observable<GetAllOrdersResponse> {
-    return this.http.post<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS, JSON.stringify(request),this.OPTION).pipe(
+  getAllOrders(request: GetAllOrdersRequest): Observable<GetAllOrdersResponse> {
+    return this.http.post<GetAllOrdersResponse>(ROUTES.API_ROUTES.ORDER.GETALLORDERS, JSON.stringify(request), this.OPTION).pipe(
       map((res: any) => {
         return new GetAllOrdersResponse(res);
       })
@@ -118,7 +127,7 @@ export class OrderService {
     );
   }
 
-  cancelOrder(request : DeleteOrderRequest): Observable<DeleteOrderResponse>{
+  cancelOrder(request: DeleteOrderRequest): Observable<DeleteOrderResponse> {
     let params = new HttpParams();
     params = params.set('idOrder', request.idOrder.toString());
     return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELORDER, { params }).pipe(
@@ -126,7 +135,7 @@ export class OrderService {
     );
   }
 
-  paidOrder(request : PaidOrderRequest): Observable<PaidOrderResponse>{
+  paidOrder(request: PaidOrderRequest): Observable<PaidOrderResponse> {
     let params = new HttpParams();
     params = params.set('idOrder', request.idOrder.toString());
     return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.PAIDORDER, { params }).pipe(
