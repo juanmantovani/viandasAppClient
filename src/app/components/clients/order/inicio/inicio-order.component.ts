@@ -35,6 +35,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { GetMenuViewerByRangeOfDateRequest } from 'src/app/shared/dto/menu/GetMenuViewerByRangeOfDateRequest';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CategoryTable } from 'src/app/shared/models/CategoryTable';
+import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderResponse';
 
 
 @Component({
@@ -222,7 +223,7 @@ export class InicioOrderComponent implements OnInit {
           observation: ""
         }
         this.order.daysOrder.push(dayOrder)
-        total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
+        //total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
         //cantMenus += cantMenus;
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)){//para evitar duplicados
@@ -233,7 +234,7 @@ export class InicioOrderComponent implements OnInit {
       this.order.client = this.client;
       this.order.date = new Date();
       this.order.observation = "";
-      this.order.total = total;
+      //this.order.total = total;
     });
 
   } 
@@ -257,25 +258,9 @@ export class InicioOrderComponent implements OnInit {
 
     if (await this.generateConfirm("Está a punto de realizar una order. ¿Está seguro de realizar esta operación?") === true)
       {
-    var dayOrderRequestArray : DayOrderRequest[] = [];
 
-    this.order.daysOrder.forEach(dayOrder => {
-      const dayOrderRequest : DayOrderRequest = {
-        cant: dayOrder.cant,
-        idAddress: dayOrder.address.id,
-        idDayFood: dayOrder.dayFood.id,
-        observation: dayOrder.observation
-      }
-      dayOrderRequestArray.push(dayOrderRequest);
-    })
-
-    const request: AddOrderRequest = {
-      daysOrderRequest: dayOrderRequestArray,
-      idClient: this.order.client.id,
-      observation: this.order.observation,
-      total: this.order.total,
-      date: this.order.date
-    }
+    var request = this.generateRequest();
+       
     this.orderService.addOrder(request).subscribe((res: AddOrderResponse) => {
       if (res){
         this.orderInProgress = false;
@@ -299,17 +284,27 @@ export class InicioOrderComponent implements OnInit {
 
   onViewOrderByDay(){
     this.viewOrderByDay = true;
+  }
+  onGetTotal(){
     this.finishButton = true;
-    if (this.order.total == 0){
-      this.disableNextButton = true;
-      this.finishButton = false;
-    }
+    this.disableNextButton = true;
+
+    var request = this.generateRequest();      
+    this.orderService.getTotal(request).subscribe((res: GetTotalOrderResponse) => {
+      console.log(res)
+      if (res){
+        this.order.total = res.total
+        this.disableNextButton = false;
+      } else {
+        // quizás hacer algo
+      }
+    });
+
   }
 
   onClickBack(steps : any){
     this.disableBackButton = steps <= 1 ? true : false;
     this.finishButton = false;
-
   }
 
  onStepComplete(steps : any){
@@ -329,10 +324,13 @@ export class InicioOrderComponent implements OnInit {
       this.onViewOrderByDay()
       //this.onGenerateOrder();
       break; 
-   } 
-    case 3: { 
+   }
+   case 3: { 
+    this.onGetTotal();
+    break; 
+  } 
+    case 4: { 
       this.sendOrder();
-      //this.onGenerateOrder();
       break; 
     } 
     default: { 
@@ -353,6 +351,31 @@ export class InicioOrderComponent implements OnInit {
 
  onGetClient(){
   this.getClientByIdUser();
+ }
+
+
+ private generateRequest(){
+  var dayOrderRequestArray : DayOrderRequest[] = [];
+
+  this.order.daysOrder.forEach(dayOrder => {
+    const dayOrderRequest : DayOrderRequest = {
+      cant: dayOrder.cant,
+      idAddress: dayOrder.address.id,
+      idDayFood: dayOrder.dayFood.id,
+      observation: dayOrder.observation
+    }
+    dayOrderRequestArray.push(dayOrderRequest);
+  })
+
+  const request: AddOrderRequest = {
+    daysOrderRequest: dayOrderRequestArray,
+    idClient: this.order.client.id,
+    observation: this.order.observation,
+    total: this.order.total,
+    date: this.order.date
+  }
+
+  return request;
  }
 
 

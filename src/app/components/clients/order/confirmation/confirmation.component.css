@@ -1,0 +1,31 @@
+.full-width {
+    width: 100%;
+}
+
+.card {
+    max-width: 450px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: fit-content;
+  }
+
+  
+@media (min-width: 940px) {
+    .card {
+      max-width: 550px;
+      margin: 15px;
+      width: 100%;
+    }
+  
+  }
+
+  mat-card-actions {
+    margin-bottom: 0px;
+    padding: 0px;
+}
+mat-card-subtitle{
+  margin-bottom: 2px;
+}
+::ng-deep .mat-card-header-text {
+  margin: 0 5px;
+}

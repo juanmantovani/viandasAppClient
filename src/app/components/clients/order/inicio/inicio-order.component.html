@@ -47,8 +47,8 @@
         [editAddress]="false">
       </app-list-food>
     </mat-step>
-    <mat-step label="Dirección de entraga y confirmar el menú">
-      <h4>Por último, elegí la dirección donde querés que entregemos las viandas y confirmá tu pedido</h4>
+    <mat-step label="Dirección de entraga">
+      <h4>Elegí la dirección donde querés que entregemos las viandas</h4>
 
       <app-finish-order *ngIf="viewOrderByDay"
         [order]="order"
@@ -58,6 +58,12 @@
         (getClient)="onGetClient()"
         (selectedAddressEmit)="onChangeAddress($event)">
       </app-finish-order>
+    </mat-step>
+    <mat-step label="Confirmación">
+      <h4>Por último, confirmá tu pedido</h4>
+      <app-confirmation [order]="order">
+
+      </app-confirmation> 
     </mat-step>
   </mat-stepper>
 

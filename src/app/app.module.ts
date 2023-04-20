@@ -112,6 +112,7 @@ import { InicioSettingComponent } from './components/administration/setting/inic
 import { DiscountFormComponent } from './components/administration/setting/discount-form/discount-form.component';
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
 import { ListOrderComponent } from './components/administration/list-order/list-order.component';
+import { ConfirmationComponent } from './components/clients/order/confirmation/confirmation.component';
 
 
 
@@ -179,6 +180,7 @@ import { ListOrderComponent } from './components/administration/list-order/list-
     DiscountFormComponent,
     ZoneFormComponent,
     ListOrderComponent,
+    ConfirmationComponent,
 
   ],
   imports: [

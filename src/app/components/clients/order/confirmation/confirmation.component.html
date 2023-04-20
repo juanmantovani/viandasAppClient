@@ -1,0 +1,12 @@
+<mat-card class="card">
+    <h2>Dejá tu observación</h2> 
+    <mat-card-content>
+    <form class="formFood" >
+        <mat-form-field class="full-width" appearance="fill">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput placeholder="Aclaraciones generales" [(ngModel)]="order.observation" [ngModelOptions]="{standalone: true}"></textarea>
+        </mat-form-field>
+      </form> 
+      <h2>TOTAL ${{ order.total }}</h2>
+    </mat-card-content>    
+  </mat-card>
