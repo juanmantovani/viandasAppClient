@@ -128,8 +128,8 @@ export class ClientFormComponent implements OnInit {
       departament: data["departament"],
       observation: data["obsAddress"],
       city: new City(null),
-      lat: this.address.lat?.toString(),
-      lng: this.address.lng?.toString(),
+      lat: this.address?.lat?.toString(),
+      lng: this.address?.lng?.toString(),
       idZone: this.address.idZone
     }
     this.result.addresses.push(address)
