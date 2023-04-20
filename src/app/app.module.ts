@@ -113,7 +113,8 @@ import { DiscountFormComponent } from './components/administration/setting/disco
 import { ZoneFormComponent } from './components/administration/setting/zone-form/zone-form.component';
 import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 import { ConfirmationComponent } from './components/clients/order/confirmation/confirmation.component';
-
+import { GoogleMapsModule } from '@angular/google-maps';
+import { MapComponent } from './components/clients/map/map.component';
 
 
 @NgModule({
@@ -179,8 +180,10 @@ import { ConfirmationComponent } from './components/clients/order/confirmation/c
     InicioSettingComponent,
     DiscountFormComponent,
     ZoneFormComponent,
+    MapComponent,    
     ListOrderComponent,
     ConfirmationComponent,
+
 
   ],
   imports: [
@@ -226,7 +229,8 @@ import { ConfirmationComponent } from './components/clients/order/confirmation/c
     MatTooltipModule,
     BrowserAnimationsModule, 
     MatSlideToggleModule,
-    MatRadioModule
+    MatRadioModule,
+    GoogleMapsModule
   ],
   providers: [
     MatNotificationComponent,
@@ -235,7 +239,8 @@ import { ConfirmationComponent } from './components/clients/order/confirmation/c
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
+
 
   ],
   bootstrap: [AppComponent],

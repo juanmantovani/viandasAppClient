@@ -21,6 +21,10 @@ export class ClientFormComponent implements OnInit {
   listCities: City[];
   listPathologies: Pathology[];
   date: Date = new Date();
+  address: Address = new Address(null);
+
+  validateAddress: boolean = false;
+  map: boolean = false;
 
   @Output() onSubmit: EventEmitter<Client | null>;
 
@@ -45,14 +49,21 @@ export class ClientFormComponent implements OnInit {
       id: new FormControl(this.data.client?.id),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
-      street: new FormControl(),
-      number: new FormControl(),
+      street: new FormControl('',this.data.actionForm == 'Add' ? this.requiredValidator : null),
+      number: new FormControl('',this.data.actionForm == 'Add' ? this.requiredValidator : null),
       floor: new FormControl(),
       departament: new FormControl(),
       bornDate: new FormControl(this.data.client?.bornDate, [this.requiredValidator, this.dateValidator]),
       obsClient: new FormControl(this.data.client?.observation),
-      obsAddress: new FormControl()
+      obsAddress: new FormControl(),
+      lat: new FormControl(''),
+      lng: new FormControl(''),
+      idZone: new FormControl(''),
+
     });
+  }
+  
+  ngAfterViewInit() {
   }
 
   phoneValidator(formControl: any) {
@@ -116,7 +127,10 @@ export class ClientFormComponent implements OnInit {
       floor: data["floor"],
       departament: data["departament"],
       observation: data["obsAddress"],
-      city: new City(null)
+      city: new City(null),
+      lat: this.address?.lat?.toString(),
+      lng: this.address?.lng?.toString(),
+      idZone: this.address.idZone
     }
     this.result.addresses.push(address)
   }
@@ -135,5 +149,27 @@ export class ClientFormComponent implements OnInit {
 
   cleanList() {
     this.listPathologies.forEach(pat => pat.checked = false)
+  }
+
+  onClickSearchAddress(){
+    this.map = true;
+
+  }
+
+  onClickBack(){
+    this.map = false;
+  }
+
+  geoCodingResult(result: any){
+    if (result.idZone){
+      this.validateAddress = true;
+      this.map = false;
+      this.address.lat = result.lat;
+      this.address.lng = result.lng;
+      this.address.idZone = result.idZone
+    } else {
+      this.map = false;
+      this.form.controls.street.setErrors({invalid: true, mensaje: 'El domicilio debe estar dentro de la zona de reparto'})
+    }
   }
 }

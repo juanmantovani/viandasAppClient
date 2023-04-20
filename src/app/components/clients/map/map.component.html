@@ -1,0 +1,25 @@
+
+<google-map
+*ngIf="notGeocoding == ''"
+[height]="heightMap"
+[width]="widthMap"
+[zoom]="zoom"
+[center]="center"
+[options]="options"
+(mapClick)="moveMap($event)">
+    <map-marker *ngFor="let markerPosition of markerPositions"
+        [position]="markerPosition"
+        [options]="markerOptions"
+        (mapDrag)="addMarker($event)">
+    </map-marker>
+ <map-polygon [paths]="zonesMap[2]" [options]="polygonOptions"></map-polygon>
+</google-map>
+<mat-error *ngIf="notGeocoding != ''"><h2>{{ notGeocoding }}</h2></mat-error>
+<div class="button-container">
+    <button mat-button color="primary" (click)="onClickBack()">
+        <mat-icon>keyboard_arrow_left</mat-icon> Atras
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickValidateAddress()" class="btn-primary btn-azul" [disabled]="notGeocoding != ''">
+        Validar
+    </button>
+    </div>

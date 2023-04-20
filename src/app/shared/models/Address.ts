@@ -9,6 +9,9 @@ export class Address{
     observation : string;
     favourite : boolean;
     city : City;
+    idZone: number;
+    lat: string;
+    lng: string;
 
 
     constructor(data:any) {
@@ -20,7 +23,10 @@ export class Address{
           this.departament = data.departament;
           this.observation = data.observation;
           this.favourite = data.favourite;
-          this.city = new City (data.city)
+          this.city = new City (data.city);
+          this.idZone = data.idZone;
+          this.lat = data.lat;
+          this.lng = data.lng
         }
       }
 }

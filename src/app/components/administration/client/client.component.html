@@ -6,8 +6,8 @@
     <input matInput (keyup)="onSearch($event)" placeholder="" #input>
   </mat-form-field>
 
-  <div class="table-width-client">
-    <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8" [hidden]="viewOrdersClient" matSort>
+  <div class="table-width-client" [hidden]="viewOrdersClient">
+    <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8"  matSort>
 
       <colgroup>
         <col style="width:'6%'" />
@@ -98,9 +98,10 @@
       </tr>
     </table>
     <br>
+    <mat-paginator  [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+
   </div>
   
-  <mat-paginator  [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
   </div>
   
   <div *ngIf="viewOrdersClient" class="button-container">

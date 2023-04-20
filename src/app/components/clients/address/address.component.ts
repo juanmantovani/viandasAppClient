@@ -27,7 +27,7 @@ export class AddressComponent implements OnInit {
   @Input() selectedAddress: Address;
   @Output() getClient: EventEmitter<any> = new EventEmitter();
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
-
+  
 
   actionFormAddress: string;
 
@@ -56,6 +56,7 @@ export class AddressComponent implements OnInit {
       actionForm: "Add",
       address: new Address(null),
       client: this.client
+      
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -63,6 +64,8 @@ export class AddressComponent implements OnInit {
   async gestionateFormAddress(dataForm: DataFormAddress) {
     const dialogConfig = Utils.matDialogConfigDefault();
     dialogConfig.data = dataForm;
+    dialogConfig.maxWidth = '95%';
+    dialogConfig.maxHeight = '95%';
     const dialogRef = this.dialog.open(AddressFormComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
 

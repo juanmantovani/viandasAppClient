@@ -20,6 +20,14 @@
     .mat-dialog-content {
         width: 500px;
     }
+    
+}
+
+@media (max-width: 600px) {
+    .mat-dialog-content {
+        max-height: fit-content;
+    }
+    
 }
 
 .section-pathologies {
@@ -35,6 +43,17 @@ h5 {
     line-height: 0.1em;
     margin: 10px 0 20px;
 }
+h4 {
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #000;
+    line-height: 0.1em;
+    margin: 10px 0 20px;
+}
+h4 span {
+    background: #fff;
+    padding: 0 10px;
+}
 
 h5 span {
     background: #fff;
@@ -44,3 +63,11 @@ h5 span {
 table {
     width: 100%;
 }
+
+.confirm-address{
+   vertical-align: text-bottom;
+}
+
+
+
+
