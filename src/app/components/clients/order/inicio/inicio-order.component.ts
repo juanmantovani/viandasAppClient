@@ -95,13 +95,15 @@ export class InicioOrderComponent implements OnInit {
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
     this.order = new Order(null);
     this.minDate = new Date();
+    this.minDate.setDate(this.minDate.getDate() + 1);
+
     this.order.daysOrder = [];
   }
 
   generateFormWeeks(): FormGroup {
     return new FormGroup({
-      start: new FormControl(null, Validators.required),
-      end: new FormControl(null, Validators.required),
+      start: new FormControl(null, [this.requiredValidator, this.dateValidator]),
+      end: new FormControl(null, [this.requiredValidator, this.dateValidator]),
     });
   }
 
@@ -109,6 +111,22 @@ export class InicioOrderComponent implements OnInit {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
     this.getClientByIdUser();
+  }
+
+  dateValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && (new Date() >= new Date(value)))
+      return {
+        mensaje: "Debe ingresar una fecha válida"
+      }
+    return null;
+  }
+
+  requiredValidator(formControl: any) {
+    const value = formControl.value;
+    if (Validators.required(formControl))
+      return { mensaje: "Este campo es requerido" };
+    return null;
   }
 
   async getCategories() {

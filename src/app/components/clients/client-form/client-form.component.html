@@ -29,18 +29,6 @@
                 </mat-hint>
             </mat-form-field>
 
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Fecha de nacimiento</mat-label>
-                <input matInput formControlName="bornDate" (click)="picker" max="{{date | date:'yyyy-MM-dd'}}" [ngModel]="data.client.bornDate|date:'dd/MM/yyyy'" [matDatepicker]="picker" required>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                <mat-hint align="end">DD/MM/AAAA</mat-hint>                
-                <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.errors?.mensaje"
-                    class="error-input">
-                    {{form!.controls['bornDate']!.errors?.mensaje}}
-                </mat-hint>
-            </mat-form-field> -->
-
             <h5><span>Teléfonos sin 0 ni 15</span></h5>
             <table>
                 <tr>
@@ -76,8 +64,9 @@
                     [ngModelOptions]="{standalone: true}">{{pathology.description}}</mat-checkbox>
             </section>
 
+            <h5><span>Observaciones</span></h5>
             <mat-form-field appearance="fill" #obsClient>
-                <mat-label>Observaciones gustos o preferencias (por ejemplo: no me gusta el repollo)</mat-label>
+                <mat-label>Gustos o preferencias (por ejemplo si no te gusta algo)</mat-label>
                 <textarea type="text" matInput formControlName="obsClient" name="obsClient" id="obsClient" #obsClient
                     rows="2"></textarea>
             </mat-form-field>
