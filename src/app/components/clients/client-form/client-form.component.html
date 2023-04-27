@@ -19,7 +19,7 @@
 
         <div [hidden]="map">
 
-            <h4 *ngIf="data.actionForm == 'Add'"><span>Información Personal y de contacto</span> </h4>
+            <h4 *ngIf="data.actionForm == 'Add'"><span><b>Información Personal y de contacto</b></span> </h4>
             <mat-form-field appearance="fill">
                 <mat-label>Fecha de nacimiento</mat-label>
                 <input matInput  type="date" formControlName="bornDate" [ngModel] ="data.client?.bornDate | date:'yyyy-MM-dd'" max="{{date | date:'yyyy-MM-dd'}}" required>
@@ -29,7 +29,7 @@
                 </mat-hint>
             </mat-form-field>
 
-            <h5><span>Teléfonos sin 0 ni 15</span></h5>
+            <h5><span><b>Teléfonos sin 0 ni 15</b></span></h5>
             <table>
                 <tr>
                     <td>
@@ -57,14 +57,14 @@
                 </tr>
             </table>
 
-            <h5 *ngIf="listPathologies"><span>Patologías</span></h5>
+            <h5 *ngIf="listPathologies"><span><b>Patologías</b></span></h5>
             <br>
             <section class="row section-pathologies">
                 <mat-checkbox *ngFor="let pathology of listPathologies" [(ngModel)]="pathology.checked" class="checbox-pat"
                     [ngModelOptions]="{standalone: true}">{{pathology.description}}</mat-checkbox>
             </section>
 
-            <h5><span>Observaciones</span></h5>
+            <h5><span><b>Observaciones</b></span></h5>
             <mat-form-field appearance="fill" #obsClient>
                 <mat-label>Gustos o preferencias (por ejemplo si no te gusta algo)</mat-label>
                 <textarea type="text" matInput formControlName="obsClient" name="obsClient" id="obsClient" #obsClient
@@ -72,7 +72,7 @@
             </mat-form-field>
 
         <div *ngIf="data.actionForm == 'Add'">
-            <h4><span>Dirección para el envío</span> </h4>
+            <h4><span><b>Dirección para el envío</b></span> </h4>
 
             <div *ngIf="!validateAddress">
                 <mat-form-field appearance="fill" #street>
