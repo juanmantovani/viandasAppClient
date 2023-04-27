@@ -2,7 +2,6 @@
 
 <div [formGroup]="form" class="form-days" >
   <div formArrayName="days"> 
-
     <div *ngFor="let day of days.controls; let i = index">
       <div [formGroupName]="i"> 
 
