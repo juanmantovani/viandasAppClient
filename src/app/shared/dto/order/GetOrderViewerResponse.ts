@@ -6,7 +6,7 @@ orderViewer : OrderViewer[];
 
 constructor(data : any) {
     super(data);
-    if(data.orderViewer)
+    if(data?.orderViewer)
         this.orderViewer = data.orderViewer.map((o:OrderViewer) => new OrderViewer(o));
 
   }
