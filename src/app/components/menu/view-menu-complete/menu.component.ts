@@ -14,6 +14,8 @@ import { Utils } from 'src/app/utils';
 export class ViewMenuCompleteComponent implements OnInit {
 
   @Input() menuViewer: MenuViewer;
+  @Input() categoryViewer: CategoryViewer;
+
 
 
   displayedColumns: string[] = ['date', 'foodViewer'];
@@ -31,6 +33,10 @@ export class ViewMenuCompleteComponent implements OnInit {
   
   getDay(date: Date): string{
     return Utils.getDayOfDate(date);
+  }
+
+  isFeriado(string: string) : boolean{
+    return Utils.containFeriado(string)
   }
 
 }

@@ -17,9 +17,9 @@
         </div>
     </div>
     <div *ngIf="showMenu">
-        <div class="row">
-            <h2>Menú disponible desde el {{menuViewer.dateStart | date: 'dd/MM'}} hasta el {{menuViewer.dateEnd | date: 'dd/MM'}}</h2>
-        </div>
+        <!-- <div class="row">
+            <h2>Nuestro variado menú para estos días</h2>
+        </div> -->
         <div class="row">
             <app-view-menu-complete [menuViewer]="menuViewer" [categoryColor]="category.color"></app-view-menu-complete>
         </div>

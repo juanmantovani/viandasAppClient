@@ -7,6 +7,7 @@ import { FoodViewer } from 'src/app/shared/models/FoodViewer';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { FoodService } from 'src/app/shared/services/food.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
+import { Utils } from 'src/app/utils';
 import { environment } from 'src/environments/environment';
 
 
@@ -41,7 +42,7 @@ export class MenuByCategoryComponent implements OnInit {
 
   getMenuByCategory(){
     this.menuService.getMenuViewerByCategory(this.category.id).subscribe((res: GetMenuResponse) => {
-      this.menuViewer = new MenuViewer (res.menuViewer);
+      this.menuViewer = Utils.orderMenuViewerByTurn(new MenuViewer (res.menuViewer));
       this.showMenu = true;
     })
   }
