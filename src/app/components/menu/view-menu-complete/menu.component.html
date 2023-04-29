@@ -19,7 +19,7 @@
                     <th mat-header-cell *matHeaderCellDef>
                         Fecha
                     </th>
-                    <td mat-cell *matCellDef="let food"> 
+                    <td mat-cell *matCellDef="let food" [ngStyle]="(isFeriado(food.foodViewer.title)) ? {'color':'#ff6347', 'font-weight': 'bold'} : {}"> 
                         <div>
                             {{getDay(food.date) | slice:0:2}} {{food.date | date: 'dd/MM'}} 
                         </div>
@@ -30,7 +30,7 @@
                 <th mat-header-cell *matHeaderCellDef>
                     Menú
                 </th>
-                    <td mat-cell *matCellDef="let food"> 
+                    <td mat-cell *matCellDef="let food" [ngStyle]="(isFeriado(food.foodViewer.title)) ? {'color':'#ff6347', 'font-weight': 'bold'} : {}"> 
                         <div class="inner-column">
                             {{food.foodViewer.title}} - <i> {{food.foodViewer.description}} </i>
                         </div>

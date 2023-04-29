@@ -192,7 +192,7 @@ export class InicioOrderComponent implements OnInit {
     }
     await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
       if (res) {
-        this.menuViewer = new MenuViewer(res.menuViewer);
+        this.menuViewer = Utils.orderMenuViewerByTurn(new MenuViewer(res.menuViewer));
         this.existDayFood = true;
       } else {
         this.existDayFood = false;

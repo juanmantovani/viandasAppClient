@@ -1,4 +1,6 @@
 import { MatDialogConfig } from '@angular/material/dialog';
+import { MenuViewer } from './shared/models/MenuViewer';
+import { CategoryViewer } from './shared/models/CategoryViewer';
 
 export class Utils {
 
@@ -563,6 +565,38 @@ export class Utils {
         return {lng: parseFloat(lng), lat: parseFloat(lat)};
       });
       return polygonLatLng
+    }
+
+    //funcion que recibe un menuViewer y junta todo en un solo turnViewer para mostrar mejor el menú
+    public static orderMenuViewerByTurn (menuViewer: MenuViewer) : MenuViewer {
+        var newMenuViewer = new MenuViewer(null)
+        newMenuViewer.turnsViewer = [];
+        menuViewer.turnsViewer.forEach(turn => {
+            if (newMenuViewer.turnsViewer.length == 0){
+                newMenuViewer = {
+                    dateEnd: menuViewer.dateEnd,
+                    dateStart: menuViewer.dateStart,
+                    id: 0,
+                    turnsViewer: new Array(turn)
+                }
+            } else newMenuViewer.turnsViewer.forEach(newTurn => {
+                turn.categoryViewer.forEach(cat => {
+                    newTurn.categoryViewer.forEach(newCat => {
+                        if(cat.category.id == newCat.category.id)
+                            newCat.daysViewer = [...newCat.daysViewer, ...cat.daysViewer]
+                    })
+                })
+            })
+        })
+        return newMenuViewer
+    }
+
+    public static containFeriado(str: string) : boolean {
+        if (str.toLowerCase().includes('feriado')) {
+            return true;
+          } else {
+            return false;
+          }
     }
   
 
