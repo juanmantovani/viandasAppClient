@@ -24,9 +24,7 @@
 }
 
 @media (max-width: 600px) {
-    .mat-dialog-content {
-        max-height: fit-content;
-    }
+
     
 }
 
