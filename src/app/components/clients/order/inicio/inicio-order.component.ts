@@ -283,7 +283,6 @@ export class InicioOrderComponent implements OnInit {
         if (res) {
           this.orderInProgress = false;
           this.orderSuccess = true;
-          //this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido número ' + res.idOrder + ' por el total de $' + this.order.total;
           this.textWhatsAppShow = this.formatOrder(res.idOrder)
         } else {
           return false;
@@ -294,9 +293,7 @@ export class InicioOrderComponent implements OnInit {
 
   formatOrder(idOrder : number): string {
     let result = '';
-
     result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${idOrder}\n`;
-
     this.order.daysOrder.forEach(dayOrder => {
       if(dayOrder.cant > 0) {
         const dayFood = dayOrder.dayFood;
@@ -320,10 +317,6 @@ export class InicioOrderComponent implements OnInit {
   async generateConfirm(msg: string) {
     return await this.dialogService.openConfirmDialog(msg);
   }
-
-  // onClicSendWhatsApp() {
-  //   this.router.navigateByUrl(this.ORDERS);
-  // }
 
   onViewOrderByDay() {
     this.viewOrderByDay = true;
