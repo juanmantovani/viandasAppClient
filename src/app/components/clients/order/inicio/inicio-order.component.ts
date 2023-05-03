@@ -35,6 +35,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderResponse';
+import * as moment from 'moment';
 
 
 @Component({
@@ -69,7 +70,9 @@ export class InicioOrderComponent implements OnInit {
   menu: Menu;
 
   ORDERS: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDERS;
-  textWhatsApp: string;
+  textWhatsAppShow: string;
+  textWhatsAppSend: string;
+
 
   public userProfile: KeycloakProfile | null;
 
@@ -280,13 +283,38 @@ export class InicioOrderComponent implements OnInit {
         if (res) {
           this.orderInProgress = false;
           this.orderSuccess = true;
-          this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido número ' + res.idOrder + ' por el total de $' + this.order.total;
-
+          //this.textWhatsApp = 'Hola, ' + 'mi nombre es ' + this.client.name + ' ' + this.client.lastName + ' y realicé el pedido número ' + res.idOrder + ' por el total de $' + this.order.total;
+          this.textWhatsAppShow = this.formatOrder(res.idOrder)
         } else {
           return false;
         }
       });
     }
+  }
+
+  formatOrder(idOrder : number): string {
+    let result = '';
+
+    result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${idOrder}\n`;
+
+    this.order.daysOrder.forEach(dayOrder => {
+      if(dayOrder.cant > 0) {
+        const dayFood = dayOrder.dayFood;
+        const categoryTitle = dayFood.category.title;
+        const day = moment(dayFood.date).format('DD/MM');
+        const foodTitle = dayFood.food.title;
+        const cant = dayOrder.cant;
+        
+        result += `${day} (${cant}x${categoryTitle}) - ${foodTitle} \n`;
+      }
+    });
+    
+    result += '-----------------------------------\n';
+    result += `Total: ${this.order.total}\n`;
+    
+    this.textWhatsAppSend = result.replace(/[\n]/g, "%0a")
+
+    return result;
   }
 
   async generateConfirm(msg: string) {
