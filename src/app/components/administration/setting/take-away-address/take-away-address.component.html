@@ -1,0 +1,35 @@
+<mat-card> 
+    <mat-card-header>
+        <mat-card-subtitle>
+            Administre la dirección para el retiro desde aquí
+        </mat-card-subtitle>
+        <mat-card-title>
+            Dirección de retiro
+        </mat-card-title>
+    </mat-card-header> 
+    <mat-card-content>
+        <div class="container-fluid">
+
+            <mat-card-header>
+                <mat-card-title> {{address.street}} Nº {{address.number}} </mat-card-title>
+                <mat-card-subtitle>
+                    <div class="inline">
+                    <div *ngIf="address.departament">Dpto: {{address.departament}}&nbsp; - &nbsp;</div>
+                    <div *ngIf="address.floor">Piso: {{address.floor}} </div>
+                </div>
+                    <div *ngIf="address.observation.length> 0"> ({{address.observation}})</div>
+                </mat-card-subtitle>
+            <span class="spacer"></span>
+            <button mat-raised-button (click)="onClickEditAddress()" title="Editar dirección">
+                <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+            <button mat-raised-button (click)="onClickShowAddress()" title="Ver en el mapa">
+                <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+            </mat-card-header>
+            <mat-card-actions>
+            
+            </mat-card-actions>
+        </div>
+    </mat-card-content>
+</mat-card>
