@@ -27,6 +27,8 @@ export class OrderListFoodComponent implements OnInit {
   
   @Input() order : Order;
   @Input() editAddress : boolean;
+  @Input() clientSelected: Client;
+
 
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
 
@@ -35,6 +37,7 @@ export class OrderListFoodComponent implements OnInit {
   public userProfile: KeycloakProfile | null;
   client : Client;
   selectAddress: Address | undefined;
+  showOrdersForAdmin: boolean;
 
   address: Address;
 
@@ -49,7 +52,9 @@ export class OrderListFoodComponent implements OnInit {
   async ngOnInit() {
     this.changinAddress = new DayOrder(null);
     this.userProfile = await this.keycloak.loadUserProfile();
-
+    if (this.clientSelected) {
+      this.showOrdersForAdmin = true;
+    }
   }
 
 

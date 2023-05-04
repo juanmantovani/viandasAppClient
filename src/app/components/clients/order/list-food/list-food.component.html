@@ -31,7 +31,7 @@
         <hr>
         <p *ngIf="changinAddress?.id != dayOrder.id">
           <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
-          <button mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
+          <button *ngIf="!showOrdersForAdmin" mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
 
         </p>
         <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
