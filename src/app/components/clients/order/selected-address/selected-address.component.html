@@ -17,6 +17,7 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Cambiar dirección</mat-label>
         <mat-select [value]="defaultSelectAddress" (selectionChange)="changeAddressOnDay($event.value, day)">
+          <mat-option [value]="addressTakeAway"> <b>Retiro en local</b></mat-option>
           <mat-option *ngFor="let address of client.addresses" [value]="address" >
             {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
           </mat-option>
@@ -30,6 +31,8 @@
 <mat-card *ngIf="!changeAddress" class="card">
   <h2>Domicilio de entrega</h2>
   <h3 (click)="onClickPersonalizeAddresses()"><mat-radio-button class="example-margin" [checked]="personalizeAddresses">Personalizar domicilios de entrega</mat-radio-button></h3>
+  <hr>
+  <h3 (click)="onClickTakeAwayAll()"><mat-radio-button class="example-margin" [checked]="takeAwayAll">Todos tus pedidos serán retirados en el local</mat-radio-button></h3>
   <hr>
   <h3>
     <mat-radio-button [checked]="default" (click)="onClickSetDefaulAddress()">Todos tus pedidos serán entregados en</mat-radio-button>

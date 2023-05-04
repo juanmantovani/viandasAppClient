@@ -16,6 +16,7 @@ import { EditDiscountResponse } from '../dto/setting/EditDiscountResponse';
 import { EditDiscountRequest } from '../dto/setting/EditDiscountRequest';
 import { DeleteDiscountResponse } from '../dto/setting/DeleteDiscountResponse';
 import { DeleteDiscountRequest } from '../dto/setting/DeleteDiscountRequest';
+import { GetAddressTakeAwayResponse } from '../dto/setting/GetAddressTakeAwayResponse';
 
 
 @Injectable({
@@ -31,6 +32,14 @@ export class SettingService {
     return this.http.get<GetZoneResponse>(ROUTES.API_ROUTES.SETTING.GETZONE).pipe(
       map((res:any) => {
         return new GetZoneResponse(res.zone);
+      })
+    )
+  }
+
+  getAddressTakeAway():Observable<GetAddressTakeAwayResponse>{
+    return this.http.get<GetAddressTakeAwayResponse>(ROUTES.API_ROUTES.SETTING.GETADDRESSTAKEAWAY).pipe(
+      map((res:any) => {
+        return new GetAddressTakeAwayResponse(res);
       })
     )
   }
