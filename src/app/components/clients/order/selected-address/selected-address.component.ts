@@ -3,7 +3,7 @@ import { GetAddressTakeAwayResponse } from 'src/app/shared/dto/setting/GetAddres
 import { Address } from 'src/app/shared/models/Address';
 import { Client } from 'src/app/shared/models/Client';
 import { Order } from 'src/app/shared/models/Order';
-import { SettingService } from 'src/app/shared/services/setting.service';
+import { AddressService } from 'src/app/shared/services/address.service';
 import { Utils } from 'src/app/utils';
 
 @Component({
@@ -29,12 +29,12 @@ export class SelectedAddressComponent implements OnInit {
   defaultSelectAddress: Address | undefined;
   orderWithDefaultAddress : Order
 
-  constructor(private settingService : SettingService ) {  }
+  constructor(private addressService : AddressService ) {  }
 
   ngOnInit(): void {
     this.order.observation = this.client.observation;
     this.getAddressTakeAway();
-    this.orderWithDefaultAddress = JSON.parse(JSON.stringify(this.order));
+    this.orderWithDefaultAddress = new Order(this.order);
   }
 
   getDay(date: Date): string{
@@ -42,7 +42,7 @@ export class SelectedAddressComponent implements OnInit {
   }
 
   getAddressTakeAway(){
-    this.settingService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
+    this.addressService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
       this.addressTakeAway = res.address;
     })
   }
@@ -67,7 +67,6 @@ export class SelectedAddressComponent implements OnInit {
     this.takeAwayAll = false;
     this.defaultSelectAddress = this.client.addresses.find(address => this.selectedAdress.id == address.id);
     this.personalizeAddresses = true;
-
   }
   onClickTakeAwayAll(){
     this.personalizeAddresses = false;
@@ -79,7 +78,7 @@ export class SelectedAddressComponent implements OnInit {
     this.default = true;
     this.personalizeAddresses = false;
     this.takeAwayAll = false;
-    this.order = JSON.parse(JSON.stringify(this.orderWithDefaultAddress));
+    this.order = new Order(this.orderWithDefaultAddress);
   }
 
   //busco el date recorriendo el array de daysOrder, cuando encuentro el date, asigno address y salto para no seguir en el for

@@ -10,6 +10,7 @@ import { DeleteAddressRequest } from '../dto/address/DeleteAddressRequest';
 import { DeleteAddressResponse } from '../dto/address/DeleteAddressResponse';
 import { SetFavouriteAddressRequest } from '../dto/address/SetFavouriteAddressRequest';
 import { SetFavouriteAddressResponse } from '../dto/address/SetFavouriteAddressResponse';
+import { GetAddressTakeAwayResponse } from '../dto/setting/GetAddressTakeAwayResponse';
 
 
 
@@ -43,6 +44,14 @@ export class AddressService {
   setFavouriteAddress(request: SetFavouriteAddressRequest): Observable<SetFavouriteAddressResponse>{
     return this.http.post<SetFavouriteAddressResponse>(ROUTES.API_ROUTES.ADDRESS.SETFAVOURITEADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new SetFavouriteAddressResponse(res)))
+  }
+
+  getAddressTakeAway():Observable<GetAddressTakeAwayResponse>{
+    return this.http.get<GetAddressTakeAwayResponse>(ROUTES.API_ROUTES.SETTING.GETADDRESSTAKEAWAY).pipe(
+      map((res:any) => {
+        return new GetAddressTakeAwayResponse(res);
+      })
+    )
   }
 }
 
