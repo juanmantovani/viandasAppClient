@@ -42,3 +42,10 @@ table{
 .checkbox{
   margin: 5px;
 }
+
+.orders-card {
+  max-width: 450px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 100%;
+}

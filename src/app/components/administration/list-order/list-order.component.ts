@@ -10,6 +10,10 @@ import { OrderTable } from 'src/app/shared/models/OrderTable';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { DeleteOrderRequest } from 'src/app/shared/dto/order/DeleteOrderRequest';
 import { PaidOrderRequest } from 'src/app/shared/dto/order/PaidOrderRequest';
+import { GetOrderByIdResponse } from 'src/app/shared/dto/order/GetOrderByIdResponse';
+import { Order } from 'src/app/shared/models/Order';
+import { DatePipe } from '@angular/common';
+import { Client } from 'src/app/shared/models/Client';
 
 @Component({
   selector: 'app-list-order',
@@ -18,16 +22,21 @@ import { PaidOrderRequest } from 'src/app/shared/dto/order/PaidOrderRequest';
 })
 export class ListOrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrden', 'client', 'date', 'total','status','paid', 'actions'];
+  displayedColumns: string[] = ['idOrden', 'client', 'date', 'total', 'status', 'paid', 'actions'];
   dataSource: any;
   request: GetAllOrdersRequest
+  orderDetails: Order;
+  viewDetails : boolean;
+  textWhatsApp: string = 'https://api.whatsapp.com/send?phone=5493434549868&text=';
+  clientSelected:Client
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(public dialog: MatDialog,
     private orderService: OrderService,
-    private dialogService: DialogService) {
+    private dialogService: DialogService,
+    public datepipe: DatePipe) {
     this.reset()
   }
 
@@ -68,13 +77,13 @@ export class ListOrderComponent implements OnInit {
   }
 
   async onClickCancel(order: OrderTable) {
-    if ( await this.generateConfirm("Está a punto de cancelar la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
+    if (await this.generateConfirm("Está a punto de cancelar la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
       this.cancelOrder(order.id);
     }
   }
 
   async onClickPaid(order: OrderTable) {
-    if ( await this.generateConfirm("Está a punto de registrar como pagada la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
+    if (await this.generateConfirm("Está a punto de registrar como pagada la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
       this.paidOrder(order.id);
     }
   }
@@ -100,4 +109,19 @@ export class ListOrderComponent implements OnInit {
       this.getOrders();
     });
   }
+
+
+  async onViewDetailsOrder(order: Order) {
+    this.clientSelected = order.client
+    await this.orderService.getOrderById(order.id).subscribe((res: GetOrderByIdResponse) => {
+      this.viewDetails = true;
+      this.orderDetails = res.order;
+      this.textWhatsApp = this.textWhatsApp + 'Hola, ' + 'mi nombre es ' + this.orderDetails.client.name + ' ' + this.orderDetails.client.lastName + ' y realicé el pedido número ' + this.orderDetails.id + ' el ' + this.datepipe.transform(this.orderDetails.date, 'dd/MM') + ' por el total de $' + this.orderDetails.total;
+    })
+  }
+
+  onClickBack(){
+    this.viewDetails = false
+  }
+
 }
