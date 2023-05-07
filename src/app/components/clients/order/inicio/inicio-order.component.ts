@@ -239,7 +239,8 @@ export class InicioOrderComponent implements OnInit {
           address: new Address(this.selectedAdress),
           cant: this.personalizeOrder ? 0 : this.getCant(dayFood.category.id),
           dayFood: new DayFood(dayFood),
-          observation: ""
+          observation: "",
+          status : true
         }
         this.order.daysOrder.push(dayOrder)
         //total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;

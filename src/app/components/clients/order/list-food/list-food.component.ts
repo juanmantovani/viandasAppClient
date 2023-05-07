@@ -1,7 +1,9 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
+import { CancelDayOrderRequest } from 'src/app/shared/dto/order/CancelDayOrderRequest';
 import { EditDayOrderAddressRequest } from 'src/app/shared/dto/order/EditDayOrderAddressRequest';
 import { EditDayOrderAddressResponse } from 'src/app/shared/dto/order/EditDayOrderAddressResponse';
 import { Address } from 'src/app/shared/models/Address';
@@ -31,6 +33,8 @@ export class OrderListFoodComponent implements OnInit {
 
 
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
+  @Output() canceledDayOrder: EventEmitter<any> = new EventEmitter();
+
 
   changinAddress : DayOrder;
 
@@ -46,7 +50,8 @@ export class OrderListFoodComponent implements OnInit {
     private readonly keycloak: KeycloakService,
     private clientService : ClientService,
     private dialogService: DialogService,
-    private orderService: OrderService
+    private orderService: OrderService,
+    public datepipe: DatePipe
     ) { }
 
   async ngOnInit() {
@@ -102,6 +107,23 @@ export class OrderListFoodComponent implements OnInit {
     dayOrder.cant=dayOrder.cant+1
     this.order.total = this.order.total + dayOrder.dayFood.category.price;
   }
+
+  async onCancelDayOrder(dayOrder : DayOrder) {
+    if (await this.generateConfirm("Está a punto de cancelar el pedido del día "+ this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM')  +". ¿Está seguro de realizar esta operación?") === true) {
+      await this.cancelDayOrder(dayOrder.id);
+    }
+  }
+
+
+  async cancelDayOrder(idDayOrder : number) {
+    const request: CancelDayOrderRequest = {
+      idDayOrder: idDayOrder
+    }
+    await this.orderService.cancelDayOrder(request).subscribe(() => {
+      this.canceledDayOrder.emit();
+    });
+  }
+
 
 
 

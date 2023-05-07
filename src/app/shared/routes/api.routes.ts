@@ -74,6 +74,7 @@ export const API_ROUTES = {
         PAIDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/paid`,
         CANCELORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancel`,
         GETTOTAL: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getTotal`,
+        CANCELDAYORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancelDayOrder`,
 
     },
     DELIVERYDRIVER: {

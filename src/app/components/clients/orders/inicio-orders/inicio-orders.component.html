@@ -17,7 +17,8 @@
               [order]="orderDetails"
               [editAddress]="true"
               [clientSelected]="clientSelected"
-              (getOrderDetails)="onGetOrderDetails()">
+              (getOrderDetails)="onGetOrderDetails()"
+              (canceledDayOrder)="onCanceledDayOrder()">
             </app-list-food>
         </mat-card-content>
 
