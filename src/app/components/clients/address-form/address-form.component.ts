@@ -34,6 +34,7 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
       this.setLatLng()
+
   }
   
   setLatLng() {

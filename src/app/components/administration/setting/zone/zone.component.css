@@ -5,7 +5,7 @@
 
 .actions-button-container button {
     margin-right: 7px;
-    min-width: 30px;
+    min-width: 36px;
     padding: 0;
   }
 
@@ -25,4 +25,8 @@
 
 .mat-row:hover {
   background-color: rgba(65, 65, 65, 0.07);
+}
+
+hr {
+  margin-top: 0px;
 }

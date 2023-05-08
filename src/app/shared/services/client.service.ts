@@ -59,10 +59,6 @@ export class ClientService {
 
     return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDUSER, {params}).pipe(
       map((res:any) => {
-        // res.client.addresses[0].lat = -31.7353707;
-        // res.client.addresses[0].lng = -60.5351763;
-        // res.client.addresses[0].idZone = 1;
-
         return new GetClientByIdUserResponse(res);
       })
     )

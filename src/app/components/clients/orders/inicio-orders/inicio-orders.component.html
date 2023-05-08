@@ -10,7 +10,16 @@
       <mat-card class="orders-card" *ngFor="let order of ordersViewer" [ngClass]="{'isActive': (orderDetails.id === order.id)}">
         <mat-card-subtitle>Transacción #{{order.id}} </mat-card-subtitle>
         <mat-card-title>Fecha de orden: {{order.date | date:'dd/MM/YYYY'}}</mat-card-title>
-        <div> TOTAL ${{order.total}} </div>
+        <div class="inline"> TOTAL ${{order.total}} 
+          <span class="spacer"></span> 
+          <mat-chip-list>
+            <mat-chip *ngIf="order.status.id == 1" class="active-order">Activa</mat-chip>
+            <mat-chip *ngIf="order.status.id == 2" class="finalice-order">Finalizada</mat-chip>
+            <mat-chip *ngIf="order.status.id == 3" class="cancel-order">Cancelada</mat-chip>
+            <mat-chip *ngIf="order.paid" class="paid-order">Pagada</mat-chip>
+            <mat-chip *ngIf="!order.paid" class="impaid-order">Pendiente de pago</mat-chip>
+          </mat-chip-list>
+        </div> 
         <mat-card-content  *ngIf="orderDetails?.id === order.id">
           <div *ngIf="order.observation">Observaciones: {{ order.observation }} </div>
             <app-list-food

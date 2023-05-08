@@ -571,7 +571,7 @@ export class Utils {
     public static orderMenuViewerByTurn (menuViewer: MenuViewer) : MenuViewer {
         var newMenuViewer = new MenuViewer(null)
         newMenuViewer.turnsViewer = [];
-        menuViewer.turnsViewer.forEach(turn => {
+        menuViewer.turnsViewer?.forEach(turn => {
             if (newMenuViewer.turnsViewer.length == 0){
                 newMenuViewer = {
                     dateEnd: menuViewer.dateEnd,

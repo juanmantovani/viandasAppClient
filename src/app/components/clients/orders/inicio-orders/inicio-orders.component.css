@@ -19,12 +19,50 @@ mat-card {
   }
 
 
-  @media (min-width: 940px) {
-    .orders-card {
-      max-width: 550px;
-      margin: 15px;
-      width: 100%;
-    }
-
-  
+@media (min-width: 940px) {
+  .orders-card {
+    max-width: 550px;
+    margin: 15px;
+    width: 100%;
   }
+
+
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.inline {
+  display: -webkit-inline-box;
+  width: 100%;
+  display:flex;
+
+}
+
+.mat-standard-chip {
+  min-height: 18px !important;
+  margin-right: 0px !important;
+  font-size: smaller;
+}
+
+.paid-order{
+  background-color: #007f5f89;
+  color: rgb(55, 55, 55);
+}
+.impaid-order{
+  background-color: #c700008d;
+  color: rgb(55, 55, 55);
+}
+.cancel-order{
+  background-color: #cc3df48a;
+  color: rgb(55, 55, 55);
+}
+.active-order{
+  background-color: #50b1ce96;
+  color: rgb(55, 55, 55);
+}
+.finalice-order{
+  background-color: #ffc1078a;
+  color: rgb(55, 55, 55);
+}

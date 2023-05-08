@@ -1,0 +1,40 @@
+<mat-card> 
+    <mat-card-header>
+        <mat-card-subtitle>
+            Administre la dirección para el retiro desde aquí
+        </mat-card-subtitle>
+        <mat-card-title>
+            Dirección de retiro
+        </mat-card-title>
+    </mat-card-header> 
+    <hr>
+    <mat-card-content>
+        <div class="container-fluid">
+
+            <mat-card-header *ngIf="address.id != 0">
+                <mat-card-title> <h3>{{address.street}} Nº {{address.number}} </h3></mat-card-title>
+                <mat-card-subtitle>
+                    <div class="inline">
+                        <div *ngIf="address.departament">Dpto: {{address.departament}}&nbsp; - &nbsp;</div>
+                        <div *ngIf="address.floor">Piso: {{address.floor}} </div>
+                        <div *ngIf="address.observation"> &nbsp; ({{address.observation}})</div>
+                    </div>
+                </mat-card-subtitle>
+            <span class="spacer"></span>
+            <button mat-raised-button (click)="onClickEditAddress()" title="Editar dirección" class="button-add-address">
+                <mat-icon fontIcon="edit"></mat-icon> Editar domicilio
+            </button>
+            </mat-card-header>
+
+            <div *ngIf="address.id == 0"> <!--  No existe address para takeAway -->
+                <div class="button-container">
+                    <button mat-raised-button (click)="onClickAddAddress()" title="Agregar dirección" class="button">
+                    <mat-icon>add</mat-icon>Agregar dirección
+                    </button>
+                </div>
+                <h3>No se encontró dirección de retiro</h3>
+            </div>
+
+        </div>
+    </mat-card-content>
+</mat-card>
