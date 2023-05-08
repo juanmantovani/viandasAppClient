@@ -29,7 +29,7 @@ export class DiscountComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private settingSerive: SettingService,
+    private settingService: SettingService,
     private dialogService: DialogService,
   ) { }
 
@@ -38,7 +38,7 @@ export class DiscountComponent implements OnInit {
   }
 
   async getDiscount() {
-    await this.settingSerive.getDiscount().subscribe((res: GetDiscountResponse) => {
+    await this.settingService.getDiscount().subscribe((res: GetDiscountResponse) => {
       this.dataSource = new MatTableDataSource(res.discounts);
     })
 
@@ -72,7 +72,7 @@ export class DiscountComponent implements OnInit {
     const request: DeleteDiscountRequest = {
       idDiscount: discount.id
     }
-    await this.settingSerive.deleteDiscount(request).subscribe(() => {
+    await this.settingService.deleteDiscount(request).subscribe(() => {
       this.getDiscount();
     });
   }
@@ -99,7 +99,6 @@ export class DiscountComponent implements OnInit {
       }
       else {
         dialogRef.close();
-        await this.getDiscount();
         return true;
       }
     })
@@ -115,7 +114,7 @@ export class DiscountComponent implements OnInit {
       discount: discount,
     }
 
-    await this.settingSerive.addDiscount(addDiscountRequest).subscribe((res: AddDiscountResponse) => {
+    await this.settingService.addDiscount(addDiscountRequest).subscribe((res: AddDiscountResponse) => {
       this.getDiscount()
       return res;
     }
@@ -126,7 +125,7 @@ export class DiscountComponent implements OnInit {
     const editDiscountRequest: EditDiscountRequest = {
       discount: discount
     }
-    await this.settingSerive.editDiscount(editDiscountRequest).subscribe((res: EditDiscountResponse) => {
+    await this.settingService.editDiscount(editDiscountRequest).subscribe((res: EditDiscountResponse) => {
       this.getDiscount()
       return res;
     })

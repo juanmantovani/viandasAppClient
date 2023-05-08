@@ -1,0 +1,15 @@
+.spacer {
+    flex: 1 1 auto;
+  }
+
+.inline {
+  display: -webkit-inline-box;
+}
+
+hr {
+  margin-top: 0px;
+}
+
+.button-add-address {
+  max-height: 36px;
+}

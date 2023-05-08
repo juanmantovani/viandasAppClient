@@ -28,7 +28,7 @@ export class ZoneComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private settingSerive: SettingService,
+    private settingService: SettingService,
     private dialogService: DialogService
   ) { }
 
@@ -37,7 +37,7 @@ export class ZoneComponent implements OnInit {
   }
 
   async getZone() {
-    await this.settingSerive.getZone().subscribe((res: GetZoneResponse) => {
+    await this.settingService.getZone().subscribe((res: GetZoneResponse) => {
       this.dataSource = new MatTableDataSource(res.zones);
     })
 
@@ -71,7 +71,7 @@ export class ZoneComponent implements OnInit {
     const request: DeleteZoneRequest = {
       idZone: zone.id
     }
-    await this.settingSerive.deleteZone(request).subscribe(() => {
+    await this.settingService.deleteZone(request).subscribe(() => {
       this.getZone();
     });
   }
@@ -98,7 +98,6 @@ export class ZoneComponent implements OnInit {
       }
       else {
         dialogRef.close();
-        await this.getZone();
         return true;
       }
     })
@@ -115,7 +114,7 @@ export class ZoneComponent implements OnInit {
       zone: zone,
     }
 
-    await this.settingSerive.addZone(addZoneRequest).subscribe((res: AddZoneResponse) => {
+    await this.settingService.addZone(addZoneRequest).subscribe((res: AddZoneResponse) => {
       this.getZone()
       return res;
     }
@@ -126,7 +125,7 @@ export class ZoneComponent implements OnInit {
     const editZoneRequest: EditZoneRequest = {
       zone: zone
     }
-    await this.settingSerive.editZone(editZoneRequest).subscribe((res: EditZoneResponse) => {
+    await this.settingService.editZone(editZoneRequest).subscribe((res: EditZoneResponse) => {
       this.getZone()
       return res;
     })

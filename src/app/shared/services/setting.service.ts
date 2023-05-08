@@ -16,6 +16,9 @@ import { EditDiscountResponse } from '../dto/setting/EditDiscountResponse';
 import { EditDiscountRequest } from '../dto/setting/EditDiscountRequest';
 import { DeleteDiscountResponse } from '../dto/setting/DeleteDiscountResponse';
 import { DeleteDiscountRequest } from '../dto/setting/DeleteDiscountRequest';
+import { getAddressTakeAwayResponse } from '../dto/setting/getAddressTakeAwayResponse';
+import { EditAddressTakeAwayRequest } from '../dto/setting/editAddressTakeAwayRequest';
+import { EditAddressTakeAwayResponse } from '../dto/setting/editAddressTakeAwayResponse';
 
 
 @Injectable({
@@ -91,6 +94,22 @@ export class SettingService {
     return this.http.delete<DeleteDiscountResponse>(ROUTES.API_ROUTES.SETTING.DELETEDISCOUNT, {params}).pipe(
     tap (res => new DeleteDiscountResponse(res))
     );
+  }
+
+  getAddressTakeAway(): Observable<getAddressTakeAwayResponse>{
+    return this.http.get<getAddressTakeAwayResponse>(ROUTES.API_ROUTES.SETTING.GETADDRESSTAKEAWAY).pipe(
+      map((res:any) => {
+        return new getAddressTakeAwayResponse(res);
+      })
+    )
+  }
+
+  editAddressTakeAway(request : EditAddressTakeAwayRequest):Observable<EditAddressTakeAwayResponse>{
+    return this.http.post<EditAddressTakeAwayResponse>(ROUTES.API_ROUTES.SETTING.EDITADDRESSTAKEAWAY,JSON.stringify(request.address), this.OPTIONS).pipe(
+      map((res:any) => {
+        return new EditAddressTakeAwayResponse(res);
+      })
+    )
   }
 
 }

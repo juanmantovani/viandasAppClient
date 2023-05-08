@@ -115,6 +115,7 @@ import { ListOrderComponent } from './components/administration/list-order/list-
 import { ConfirmationComponent } from './components/clients/order/confirmation/confirmation.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/clients/map/map.component';
+import { TakeAwayAddressComponent } from './components/administration/setting/take-away-address/take-away-address.component';
 
 
 @NgModule({
@@ -183,6 +184,7 @@ import { MapComponent } from './components/clients/map/map.component';
     MapComponent,    
     ListOrderComponent,
     ConfirmationComponent,
+    TakeAwayAddressComponent,
 
 
   ],
