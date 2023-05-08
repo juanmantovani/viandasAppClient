@@ -16,8 +16,8 @@ import { EditDiscountResponse } from '../dto/setting/EditDiscountResponse';
 import { EditDiscountRequest } from '../dto/setting/EditDiscountRequest';
 import { DeleteDiscountResponse } from '../dto/setting/DeleteDiscountResponse';
 import { DeleteDiscountRequest } from '../dto/setting/DeleteDiscountRequest';
-import { EditAddressTakeAwayRequest } from '../dto/setting/editAddressTakeAwayRequest';
-import { EditAddressTakeAwayResponse } from '../dto/setting/editAddressTakeAwayResponse';
+import { EditAddressTakeAwayRequest } from '../dto/setting/EditAddressTakeAwayRequest';
+import { EditAddressTakeAwayResponse } from '../dto/setting/EditAddressTakeAwayResponse';
 import { GetAddressTakeAwayResponse } from '../dto/setting/GetAddressTakeAwayResponse';
 
 @Injectable({
