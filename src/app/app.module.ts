@@ -116,7 +116,6 @@ import { ConfirmationComponent } from './components/clients/order/confirmation/c
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/clients/map/map.component';
 import { TakeAwayAddressComponent } from './components/administration/setting/take-away-address/take-away-address.component';
-import { TakeAwayAddressFormComponent } from './components/administration/setting/take-away-address-form/take-away-address-form.component';
 
 
 @NgModule({
@@ -186,7 +185,6 @@ import { TakeAwayAddressFormComponent } from './components/administration/settin
     ListOrderComponent,
     ConfirmationComponent,
     TakeAwayAddressComponent,
-    TakeAwayAddressFormComponent,
 
 
   ],

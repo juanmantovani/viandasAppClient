@@ -8,7 +8,7 @@ export class getAddressTakeAwayResponse extends BaseResponse {
     constructor(data: any) {
         super(data);
         if (data)
-            this.address = data.map((a: any) => new Address(a));
+            this.address = new Address(data);
 
     }
 }

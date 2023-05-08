@@ -98,7 +98,6 @@ export class ZoneComponent implements OnInit {
       }
       else {
         dialogRef.close();
-        await this.getZone();
         return true;
       }
     })

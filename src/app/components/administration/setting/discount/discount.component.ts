@@ -99,7 +99,6 @@ export class DiscountComponent implements OnInit {
       }
       else {
         dialogRef.close();
-        await this.getDiscount();
         return true;
       }
     })

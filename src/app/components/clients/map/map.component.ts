@@ -26,7 +26,7 @@ export class MapComponent implements OnInit {
   zonesMap: any = [];
   selectAddress: google.maps.LatLng = new google.maps.LatLng(0,0);
   center: google.maps.LatLng = new google.maps.LatLng(0,0);
-  zoom = 16.5;
+  zoom = 18;
   options = {
     mapTypeControl: false,
     streetViewControl: false,

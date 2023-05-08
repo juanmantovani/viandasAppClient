@@ -1,6 +1,6 @@
 import { BaseResponse } from "../BaseResponse";
 
-export class editAddressTakeAwayResponse extends BaseResponse{
+export class EditAddressTakeAwayResponse extends BaseResponse{
     constructor(data:any) {
         super(data);
     }

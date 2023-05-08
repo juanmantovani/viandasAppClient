@@ -2,8 +2,14 @@
     flex: 1 1 auto;
   }
 
-  button {
-    margin-right: 7px;
-    min-width: 36px;
-    padding: 0;
-  }
+.inline {
+  display: -webkit-inline-box;
+}
+
+hr {
+  margin-top: 0px;
+}
+
+.button-add-address {
+  max-height: 36px;
+}

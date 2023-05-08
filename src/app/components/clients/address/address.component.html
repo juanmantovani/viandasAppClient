@@ -14,7 +14,7 @@
                 <mat-card-title> {{address.street}} Nº {{address.number}} </mat-card-title>
                 <mat-card-subtitle>
                     <div class="inline">
-                    <div *ngIf="address.departament">Dpto: {{address.departament}}&nbsp; - &nbsp;</div>
+                    <div *ngIf="address.departament">Dpto: {{address.departament}}</div>
                     <div *ngIf="address.floor">Piso: {{address.floor}} </div>
                 </div>
                     <div *ngIf="address.observation.length> 0"> ({{address.observation}})</div>

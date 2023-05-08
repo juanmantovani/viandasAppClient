@@ -1,5 +1,5 @@
 import { Address } from '../../models/Address';
 
-export class editAddressTakeAwayRequest{
+export class EditAddressTakeAwayRequest{
     address : Address;
 }
