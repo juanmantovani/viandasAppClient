@@ -31,13 +31,16 @@
         <hr>
         <p *ngIf="changinAddress?.id != dayOrder.id">
           <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
-          <button mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
-
+          <button *ngIf="!showOrdersForAdmin" mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
         </p>
+        <button *ngIf="showOrdersForAdmin && order.status.id == 1 && dayOrder.status" mat-raised-button class="button" (click)="onCancelDayOrder(dayOrder, order.id)">Cancelar</button>
+
+        
         <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
         <mat-form-field appearance="fill">
           <mat-label>Cambiar dirección</mat-label>
           <mat-select [(value)]="selectAddress">
+            <mat-option [value]="addressTakeAway"> <b>Retiro en local -  {{ addressTakeAway.street }} Nº {{ addressTakeAway.number }}</b></mat-option>
             <mat-option *ngFor="let address of client?.addresses" [value]="address" >
               {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
             </mat-option>

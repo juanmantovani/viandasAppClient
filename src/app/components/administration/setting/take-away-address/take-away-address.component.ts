@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DataFormAddress } from 'src/app/shared/dto/address/DataFormAddress';
 import { DataFormTakeAwayAddress } from 'src/app/shared/dto/setting/DataFormTakeAwayAddress';
-import { getAddressTakeAwayResponse } from 'src/app/shared/dto/setting/getAddressTakeAwayResponse';
 import { Address } from 'src/app/shared/models/Address';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { SettingService } from 'src/app/shared/services/setting.service';
 import { Utils } from 'src/app/utils';
-import { EditAddressTakeAwayRequest } from 'src/app/shared/dto/setting/editAddressTakeAwayRequest';
-import { EditAddressTakeAwayResponse } from 'src/app/shared/dto/setting/editAddressTakeAwayResponse';
+import { EditAddressTakeAwayRequest } from 'src/app/shared/dto/setting/EditAddressTakeAwayRequest';
+import { EditAddressTakeAwayResponse } from 'src/app/shared/dto/setting/EditAddressTakeAwayResponse';
 import { AddressFormComponent } from 'src/app/components/clients/address-form/address-form.component';
+import { GetAddressTakeAwayResponse } from 'src/app/shared/dto/setting/GetAddressTakeAwayResponse';
 
 @Component({
   selector: 'app-take-away-address',
@@ -34,7 +33,7 @@ export class TakeAwayAddressComponent implements OnInit {
   }
 
   async getAddressTakeAway(){
-    await this.settingService.getAddressTakeAway().subscribe((res: getAddressTakeAwayResponse)=> {
+    await this.settingService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse)=> {
       this.address = res.address
 
     })

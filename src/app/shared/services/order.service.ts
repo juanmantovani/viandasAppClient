@@ -15,14 +15,16 @@ import { EditDayOrderAddressRequest } from '../dto/order/EditDayOrderAddressRequ
 import { EditDayOrderAddressResponse } from '../dto/order/EditDayOrderAddressResponse';
 import { GetOrdersRequest } from '../dto/order/GetOrdersRequest';
 import { GetOrdersResponse } from '../dto/order/GetOrdersResponse';
-import { GetMenuResponse } from '../dto/menu/getMenuResponse';
 import { GetAllOrdersResponse } from '../dto/order/GetAllOrdersResponse';
 import { GetAllOrdersRequest } from '../dto/order/GetAllOrdersRequest';
-import { DeleteOrderRequest } from '../dto/order/DeleteOrderRequest';
 import { PaidOrderRequest } from '../dto/order/PaidOrderRequest';
 import { DeleteOrderResponse } from '../dto/order/DeleteOrderResponse';
 import { PaidOrderResponse } from '../dto/order/PaidOrderResponse';
 import { GetTotalOrderResponse } from '../dto/order/GetTotalOrderResponse';
+import { DeleteOrderRequest } from '../dto/order/DeleteOrderRequest';
+import { CancelDayOrderRequest } from '../dto/order/CancelDayOrderRequest';
+import { CancelDayOrderResponse } from '../dto/order/CancelDayOrderResponse';
+
 
 
 
@@ -101,7 +103,8 @@ export class OrderService {
             observation: dayOrder.observation,
             address: dayOrder.address,
             cant: dayOrder.cant,
-            dayFood: new DayFood(dayFood)
+            dayFood: new DayFood(dayFood),
+            status : dayOrder.status
           }
           daysOrderArray.push(new DayOrder(daysOrder))
         });
@@ -111,7 +114,9 @@ export class OrderService {
           id: res.id,
           observation: res.observation,
           total: res.total,
-          daysOrder: daysOrderArray
+          daysOrder: daysOrderArray,
+          status : res.status,
+          paid : res.paid
         };
         return new GetOrderByIdResponse(order);
       })
@@ -130,8 +135,8 @@ export class OrderService {
   cancelOrder(request: DeleteOrderRequest): Observable<DeleteOrderResponse> {
     let params = new HttpParams();
     params = params.set('idOrder', request.idOrder.toString());
-    return this.http.get<PaidOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELORDER, { params }).pipe(
-      tap(res => new PaidOrderResponse(res))
+    return this.http.get<DeleteOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELORDER, { params }).pipe(
+      tap(res => new DeleteOrderResponse(res))
     );
   }
 
@@ -143,5 +148,12 @@ export class OrderService {
     );
   }
 
+  cancelDayOrder(request: CancelDayOrderRequest): Observable<CancelDayOrderResponse> {
+    let params = new HttpParams();
+    params = params.set('idDayOrder', request.idDayOrder.toString());
+    return this.http.get<CancelDayOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELDAYORDER, { params }).pipe(
+      tap(res => new CancelDayOrderResponse(res))
+    );
+  }
 
 }

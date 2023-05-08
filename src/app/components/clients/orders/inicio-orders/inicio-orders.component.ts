@@ -62,6 +62,7 @@ export class InicioOrdersComponent implements OnInit {
     await this.onViewDetailsOrder(this.orderDetails.id)
 
   }
+ 
 
   onClickSendWhatsApp(){
     window.open(this.textWhatsApp, '_blank');

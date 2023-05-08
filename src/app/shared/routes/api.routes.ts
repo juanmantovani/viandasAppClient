@@ -74,6 +74,7 @@ export const API_ROUTES = {
         PAIDORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/paid`,
         CANCELORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancel`,
         GETTOTAL: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getTotal`,
+        CANCELDAYORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/cancelDayOrder`,
 
     },
     DELIVERYDRIVER: {
@@ -105,7 +106,6 @@ export const API_ROUTES = {
         GETDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getDiscount`,
         GETADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getAddressTakeAway`,
         EDITADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editAddressTakeAway`
-
     }
 
 }

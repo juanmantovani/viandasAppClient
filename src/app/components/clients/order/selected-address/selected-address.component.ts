@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Output,EventEmitter  } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { GetAddressTakeAwayResponse } from 'src/app/shared/dto/setting/GetAddressTakeAwayResponse';
 import { Address } from 'src/app/shared/models/Address';
 import { Client } from 'src/app/shared/models/Client';
 import { Order } from 'src/app/shared/models/Order';
+import { AddressService } from 'src/app/shared/services/address.service';
 import { Utils } from 'src/app/utils';
-
-
 
 @Component({
   selector: 'app-selected-address',
@@ -23,23 +22,29 @@ export class SelectedAddressComponent implements OnInit {
   @Output() getClient: EventEmitter<any> = new EventEmitter();
 
   changeAddress : boolean;
-
   default: boolean = true;
   personalizeAddresses: boolean;
-
+  takeAwayAll: boolean;
+  addressTakeAway : Address;
   defaultSelectAddress: Address | undefined;
+  orderWithDefaultAddress : Order
 
-
-  constructor() {
-   
-  }
+  constructor(private addressService : AddressService ) {  }
 
   ngOnInit(): void {
     this.order.observation = this.client.observation;
+    this.getAddressTakeAway();
+    this.orderWithDefaultAddress = new Order(this.order);
   }
 
   getDay(date: Date): string{
     return Utils.getDayOfDate(date);
+  }
+
+  getAddressTakeAway(){
+    this.addressService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
+      this.addressTakeAway = res.address;
+    })
   }
 
   onClickEditAddress() {
@@ -59,14 +64,21 @@ export class SelectedAddressComponent implements OnInit {
 
   onClickPersonalizeAddresses() {
     this.default = false;
+    this.takeAwayAll = false;
     this.defaultSelectAddress = this.client.addresses.find(address => this.selectedAdress.id == address.id);
     this.personalizeAddresses = true;
-
+  }
+  onClickTakeAwayAll(){
+    this.personalizeAddresses = false;
+    this.default = false;
+    this.order.daysOrder.filter(order => order.address = this.addressTakeAway)
   }
 
   onClickSetDefaulAddress() {
     this.default = true;
     this.personalizeAddresses = false;
+    this.takeAwayAll = false;
+    this.order = new Order(this.orderWithDefaultAddress);
   }
 
   //busco el date recorriendo el array de daysOrder, cuando encuentro el date, asigno address y salto para no seguir en el for
@@ -77,8 +89,6 @@ export class SelectedAddressComponent implements OnInit {
         break;
       }
     }
-
   }
-
 
 }
