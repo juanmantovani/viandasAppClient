@@ -115,7 +115,8 @@ export class OrderService {
           observation: res.observation,
           total: res.total,
           daysOrder: daysOrderArray,
-          status : res.status
+          status : res.status,
+          paid : res.paid
         };
         return new GetOrderByIdResponse(order);
       })

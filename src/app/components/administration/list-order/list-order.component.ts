@@ -98,6 +98,8 @@ export class ListOrderComponent implements OnInit {
     }
     await this.orderService.cancelOrder(request).subscribe(() => {
       this.getOrders();
+      this.viewDetails = false
+
     });
   }
 
@@ -122,6 +124,12 @@ export class ListOrderComponent implements OnInit {
 
   onClickBack(){
     this.viewDetails = false
+  }
+
+   async onCanceledDayOrder(idOrder: number){
+    await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
+      this.orderDetails = res.order;
+    })
   }
 
 }

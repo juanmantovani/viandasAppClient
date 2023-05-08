@@ -2,7 +2,7 @@ import { BaseResponse } from "../BaseResponse";
 import { Address } from "../../models/Address";
 
 
-export class getAddressTakeAwayResponse extends BaseResponse {
+export class GetAddressTakeAwayResponse extends BaseResponse {
     address: Address
 
     constructor(data: any) {

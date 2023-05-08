@@ -104,10 +104,8 @@ export const API_ROUTES = {
         EDITDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editDiscount`,
         DELETEDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteDiscount`,
         GETDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getDiscount`,
-        GETADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getAddressTakeAway`,,
         GETADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getAddressTakeAway`,
         EDITADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editAddressTakeAway`
-
     }
 
 }

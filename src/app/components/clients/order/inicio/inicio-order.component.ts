@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
@@ -29,7 +29,6 @@ import { KeycloakService } from 'keycloak-angular';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { AddOrderResponse } from 'src/app/shared/dto/order/AddOrderResponse';
-import { ActivatedRoute, Router } from '@angular/router';
 import * as ROUTES from '../../../../shared/routes/index.routes'
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
@@ -80,7 +79,6 @@ export class InicioOrderComponent implements OnInit {
   orderSuccess: boolean;
 
   constructor(
-    private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
     private categoryService: CategoryService,
     private menuService: MenuService,
@@ -88,8 +86,6 @@ export class InicioOrderComponent implements OnInit {
     private orderService: OrderService,
     private clientService: ClientService,
     private readonly keycloak: KeycloakService,
-    private router: Router,
-    private route: ActivatedRoute,
     private dialogService: DialogService
   ) {
     this.range = this.generateFormWeeks();

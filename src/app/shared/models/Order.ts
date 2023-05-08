@@ -10,6 +10,7 @@ export class Order {
     observation: string;
     total: number;
     status: StatusOrder;
+    paid : boolean;
 
     discount?: number;
     delivery?: number;
@@ -24,6 +25,7 @@ export class Order {
             this.observation = data.observation;
             this.total = data.total;
             this.status = new StatusOrder(data.status);
+            this.paid = data.paid;
         }
     }
 }

@@ -6,10 +6,12 @@ import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientBy
 import { CancelDayOrderRequest } from 'src/app/shared/dto/order/CancelDayOrderRequest';
 import { EditDayOrderAddressRequest } from 'src/app/shared/dto/order/EditDayOrderAddressRequest';
 import { EditDayOrderAddressResponse } from 'src/app/shared/dto/order/EditDayOrderAddressResponse';
+import { GetAddressTakeAwayResponse } from 'src/app/shared/dto/setting/GetAddressTakeAwayResponse';
 import { Address } from 'src/app/shared/models/Address';
 import { Client } from 'src/app/shared/models/Client';
 import { DayOrder } from 'src/app/shared/models/DayOrder';
 import { Order } from 'src/app/shared/models/Order';
+import { AddressService } from 'src/app/shared/services/address.service';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { OrderService } from 'src/app/shared/services/order.service';
@@ -26,33 +28,34 @@ export class OrderListFoodComponent implements OnInit {
   URLAPI = environment.urlApi;
   value = 1;
 
-  
-  @Input() order : Order;
-  @Input() editAddress : boolean;
+
+  @Input() order: Order;
+  @Input() editAddress: boolean;
   @Input() clientSelected: Client;
 
 
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
-  @Output() canceledDayOrder: EventEmitter<any> = new EventEmitter();
+  @Output() canceledDayOrder: EventEmitter<number> = new EventEmitter();
 
-
-  changinAddress : DayOrder;
+  changinAddress: DayOrder;
 
   public userProfile: KeycloakProfile | null;
-  client : Client;
+  client: Client;
   selectAddress: Address | undefined;
   showOrdersForAdmin: boolean;
-
+  addressTakeAway: Address;
   address: Address;
-
 
   constructor(
     private readonly keycloak: KeycloakService,
-    private clientService : ClientService,
+    private clientService: ClientService,
     private dialogService: DialogService,
     private orderService: OrderService,
-    public datepipe: DatePipe
-    ) { }
+    public datepipe: DatePipe,
+    private addressService: AddressService
+  ) {
+    this.addressTakeAway = new Address();
+  }
 
   async ngOnInit() {
     this.changinAddress = new DayOrder(null);
@@ -62,26 +65,31 @@ export class OrderListFoodComponent implements OnInit {
     }
   }
 
+  getAddressTakeAway() {
+    this.addressService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
+      this.addressTakeAway = res.address;
+    })
+  }
 
-  getDay(date: Date): string{
+  getDay(date: Date): string {
     return Utils.getDayOfDate(date);
   }
 
- async onChangeAddress(dayOrder : DayOrder) {
-    await this.getClientByIdUser(dayOrder.address.id)
+  async onChangeAddress(dayOrder: DayOrder) {
+    await this.getClientByIdUser(dayOrder.address.id);
     this.changinAddress.id = dayOrder.id;
+    this.getAddressTakeAway();
   }
 
-  async getClientByIdUser(addressId : number){
-    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res : GetClientByIdUserResponse) => {
+  async getClientByIdUser(addressId: number) {
+    await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
       this.selectAddress = this.client.addresses.find(address => addressId == address.id);
     })
   }
 
-  async onSaveChangeAddress(dayOrder: DayOrder){
-    if (await this.generateConfirm("Está a punto de cambiar el domicilio de envío. ¿Está seguro de realizar esta operación?") === true)
-    {
+  async onSaveChangeAddress(dayOrder: DayOrder) {
+    if (await this.generateConfirm("Está a punto de cambiar el domicilio de envío. ¿Está seguro de realizar esta operación?") === true) {
       var request: EditDayOrderAddressRequest = {
         idAddress: this.selectAddress ? this.selectAddress.id : 0,
         idDayOrder: dayOrder.id
@@ -98,29 +106,29 @@ export class OrderListFoodComponent implements OnInit {
     return await this.dialogService.openConfirmDialog(msg);
   }
 
-  removeFood(dayOrder : DayOrder){
-    dayOrder.cant=dayOrder.cant-1
+  removeFood(dayOrder: DayOrder) {
+    dayOrder.cant = dayOrder.cant - 1
     this.order.total = this.order.total - dayOrder.dayFood.category.price;
   }
 
-  addFood(dayOrder : DayOrder){
-    dayOrder.cant=dayOrder.cant+1
+  addFood(dayOrder: DayOrder) {
+    dayOrder.cant = dayOrder.cant + 1
     this.order.total = this.order.total + dayOrder.dayFood.category.price;
   }
 
-  async onCancelDayOrder(dayOrder : DayOrder) {
-    if (await this.generateConfirm("Está a punto de cancelar el pedido del día "+ this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM')  +". ¿Está seguro de realizar esta operación?") === true) {
-      await this.cancelDayOrder(dayOrder.id);
+  async onCancelDayOrder(dayOrder: DayOrder, idOrder:number) {
+    if (await this.generateConfirm("Está a punto de cancelar el pedido del día " + this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM') + ". ¿Está seguro de realizar esta operación?") === true) {
+      await this.cancelDayOrder(dayOrder.id, idOrder);
     }
   }
 
 
-  async cancelDayOrder(idDayOrder : number) {
+  async cancelDayOrder(idDayOrder: number, idOrder: number) {
     const request: CancelDayOrderRequest = {
       idDayOrder: idDayOrder
     }
     await this.orderService.cancelDayOrder(request).subscribe(() => {
-      this.canceledDayOrder.emit();
+      this.canceledDayOrder.emit(idOrder);
     });
   }
 
