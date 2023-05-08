@@ -1,6 +1,5 @@
-import { BaseResponse } from "../BaseResponse";
 import { Address } from "../../models/Address";
-
+import { BaseResponse } from "../BaseResponse";
 
 export class GetAddressTakeAwayResponse extends BaseResponse {
     address: Address
@@ -9,6 +8,5 @@ export class GetAddressTakeAwayResponse extends BaseResponse {
         super(data);
         if (data)
             this.address = new Address(data);
-
     }
 }
