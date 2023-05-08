@@ -93,7 +93,7 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let element" class="actions-button-container">
-                        <button mat-raised-button class="button" (click)="onViewDetailsOrder(element)">Ver
+                        <button mat-stroked-button class="button" (click)="onViewDetailsOrder(element)">Ver
                             detalles</button>
                         <button mat-stroked-button class="button" (click)="onClickPaid(element)"
                             title="Marcar como pagado" *ngIf="!element.paid">
@@ -127,6 +127,8 @@
             </app-list-food>
         </mat-card-content>
         <mat-card-actions align="end">
+            <button mat-raised-button class="button" *ngIf="orderDetails.status.id == 1" (click)="onClickCancel(orderDetails.id)" class="button" title="Volver">Cancelar Orden</button>  
+
           </mat-card-actions>
     </mat-card>
 

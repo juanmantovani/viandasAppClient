@@ -10,7 +10,7 @@
       <div align="end"> 
       <p class="discount-sum">Pedido: ${{ order.subTotal }} </p>
       <p *ngIf="order.discount! > 0" class="discount-rest"><i>Descuento por cantidad: -${{ order.discount }} </i></p>
-      <p class="discount-sum">Costo de envío: ${{ order.delivery }} </p>
+      <p *ngIf="order.delivery! > 0" class="discount-sum">Costo de envío: ${{ order.delivery }} </p>
       <hr>  
       <h2>TOTAL ${{ order.total }}</h2>
     </div>

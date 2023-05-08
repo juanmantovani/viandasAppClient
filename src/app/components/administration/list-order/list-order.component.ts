@@ -76,9 +76,9 @@ export class ListOrderComponent implements OnInit {
 
   }
 
-  async onClickCancel(order: OrderTable) {
-    if (await this.generateConfirm("Está a punto de cancelar la orden " + order.id + " de " + order.client.name + " " + order.client.lastName + ". ¿Está seguro de realizar esta operación?") === true) {
-      this.cancelOrder(order.id);
+  async onClickCancel(idOrder: number) {
+    if (await this.generateConfirm("Está a punto de cancelar la orden completa. ¿Está seguro de realizar esta operación?") === true) {
+      this.cancelOrder(idOrder);
     }
   }
 

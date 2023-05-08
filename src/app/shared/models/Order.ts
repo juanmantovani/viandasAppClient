@@ -1,5 +1,6 @@
 import { Client } from "./Client";
 import { DayOrder } from "./DayOrder";
+import { StatusOrder } from "./StatusOrder";
 
 export class Order {
     id: number;
@@ -8,6 +9,8 @@ export class Order {
     daysOrder: DayOrder[];
     observation: string;
     total: number;
+    status: StatusOrder;
+
     discount?: number;
     delivery?: number;
     subTotal?: number;
@@ -20,6 +23,7 @@ export class Order {
             this.daysOrder = data.daysOrder.map((d: any) => new DayOrder(d));
             this.observation = data.observation;
             this.total = data.total;
+            this.status = new StatusOrder(data.status);
         }
     }
 }

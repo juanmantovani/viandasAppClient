@@ -114,7 +114,8 @@ export class OrderService {
           id: res.id,
           observation: res.observation,
           total: res.total,
-          daysOrder: daysOrderArray
+          daysOrder: daysOrderArray,
+          status : res.status
         };
         return new GetOrderByIdResponse(order);
       })
