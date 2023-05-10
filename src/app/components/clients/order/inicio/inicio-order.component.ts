@@ -293,17 +293,24 @@ export class InicioOrderComponent implements OnInit {
   formatOrder(idOrder : number): string {
     let result = '';
     result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${idOrder}\n`;
+
     this.order.daysOrder.forEach(dayOrder => {
-      if(dayOrder.cant > 0) {
-        const dayFood = dayOrder.dayFood;
-        const categoryTitle = dayFood.category.title;
-        const day = moment(dayFood.date).format('DD/MM');
-        const foodTitle = dayFood.food.title;
-        const cant = dayOrder.cant;
-        
-        result += `${day} (${cant}x${categoryTitle}) - ${foodTitle} \n`;
-      }
+      const { cant, dayFood: { category: { title, price } } } = dayOrder;
+      result += `${cant} ${title} ${price}\n`;
     });
+
+
+    // this.order.daysOrder.forEach(dayOrder => {
+    //   if(dayOrder.cant > 0) {
+    //     const dayFood = dayOrder.dayFood;
+    //     const categoryTitle = dayFood.category.title;
+    //     const day = moment(dayFood.date).format('DD/MM');
+    //     const foodTitle = dayFood.food.title;
+    //     const cant = dayOrder.cant;
+        
+    //     result += `${day} (${cant}x${categoryTitle}) - ${foodTitle} \n`;
+    //   }
+    // });
     
     result += '-----------------------------------\n';
     result += `Total: ${this.order.total}\n`;

@@ -41,10 +41,10 @@ export class AddressFormComponent implements OnInit, AfterViewInit {
       if  (this.data.actionForm == 'Edit') {
         this.lat = +this.data.address?.lat;
         this.lng = +this.data.address?.lng;
-      } else {
-        this.lat = 0;
-        this.lng = 0;
-      } 
+      }//  else {
+      //   this.lat = 0;
+      //   this.lng = 0;
+      // } 
   }
 
   generateForm(): FormGroup {
