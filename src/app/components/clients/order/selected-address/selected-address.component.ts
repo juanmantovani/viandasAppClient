@@ -26,6 +26,7 @@ export class SelectedAddressComponent implements OnInit {
   personalizeAddresses: boolean;
   takeAwayAll: boolean;
   addressTakeAway : Address;
+  addressDefault: Address;
   defaultSelectAddress: Address | undefined;
   orderWithDefaultAddress : Order
 
@@ -35,6 +36,8 @@ export class SelectedAddressComponent implements OnInit {
     this.order.observation = this.client.observation;
     this.getAddressTakeAway();
     this.orderWithDefaultAddress = new Order(this.order);
+    this.addressDefault = this.orderWithDefaultAddress.daysOrder[0].address;
+
   }
 
   getDay(date: Date): string{
@@ -44,6 +47,7 @@ export class SelectedAddressComponent implements OnInit {
   getAddressTakeAway(){
     this.addressService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
       this.addressTakeAway = res.address;
+      this.order.client.addresses.push(res.address)
     })
   }
 
@@ -65,20 +69,21 @@ export class SelectedAddressComponent implements OnInit {
   onClickPersonalizeAddresses() {
     this.default = false;
     this.takeAwayAll = false;
-    this.defaultSelectAddress = this.client.addresses.find(address => this.selectedAdress.id == address.id);
     this.personalizeAddresses = true;
+    this.defaultSelectAddress = this.client.addresses.find(address => this.selectedAdress.id == address.id);
+
   }
   onClickTakeAwayAll(){
     this.personalizeAddresses = false;
     this.default = false;
-    this.order.daysOrder.filter(order => order.address = this.addressTakeAway)
+    this.selectedAddressEmit.emit(this.addressTakeAway)
   }
 
   onClickSetDefaulAddress() {
     this.default = true;
     this.personalizeAddresses = false;
     this.takeAwayAll = false;
-    this.order = new Order(this.orderWithDefaultAddress);
+    this.selectedAddressEmit.emit(this.addressDefault)
   }
 
   //busco el date recorriendo el array de daysOrder, cuando encuentro el date, asigno address y salto para no seguir en el for
