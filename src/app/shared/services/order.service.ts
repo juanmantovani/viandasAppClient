@@ -91,8 +91,7 @@ export class OrderService {
     params = params.set('idOrder', idOrder?.toString());
     return this.http.get<GetOrderByIdResponse>(ROUTES.API_ROUTES.ORDER.GETORDERBYID, { params }).pipe(
       map((res: any) => {
-        console.log(res);
-        var daysOrderArray: DayOrder[] = [];
+          var daysOrderArray: DayOrder[] = [];
         res.daysOrder.forEach((dayOrder: any) => {
           var dayFood = {
             category: dayOrder.category,

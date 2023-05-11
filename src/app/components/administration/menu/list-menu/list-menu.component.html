@@ -13,7 +13,7 @@
       <col style="width:'40%'"/>
    </colgroup>
 
-    <ng-container matColumnDef="ID">
+    <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
       <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.id}} </td>
     </ng-container>
@@ -22,6 +22,12 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Desde </th>
       <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.dateStart | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha orden </th>
+      <td mat-cell *matCellDef="let element" class="hidden"> {{element.date | date:'dd/MM/YYYY'}}
+      </td>
+  </ng-container>
 
     <ng-container matColumnDef="end">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </th>

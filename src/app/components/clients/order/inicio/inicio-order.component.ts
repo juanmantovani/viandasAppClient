@@ -282,41 +282,25 @@ export class InicioOrderComponent implements OnInit {
         if (res) {
           this.orderInProgress = false;
           this.orderSuccess = true;
-          this.textWhatsAppShow = this.formatOrder(res.idOrder)
+          this.textWhatsAppShow = this.formatOrder(res)
         } else {
           return false;
         }
       });
     }
   }
-
-  formatOrder(idOrder : number): string {
+  
+  formatOrder(res : AddOrderResponse): string {
     let result = '';
-    result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${idOrder}\n`;
+    result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${res.idOrder}:\n`;
+    res.categories.forEach(cat => {
+      result += `${cat.cant} ${cat.category.title}\n`;
 
-    this.order.daysOrder.forEach(dayOrder => {
-      const { cant, dayFood: { category: { title, price } } } = dayOrder;
-      result += `${cant} ${title} ${price}\n`;
-    });
-
-
-    // this.order.daysOrder.forEach(dayOrder => {
-    //   if(dayOrder.cant > 0) {
-    //     const dayFood = dayOrder.dayFood;
-    //     const categoryTitle = dayFood.category.title;
-    //     const day = moment(dayFood.date).format('DD/MM');
-    //     const foodTitle = dayFood.food.title;
-    //     const cant = dayOrder.cant;
-        
-    //     result += `${day} (${cant}x${categoryTitle}) - ${foodTitle} \n`;
-    //   }
-    // });
-    
+    })
+    result += `${res.cantDelivery} Envíos\n`;
     result += '-----------------------------------\n';
-    result += `Total: ${this.order.total}\n`;
-    
+    result += `Total: $${res.total}\n`;
     this.textWhatsAppSend = result.replace(/[\n]/g, "%0a")
-
     return result;
   }
 

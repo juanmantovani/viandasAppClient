@@ -65,7 +65,7 @@
 
 
   <div *ngIf="listMenu">
-    <app-list-menu [dataSource]="dataSource" 
+    <app-list-menu [menu]="menu" 
       (menuId)="onViewMenu($event)"
       (deleteMenu)="deleteMenu($event)">
     </app-list-menu>

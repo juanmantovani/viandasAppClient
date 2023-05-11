@@ -17,7 +17,6 @@ export class Order {
     subTotal?: number;
 
     constructor(data: any) {
-        console.log(data)
         if (data) {
             this.id = data.id;
             this.client = new Client(data.client);

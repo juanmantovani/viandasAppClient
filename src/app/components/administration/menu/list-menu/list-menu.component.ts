@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Menu } from 'src/app/shared/models/Menu';
 import { DialogService } from 'src/app/shared/services/dialog.service';
@@ -11,15 +11,16 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
   templateUrl: './list-menu.component.html',
   styleUrls: ['./list-menu.component.css']
 })
-export class ListMenuComponent implements OnInit {
-  displayedColumns: string[] = ['ID', 'start', 'end', 'actions'];
+export class ListMenuComponent implements OnInit, AfterViewInit {
+  displayedColumns: string[] = ['id', 'start', 'end', 'actions'];
 
-  @Input() dataSource : MatTableDataSource<Menu>;
+  @Input() menu : Menu[];
   @Output() deleteMenu : EventEmitter <Menu> = new EventEmitter();
   @Output() menuId : EventEmitter <number> = new EventEmitter();
+  dataSource: MatTableDataSource<Menu>;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     public dialog: MatDialog,
@@ -28,6 +29,12 @@ export class ListMenuComponent implements OnInit {
     { }
 
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(this.menu);
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  
   }
 
  async onClickDelete(menu: Menu) {
