@@ -12,8 +12,6 @@ export class MapComponent implements OnInit {
 
   @Input() street: string;
   @Input() number: string;
-  @Input() lat: number;
-  @Input() lng: number;
 
   @Output() geoCodingResult: EventEmitter<any> = new EventEmitter();
   @Output() clickBack: EventEmitter<boolean> = new EventEmitter();
@@ -52,11 +50,7 @@ export class MapComponent implements OnInit {
       this.heightMap = '300';
     }
     this.zonesMap = Utils.getZones();
-    if (this.lat == 0 && this.lng == 0) {
       this.geocodingStreet();
-    } else {
-      this.setMarker();
-    }
     
   }
 
@@ -76,16 +70,6 @@ export class MapComponent implements OnInit {
         }
 
       });
-  }
-
-  setMarker(){
-    var address = { 
-      lat: this.lat, 
-      lng: this.lng 
-    }
-    this.markerPositions.push(address);
-    this.center = new google.maps.LatLng(address);
-    this.selectAddress = new google.maps.LatLng(address);
   }
 
   addMarker(event: google.maps.MapMouseEvent) {

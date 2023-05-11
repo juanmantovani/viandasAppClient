@@ -31,7 +31,8 @@ export class MenuInicioComponent implements OnInit {
   viewCategories: boolean;
   chargeMenu: boolean;
   listMenu: boolean;
-  dataSource!: MatTableDataSource<Menu>;
+  //dataSource!: MatTableDataSource<Menu>;
+  menu: Menu[];
   menuViewer : MenuViewer;
   viewCalendarFood: boolean;
   showFullCalendar: boolean = true;
@@ -45,13 +46,10 @@ export class MenuInicioComponent implements OnInit {
   
   constructor(public dialog: MatDialog, private menuService : MenuService) { 
     this.range = this.generateFormWeeks();
-    this.dataSource = new MatTableDataSource<Menu>();
-    this.listMenu = true;
-
-    this.getMenus();
   }
 
   ngOnInit(): void {
+    this.getMenus();
 
   }
 
@@ -131,35 +129,36 @@ export class MenuInicioComponent implements OnInit {
 
   async getMenus(){
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
-      this.dataSource = new MatTableDataSource(res.menu);
+      this.menu = res.menu;
+      this.listMenu = true;
     })
   }
 
- async completeCalendarFood(){
-    await this.dataSource.filteredData?.forEach(menu => {
-      //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
-      this.menuService.getMenuByID(menu.id).subscribe((res: GetMenuResponse) => {
-        let menuViewer = new MenuViewer(res.menuViewer);
-        menuViewer.turnsViewer?.forEach(turnsViewer => {
-          turnsViewer.categoryViewer?.forEach(categoryViewer => {
-            categoryViewer.daysViewer?.forEach(dayViewer => {
-              let food = {
-                title: categoryViewer.category.title+' - ' + dayViewer.foodViewer.title,
-                idMenu: menuViewer.id,
-                start: new Date(dayViewer.date),
-                allDay: true,
-                //end: new Date((dayViewer.date).setHours(23, 59, 59)),
-                backgroundColor: this.getColorByCategory(categoryViewer.category.id),
-                category: categoryViewer.category.title,
-                foodTitle: dayViewer.foodViewer.title
-              }
-              this.eventsFood.push(food);
-            })
-          })
-        })
-      })
-    })
-  }
+//  async completeCalendarFood(){//esto pertence al calendario que no estamos mostrando
+//     await this.dataSource.filteredData?.forEach(menu => {
+//       //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
+//       this.menuService.getMenuByID(menu.id).subscribe((res: GetMenuResponse) => {
+//         let menuViewer = new MenuViewer(res.menuViewer);
+//         menuViewer.turnsViewer?.forEach(turnsViewer => {
+//           turnsViewer.categoryViewer?.forEach(categoryViewer => {
+//             categoryViewer.daysViewer?.forEach(dayViewer => {
+//               let food = {
+//                 title: categoryViewer.category.title+' - ' + dayViewer.foodViewer.title,
+//                 idMenu: menuViewer.id,
+//                 start: new Date(dayViewer.date),
+//                 allDay: true,
+//                 //end: new Date((dayViewer.date).setHours(23, 59, 59)),
+//                 backgroundColor: this.getColorByCategory(categoryViewer.category.id),
+//                 category: categoryViewer.category.title,
+//                 foodTitle: dayViewer.foodViewer.title
+//               }
+//               this.eventsFood.push(food);
+//             })
+//           })
+//         })
+//       })
+//     })
+//   }
 
   //  async getMenuByID(menuId: number) : Promise<any> {
   //   this.menuService.getMenuByID(menuId).subscribe((res: GetMenuResponse) => {
@@ -184,7 +183,7 @@ export class MenuInicioComponent implements OnInit {
 
   completeCalendarMenu(){
     this.eventsMenu = [];
-    this.dataSource.filteredData.forEach(m => {
+    this.menu.forEach(m => {
       let menu = {
         title: 'ID Menú: ' + m.id,
         idMenu: m.id,
@@ -234,10 +233,10 @@ export class MenuInicioComponent implements OnInit {
     })
   }
 
- async onClickCalendar() {
-    await this.completeCalendarFood();
-    this.viewCalendarFood = true;
-  }
+//  async onClickCalendar() {//esto pertence al calendario que no estamos mostrando
+//     await this.completeCalendarFood();
+//     this.viewCalendarFood = true;
+//   }
 
   onShowFullCalendar(){
     this.showFullCalendar = !this.showFullCalendar;

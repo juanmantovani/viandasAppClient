@@ -3,7 +3,8 @@
  <div *ngIf="orderInProgress">
   <mat-stepper  linear #stepper
     class="stepper"
-    [orientation]="(stepperOrientation | async)!">
+    [orientation]="(stepperOrientation | async)!"
+    [linear]="true">
      <mat-step label="¿En qué fecha vas a pedir?" [completed]="firstStepCompleted">
       <h4>Para comenzar, elegí el rango de fecha que queres pedir</h4>
 

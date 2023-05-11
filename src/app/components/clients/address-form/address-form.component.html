@@ -63,8 +63,6 @@
         <div *ngIf="map">
             <i>Podes arrastrar hasta la ubicación correcta</i>
             <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
-                    [lat]="lat"
-                    [lng]="lng"
                     (geoCodingResult)="geoCodingResult($event)"
                     (clickBack)="onClickBack()">
             </app-map>
