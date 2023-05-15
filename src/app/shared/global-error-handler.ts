@@ -23,8 +23,8 @@ export class GlobalErrorHandler implements ErrorHandler {
       let errorStatusCode = error.status;
       let errorMessage = errorService.getServerMessage(error);
       //stackTrace = errorService.getServerErrorStackTrace(error);
-      if (errorStatusCode = 404)
-        this.notifier.showStandard(errorMessage.error);
+      if (errorStatusCode == 404 || errorStatusCode == 500 || errorStatusCode == 501 || errorStatusCode == 400)
+        this.notifier.showDanger(errorMessage.error);
         else
           this.notifier.showDanger(errorMessage.message);
     } else {

@@ -35,6 +35,7 @@ import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderResponse';
 import * as moment from 'moment';
+import { OnExit } from 'src/app/auth/exit.guard';
 
 
 @Component({
@@ -42,7 +43,7 @@ import * as moment from 'moment';
   templateUrl: './inicio-order.component.html',
   styleUrls: ['./inicio-order.component.css']
 })
-export class InicioOrderComponent implements OnInit {
+export class InicioOrderComponent implements OnInit, OnExit {
 
   stepperOrientation: Observable<StepperOrientation>;
 
@@ -97,6 +98,11 @@ export class InicioOrderComponent implements OnInit {
     this.minDate.setDate(this.minDate.getDate() + 1);
 
     this.order.daysOrder = [];
+  }
+
+  onExit () {
+    const exit = this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
+    return exit;
   }
 
   generateFormWeeks(): FormGroup {
