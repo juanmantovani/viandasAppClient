@@ -19,6 +19,7 @@ import { ClientFormComponent } from '../client-form/client-form.component';
 export class ProfileComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
+  userRoles: string[] = [];
   client: Client;
   actionFormAddress: string;
 
@@ -31,7 +32,15 @@ export class ProfileComponent implements OnInit {
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1 && this.clientService.clientPersonified.id) {
+      this.client = this.clientService.clientPersonified
+    } else
+      this.getClientByIdUser()
   }
 
   async getClientByIdUser() {

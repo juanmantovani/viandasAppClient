@@ -13,7 +13,7 @@ import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';
-import  * as ROUTES  from '../../../shared/routes/index.routes'
+import * as ROUTES from '../../../shared/routes/index.routes'
 
 
 @Component({
@@ -23,27 +23,35 @@ import  * as ROUTES  from '../../../shared/routes/index.routes'
 })
 export class InicioClientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
-  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.PROFILE;
+  userRoles: string[] = [];
+  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.PROFILE;
 
   constructor(
-    public dialog: MatDialog, 
-    private readonly keycloak: KeycloakService, 
-    private clientService: ClientService, 
+    public dialog: MatDialog,
+    private readonly keycloak: KeycloakService,
+    private clientService: ClientService,
     private router: Router
-    ) { 
+  ) {
 
-    }
+  }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
+    } else
+      this.getClientByIdUser()
   }
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       if (res.client == undefined) {
         //if (true) {
-          const dataForm: DataFormClient = {
+        const dataForm: DataFormClient = {
           actionForm: "Add",
           client: new Client(null),
           userProfile: this.userProfile!
@@ -85,7 +93,7 @@ export class InicioClientComponent implements OnInit {
     }
 
     await this.clientService.registerClient(registerClientRequest).subscribe((res: RegisterClientResponse) => {
-      if (res){
+      if (res) {
         this.router.navigateByUrl(this.PROFILE);
       };
     }

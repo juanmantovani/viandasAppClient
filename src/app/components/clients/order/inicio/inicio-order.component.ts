@@ -72,8 +72,9 @@ export class InicioOrderComponent implements OnInit {
   textWhatsAppShow: string;
   textWhatsAppSend: string;
 
-
   public userProfile: KeycloakProfile | null;
+  userRoles: string[] = [];
+
 
   orderInProgress: boolean = true;
   orderSuccess: boolean;
@@ -109,7 +110,16 @@ export class InicioOrderComponent implements OnInit {
   async ngOnInit() {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1)
+      this.client = this.clientService.clientPersonified
+    else
+      this.getClientByIdUser()
   }
 
   dateValidator(formControl: any) {

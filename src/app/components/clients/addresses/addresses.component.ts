@@ -13,6 +13,8 @@ import { ClientService } from 'src/app/shared/services/client.service';
 export class AddressesComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
+  userRoles: string[] = [];
+
   client: Client;
 
   constructor(
@@ -22,7 +24,16 @@ export class AddressesComponent implements OnInit {
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1)
+      this.client = this.clientService.clientPersonified
+    else
+      this.getClientByIdUser()
   }
 
   async getClientByIdUser() {

@@ -13,81 +13,106 @@ import { AddNoteRequest } from '../dto/note/AddNoteRequest';
 import { AddNoteResponse } from '../dto/note/AddNoteResponse';
 import { EditNoteRequest } from '../dto/note/EditNoteRequest';
 import { EditNoteResponse } from '../dto/note/EditNoteResponse';
-import  * as ROUTES  from '../routes/index.routes'
+import * as ROUTES from '../routes/index.routes'
+import { DeleteClientRequest } from '../dto/client/DeleteClientRequest';
+import { DeleteClientResponse } from '../dto/client/DeleteClientResponse';
+import { Client } from '../models/Client';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  constructor(private http: HttpClient) { }
-  OPTIONS = {headers: {'Content-Type': 'application/json'}};
 
-  getClient():Observable<GetClientResponse>{
+  clientPersonified = new Client();
+
+  constructor(private http: HttpClient) { }
+  OPTIONS = { headers: { 'Content-Type': 'application/json' } };
+
+  getClient(): Observable<GetClientResponse> {
     return this.http.get<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENT).pipe(
-      map((res:any) => {
+      map((res: any) => {
         return new GetClientResponse(res);
       })
     )
   }
-  
-  registerClient(request: RegisterClientRequest) : Observable<RegisterClientResponse> {
+
+  registerClient(request: RegisterClientRequest): Observable<RegisterClientResponse> {
     return this.http.post<RegisterClientResponse>(ROUTES.API_ROUTES.CLIENT.REGISTERCLIENT, JSON.stringify(request), this.OPTIONS).pipe(
-      tap (res => 
+      tap(res =>
         new RegisterClientResponse(res))
     );
   }
 
-  updateClient(request: UpdateClientRequest) : Observable <UpdateClientResponse>{
+  updateClient(request: UpdateClientRequest): Observable<UpdateClientResponse> {
     return this.http.post<UpdateClientResponse>(ROUTES.API_ROUTES.CLIENT.EDITCLIENT, JSON.stringify(request), this.OPTIONS).pipe(
-      tap (res => 
+      tap(res =>
         new UpdateClientResponse(res))
     );
   }
 
-  getCities(): Observable<GetCityResponse>{
+  getCities(): Observable<GetCityResponse> {
     return this.http.get<GetCityResponse>(ROUTES.API_ROUTES.CITY.GETCITY).pipe(
       map((res: any) => {
         return new GetCityResponse(res);
       })
-    )  
+    )
   }
 
-  getClientByIdUser(idUser : string): Observable<GetClientByIdUserResponse>{
+  getClientByIdUser(idUser: string): Observable<GetClientByIdUserResponse> {
     let params = new HttpParams();
     params = params.set('idUser', idUser);
 
-    return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDUSER, {params}).pipe(
-      map((res:any) => {
+    return this.http.get<GetClientByIdUserResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYIDUSER, { params }).pipe(
+      map((res: any) => {
         return new GetClientByIdUserResponse(res);
       })
     )
   }
 
 
-  getClientByIdTanda(request : GetClientByIdTandaRequest):Observable<GetClientResponse>{
-    
+  getClientByIdTanda(request: GetClientByIdTandaRequest): Observable<GetClientResponse> {
+
     return this.http.post<GetClientResponse>(ROUTES.API_ROUTES.CLIENT.GETCLIENTBYTANDA, JSON.stringify(request), this.OPTIONS).pipe(
-      map((res:any) => {
+      map((res: any) => {
         return new GetClientResponse(res);
       })
     )
   }
 
-  addNote(request : AddNoteRequest):Observable<AddNoteResponse>{
-    return this.http.post<AddNoteResponse>(ROUTES.API_ROUTES.NOTE.ADDNOTE,JSON.stringify(request), this.OPTIONS).pipe(
-      map((res:any) => {
+  addNote(request: AddNoteRequest): Observable<AddNoteResponse> {
+    return this.http.post<AddNoteResponse>(ROUTES.API_ROUTES.NOTE.ADDNOTE, JSON.stringify(request), this.OPTIONS).pipe(
+      map((res: any) => {
         return new AddNoteResponse(res);
       })
     )
   }
 
-  editNote(request : EditNoteRequest):Observable<EditNoteResponse>{
-    return this.http.post<EditNoteResponse>(ROUTES.API_ROUTES.NOTE.EDITNOTE,JSON.stringify(request), this.OPTIONS).pipe(
-      map((res:any) => {
+  editNote(request: EditNoteRequest): Observable<EditNoteResponse> {
+    return this.http.post<EditNoteResponse>(ROUTES.API_ROUTES.NOTE.EDITNOTE, JSON.stringify(request), this.OPTIONS).pipe(
+      map((res: any) => {
         return new EditNoteResponse(res);
       })
     )
+  }
+
+  deleteClient(request: DeleteClientRequest): Observable<DeleteClientResponse> {
+    let params = new HttpParams();
+    params = params.set('idClient', request.idClient?.toString());
+
+    return this.http.delete<DeleteClientResponse>(ROUTES.API_ROUTES.CLIENT.DELETECLIENT, { params }).pipe(
+      tap(res => new DeleteClientResponse(res))
+    );
+  }
+
+  setClientPersonified(client: Client) {
+    this.clientPersonified = new Client(client)
+    console.log(this.clientPersonified)
+  }
+
+  removeClientPersonified() {
+    this.clientPersonified = new Client()
+    console.log(this.clientPersonified)
   }
 
 }

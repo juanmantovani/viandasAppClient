@@ -15,7 +15,7 @@ export class Client {
   pathologies: Pathology[];
   note: Note;
 
-  constructor(data: any) {
+  constructor(data?: any) {
     if (data) {
       this.id = data.id;
       this.name = data.name;

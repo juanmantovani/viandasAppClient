@@ -7,6 +7,9 @@ import { OrderService } from 'src/app/shared/services/order.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { DatePipe } from '@angular/common';
 import { Client } from 'src/app/shared/models/Client';
+import { KeycloakProfile } from 'keycloak-js';
+import { KeycloakService } from 'keycloak-angular';
+import { ClientService } from 'src/app/shared/services/client.service';
 
 @Component({
   selector: 'app-inicio-orders',
@@ -19,20 +22,38 @@ export class InicioOrdersComponent implements OnInit {
   ordersViewer: OrderViewer[];
   orderDetails: Order;
   textWhatsApp: string = 'https://api.whatsapp.com/send?phone=5493434549868&text=';
-  showOrdersForAdmin:boolean;
+  showOrdersForAdmin: boolean;
+  userProfile: KeycloakProfile | null = null;
+  userRoles: string[] = [];
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
 
-  constructor(private orderService: OrderService, public datepipe: DatePipe
+  constructor(private orderService: OrderService,
+    public datepipe: DatePipe,
+    private readonly keycloak: KeycloakService,
+    private clientService: ClientService
+
   ) {
     this.orderDetails = new Order(null);
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.userProfile = await this.keycloak.loadUserProfile();
+    this.userRoles = this.keycloak.getUserRoles()
+
     if (this.clientSelected) {
       this.showOrdersForAdmin = true;
     }
-    this.getOrderViewer();
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1 && this.clientService.clientPersonified.id){
+      this.clientSelected = this.clientService.clientPersonified;
+      this.showOrdersForAdmin = true;
+    }
+
+    this.getOrderViewer()
   }
 
   async getOrderViewer() {
@@ -40,7 +61,7 @@ export class InicioOrdersComponent implements OnInit {
       await this.orderService.getOrderViewer().subscribe((res: GetOrderViewerResponse) => {
         this.ordersViewer = res.orderViewer;
       })
-    }else{
+    } else {
       await this.orderService.getOrderViewerByClient(this.clientSelected.id).subscribe((res: GetOrderViewerResponse) => {
         this.ordersViewer = res.orderViewer;
       })
@@ -51,7 +72,7 @@ export class InicioOrdersComponent implements OnInit {
     await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
       this.orderDetails = res.order;
       this.textWhatsApp = this.textWhatsApp + 'Hola, ' + 'mi nombre es ' + this.orderDetails.client.name + ' ' + this.orderDetails.client.lastName + ' y realicé el pedido número ' + this.orderDetails.id + ' el ' + this.datepipe.transform(this.orderDetails.date, 'dd/MM') + ' por el total de $' + this.orderDetails.total;
-    }) 
+    })
   }
 
   onHideDetailsOrder(idOrder: number) {
@@ -62,11 +83,11 @@ export class InicioOrdersComponent implements OnInit {
     await this.onViewDetailsOrder(this.orderDetails.id)
 
   }
- 
 
-  onClickSendWhatsApp(){
+
+  onClickSendWhatsApp() {
     window.open(this.textWhatsApp, '_blank');
-    
+
   }
 
 }
