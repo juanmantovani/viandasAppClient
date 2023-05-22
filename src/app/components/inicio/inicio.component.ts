@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
@@ -29,7 +29,6 @@ export class InicioComponent implements OnInit {
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
 
   URLAPI = environment.urlApi;
-  mensajeWhatsApp = "Hacenos tu consulta por WhatsApp!";
   viewMenuByCategory : boolean = false;
   category : Category;
   categories : Category[] = [];
@@ -58,11 +57,27 @@ export class InicioComponent implements OnInit {
 
   }
 
+    //Cuando haces para atras te redirige al componente anterior (al step anterior)
+    @HostListener('window:popstate', ['$event'])
+    onPopState(event: Event) {
+      event.preventDefault();
+      this.onClickBack();
+    }
+
+      //Para que al hacer para tras no lleve a la URL anterior
+    private overrideBackButton() {
+      history.pushState(null, document.title, location.href);
+      window.addEventListener('popstate', function(event) {
+        history.pushState(null, document.title, location.href);
+      });
+    }
+
   public login() {
     this.keycloak.login();
   }
 
   async ngOnInit() {
+    this.overrideBackButton();
     this.getBannersIndex();
     await this.getCategories();
     await this.getZone();
