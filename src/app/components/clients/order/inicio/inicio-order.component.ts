@@ -132,6 +132,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.userRoles = this.keycloak.getUserRoles()
 
     this.evaluateUser();
+    this.overrideBackButton();
+
   }
 
   evaluateUser() {
@@ -140,9 +142,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
     else
       this.getClientByIdUser()
     this.getClientByIdUser();
-
-    this.overrideBackButton();
-
   }
 
   //Para que al hacer para tras no lleve a la URL anterior
