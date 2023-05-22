@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://localhost:8080/app'
+  urlApi: 'http://localhost:8080/app',
+  urlDiscordLogg: 'https://discord.com/api/webhooks/1108498402959958086/jZpcS6iBLIHxAaspmSehwwW9zAJ7vCw2thiqicWRVHhtNilGewJKQksC_rr1GXPd0ns4',
   //urlApi: 'http://192.168.1.5:8080/app'
   //urlApi: 'http://ec2-3-83-173-159.compute-1.amazonaws.com'
   //urlApi:'http://vps-3175170-x.dattaweb.com/app'

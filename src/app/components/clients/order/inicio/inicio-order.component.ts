@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { StepperOrientation } from '@angular/material/stepper';
+import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Category } from 'src/app/shared/models/Category';
@@ -46,6 +46,8 @@ import { OnExit } from 'src/app/auth/exit.guard';
 export class InicioOrderComponent implements OnInit, OnExit {
 
   stepperOrientation: Observable<StepperOrientation>;
+  @ViewChild('stepper') stepper!: MatStepper;
+
 
   categories: Category[] = [];
   selectedCategories: Category[] = [];
@@ -100,8 +102,19 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.order.daysOrder = [];
   }
 
+
+  //Cuando haces para atras te redirige al componente anterior (al step anterior)
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: Event) {
+    event.preventDefault();
+    if (!this.orderSuccess) {
+      this.onClickBack(this.stepper.selectedIndex);
+      this.stepper.selectedIndex = this.stepper.selectedIndex - 1;
+    }
+  }
+
   onExit () {
-    const exit = this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
+    const exit = this.orderSuccess ? true : this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
     return exit;
   }
 
@@ -116,6 +129,17 @@ export class InicioOrderComponent implements OnInit, OnExit {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
     this.getClientByIdUser();
+
+    this.overrideBackButton();
+
+  }
+
+  //Para que al hacer para tras no lleve a la URL anterior
+  private overrideBackButton() {
+    history.pushState(null, document.title, location.href);
+    window.addEventListener('popstate', function(event) {
+      history.pushState(null, document.title, location.href);
+    });
   }
 
   dateValidator(formControl: any) {

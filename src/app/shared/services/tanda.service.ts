@@ -50,7 +50,6 @@ export class TandaService {
     );
   }
 
-
   assignAddressToTanda(request: AssignAddressToTandaRequest): Observable<AssignAddressToTandaResponse> {
     return this.http.post<AssignAddressToTandaResponse>(ROUTES.API_ROUTES.TANDA.ASSIGNADDRESSTOTANDA, JSON.stringify(request), this.OPTION).pipe(
       tap(res => new AssignAddressToTandaResponse(res)))

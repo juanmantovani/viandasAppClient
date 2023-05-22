@@ -1,9 +1,9 @@
 <app-header></app-header>
 <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-
+<button class="float-btn" *ngIf="!isLoggedIn" (click)="login()">Iniciá sesion acá y empeza a pedir</button>
+<button class="float-btn" *ngIf="isLoggedIn" (click)="onClickIngresar()"><mat-icon>person</mat-icon>Ingresar</button>
 <div *ngIf="!viewMenuByCategory">
-  <button class="float-btn" *ngIf="!isLoggedIn" (click)="login()">Iniciá sesion acá y empeza a pedir</button>
-  <button class="float-btn" *ngIf="isLoggedIn" (click)="onClickIngresar()"><mat-icon>person</mat-icon>Ingresar</button>
+  
 
 
   <ngb-carousel class="top" *ngIf="listUrlImage.length > 0">
