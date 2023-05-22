@@ -4,37 +4,71 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorService } from './services/error.service';
 import { NotificationService } from './services/notification.service';
 import { MatNotificationComponent } from './components/mat-notification/mat-notification.component';
+import { DiscordErrorLogger } from './discord-error-logger';
+import { DatePipe } from '@angular/common';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
+
 export class GlobalErrorHandler implements ErrorHandler {
 
-  constructor(private injector: Injector, private notifier: MatNotificationComponent) { }
+  constructor(private injector: Injector, 
+    private notifier: MatNotificationComponent,
+    private discordErrorLogger: DiscordErrorLogger,
+    private datePipe: DatePipe
+    ) { }
   
   handleError(error: Error | HttpErrorResponse) {
     const errorService = this.injector.get(ErrorService);
-    //const logger = this.injector.get(LoggingService);
-    //const notifier = this.injector.get(MatNotificationComponent);
+    const moment = this.getCurrentFormatMoment();
+    var errorMessageLogg = moment + ' ';
+    var errorMessageNotify;
 
-    let message;
-    //let stackTrace;
     if (error instanceof HttpErrorResponse) {
-      //console.log(error)
       // Server error
       let errorStatusCode = error.status;
-      let errorMessage = errorService.getServerMessage(error);
-      //stackTrace = errorService.getServerErrorStackTrace(error);
-      if (errorStatusCode = 404)
-        this.notifier.showStandard(errorMessage.error);
+      errorMessageNotify = errorService.getServerMessage(error);
+      errorMessageLogg = this.getTextType('server') + errorMessageLogg + ' ' + errorMessageNotify.message;
+
+      if (errorStatusCode == 404 || errorStatusCode == 500 || errorStatusCode == 501 || errorStatusCode == 400)
+        this.notifier.showDanger(errorMessageNotify.error);
         else
-          this.notifier.showDanger(errorMessage.message);
+          this.notifier.showDanger(errorMessageNotify.message);
     } else {
       // Client Error
-      message = errorService.getClientMessage(error);
-      this.notifier.showStandard("Ocurrió algo inesperado: " + message);
+      errorMessageNotify = errorService.getClientMessage(error);
+      errorMessageLogg = this.getTextType('client') + errorMessageLogg + ' ' + error.message + ' ' +  this.cortarStringPorRenglones(error.stack? error.stack : '') ;
+
+      this.notifier.showStandard("Ocurrió algo inesperado: " + errorMessageNotify);
+
       console.log(error);
     }
     // Always log errors
-    //logger.logError(message, stackTrace);
 
+    this.discordErrorLogger.logError(errorMessageLogg);
+
+
+  }
+
+  getCurrentFormatMoment(): any{
+    const date = new Date();
+    return this.datePipe.transform(date, 'dd/MM/yyyy hh:mm:ss');
+  }
+
+  getTextType(typeError: string): string|undefined {
+    if(typeError == 'client')
+      return " :warning: Client Error: ";
+
+    if(typeError == 'server')
+      return " :bangbang: Server Error: ";
+
+  }
+
+  cortarStringPorRenglones(texto: string): string {
+    const lineas = texto.split('\n');
+    const primerasCincoLineas = lineas.slice(0, 5);
+    const resultado = primerasCincoLineas.join('\n');
+    return resultado;
   }
 }

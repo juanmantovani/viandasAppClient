@@ -116,6 +116,7 @@ import { ConfirmationComponent } from './components/clients/order/confirmation/c
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/clients/map/map.component';
 import { TakeAwayAddressComponent } from './components/administration/setting/take-away-address/take-away-address.component';
+import { DiscordErrorLogger } from './shared/discord-error-logger';
 
 
 @NgModule({
@@ -238,6 +239,7 @@ import { TakeAwayAddressComponent } from './components/administration/setting/ta
     MatNotificationComponent,
     MatDatepickerModule,
     DatePipe,
+    DiscordErrorLogger,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },

@@ -18,9 +18,15 @@ mat-card-actions {
   align-items: flex-end;
   justify-content:flex-end;
   flex-direction: column;
+}
 
+@media (min-width: 600px) {
+  mat-card-title {
+    min-height: 40px;
+  }
 
 }
+
 
 h1 {
   text-align: center;
