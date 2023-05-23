@@ -2,13 +2,13 @@
     <h1 class="title-component">Administrar Tandas</h1>
 
     <div class="button-container">
-        <button mat-raised-button (click)="onClickAdd()" title="Agregar tanda" class="button">
+        <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar tanda" class="button">
             <mat-icon>add</mat-icon>Agregar Tanda
         </button>
-        <button mat-raised-button (click)="onClickList()" title="Ver tandas" class="button"> 
+        <button mat-raised-button (click)="onClickList()" matTooltip="Ver tandas" class="button"> 
             <mat-icon>list</mat-icon>Listado Tandas
         </button>
-        <button mat-raised-button (click)="onClickviewUnassignableAddresses()" title="Ver las direcciones sin asignar" class="button"> 
+        <button mat-raised-button (click)="onClickviewUnassignableAddresses()" matTooltip="Ver las direcciones sin asignar" class="button"> 
             <mat-icon>not_listed_location</mat-icon>Direcciones sin asignar
         </button>
     </div>
@@ -63,13 +63,13 @@
                 <ng-container matColumnDef="actions">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let element" class="actions-button-container">
-                        <button mat-stroked-button (click)="onClickViewInfo(element)" title="Ver Info">
+                        <button mat-stroked-button (click)="onClickViewInfo(element)" matTooltip="Ver Info">
                             <mat-icon>info</mat-icon>
                             </button>
-                        <button mat-stroked-button (click)="onClickEdit(element)" title="Editar tanda">          
+                        <button mat-stroked-button (click)="onClickEdit(element)" matTooltip="Editar tanda">          
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button mat-stroked-button (click)="onClickDelete(element)" title="Borrar tanda">          
+                        <button mat-stroked-button (click)="onClickDelete(element)" matTooltip="Eliminar tanda">          
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>

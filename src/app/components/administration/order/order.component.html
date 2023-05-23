@@ -88,7 +88,7 @@
                 </ng-container>
                 <ng-container matColumnDef="notes">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" title="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
+                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" matTooltip="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
                     <td mat-footer-cell *matFooterCellDef> </td>
                 </ng-container>
 

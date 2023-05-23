@@ -21,14 +21,14 @@
                     </div>
                 </mat-card-subtitle>
             <span class="spacer"></span>
-            <button mat-raised-button (click)="onClickEditAddress()" title="Editar dirección" class="button-add-address">
+            <button mat-raised-button (click)="onClickEditAddress()" matTooltip="Editar dirección" class="button-add-address">
                 <mat-icon fontIcon="edit"></mat-icon> Editar domicilio
             </button>
             </mat-card-header>
 
             <div *ngIf="address.id == 0"> <!--  No existe address para takeAway -->
                 <div class="button-container">
-                    <button mat-raised-button (click)="onClickAddAddress()" title="Agregar dirección" class="button">
+                    <button mat-raised-button (click)="onClickAddAddress()" matTooltip="Agregar dirección" class="button">
                     <mat-icon>add</mat-icon>Agregar dirección
                     </button>
                 </div>

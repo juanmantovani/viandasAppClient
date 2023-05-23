@@ -2,7 +2,7 @@
   <h1 class="title-component">Administrar Platos</h1>
 
   <div class="button-container">
-    <button mat-raised-button (click)="onClickAdd()" title="Agregar plato" class="button">
+    <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar plato" class="button">
       <mat-icon>add</mat-icon>Agregar Plato
     </button>
   </div>
@@ -50,10 +50,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element" class="actions-button-container">
-        <button mat-stroked-button class="button" (click)="onClickEdit(element)" title="Editar plato">          
+        <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar plato">          
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-stroked-button class="button" (click)="onClickDelete(element)" title="Borrar plato">          
+        <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar plato">          
           <mat-icon>delete</mat-icon>
         </button>
       </td>

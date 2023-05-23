@@ -77,13 +77,16 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element" class="actions-button-container">
-            <button mat-stroked-button class="button" (click)="onClickShowOrders(element)" title="Ver pedidos">
+            <button mat-stroked-button class="button" (click)="onClickShowOrders(element)" matTooltip="Ver pedidos">
               <mat-icon>list_alt</mat-icon>
             </button>
-            <button mat-stroked-button class="button" (click)="onClickNote(element)" title="Notas">
+            <button mat-stroked-button class="button" (click)="onClickNote(element)" matTooltip="Notas">
               <mat-icon>note_alt</mat-icon>
             </button>
-            <!-- <button mat-stroked-button class="button" (click)="onViewProfile(element)" title="Ver perfil">
+            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar cliente">          
+              <mat-icon>delete</mat-icon>
+            </button>
+            <!-- <button mat-stroked-button class="button" (click)="onViewProfile(element)" matTooltip="Ver perfil">
             <mat-icon>person</mat-icon>
           </button> -->
           </td>
@@ -105,7 +108,7 @@
   </div>
 
   <div *ngIf="viewOrdersClient" class="button-container">
-    <button mat-raised-button class="button" (click)="onClickBack()" class="button" title="Volver">Volver
+    <button mat-raised-button class="button" (click)="onClickBack()" class="button" matTooltip="Volver">Volver
     </button>
     <app-inicio-orders [clientSelected]="clientSelected"></app-inicio-orders>
   </div>
