@@ -26,13 +26,13 @@
     </mat-card>
 
     <div class="button-container">
-        <button mat-raised-button (click)="onClickViewList()" title="Ver listado de direcciones asociadas" [ngClass]="{'active' : viewListClient}">
+        <button mat-raised-button (click)="onClickViewList()" matTooltip="Ver listado de direcciones asociadas" [ngClass]="{'active' : viewListClient}">
             <mat-icon>list</mat-icon>Listado de direcciones asociadas
         </button>
-        <button mat-raised-button (click)="onClickAssign()" title="Asignar direcciones a tanda" [ngClass]="{'active' : viewAssign}">
+        <button mat-raised-button (click)="onClickAssign()" matTooltip="Asignar direcciones a tanda" [ngClass]="{'active' : viewAssign}">
             <mat-icon>check_box</mat-icon>Asignar direcciones a esta tanda
         </button>
-        <button mat-raised-button (click)="onClickRemove()" title="Quitar direcciones a tanda" [ngClass]="{'active' : viewRemove}">
+        <button mat-raised-button (click)="onClickRemove()" matTooltip="Quitar direcciones a tanda" [ngClass]="{'active' : viewRemove}">
             <mat-icon>remove_circle_outline</mat-icon>Quitar direcciones de esta tanda
         </button>
     </div>

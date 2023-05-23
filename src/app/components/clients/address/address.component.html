@@ -4,7 +4,7 @@
         <div *ngFor="let address of client.addresses">
             <div align="end">
                 <mat-icon class="starEnable" *ngIf="address.favourite" fontIcon="star"></mat-icon>
-                <mat-icon class="star" *ngIf="!address.favourite" (click)="onClickSetAsFavourite(address)" fontIcon="star" title="Marcar como favorita"></mat-icon>
+                <mat-icon class="star" *ngIf="!address.favourite" (click)="onClickSetAsFavourite(address)" fontIcon="star" matTooltip="Marcar como favorita"></mat-icon>
             </div>
             <mat-card-header [ngClass]="{'address-margin' : selectionableAddress}">
                 <div mat-card-avatar align="end" class="header-image" *ngIf="selectionableAddress" (click)="onSelectAddress(address)"> 
@@ -22,10 +22,10 @@
             </mat-card-header>
             <mat-card-actions>
             <div align="end">
-                <button mat-raised-button (click)="onClickDeleteAddress(address)" title="Eliminar" [disabled]="address.favourite">
+                <button mat-raised-button (click)="onClickDeleteAddress(address)" matTooltip="Eliminar" [disabled]="address.favourite">
                     <mat-icon fontIcon="delete"></mat-icon>
                 </button>
-                <button mat-raised-button (click)="onClickEditAddress(address)" title="Editar">
+                <button mat-raised-button (click)="onClickEditAddress(address)" matTooltip="Editar">
                     <mat-icon fontIcon="edit"></mat-icon>
                 </button>
             </div>

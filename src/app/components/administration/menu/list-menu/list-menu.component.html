@@ -37,10 +37,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}" class="actions-button-container">
-        <button mat-stroked-button title="Borrar menú" class="button" (click)="onClickDelete(element)">          
+        <button mat-stroked-button matTooltip="Eliminar menú" class="button" (click)="onClickDelete(element)">          
           <mat-icon>delete</mat-icon>
         </button>
-        <button mat-stroked-button title="Ver menú" class="button" (click)="onClickViewMenu(element)">
+        <button mat-stroked-button matTooltip="Ver menú" class="button" (click)="onClickViewMenu(element)">
           <mat-icon>remove_red_eye</mat-icon>
         </button>
       </td>

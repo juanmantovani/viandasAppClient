@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <h1 class="title-component">Administrar Categorías</h1>
     <div class="button-container">
-      <button mat-raised-button (click)="onClickAdd()" title="Agregar categoría" class="button">
+      <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar categoría" class="button">
         <mat-icon>add</mat-icon>Agregar Categoría
       </button>
   
@@ -57,10 +57,10 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Acciones </th>
         <td mat-cell *matCellDef="let element" class="actions-button-container">
-          <button mat-stroked-button class="button" (click)="onClickEdit(element)" title="Editar categoría">          
+          <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar categoría">          
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-stroked-button class="button"class="button" (click)="onClickDelete(element)" title="Borrar categoría">          
+          <button mat-stroked-button class="button"class="button" (click)="onClickDelete(element)" matTooltip="Eliminar categoría">          
             <mat-icon>delete</mat-icon>
           </button>
         </td>
