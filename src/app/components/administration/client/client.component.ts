@@ -16,6 +16,7 @@ import { AddNoteResponse } from 'src/app/shared/dto/note/AddNoteResponse';
 import { EditNoteRequest } from 'src/app/shared/dto/note/EditNoteRequest';
 import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 import { DeleteClientRequest } from 'src/app/shared/dto/client/DeleteClientRequest';
+import { DeleteClientRequest } from 'src/app/shared/dto/client/DeleteClientRequest';
 import { Router } from '@angular/router';
 import * as ROUTES from '../../../shared/routes/index.routes'
 
@@ -147,6 +148,24 @@ export class ClientComponent implements OnInit {
       this.getClient()
       return res;
     })
+  }
+
+  async onClickDelete(client: any) {
+    if (await this.generateConfirm("Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?") === true) {
+      await this.deleteClient(client);
+    }
+  }
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
+  }
+
+  async deleteClient(client: Client) {
+    const request: DeleteClientRequest = {
+      idClient: client.id
+    }
+    await this.clientService.deleteClient(request).subscribe(() => {
+      this.getClient();
+    });
   }
 
   async onClickDelete(client: any) {

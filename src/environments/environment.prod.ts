@@ -1,4 +1,5 @@
 export const environment = {
-  urlApi: 'http://vps-3175170-x.dattaweb.com/app',
+  urlApi: 'https://backend.integralviandas.com.ar/app',
+  urlDiscordLogg: '',
   production: true
 };

@@ -16,6 +16,8 @@ import { EditNoteResponse } from '../dto/note/EditNoteResponse';
 import * as ROUTES from '../routes/index.routes'
 import { DeleteClientRequest } from '../dto/client/DeleteClientRequest';
 import { DeleteClientResponse } from '../dto/client/DeleteClientResponse';
+import { DeleteClientRequest } from '../dto/client/DeleteClientRequest';
+import { DeleteClientResponse } from '../dto/client/DeleteClientResponse';
 import { Client } from '../models/Client';
 
 
@@ -94,6 +96,15 @@ export class ClientService {
         return new EditNoteResponse(res);
       })
     )
+  }
+
+  deleteClient(request: DeleteClientRequest): Observable<DeleteClientResponse> {
+    let params = new HttpParams();
+    params = params.set('idClient', request.idClient?.toString());
+
+    return this.http.delete<DeleteClientResponse>(ROUTES.API_ROUTES.CLIENT.DELETECLIENT, { params }).pipe(
+      tap(res => new DeleteClientResponse(res))
+    );
   }
 
   deleteClient(request: DeleteClientRequest): Observable<DeleteClientResponse> {

@@ -108,13 +108,13 @@ export class InicioOrderComponent implements OnInit, OnExit {
   @HostListener('window:popstate', ['$event'])
   onPopState(event: Event) {
     event.preventDefault();
-    if (!this.orderSuccess) {
+    if (!this.orderSuccess && this.stepper.selectedIndex > 0) {
       this.onClickBack(this.stepper.selectedIndex);
       this.stepper.selectedIndex = this.stepper.selectedIndex - 1;
     }
   }
 
-  onExit () {
+  onExit() {
     const exit = this.orderSuccess ? true : this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
     return exit;
   }
@@ -147,7 +147,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   //Para que al hacer para tras no lleve a la URL anterior
   private overrideBackButton() {
     history.pushState(null, document.title, location.href);
-    window.addEventListener('popstate', function(event) {
+    window.addEventListener('popstate', function (event) {
       history.pushState(null, document.title, location.href);
     });
   }
@@ -232,10 +232,10 @@ export class InicioOrderComponent implements OnInit, OnExit {
     await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
       if (res) {
         this.menuViewer = Utils.orderMenuViewerByTurn(new MenuViewer(res.menuViewer));
-      } 
-      if(this.menuViewer.turnsViewer?.length > 0) {
+      }
+      if (this.menuViewer.turnsViewer?.length > 0) {
         this.existDayFood = true;
-      }else {
+      } else {
         this.existDayFood = false;
       }
 
@@ -278,7 +278,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
           cant: this.personalizeOrder ? 0 : this.getCant(dayFood.category.id),
           dayFood: new DayFood(dayFood),
           observation: "",
-          status : true
+          status: true
         }
         this.order.daysOrder.push(dayOrder)
         //total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
@@ -329,8 +329,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
       });
     }
   }
-  
-  formatOrder(res : AddOrderResponse): string {
+
+  formatOrder(res: AddOrderResponse): string {
     let result = '';
     result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${res.idOrder}:\n`;
     res.categories.forEach(cat => {
@@ -373,6 +373,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
   onClickBack(steps: any) {
     this.disableBackButton = steps <= 1 ? true : false;
     this.finishButton = false;
+    if (this.stepper.selectedIndex == 1)
+      this.disableNextButton = false;
   }
 
   onStepComplete(steps: any) {
