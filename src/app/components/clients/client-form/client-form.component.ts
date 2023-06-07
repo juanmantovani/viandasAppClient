@@ -47,6 +47,9 @@ export class ClientFormComponent implements OnInit {
   generateForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(this.data.client?.id),
+      name: new FormControl(this.data.client?.name),
+      lastName: new FormControl(this.data.client?.lastName),
+      email: new FormControl(this.data.client?.email,this.emailValidator),
       phonePrimary: new FormControl(this.data.client?.phonePrimary, [this.requiredValidator, this.phoneValidator]),
       phoneSecondary: new FormControl(this.data.client?.phoneSecondary, this.phoneValidator),
       street: new FormControl('',this.data.actionForm == 'Add' ? this.requiredValidator : null),
@@ -81,7 +84,6 @@ export class ClientFormComponent implements OnInit {
         mensaje: "Debe ingresar una fecha válida"
       }
     return null;
-
   }
 
   requiredValidator(formControl: any) {
@@ -89,8 +91,17 @@ export class ClientFormComponent implements OnInit {
     if (Validators.required(formControl))
       return { mensaje: "Este campo es requerido" };
     return null;
-
   }
+
+  emailValidator(formControl: any) {
+    const value = formControl.value;
+    if (value && ! /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/.test(value))
+      return { mensaje: "El email ingresado tiene un formato no válido" };
+    if (value?.length > 30)
+      return { mensaje: "Este campo tiene un máximo de 30 caracteres" };
+    return null;
+  }
+
 
   onClickCancel() {
     this.dialogRef.close();
@@ -112,6 +123,9 @@ export class ClientFormComponent implements OnInit {
   mapperClient() {
     var data = this.form.getRawValue();
     this.result.id = data["id"];
+    this.result.name = data["name"];
+    this.result.lastName = data["lastName"];
+    this.result.email = data["email"];
     const date = new Date(data["bornDate"]);
     date.setDate(date.getDate() + 1);
     this.result.bornDate = date;

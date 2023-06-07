@@ -1,6 +1,13 @@
 <div class="container-fluid">
   <div [hidden]="viewOrdersClient">
     <h1 class="title-component">Listado de Clientes</h1>
+
+    <div class="button-container">
+      <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar cliente" class="button">
+        <mat-icon>add</mat-icon>Agregar cliente
+      </button>
+    </div>
+
     <mat-form-field appearance="standard">
       <mat-label>Buscar</mat-label>
       <input matInput (keyup)="onSearch($event)" placeholder="" #input>

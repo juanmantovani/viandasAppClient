@@ -6,14 +6,13 @@ import { KeycloakProfile } from 'keycloak-js';
 import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
-import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
-import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
-import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';
 import * as ROUTES from '../../../shared/routes/index.routes'
+import { UrlService } from 'src/app/shared/services/url.service';
+import { BaseResponse } from 'src/app/shared/dto/BaseResponse';
 
 
 @Component({
@@ -30,7 +29,8 @@ export class InicioClientComponent implements OnInit {
     public dialog: MatDialog,
     private readonly keycloak: KeycloakService,
     private clientService: ClientService,
-    private router: Router
+    private router: Router,
+    private urlService : UrlService
   ) {
 
   }
@@ -43,20 +43,25 @@ export class InicioClientComponent implements OnInit {
 
   evaluateUser() {
     if (this.userRoles.indexOf('admin') != -1) {
-    } else
-      this.getClientByIdUser()
+      if (!this.clientService.getClientPersonified())
+        this.urlService.goToAdminPanel();
+      else
+        this.getClientByIdUser()
+    }
   }
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       if (res.client == undefined) {
         //if (true) {
-        const dataForm: DataFormClient = {
-          actionForm: "Add",
-          client: new Client(null),
-          userProfile: this.userProfile!
-        };
-        this.gestionateForm(dataForm);
+          const dataForm: DataFormClient = {
+            actionForm: "Register",
+            client: new Client(null),
+            userProfile: this.userProfile!,
+            isAdmin: false
+          };
+          this.gestionateForm(dataForm);
+        //}
       }
     })
   }
@@ -92,7 +97,7 @@ export class InicioClientComponent implements OnInit {
       client: client
     }
 
-    await this.clientService.registerClient(registerClientRequest).subscribe((res: RegisterClientResponse) => {
+    await this.clientService.registerClient(registerClientRequest).subscribe((res: BaseResponse) => {
       if (res) {
         this.router.navigateByUrl(this.PROFILE);
       };

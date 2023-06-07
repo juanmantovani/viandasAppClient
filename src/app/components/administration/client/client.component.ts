@@ -18,6 +18,10 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 import { DeleteClientRequest } from 'src/app/shared/dto/client/DeleteClientRequest';
 import { Router } from '@angular/router';
 import * as ROUTES from '../../../shared/routes/index.routes'
+import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
+import { ClientFormComponent } from '../../clients/client-form/client-form.component';
+import { AddClientRequest } from 'src/app/shared/dto/client/AddClientRequest';
+import { BaseResponse } from 'src/app/shared/dto/BaseResponse';
 
 
 
@@ -36,7 +40,7 @@ export class ClientComponent implements OnInit {
   clientSelected: Client;
   viewOrdersClient: boolean;
   actionFormNote: string;
-  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDERS
+  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDER
 
 
 
@@ -167,10 +171,57 @@ export class ClientComponent implements OnInit {
     });
   }
 
-  
-  personify(client: Client){
+
+  personify(client: Client) {
     this.clientService.setClientPersonified(client);
     this.router.navigateByUrl(this.CLIENT);
   }
+
+  onClickAdd() {
+    const dataForm: DataFormClient = {
+      actionForm: "Add",
+      client: new Client(null),
+      isAdmin: true
+    };
+    this.gestionateFormClient(dataForm);
+  }
+
+  async gestionateFormClient(dataForm: DataFormClient) {
+    const dialogConfig = Utils.matDialogConfigDefault();
+    dialogConfig.data = dataForm;
+    dialogConfig.maxWidth = '95%';
+    dialogConfig.maxHeight = '95%';
+    dialogConfig.disableClose = true;
+    const dialogRef = this.dialog.open(ClientFormComponent, dialogConfig);
+    const componentInstance = dialogRef.componentInstance;
+
+    componentInstance.onSubmit.subscribe(async (data) => {
+      if (!data) {
+        dialogRef.close();
+        return false;
+      }
+
+      var result: any = await this.addClient(data);
+      if (result) {
+        return false;
+      }
+      else {
+        dialogRef.close();
+        return true;
+      }
+    })
+  }
+
+  async addClient(client: Client) {
+    const request: AddClientRequest = {
+      client: client
+    }
+
+    await this.clientService.addClient(request).subscribe((res: BaseResponse) => {
+      this.getClient();
+    }
+    );
+  }
+
 
 }

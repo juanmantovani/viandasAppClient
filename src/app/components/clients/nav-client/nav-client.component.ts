@@ -4,6 +4,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import * as ROUTES from '../../../shared/routes/index.routes'
 import { ClientService } from 'src/app/shared/services/client.service';
+import { UrlService } from 'src/app/shared/services/url.service';
 
 
 @Component({
@@ -19,7 +20,6 @@ export class NavCLientComponent implements OnInit {
   ORDERS = ROUTES.INTERNAL_ROUTES.ORDERS;
   ADDRESSES = ROUTES.INTERNAL_ROUTES.ADDRESSES;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
-  ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION + '/' + ROUTES.INTERNAL_ROUTES.CLIENT;
 
 
   status: string;
@@ -29,7 +29,7 @@ export class NavCLientComponent implements OnInit {
   public userRoles: string[] = [];
   userAsAdmin: boolean;
 
-  constructor(private readonly keycloak: KeycloakService, private router: Router, private clientService: ClientService) { }
+  constructor(private readonly keycloak: KeycloakService, private urlService : UrlService, private clientService: ClientService) { }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
@@ -51,10 +51,7 @@ export class NavCLientComponent implements OnInit {
 
   backToAdminPanel(){
     this.clientService.removeClientPersonified();
-    this.router.navigateByUrl(this.ADMINISTRATION);
-
+    this.urlService.goToAdminPanel();
   }
-
-
 
 }

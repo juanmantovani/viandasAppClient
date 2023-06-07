@@ -4,6 +4,7 @@ import { KeycloakProfile } from 'keycloak-js';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
+import { UrlService } from 'src/app/shared/services/url.service';
 
 @Component({
   selector: 'app-addresses',
@@ -19,7 +20,8 @@ export class AddressesComponent implements OnInit {
 
   constructor(
     private readonly keycloak: KeycloakService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private urlService : UrlService
     ) { }
 
   async ngOnInit() {
@@ -30,8 +32,14 @@ export class AddressesComponent implements OnInit {
   }
 
   evaluateUser() {
-    if (this.userRoles.indexOf('admin') != -1)
-      this.client = this.clientService.clientPersonified
+    if (this.userRoles.indexOf('admin') != -1) {
+      if (this.clientService.getClientPersonified()) {
+        this.client = new Client(this.clientService.getClientPersonified())
+      }
+      else{
+      this.urlService.goToAdminPanel();
+    }
+    }
     else
       this.getClientByIdUser()
   }

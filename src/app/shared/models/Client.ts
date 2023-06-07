@@ -14,6 +14,7 @@ export class Client {
   observation: string;
   pathologies: Pathology[];
   note: Note;
+  idUserKL : string;
 
   constructor(data?: any) {
     if (data) {
@@ -30,6 +31,7 @@ export class Client {
       if (data.pathologies)
         this.pathologies = data.pathologies.map((p: any) => new Pathology(p));
       this.note = new Note(data.note);
+      this.idUserKL = data.idUserKL
     }
   }
 }

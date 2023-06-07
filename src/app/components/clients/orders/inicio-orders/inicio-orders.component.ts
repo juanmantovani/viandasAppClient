@@ -10,6 +10,7 @@ import { Client } from 'src/app/shared/models/Client';
 import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 import { ClientService } from 'src/app/shared/services/client.service';
+import { UrlService } from 'src/app/shared/services/url.service';
 
 @Component({
   selector: 'app-inicio-orders',
@@ -31,8 +32,8 @@ export class InicioOrdersComponent implements OnInit {
   constructor(private orderService: OrderService,
     public datepipe: DatePipe,
     private readonly keycloak: KeycloakService,
-    private clientService: ClientService
-
+    private clientService: ClientService,
+    private urlService: UrlService
   ) {
     this.orderDetails = new Order(null);
   }
@@ -40,33 +41,36 @@ export class InicioOrdersComponent implements OnInit {
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
     this.userRoles = this.keycloak.getUserRoles()
-
-    if (this.clientSelected) {
-      this.showOrdersForAdmin = true;
-    }
     this.evaluateUser();
   }
 
-  evaluateUser() {
-    if (this.userRoles.indexOf('admin') != -1 && this.clientService.clientPersonified.id){
-      this.clientSelected = this.clientService.clientPersonified;
+
+  async evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
       this.showOrdersForAdmin = true;
-    }
-
-    this.getOrderViewer()
-  }
-
-  async getOrderViewer() {
-    if (!this.clientSelected) {
+      if (this.clientService.getClientPersonified()) {
+        this.clientSelected = new Client(this.clientService.getClientPersonified());
+        this.orderService.getOrderViewerByClient(this.clientSelected.id).subscribe((res: GetOrderViewerResponse) => {
+          this.ordersViewer = res.orderViewer;
+        });
+      }
+      else {
+        if (!this.clientSelected) {
+          this.urlService.goToAdminPanel();
+        }
+        else {
+          await this.orderService.getOrderViewerByClient(this.clientSelected.id).subscribe((res: GetOrderViewerResponse) => {
+            this.ordersViewer = res.orderViewer;
+          });
+        }
+      }
+    } else {
       await this.orderService.getOrderViewer().subscribe((res: GetOrderViewerResponse) => {
         this.ordersViewer = res.orderViewer;
-      })
-    } else {
-      await this.orderService.getOrderViewerByClient(this.clientSelected.id).subscribe((res: GetOrderViewerResponse) => {
-        this.ordersViewer = res.orderViewer;
-      })
+      });
     }
   }
+
 
   async onViewDetailsOrder(idOrder: number) {
     await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
