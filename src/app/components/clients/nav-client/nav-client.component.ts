@@ -5,6 +5,7 @@ import { KeycloakProfile } from 'keycloak-js';
 import * as ROUTES from '../../../shared/routes/index.routes'
 import { ClientService } from 'src/app/shared/services/client.service';
 import { UrlService } from 'src/app/shared/services/url.service';
+import { Client } from 'src/app/shared/models/Client';
 
 
 @Component({
@@ -28,6 +29,7 @@ export class NavCLientComponent implements OnInit {
   public isLoggedIn = false;
   public userRoles: string[] = [];
   userAsAdmin: boolean;
+  clientPersonify : Client;
 
   constructor(private readonly keycloak: KeycloakService, private urlService : UrlService, private clientService: ClientService) { }
 
@@ -41,8 +43,12 @@ export class NavCLientComponent implements OnInit {
       this.userRoles = this.keycloak.getUserRoles()
     } else this.logout();
 
-    if (this.userRoles.indexOf('admin') != -1)
+    if (this.userRoles.indexOf('admin') != -1){
       this.userAsAdmin = true;
+      if (this.clientService.getClientPersonified()) {
+        this.clientPersonify = new Client(this.clientService.getClientPersonified());
+      }
+    }
   }
 
   public logout() {

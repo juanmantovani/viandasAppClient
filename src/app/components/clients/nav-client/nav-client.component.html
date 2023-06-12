@@ -9,9 +9,12 @@
         <span class="spacer"></span>
         <div class="row">
         <div ngbDropdown class="d-inline-block">
-            <button *ngIf="isLoggedIn" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
-              Hola {{userProfile?.firstName}} {{userProfile?.lastName}} <mat-icon>keyboard_arrow_down</mat-icon>
-            </button>
+            <button *ngIf="isLoggedIn && !clientPersonify" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
+                Hola {{userProfile?.firstName}} {{userProfile?.lastName}}<mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
+              <button *ngIf="isLoggedIn && clientPersonify" mat-raised-button class="drowdownitem login" id="dropdownBasic1" ngbDropdownToggle>
+                Hola {{clientPersonify.name}} {{clientPersonify.lastName}}<mat-icon>keyboard_arrow_down</mat-icon>
+              </button>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button ngbDropdownItem [routerLink]="[PROFILE]"><mat-icon>person</mat-icon> Mi perfil</button>
               <button ngbDropdownItem (click)="logout()"><mat-icon>exit_to_app</mat-icon> Cerrar sesión</button>

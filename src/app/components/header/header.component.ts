@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import * as ROUTES from '../../shared/routes/index.routes'
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { Client } from 'src/app/shared/models/Client';
 
 
 
@@ -23,11 +25,13 @@ export class HeaderComponent implements OnInit {
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
   public userRoles: string[] = [];
+  clientPersonify : Client;
 
   collapsed = true;
 
   constructor(private router: Router,
-    private readonly keycloak: KeycloakService
+    private readonly keycloak: KeycloakService,
+    private clientService : ClientService
   ) {
   }
 
@@ -37,6 +41,15 @@ export class HeaderComponent implements OnInit {
     if (this.isLoggedIn) {
       this.userProfile = await this.keycloak.loadUserProfile();
       this.userRoles = this.keycloak.getUserRoles()
+      this.evaluateUser();
+    }
+  }
+
+  async evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
+      if (this.clientService.getClientPersonified()) {
+        this.clientPersonify = new Client(this.clientService.getClientPersonified());
+      }
     }
   }
 

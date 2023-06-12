@@ -14,6 +14,8 @@ import { ClientService } from 'src/app/shared/services/client.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
 import { Utils } from 'src/app/utils';
 import { AddressFormComponent } from '../address-form/address-form.component';
+import { KeycloakService } from 'keycloak-angular';
+import { UrlService } from 'src/app/shared/services/url.service';
 
 @Component({
   selector: 'app-address',
@@ -27,16 +29,21 @@ export class AddressComponent implements OnInit {
   @Input() selectedAddress: Address;
   @Output() getClient: EventEmitter<any> = new EventEmitter();
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
-  
 
   actionFormAddress: string;
+  userRoles: string[] = [];
+
 
   constructor(private clientService: ClientService,
     public dialog: MatDialog,
     private addressService: AddressService,
-    private dialogService: DialogService) { }
+    private dialogService: DialogService,
+    private readonly keycloak: KeycloakService,
+    private urlService : UrlService
+    ) { }
 
   ngOnInit(): void {
+    this.userRoles = this.keycloak.getUserRoles()
   }
 
 
@@ -56,7 +63,7 @@ export class AddressComponent implements OnInit {
       actionForm: "Add",
       address: new Address(null),
       client: this.client
-      
+
     };
     this.gestionateFormAddress(dataForm);
   }
@@ -99,7 +106,11 @@ export class AddressComponent implements OnInit {
     }
 
     await this.addressService.addAddress(addAddressRequest).subscribe((res: AddAddressResponse) => {
-      this.getClient.emit()
+      if (this.userRoles.indexOf('admin') != -1) {
+        this.urlService.goToAdminPanel();
+      }
+      else
+        this.getClient.emit()
       return res;
     })
   }
@@ -109,7 +120,11 @@ export class AddressComponent implements OnInit {
       address: address
     }
     await this.addressService.editAddress(updateAddressRequest).subscribe((res: EditAddressResponse) => {
-      this.getClient.emit()
+      if (this.userRoles.indexOf('admin') != -1) {
+        this.urlService.goToAdminPanel();
+      }
+      else
+        this.getClient.emit()
       return res;
     })
   }
@@ -125,7 +140,11 @@ export class AddressComponent implements OnInit {
       idAddress: address.id
     }
     await this.addressService.deleteAddress(request).subscribe(() => {
-      this.getClient.emit()
+      if (this.userRoles.indexOf('admin') != -1) {
+        this.urlService.goToAdminPanel();
+      }
+      else
+        this.getClient.emit()
     });
   }
 
@@ -147,7 +166,11 @@ export class AddressComponent implements OnInit {
       idOldFavouriteAddress: this.findFavouriteAddres(this.client.addresses)
     }
     await this.addressService.setFavouriteAddress(request).subscribe(() => {
-      this.getClient.emit()
+      if (this.userRoles.indexOf('admin') != -1) {
+        this.urlService.goToAdminPanel();
+      }
+      else
+        this.getClient.emit()
     });
   }
 
@@ -157,8 +180,8 @@ export class AddressComponent implements OnInit {
     return address?.id!
   }
 
-  onSelectAddress(address: Address){
-    if (this.selectionableAddress){
+  onSelectAddress(address: Address) {
+    if (this.selectionableAddress) {
       this.selectedAddress = address;
       this.selectedAddressEmit.emit(address);
     }
