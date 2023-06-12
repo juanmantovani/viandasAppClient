@@ -20,6 +20,7 @@ export const INTERNAL_ROUTES = {
     TANDA : 'tanda',
     SETTING : 'setting',
     LISTORDER : 'listOrder',
+    WELCOME : 'welcome'
 
 
 

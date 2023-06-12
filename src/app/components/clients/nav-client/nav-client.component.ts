@@ -18,6 +18,7 @@ export class NavCLientComponent implements OnInit {
   ORDERS = ROUTES.INTERNAL_ROUTES.ORDERS;
   ADDRESSES = ROUTES.INTERNAL_ROUTES.ADDRESSES;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
+  WELCOME = ROUTES.INTERNAL_ROUTES.WELCOME;
 
   status: string;
   userProfile: KeycloakProfile | null = null;

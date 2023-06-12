@@ -22,6 +22,7 @@ import { OrderComponent } from './components/administration/order/order.componen
 import { InicioSettingComponent } from './components/administration/setting/inicio-setting/inicio-setting.component';
 import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 import { ExitGuard } from './auth/exit.guard';
+import { WelcomeComponent } from './components/clients/welcome/welcome.component';
 
 
 
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: ROUTES.INTERNAL_ROUTES.CLIENT, 
     component: InicioClientComponent,
     children:[
+      {path: ROUTES.INTERNAL_ROUTES.WELCOME, component: WelcomeComponent },
       {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent },
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: InicioOrderComponent, canDeactivate: [ ExitGuard ] },
       {path: ROUTES.INTERNAL_ROUTES.ORDERS, component: InicioOrdersComponent },

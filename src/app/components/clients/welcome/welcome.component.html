@@ -1,0 +1,102 @@
+
+
+<div class="responsive" id="menu" >
+  <div class="container" *ngIf="menu">
+    <div class="row ">
+      <!-- <div class="m-0 justify-content-center align-items-center title">
+        <h1 class="col-auto text-center"><i>Bienvenido</i></h1>
+      </div> -->
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <mat-card class="card-category" matRipple [routerLink]="[ADDRESSES]"> 
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/address.png">
+              <span>
+                Mis direcciones
+              </span>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <mat-card class="card-category" matRipple [routerLink]="[ORDER]"> 
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/order.png">
+              <p>
+                Pedir
+              </p>
+          </mat-card-content>
+        </mat-card>
+      </div>      
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <mat-card class="card-category" matRipple [routerLink]="[ORDERS]">  
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/orders.png">
+              <p>
+                Mis ordenes
+              </p>
+          </mat-card-content> 
+        </mat-card>
+      </div>      
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <mat-card class="card-category" matRipple (click)="onViewMenu()"> 
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/menu.png">
+              <p>
+                Menús
+              </p>
+          </mat-card-content> 
+        </mat-card>
+      </div>
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <mat-card class="card-category" matRipple (click)="onViewZones()"> 
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/moped.png">
+              <p>
+                Zonas de reparto
+              </p>
+          </mat-card-content> 
+        </mat-card>
+      </div>
+      <div class="col-md-2 col-4 categories-cards" align="center">
+        <a  href="{{'https://api.whatsapp.com/send?phone=5493434549868&text=Hola, quería hacer una consulta.'}}">
+        <mat-card class="card-category" matRipple> 
+          <mat-card-content style="margin-bottom: 0">
+            <img mat-card-image src="../../../../assets/whatsapp.png">
+              <p>
+                Contactate
+              </p>
+          </mat-card-content> 
+        </mat-card>
+      </a>
+      </div>
+    </div>
+</div>
+
+
+
+<div class="container" *ngIf="map">
+  <div class="row gray">
+    <div class="m-0 justify-content-center align-items-center title-map">
+      <h1 class="col-auto text-center">Zonas y costos de envío</h1>
+    </div>
+    <div class="col-md">
+      <div class="step">
+        <mat-icon>location_on</mat-icon>
+        <h2>Paraná</h2>
+        <div align="center">
+          <p class="step-description">
+            A continuación, verificá nuestras zonas de envíos en Paraná - Entre Ríos y los costos de los mismos
+          </p>
+          <div class="coso" *ngFor="let zone of zones"><p >> {{zone.description}}: ${{zone.price}}</p></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md map">
+      <iframe src="https://www.google.com/maps/d/embed?mid=1l_SPVaLAkg3Wenksh0YnICsAcM6EtE8&ehbc=2E312F" 
+      class="map-responsive" style="border:0;" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+    </div>
+  </div>
+</div>
+
