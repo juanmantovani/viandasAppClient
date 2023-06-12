@@ -32,7 +32,7 @@
                 </th>
                     <td mat-cell *matCellDef="let food" [ngStyle]="(isFeriado(food.foodViewer.title)) ? {'color':'#ff6347', 'font-weight': 'bold'} : {}"> 
                         <div class="inner-column">
-                            {{food.foodViewer.title}} - <i> {{food.foodViewer.description}} </i>
+                            {{food.foodViewer.title}} <i [hidden]="!food.foodViewer.description"> - {{food.foodViewer.description}} </i>
                         </div>
                     </td>
                 </ng-container>

@@ -45,7 +45,7 @@ export class InicioComponent implements OnInit {
     private categoryService: CategoryService,
     private readonly keycloak: KeycloakService,
     private router: Router,
-    private settingSerive: SettingService,
+    private settingSerice: SettingService,
 
     ) {
     config.interval = 6000;
@@ -91,7 +91,7 @@ export class InicioComponent implements OnInit {
   }
 
   async getZone() {
-    await this.settingSerive.getZone().subscribe((res: GetZoneResponse) => {
+    await this.settingSerice.getZone().subscribe((res: GetZoneResponse) => {
       this.zones = res.zones;
     })
 

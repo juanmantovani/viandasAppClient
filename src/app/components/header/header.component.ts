@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
   ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION + '/' + ROUTES.INTERNAL_ROUTES.ORDER;
-  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDERS
+  CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.WELCOME;
 
   public isLoggedIn = false;
   public userProfile: KeycloakProfile | null = null;
@@ -51,6 +51,8 @@ export class HeaderComponent implements OnInit {
         this.clientPersonify = new Client(this.clientService.getClientPersonified());
       }
     }
+
+
   }
 
   mostrarMenu() {
