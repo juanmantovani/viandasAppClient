@@ -29,7 +29,7 @@
             <mat-icon>account_box</mat-icon> <div class="item">Mi perfil</div>
         </mat-list-item> -->
             <div class="logo" align="center">
-                <img [routerLink]="[INICIO]" src="../../../../assets/integral_sin.png" height="70" alt="Inicio" loading="lazy"/>
+                <img [routerLink]="[WELCOME]" (click)="opened = !opened" src="../../../../assets/integral_sin.png" height="70" alt="Inicio"/>
             </div>
         <mat-list-item class="nav-link" [routerLink]="[ADDRESSES]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>place</mat-icon> <div class="item">Mis direcciones</div>

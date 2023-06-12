@@ -29,7 +29,7 @@ export class GlobalErrorHandler implements ErrorHandler {
       // Server error
       let errorStatusCode = error.status;
       errorMessageNotify = errorService.getServerMessage(error);
-      errorMessageLogg = this.getTextType('server') + errorMessageLogg + ' ' + errorMessageNotify.message;
+      errorMessageLogg = this.getTextType('server') + errorMessageLogg + ' ' + errorMessageNotify.message + errorMessageNotify.error;
 
       if (errorStatusCode == 404 || errorStatusCode == 500 || errorStatusCode == 501 || errorStatusCode == 400)
         this.notifier.showDanger(errorMessageNotify.error);
@@ -42,7 +42,6 @@ export class GlobalErrorHandler implements ErrorHandler {
 
       this.notifier.showStandard("Ocurrió algo inesperado: " + errorMessageNotify);
 
-      console.log(error);
     }
     // Always log errors
 

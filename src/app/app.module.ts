@@ -50,6 +50,8 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatRippleModule} from '@angular/material/core';
+
 
 
 
@@ -117,6 +119,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { MapComponent } from './components/clients/map/map.component';
 import { TakeAwayAddressComponent } from './components/administration/setting/take-away-address/take-away-address.component';
 import { DiscordErrorLogger } from './shared/discord-error-logger';
+import { WelcomeComponent } from './components/clients/welcome/welcome.component';
 
 
 @NgModule({
@@ -186,6 +189,7 @@ import { DiscordErrorLogger } from './shared/discord-error-logger';
     ListOrderComponent,
     ConfirmationComponent,
     TakeAwayAddressComponent,
+    WelcomeComponent,
 
 
   ],
@@ -233,7 +237,8 @@ import { DiscordErrorLogger } from './shared/discord-error-logger';
     BrowserAnimationsModule, 
     MatSlideToggleModule,
     MatRadioModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    MatRippleModule
   ],
   providers: [
     MatNotificationComponent,
