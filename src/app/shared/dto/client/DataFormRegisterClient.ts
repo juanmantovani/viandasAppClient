@@ -4,5 +4,6 @@ import { Client } from "../../models/Client";
 export class DataFormClient{
     client: Client = new Client(null);
     actionForm: string;
-    userProfile: KeycloakProfile
+    userProfile?: KeycloakProfile
+    isAdmin : boolean
 }

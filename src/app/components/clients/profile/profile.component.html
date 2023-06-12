@@ -4,9 +4,8 @@
         <div align="center">
             <app-avatar [name]="client.name" [lastName]="client.lastName"></app-avatar>
             <h2>{{ client.name }} {{ client.lastName }}</h2>
-            <h3> {{ userProfile?.email }}</h3>
+            <h3> {{ client.email }}</h3>
         </div>
-
         <h2 class="title">Información personal</h2>
         <mat-card class="card">
             <mat-card-title>Teléfonos </mat-card-title>
@@ -21,23 +20,25 @@
             <hr>
                 <mat-card-title>Información adicional</mat-card-title>
             <mat-card-content>
-                <h3>Fecha de nacimiento:</h3>
+                <h3><b>Fecha de nacimiento:</b></h3>
                 <p>
                     {{client.bornDate | date: 'dd/MM/yyyy' }}
                 </p>
-                <h3>Observaciones:</h3>
+                <h3><b>Observaciones:</b></h3>
                 <p>
                     {{client.observation }}
                 </p>
-                <h3>Patologías:</h3>
+                <h3><b>Patologías:</b></h3>
                 <span *ngFor="let pathologie of client.pathologies">
-                    <div *ngIf="pathologie.checked">{{ pathologie.description }}</div>
+                    <ul>
+                        <li *ngIf="pathologie.checked">{{ pathologie.description }}</li>
+                    </ul>
                 </span>
             </mat-card-content>
         </mat-card>
         <div align="center">
             <button mat-raised-button (click)="onClickUpdate()" class="button">
-                Actualizar mis datos
+                Actualizar datos
             </button>
         </div>
     </div>

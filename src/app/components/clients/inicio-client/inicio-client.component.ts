@@ -6,14 +6,13 @@ import { KeycloakProfile } from 'keycloak-js';
 import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { RegisterClientRequest } from 'src/app/shared/dto/client/RegisterClientRequest';
-import { RegisterClientResponse } from 'src/app/shared/dto/client/RegisterClientResponse';
-import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
-import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';
-import  * as ROUTES  from '../../../shared/routes/index.routes'
+import * as ROUTES from '../../../shared/routes/index.routes'
+import { UrlService } from 'src/app/shared/services/url.service';
+import { BaseResponse } from 'src/app/shared/dto/BaseResponse';
 
 
 @Component({
@@ -23,20 +22,32 @@ import  * as ROUTES  from '../../../shared/routes/index.routes'
 })
 export class InicioClientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
-  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT +'/'+ ROUTES.INTERNAL_ROUTES.PROFILE;
+  userRoles: string[] = [];
+  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.PROFILE;
 
   constructor(
-    public dialog: MatDialog, 
-    private readonly keycloak: KeycloakService, 
-    private clientService: ClientService, 
-    private router: Router
-    ) { 
+    public dialog: MatDialog,
+    private readonly keycloak: KeycloakService,
+    private clientService: ClientService,
+    private router: Router,
+    private urlService : UrlService
+  ) {
 
-    }
+  }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+    this.evaluateUser();
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
+      if (!this.clientService.getClientPersonified())
+        this.urlService.goToAdminPanel();
+      else
+        this.getClientByIdUser()
+    }
   }
 
   async getClientByIdUser() {
@@ -44,11 +55,13 @@ export class InicioClientComponent implements OnInit {
       if (res.client == undefined) {
         //if (true) {
           const dataForm: DataFormClient = {
-          actionForm: "Add",
-          client: new Client(null),
-          userProfile: this.userProfile!
-        };
-        this.gestionateForm(dataForm);
+            actionForm: "Register",
+            client: new Client(null),
+            userProfile: this.userProfile!,
+            isAdmin: false
+          };
+          this.gestionateForm(dataForm);
+        //}
       }
     })
   }
@@ -84,8 +97,8 @@ export class InicioClientComponent implements OnInit {
       client: client
     }
 
-    await this.clientService.registerClient(registerClientRequest).subscribe((res: RegisterClientResponse) => {
-      if (res){
+    await this.clientService.registerClient(registerClientRequest).subscribe((res: BaseResponse) => {
+      if (res) {
         this.router.navigateByUrl(this.PROFILE);
       };
     }

@@ -4,9 +4,9 @@
 
 export const environment = {
   production: false,
-  urlApi: 'http://localhost:8080/app',
+  //urlApi: 'http://localhost:8080/app',
   urlDiscordLogg: '',
-  //urlApi: 'http://192.168.1.5:8080/app'
+  urlApi: 'http://192.168.1.5:8080/app'
   //urlApi: 'http://ec2-3-83-173-159.compute-1.amazonaws.com'
   //urlApi:'http://vps-3175170-x.dattaweb.com/app'
 };

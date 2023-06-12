@@ -34,8 +34,8 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 import { TurnViewer } from 'src/app/shared/models/TurnViewer';
 import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderResponse';
-import * as moment from 'moment';
 import { OnExit } from 'src/app/auth/exit.guard';
+import { UrlService } from 'src/app/shared/services/url.service';
 
 
 @Component({
@@ -75,8 +75,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
   textWhatsAppShow: string;
   textWhatsAppSend: string;
 
-
   public userProfile: KeycloakProfile | null;
+  userRoles: string[] = [];
+
 
   orderInProgress: boolean = true;
   orderSuccess: boolean;
@@ -89,7 +90,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
     private orderService: OrderService,
     private clientService: ClientService,
     private readonly keycloak: KeycloakService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private urlService : UrlService
   ) {
     this.range = this.generateFormWeeks();
     this.stepperOrientation = breakpointObserver
@@ -128,10 +130,24 @@ export class InicioOrderComponent implements OnInit, OnExit {
   async ngOnInit() {
     await this.getCategories();
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
 
+    this.evaluateUser();
     this.overrideBackButton();
 
+  }
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
+      if (this.clientService.getClientPersonified()) {
+        this.client = new Client(this.clientService.getClientPersonified())
+        this.selectedAdress = new Address(this.client.addresses?.find(address => address.favourite));
+      }
+      else
+      this.urlService.goToAdminPanel();
+    }
+    else
+      this.getClientByIdUser()
   }
 
   //Para que al hacer para tras no lleve a la URL anterior

@@ -1,7 +1,7 @@
 <div class="container-fluid">
 <h1 class="title-component">Administrar Carrousel</h1>
   <div>
-    <button mat-raised-button color="green" (click)="onClickAdd()" matTooltip="Agregar banner" class="button">
+    <button mat-raised-button color="green" (click)="onClickAdd()" title="Agregar banner" class="button">
       <mat-icon>add</mat-icon>Agregar Banner
     </button>
   </div>
@@ -48,7 +48,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element" class="button-container">
-        <button mat-stroked-button (click)="onClickEdit(element)" matTooltip="Editar banner">
+        <button mat-stroked-button (click)="onClickEdit(element)" title="Editar banner">
           <mat-icon>edit</mat-icon>
         </button>
         <button mat-stroked-button (click)="onClickDelete(element)" matTooltip="Eliminar banner">

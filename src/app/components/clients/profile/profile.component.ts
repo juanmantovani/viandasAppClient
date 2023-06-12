@@ -5,11 +5,12 @@ import { KeycloakProfile } from 'keycloak-js';
 import { DataFormClient } from 'src/app/shared/dto/client/DataFormRegisterClient';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
 import { UpdateClientRequest } from 'src/app/shared/dto/client/UpdateClientRequest';
-import { UpdateClientResponse } from 'src/app/shared/dto/client/UpdateClientResponse';
 import { Client } from 'src/app/shared/models/Client';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Utils } from 'src/app/utils';
 import { ClientFormComponent } from '../client-form/client-form.component';
+import { UrlService } from 'src/app/shared/services/url.service';
+import { BaseResponse } from 'src/app/shared/dto/BaseResponse';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +20,7 @@ import { ClientFormComponent } from '../client-form/client-form.component';
 export class ProfileComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
+  userRoles: string[] = [];
   client: Client;
   actionFormAddress: string;
 
@@ -26,12 +28,27 @@ export class ProfileComponent implements OnInit {
   constructor(private readonly keycloak: KeycloakService,
     private clientService: ClientService,
     public dialog: MatDialog,
+    private urlService: UrlService
   ) { }
 
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
-    this.getClientByIdUser();
+    this.userRoles = this.keycloak.getUserRoles()
+    this.evaluateUser();
+  }
+
+
+  evaluateUser() {
+    if (this.userRoles.indexOf('admin') != -1) {
+      if (this.clientService.getClientPersonified()) {
+        this.client = new Client(this.clientService.getClientPersonified())
+      }
+      else
+        this.urlService.goToAdminPanel();
+    }
+    else
+      this.getClientByIdUser()
   }
 
   async getClientByIdUser() {
@@ -44,7 +61,8 @@ export class ProfileComponent implements OnInit {
     const dataForm: DataFormClient = {
       actionForm: "Edit",
       client: this.client,
-      userProfile: this.userProfile!
+      userProfile: this.userProfile!,
+      isAdmin: this.userRoles.indexOf('admin') != -1 ? true : false
     };
     this.gestionateForm(dataForm);
   }
@@ -77,18 +95,15 @@ export class ProfileComponent implements OnInit {
     const updateClientRequest: UpdateClientRequest = {
       client: client
     }
-    await this.clientService.updateClient(updateClientRequest).subscribe((res: UpdateClientResponse) => {
-      this.getClientByIdUser();
+    await this.clientService.updateClient(updateClientRequest).subscribe((res: BaseResponse) => {
+      if (this.userRoles.indexOf('admin') != -1) {
+        this.urlService.goToAdminPanel();
+      }
+      else
+        this.getClientByIdUser()
       return res;
-
     })
   }
-
-  getClient(){
-    this.getClientByIdUser();
-  }
-
-  
 
 
 }

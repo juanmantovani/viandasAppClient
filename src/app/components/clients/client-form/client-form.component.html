@@ -1,12 +1,14 @@
-
 <form [formGroup]="form" id="myform" #f="ngForm">
 
 
     <mat-dialog-title>
-        <h3 *ngIf="data.actionForm == 'Add'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
+        <h3 *ngIf="data.actionForm == 'Register'" mat-dialog-title align="center">Hola {{data.userProfile?.firstName}}!
             Completá tus datos</h3>
 
-        <h3 *ngIf="data.actionForm == 'Edit'" mat-dialog-title align="center">{{data.userProfile?.firstName}} actualizá tus
+        <h3 *ngIf="data.actionForm == 'Add'" mat-dialog-title align="center">Nuevo cliente</h3>
+
+        <h3 *ngIf="data.actionForm == 'Edit'" mat-dialog-title align="center">{{data.userProfile?.firstName}} actualizá
+            tus
             datos</h3>
     </mat-dialog-title>
 
@@ -19,13 +21,47 @@
 
         <div [hidden]="map">
 
-            <h4 *ngIf="data.actionForm == 'Add'"><span><b>Información personal y de contacto</b></span> </h4>
+            <h4><span><b>Información personal y de contacto</b></span> </h4>
+            <table *ngIf="data.actionForm != 'Register'">
+                <tr>
+                    <td>
+                        <mat-form-field appearance="fill" #name>
+                            <mat-label>Nombre</mat-label>
+                            <input type="text" matInput formControlName="name" name="name" id="name" #name
+                                placeholder="Ingrese un nombre" autocomplete="off" required />
+                            <mat-hint *ngIf="form!.controls['name']!.touched && form!.controls['name']!.invalid"
+                                class="error-input">
+                                Este campo es requerido</mat-hint>
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field appearance="fill" #lastName>
+                            <mat-label>Apellido</mat-label>
+                            <input type="text" matInput formControlName="lastName" name="lastName" id="lastName"
+                                #lastName placeholder="Ingrese un apellido" autocomplete="off" required />
+                            <mat-hint *ngIf="form!.controls['lastName']!.touched && form!.controls['lastName']!.invalid"
+                                class="error-input">
+                                Este campo es requerido</mat-hint>
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
             <mat-form-field appearance="fill">
                 <mat-label>Fecha de nacimiento</mat-label>
-                <input matInput  type="date" formControlName="bornDate" [ngModel] ="data.client?.bornDate | date:'yyyy-MM-dd'" max="{{date | date:'yyyy-MM-dd'}}" required>
+                <input matInput type="date" formControlName="bornDate"
+                    [ngModel]="data.client?.bornDate | date:'yyyy-MM-dd'" max="{{date | date:'yyyy-MM-dd'}}" required>
                 <mat-hint *ngIf="form!.controls['bornDate']!.touched && form!.controls['bornDate']!.errors?.mensaje"
                     class="error-input">
                     {{form!.controls['bornDate']!.errors?.mensaje}}
+                </mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="fill" #email *ngIf="data.actionForm == 'Add' || (data.actionForm == 'Edit' && data.isAdmin && data?.client?.idUserKL == '')">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput formControlName="email" name="email" id="email"
+                    #email  autocomplete="off" placeholder="Ingrese un email" />
+                    <mat-hint *ngIf="form!.controls['email']!.touched && form!.controls['email']!.errors?.mensaje"
+                    class="error-input">
+                    {{form!.controls['email']!.errors?.mensaje}}
                 </mat-hint>
             </mat-form-field>
 
@@ -35,8 +71,8 @@
                     <td>
                         <mat-form-field appearance="fill" #phonePrimary>
                             <mat-label>Primario</mat-label>
-                            <input type="text" matInput formControlName="phonePrimary" name="phonePrimary" id="phonePrimary"
-                                #phonePrimary placeholder="Primario" maxlength="10" required />
+                            <input type="text" matInput formControlName="phonePrimary" name="phonePrimary"
+                                id="phonePrimary" #phonePrimary placeholder="Primario" maxlength="10" autocomplete="off" required />
                             <mat-hint
                                 *ngIf="form!.controls['phonePrimary']!.touched && form!.controls['phonePrimary']!.errors?.mensaje"
                                 class="error-input">
@@ -47,7 +83,7 @@
                         <mat-form-field appearance="fill" #phoneSecondary>
                             <mat-label>Secundario</mat-label>
                             <input type="text" matInput formControlName="phoneSecondary" name="phoneSecondary"
-                                id="phoneSecondary" #phoneSecondary placeholder="Secundario" maxlength="10" />
+                                id="phoneSecondary" #phoneSecondary placeholder="Secundario"  autocomplete="off"maxlength="10" />
                             <mat-hint
                                 *ngIf="form!.controls['phoneSecondary']!.touched && form!.controls['phoneSecondary']!.errors?.mensaje"
                                 class="error-input">
@@ -60,8 +96,8 @@
             <h5 *ngIf="listPathologies"><span><b>Patologías</b></span></h5>
             <br>
             <section class="row section-pathologies">
-                <mat-checkbox *ngFor="let pathology of listPathologies" [(ngModel)]="pathology.checked" class="checbox-pat"
-                    [ngModelOptions]="{standalone: true}">{{pathology.description}}</mat-checkbox>
+                <mat-checkbox *ngFor="let pathology of listPathologies" [(ngModel)]="pathology.checked"
+                    class="checbox-pat" [ngModelOptions]="{standalone: true}">{{pathology.description}}</mat-checkbox>
             </section>
 
             <h5><span><b>Observaciones</b></span></h5>
@@ -71,88 +107,97 @@
                     rows="2"></textarea>
             </mat-form-field>
 
-        <div *ngIf="data.actionForm == 'Add'">
-            <h4><span><b>Dirección para el envío</b></span> </h4>
+            <div *ngIf="data.actionForm != 'Edit'">
+                <h4><span><b>Dirección para el envío</b></span> </h4>
 
-            <div *ngIf="!validateAddress">
-                <mat-form-field appearance="fill" #street>
-                    <mat-label>Calle</mat-label>
-                    <input type="text" matInput formControlName="street" name="street" maxlength="50" id="street" #street
-                        placeholder="Calle" [required]="data.actionForm == 'Add'" />
-                    <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.errors?.mensaje"
-                        class="error-input">
-                        {{form!.controls['street']!.errors?.mensaje}}</mat-hint>
-                </mat-form-field>
+                <div *ngIf="!validateAddress">
+                    <mat-form-field appearance="fill" #street>
+                        <mat-label>Calle</mat-label>
+                        <input type="text" matInput formControlName="street" name="street" maxlength="50" id="street"
+                            #street placeholder="Calle" autocomplete="off" [required]="data.actionForm != 'Edit'" />
+                        <mat-hint *ngIf="form!.controls['street']!.touched && form!.controls['street']!.errors?.mensaje"
+                            class="error-input">
+                            {{form!.controls['street']!.errors?.mensaje}}</mat-hint>
+                    </mat-form-field>
 
-                <table>
-                    <tr>
-                        <td>
-                            <mat-form-field appearance="fill" #number>
-                                <mat-label>Número</mat-label>
-                                <input type="text" matInput formControlName="number" maxlength="4" name="number" id="number"
-                                    #number placeholder="Número" [required]="data.actionForm == 'Add'"/>
-                                <mat-hint *ngIf="form!.controls['number']!.touched && form!.controls['number']!.errors?.mensaje"
+                    <table>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="fill" #number>
+                                    <mat-label>Número</mat-label>
+                                    <input type="text" matInput formControlName="number" maxlength="4" name="number"
+                                        id="number" #number autocomplete="off" placeholder="Número"
+                                        [required]="data.actionForm != 'Edit'" />
+                                    <mat-hint
+                                        *ngIf="form!.controls['number']!.touched && form!.controls['number']!.errors?.mensaje"
                                         class="error-input">
                                         {{form!.controls['number']!.errors?.mensaje}}
-                                </mat-hint>
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field appearance="fill" #floor>
-                                <mat-label>Piso</mat-label>
-                                <input type="text" matInput formControlName="floor" maxlength="2" name="floor" id="floor" #floor
-                                    placeholder="Piso" />
-                            </mat-form-field>
-                        </td>
-                        <td>
-                            <mat-form-field appearance="fill" #departament>
-                                <mat-label>Dpto</mat-label>
-                                <input type="text" matInput formControlName="departament" maxlength="2" name="departament"
-                                    id="departament" #departament placeholder="Dpto" />
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
+                                    </mat-hint>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill" #floor>
+                                    <mat-label>Piso</mat-label>
+                                    <input type="text" matInput formControlName="floor" maxlength="2" name="floor"
+                                        id="floor" #floor autocomplete="off" placeholder="Piso" />
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="fill" #departament>
+                                    <mat-label>Dpto</mat-label>
+                                    <input type="text" matInput formControlName="departament" maxlength="2"
+                                        name="departament" id="departament" #departament autocomplete="off" placeholder="Dpto" />
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
 
 
-                <mat-form-field appearance="fill" #obsAddress>
-                    <mat-label>Indicaciones del domicilio (entre calle y calle, etc.)</mat-label>
-                    <textarea type="text" matInput formControlName="obsAddress" name="obsAddress" id="obsAddress" #obsAddress
-                        rows="2"></textarea>
-                </mat-form-field>
+                    <mat-form-field appearance="fill" #obsAddress>
+                        <mat-label>Indicaciones del domicilio (entre calle y calle, etc.)</mat-label>
+                        <textarea type="text" matInput formControlName="obsAddress" name="obsAddress" id="obsAddress"
+                            #obsAddress rows="2"></textarea>
+                    </mat-form-field>
 
-                <button mat-raised-button color="primary" (click)="onClickSearchAddress()" class="btn-primary btn-azul"
-                    [disabled]="form!.controls['street']!.errors != null || form!.controls['number']!.errors != null">
-                    Validar domicilio
-                </button>
-                
+                    <button mat-raised-button color="primary" (click)="onClickSearchAddress()"
+                        class="btn-primary btn-azul"
+                        [disabled]="form!.controls['street']!.errors != null || form!.controls['number']!.errors != null">
+                        Validar domicilio
+                    </button>
+
+                </div>
+                <h3 *ngIf="validateAddress"><span><mat-icon
+                            class="confirm-address">location_on</mat-icon>{{form.getRawValue()['street']}}
+                        {{form.getRawValue()['number']}}</span> </h3>
+
+
             </div>
-            <h3 *ngIf="validateAddress"><span><mat-icon  class="confirm-address">location_on</mat-icon>{{form.getRawValue()['street']}} {{form.getRawValue()['number']}}</span> </h3>
-
+        </div>
+        <div *ngIf="data.actionForm != 'Edit' && map">
+            <h3>
+                <span class="confirm-address"><mat-icon>place</mat-icon>{{ form.getRawValue()["street"] }} {{
+                    form.getRawValue()["number"] }}</span>
+            </h3>
+            <i>Podes arrastrar hasta la ubicación correcta</i>
+            <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
+                (geoCodingResult)="geoCodingResult($event)" (clickBack)="onClickBack()">
+            </app-map>
 
         </div>
-    </div>
-    <div *ngIf="data.actionForm == 'Add' && map">
-        <h3>
-            <span class="confirm-address"><mat-icon>place</mat-icon>{{ form.getRawValue()["street"] }} {{ form.getRawValue()["number"] }}</span>
-        </h3>
-        <i>Podes arrastrar hasta la ubicación correcta</i>
-        <app-map [street]="form.getRawValue()['street']" [number]="form.getRawValue()['number']"
-                (geoCodingResult)="geoCodingResult($event)"
-                (clickBack)="onClickBack()">
-        </app-map>
 
-    </div>
-        
     </mat-dialog-content>
 
-    <mat-dialog-actions align="center" *ngIf="data.actionForm == 'Edit' || (validateAddress == true)">
-        <button *ngIf="data.actionForm == 'Edit'" mat-button color="primary" (click)="onClickCancel()">
+    <mat-dialog-actions align="center" *ngIf="data.actionForm != 'Register'">
+        <button *ngIf="data.actionForm != 'Register'" mat-button color="primary" (click)="onClickCancel()">
             <mat-icon>clear</mat-icon> CANCELAR
         </button>
-        <button mat-raised-button color="primary" (click)="onClickSave()" class="btn-primary btn-azul"
-            [disabled]="form.status == 'INVALID'">
+        <button mat-raised-button color="primary" *ngIf="data.actionForm == 'Add'" (click)="onClickSave()" class="btn-primary btn-azul"
+            [disabled]="form.status == 'INVALID'|| !validateAddress">
             <mat-icon>save</mat-icon> GUARDAR
         </button>
+        <button mat-raised-button color="primary" *ngIf="data.actionForm == 'Edit'" (click)="onClickSave()" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
     </mat-dialog-actions>
 </form>

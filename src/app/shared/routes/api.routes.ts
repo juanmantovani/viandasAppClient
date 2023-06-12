@@ -48,6 +48,7 @@ export const API_ROUTES = {
         GETCLIENTBYIDUSER: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByIdUser`,
         GETCLIENTBYTANDA: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/getClientByTanda`,
         DELETECLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/deleteClient`,
+        ADDCLIENT: `${ENV.urlApi}/${INTERNAL_ROUTES.CLIENT}/addClient`,
 
     },
     PATHOLOGY: {

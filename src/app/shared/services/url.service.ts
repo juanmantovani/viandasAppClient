@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import * as ROUTES from '../../shared/routes/index.routes'
+import { Router } from '@angular/router';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +26,13 @@ export class UrlService {
    //Inicio
    readonly urlInicio: string = this.url + "/inicio";
 
+   ADMINISTRATION = ROUTES.INTERNAL_ROUTES.ADMINISTRATION + '/' + ROUTES.INTERNAL_ROUTES.CLIENT;
 
-  constructor() { }
+
+
+  constructor(private router: Router) { }
+
+  goToAdminPanel(){
+    this.router.navigateByUrl(this.ADMINISTRATION);
+  }
 }
