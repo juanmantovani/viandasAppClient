@@ -55,7 +55,7 @@
                     {{form!.controls['bornDate']!.errors?.mensaje}}
                 </mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="fill" #email *ngIf="data.isAdmin && data.client?.idUserKL == ''">
+            <mat-form-field appearance="fill" #email *ngIf="data.actionForm == 'Add' || (data.actionForm == 'Edit' && data.isAdmin && data?.client?.idUserKL == '')">
                 <mat-label>Email</mat-label>
                 <input type="text" matInput formControlName="email" name="email" id="email"
                     #email  autocomplete="off" placeholder="Ingrese un email" />
