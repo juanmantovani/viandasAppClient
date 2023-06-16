@@ -13,8 +13,12 @@
   }
 
   .select-date{
-    height: 350px;
+    height: min-content;
 
+  }
+
+  .inline-calendar-card {
+    width: 350px;
   }
 
   @media (max-width: 600px) {
@@ -23,6 +27,11 @@
     }
     .cardSuccess {
       max-width: 550px;
+    }
+
+    .inline-calendar-card {
+      width: 100%;
+      height: auto;
     }
   
   }

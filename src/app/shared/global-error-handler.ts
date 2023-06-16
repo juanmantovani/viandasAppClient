@@ -41,6 +41,7 @@ export class GlobalErrorHandler implements ErrorHandler {
       errorMessageLogg = this.getTextType('client') + errorMessageLogg + ' ' + error.message + ' ' +  this.cortarStringPorRenglones(error.stack? error.stack : '') ;
 
       this.notifier.showStandard("Ocurrió algo inesperado: " + errorMessageNotify);
+      console.log(error);
 
     }
     // Always log errors

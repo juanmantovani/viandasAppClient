@@ -2,8 +2,8 @@ import { Category } from "../../models/Category";
 
 export class GetMenuByCategoriesRequest {
     idCategory : Category[]
-    dateStart : Date;
-    dateEnd : Date;
+    dateStart : Date | null;
+    dateEnd : Date | null;
 
     constructor(data : any) {
         if(data){

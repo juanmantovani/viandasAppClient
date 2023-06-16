@@ -9,24 +9,12 @@
       <h4>Para comenzar, elegí el rango de fecha que queres pedir</h4>
 
       <div class="select-date">
-        <mat-form-field appearance="fill" (click)="picker.open()">
-          <mat-label>Ingrese el rango de fechas</mat-label>
-          <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minDate">
-            <input matStartDate formControlName="start" placeholder="Desde" required>
-            <input matEndDate formControlName="end" placeholder="Hasta" (dateChange)="onDateChange($event)" required>
-          </mat-date-range-input>
-          <mat-hint>DD/MM/AAAA – DD/MM/AAAA</mat-hint>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-          <mat-error *ngIf="range!.controls['start']!.touched && range!.controls['start']!.errors?.mensaje"
-            class="error-input">
-            {{range!.controls['start']!.errors?.mensaje}}
-          </mat-error>
-          <mat-error *ngIf="range!.controls['end']!.touched && range!.controls['end']!.errors?.mensaje"
-            class="error-input">
-            {{range!.controls['end']!.errors?.mensaje}}
-          </mat-error>
-        </mat-form-field>
+        <mat-card class="inline-calendar-card">
+          <mat-calendar (selectedChange)="_onSelectedChange($event)"
+                [selected]="selectedDateRange"
+                [minDate]="minDate">
+          </mat-calendar>
+        </mat-card>
       </div>
       
     </mat-step>

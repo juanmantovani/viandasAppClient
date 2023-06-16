@@ -42,3 +42,6 @@ testem.log
 Thumbs.db
 package-lock.json
 src/environments/*
+src/environments/environment.prod.ts
+src/environments/keycloak.config.ts
+src/environments/environment.ts
