@@ -15,7 +15,7 @@ import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
 import { MenuViewer } from 'src/app/shared/models/MenuViewer';
 import { ViewMenuComponent } from '../view-menu/view-menu.component';
 import { GetAllMenuResponse } from 'src/app/shared/dto/menu/GetAllMenuResponse';
-import { defineFullCalendarElement,  } from '@fullcalendar/web-component';
+import { defineFullCalendarElement, } from '@fullcalendar/web-component';
 
 defineFullCalendarElement();
 
@@ -33,18 +33,18 @@ export class MenuInicioComponent implements OnInit {
   listMenu: boolean;
   //dataSource!: MatTableDataSource<Menu>;
   menu: Menu[];
-  menuViewer : MenuViewer;
+  menuViewer: MenuViewer;
   viewCalendarFood: boolean;
   showFullCalendar: boolean = true;
 
   eventsMenu: any[] = [];
   eventsFood: any[] = [];
 
-  daysOfMonth : any[]
-  WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
-  validDateMenu  : Boolean = true;
-  
-  constructor(public dialog: MatDialog, private menuService : MenuService) { 
+  daysOfMonth: any[]
+  WEEKDAY = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+  validDateMenu: Boolean = true;
+
+  constructor(public dialog: MatDialog, private menuService: MenuService) {
     this.range = this.generateFormWeeks();
   }
 
@@ -67,12 +67,12 @@ export class MenuInicioComponent implements OnInit {
     this.dateEnd = this.range.getRawValue().end;
 
     const request: ValidateDateMenuRequest = {
-      dateStart : this.dateStart,
-      dateEnd : this.dateEnd
+      dateStart: this.dateStart,
+      dateEnd: this.dateEnd
     }
     await this.menuService.validateDateMenu(request).subscribe((res: ValidateDateMenuResponse) => {
-      this.validDateMenu  =  res.validDateMenu;
-      if(this.validDateMenu){
+      this.validDateMenu = res.validDateMenu;
+      if (this.validDateMenu) {
         this.setDaysOfMonth()
         this.viewCategories = true;
         this.showFullCalendar = false;
@@ -80,26 +80,26 @@ export class MenuInicioComponent implements OnInit {
     })
   }
 
-   setDaysOfMonth(){
+  setDaysOfMonth() {
     let dateStartAux = new Date(this.dateStart);
     let dateEndAux = new Date(this.dateEnd);
-    const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime())/(1000*60*60*24)+1;
+    const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime()) / (1000 * 60 * 60 * 24) + 1;
     let currentDate = new Date(dateStartAux);
-    let currentDay : string;
-    for(let i = 0; i < CANTDAYS; i++){
+    let currentDay: string;
+    for (let i = 0; i < CANTDAYS; i++) {
       currentDay = this.WEEKDAY[dateStartAux.getDay()];
-      if (currentDay != 'Sábado' && currentDay != 'Domingo'){     
+      if (currentDay != 'Sábado' && currentDay != 'Domingo') {
         const ITEM = ({
-          date: currentDate, 
-          day: currentDay 
+          date: currentDate,
+          day: currentDay
         })
         this.daysOfMonth.push(ITEM);
-    }
+      }
       currentDate = new Date(dateStartAux.setDate(dateStartAux.getDate() + 1));
     }
   }
 
-  onClickEdit(){
+  onClickEdit() {
     const dialogConfig = Utils.matDialogConfigMenu();
     const dialogRef = this.dialog.open(EditMenuComponent, dialogConfig);
     const componentInstance = dialogRef.componentInstance;
@@ -110,7 +110,7 @@ export class MenuInicioComponent implements OnInit {
         return false;
       }
 
-      var result : any  = await this.onSubmitEdit(data);
+      var result: any = await this.onSubmitEdit(data);
       if (result) {
         return false;
       }
@@ -121,44 +121,50 @@ export class MenuInicioComponent implements OnInit {
     })
   }
 
-  async onSubmitEdit(editMenuRequest: EditMenuRequest){ 
+  async onSubmitEdit(editMenuRequest: EditMenuRequest) {
     await this.menuService.editMenu(editMenuRequest).subscribe((res: EditMenuResponse) => {
       return res;
     })
   }
 
-  async getMenus(){
+  async getMenus() {
+
     await this.menuService.getAllMenus().subscribe((res: GetAllMenuResponse) => {
+      this.daysOfMonth = [];
+      this.validDateMenu = true;
+      this.chargeMenu = false;
+      this.listMenu = true;
+      this.viewCategories = false;
       this.menu = res.menu;
       this.listMenu = true;
     })
   }
 
-//  async completeCalendarFood(){//esto pertence al calendario que no estamos mostrando
-//     await this.dataSource.filteredData?.forEach(menu => {
-//       //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
-//       this.menuService.getMenuByID(menu.id).subscribe((res: GetMenuResponse) => {
-//         let menuViewer = new MenuViewer(res.menuViewer);
-//         menuViewer.turnsViewer?.forEach(turnsViewer => {
-//           turnsViewer.categoryViewer?.forEach(categoryViewer => {
-//             categoryViewer.daysViewer?.forEach(dayViewer => {
-//               let food = {
-//                 title: categoryViewer.category.title+' - ' + dayViewer.foodViewer.title,
-//                 idMenu: menuViewer.id,
-//                 start: new Date(dayViewer.date),
-//                 allDay: true,
-//                 //end: new Date((dayViewer.date).setHours(23, 59, 59)),
-//                 backgroundColor: this.getColorByCategory(categoryViewer.category.id),
-//                 category: categoryViewer.category.title,
-//                 foodTitle: dayViewer.foodViewer.title
-//               }
-//               this.eventsFood.push(food);
-//             })
-//           })
-//         })
-//       })
-//     })
-//   }
+  //  async completeCalendarFood(){//esto pertence al calendario que no estamos mostrando
+  //     await this.dataSource.filteredData?.forEach(menu => {
+  //       //let menuViewer = await new MenuViewer(this.getMenuByID(menuList.menuId));
+  //       this.menuService.getMenuByID(menu.id).subscribe((res: GetMenuResponse) => {
+  //         let menuViewer = new MenuViewer(res.menuViewer);
+  //         menuViewer.turnsViewer?.forEach(turnsViewer => {
+  //           turnsViewer.categoryViewer?.forEach(categoryViewer => {
+  //             categoryViewer.daysViewer?.forEach(dayViewer => {
+  //               let food = {
+  //                 title: categoryViewer.category.title+' - ' + dayViewer.foodViewer.title,
+  //                 idMenu: menuViewer.id,
+  //                 start: new Date(dayViewer.date),
+  //                 allDay: true,
+  //                 //end: new Date((dayViewer.date).setHours(23, 59, 59)),
+  //                 backgroundColor: this.getColorByCategory(categoryViewer.category.id),
+  //                 category: categoryViewer.category.title,
+  //                 foodTitle: dayViewer.foodViewer.title
+  //               }
+  //               this.eventsFood.push(food);
+  //             })
+  //           })
+  //         })
+  //       })
+  //     })
+  //   }
 
   //  async getMenuByID(menuId: number) : Promise<any> {
   //   this.menuService.getMenuByID(menuId).subscribe((res: GetMenuResponse) => {
@@ -166,12 +172,12 @@ export class MenuInicioComponent implements OnInit {
   //   })
   //}
 
-  generateRandomColor() : string {
-    const RANDOMCOLOR : string = Math.floor(Math.random()*16777215).toString(16);
-    return '#'+RANDOMCOLOR;
+  generateRandomColor(): string {
+    const RANDOMCOLOR: string = Math.floor(Math.random() * 16777215).toString(16);
+    return '#' + RANDOMCOLOR;
   }
 
-  getColorByCategory(categoryId : number) {
+  getColorByCategory(categoryId: number) {
     return this.generateRandomColor();
   }
 
@@ -181,7 +187,7 @@ export class MenuInicioComponent implements OnInit {
     this.listMenu = false;
   }
 
-  completeCalendarMenu(){
+  completeCalendarMenu() {
     this.eventsMenu = [];
     this.menu.forEach(m => {
       let menu = {
@@ -191,17 +197,8 @@ export class MenuInicioComponent implements OnInit {
         end: new Date((m.dateEnd).setHours(23, 59, 59)),
         color: this.generateRandomColor()
       }
-    this.eventsMenu.push(menu);
-  })
-  }
-
-  onClickListAllMenus(){
-    this.daysOfMonth = [];
-    this.validDateMenu = true;
-    this.chargeMenu = false;
-    this.listMenu = true;
-    this.viewCategories = false;
-    this.getMenus();
+      this.eventsMenu.push(menu);
+    })
   }
 
   async deleteMenu(menu: Menu) {
@@ -210,8 +207,8 @@ export class MenuInicioComponent implements OnInit {
       idTurn: menu.turns[0].id
     }
     await this.menuService.deleteMenu(request).subscribe(() => {
-    this.getMenus();
-    } );
+      this.getMenus();
+    });
   }
 
 
@@ -221,24 +218,20 @@ export class MenuInicioComponent implements OnInit {
     dialogConfig.data = menuViewer;
     const dialogRef = this.dialog.open(ViewMenuComponent, dialogConfig);
   }
-   
-  redirectToList(event: boolean){
-    this.onClickListAllMenus();
-  }
 
-  async onViewMenu(menuId : number){
+  async onViewMenu(menuId: number) {
     let type = menuId.valueOf();
     await this.menuService.getMenuByID(menuId).subscribe((res: GetMenuResponse) => {
       this.showMenu(new MenuViewer(res.menuViewer))
     })
   }
 
-//  async onClickCalendar() {//esto pertence al calendario que no estamos mostrando
-//     await this.completeCalendarFood();
-//     this.viewCalendarFood = true;
-//   }
+  //  async onClickCalendar() {//esto pertence al calendario que no estamos mostrando
+  //     await this.completeCalendarFood();
+  //     this.viewCalendarFood = true;
+  //   }
 
-  onShowFullCalendar(){
+  onShowFullCalendar() {
     this.showFullCalendar = !this.showFullCalendar;
   }
 

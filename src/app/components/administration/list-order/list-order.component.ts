@@ -22,7 +22,7 @@ import { Client } from 'src/app/shared/models/Client';
 })
 export class ListOrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrden', 'client', 'date', 'total', 'status', 'paid', 'actions'];
+  displayedColumns: string[] = ['id', 'clientName', 'date', 'total', 'status', 'paid', 'actions'];
   dataSource: any;
   request: GetAllOrdersRequest
   orderDetails: Order;
