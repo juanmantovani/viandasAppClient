@@ -40,6 +40,7 @@
       <app-list-food *ngIf="order.daysOrder.length > 0" 
         [order]="order"
         [editAddress]="false"
+        [daysOfMonth]="daysOfMonth"
         (disableNextButton)="disableNextButtonByCant($event)">
       </app-list-food>
     </mat-step>
@@ -49,7 +50,7 @@
         [order]="order"
         [client]="client"
         [selectedAdress]="selectedAdress"
-        [daysOfMonth]="daysOfMonth"
+        [daysOrder]="daysOrder"
         (getClient)="onGetClient()"
         (selectedAddressEmit)="onChangeAddress($event)">
       </app-selected-address>

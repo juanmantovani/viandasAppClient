@@ -70,6 +70,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   cant: number = 1;
 
   daysOfMonth: Date[];
+  daysOrder: Date[];
   menu: Menu;
 
   ORDERS: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDERS;
@@ -276,6 +277,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)) {//para evitar duplicados
           this.daysOfMonth.push(new Date(dayFood.date));
+          this.daysOfMonth.sort((a,b)=>a.getTime()-b.getTime());
         }
 
       })
@@ -338,8 +340,28 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   onViewOrderByDay() {
+    this.daysOrder = [];
+    this.daysOfMonth.forEach(day => {
+      if(this.existOrderToday(day)){
+        this.daysOrder.push(day)
+      }
+    })
     this.viewOrderByDay = true;
   }
+
+  existOrderToday(date: Date) {
+    var exist = false;
+    for(let dayOrder of this.order.daysOrder){
+      if(dayOrder.dayFood.date.getTime() == date.getTime()){
+        if(dayOrder.cant > 0) {
+          exist = true;
+          break;
+        }
+      }
+    }
+    return exist;
+  }
+
   onGetTotal() {
     this.finishButton = true;
     this.disableNextButton = true;

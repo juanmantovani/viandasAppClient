@@ -588,6 +588,9 @@ export class Utils {
                 })
             })
         })
+        newMenuViewer.turnsViewer[0].categoryViewer.forEach(cat => {
+            cat.daysViewer.sort((a,b)=>a.date.getTime()-b.date.getTime())
+        })
         return newMenuViewer
     }
 

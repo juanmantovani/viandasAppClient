@@ -31,11 +31,12 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
   @Input() order: Order;
   @Input() editAddress: boolean;
   @Input() clientSelected: Client;
+  @Input() daysOfMonth: Date[];
+
 
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
   @Output() canceledDayOrder: EventEmitter<number> = new EventEmitter();
   @Output() disableNextButton: EventEmitter<boolean> = new EventEmitter();
-
 
   changinAddress: DayOrder;
 
@@ -137,14 +138,12 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
     dayOrder.cant = dayOrder.cant - 1
     this.cantFoods -=1;
     this.evaluateDisableNextButton();
-    //this.order.total = this.order.total - dayOrder.dayFood.category.price;
   }
 
   addFood(dayOrder: DayOrder) {
     dayOrder.cant = dayOrder.cant + 1
     this.cantFoods +=1;
     this.evaluateDisableNextButton();
-    //this.order.total = this.order.total + dayOrder.dayFood.category.price;
   }
 
   async onCancelDayOrder(dayOrder: DayOrder, idOrder:number) {

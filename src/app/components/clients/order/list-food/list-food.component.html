@@ -1,57 +1,57 @@
 <div class="d-flex flex-wrap">
-<mat-card class="food-card" *ngFor="let dayOrder of order.daysOrder" [style]="{'border-right': '5px solid'+dayOrder.dayFood.category.color}">
-    <mat-card-title-group>
-      <mat-card-subtitle>{{ getDay(dayOrder.dayFood.date)}} - {{ dayOrder.dayFood.date | date: 'dd/MM' }} ({{ dayOrder.dayFood.category.title }})</mat-card-subtitle>
-      <mat-card-title><h4><span *ngIf="editAddress"> {{ dayOrder.cant }} X</span> {{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
-      <mat-card-subtitle class="descriptionSubtitle">{{ dayOrder.dayFood.food.description }}</mat-card-subtitle>
-      <!-- <mat-card-title *ngIf="!editAddress"><h4>${{ dayOrder.dayFood.category.price }}</h4></mat-card-title> -->
+  <div *ngFor="let day of daysOfMonth">
+    <p class="day">{{ getDay(day)}} - {{ day | date: 'dd/MM' }}</p>
+      <div *ngFor="let dayOrder of order.daysOrder">
+        <mat-card class="food-card" *ngIf="(dayOrder.dayFood.date | date:'dd/MM') == (day | date:'dd/MM')" [style]="{'border-right': '5px solid'+dayOrder.dayFood.category.color}">
+            <mat-card-title-group>
+              <mat-card-subtitle>{{ getDay(day)}} - {{ day | date: 'dd/MM' }} ({{ dayOrder.dayFood.category.title }})</mat-card-subtitle>
+              <mat-card-title><h4><span *ngIf="editAddress"> {{ dayOrder.cant }} X</span> {{ dayOrder.dayFood.food.title }}</h4></mat-card-title>
+              <mat-card-subtitle class="descriptionSubtitle">{{ dayOrder.dayFood.food.description }}</mat-card-subtitle>
+              <!-- <mat-card-title *ngIf="!editAddress"><h4>${{ dayOrder.dayFood.category.price }}</h4></mat-card-title> -->
 
-        <img *ngIf="dayOrder.dayFood.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.dayFood.food.urlImage}}" class="foodCardImg">
-        <img *ngIf="!dayOrder.dayFood.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCardImg">
+                <img *ngIf="dayOrder.dayFood.food.urlImage" mat-card-md-image src="{{URLAPI}}{{dayOrder.dayFood.food.urlImage}}" class="foodCardImg">
+                <img *ngIf="!dayOrder.dayFood.food.urlImage" mat-card-md-image src="../../../../../assets/meal2.png" class="foodCardImg">
 
-    </mat-card-title-group>
-      <mat-card-actions align="end" *ngIf="!editAddress">
-        <!-- <form class="formFood" >
-          <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Observaciones</mat-label>
-            <input matInput placeholder="Aclaraciones sobre ingredientes" [disabled]="dayOrder.cant < 1" [(ngModel)]="dayOrder.observation" [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
-        </form> -->
-        <div class="cant">
-          <button mat-icon-button aria-label="Clear" (click)="removeFood(dayOrder)" class="removeButton" [disabled]="dayOrder.cant < 1">
-            <mat-icon>remove</mat-icon>
-          </button>
-          <span class="center">{{dayOrder.cant}}</span>
-          <button mat-icon-button aria-label="Clear" (click)="addFood(dayOrder)" [disabled]="dayOrder.cant > 14">
-            <mat-icon>add</mat-icon>
-          </button>
-        </div>
-      </mat-card-actions>
-      <mat-card-actions *ngIf="editAddress">
-        <hr>
-        <p *ngIf="changinAddress?.id != dayOrder.id">
-          <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
-          <button *ngIf="changeAddress && order.status.id == 1" mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
-        </p>
-        <button *ngIf="!changeAddress && order.status.id == 1 && dayOrder.status" mat-raised-button class="button" (click)="onCancelDayOrder(dayOrder, order.id)">Cancelar</button>
+            </mat-card-title-group>
+              <mat-card-actions align="end" *ngIf="!editAddress">
+                <!-- <form class="formFood" >
+                  <mat-form-field class="full-width" appearance="fill">
+                    <mat-label>Observaciones</mat-label>
+                    <input matInput placeholder="Aclaraciones sobre ingredientes" [disabled]="dayOrder.cant < 1" [(ngModel)]="dayOrder.observation" [ngModelOptions]="{standalone: true}">
+                  </mat-form-field>
+                </form> -->
+                <div class="cant">
+                  <button mat-icon-button aria-label="Clear" (click)="removeFood(dayOrder)" class="removeButton" [disabled]="dayOrder.cant < 1">
+                    <mat-icon>remove</mat-icon>
+                  </button>
+                  <span class="center">{{dayOrder.cant}}</span>
+                  <button mat-icon-button aria-label="Clear" (click)="addFood(dayOrder)" [disabled]="dayOrder.cant > 14">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+              </mat-card-actions>
+              <mat-card-actions *ngIf="editAddress">
+                <hr>
+                <p *ngIf="changinAddress?.id != dayOrder.id">
+                  <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
+                  <button *ngIf="changeAddress && order.status.id == 1" mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
+                </p>
+                <button *ngIf="!changeAddress && order.status.id == 1 && dayOrder.status" mat-raised-button class="button" (click)="onCancelDayOrder(dayOrder, order.id)">Cancelar</button>
 
-        
-        <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
-        <mat-form-field appearance="fill">
-          <mat-label>Cambiar dirección</mat-label>
-          <mat-select [(value)]="selectAddress">
-            <mat-option [value]="addressTakeAway"> <b>Retiro en local -  {{ addressTakeAway.street }} Nº {{ addressTakeAway.number }}</b></mat-option>
-            <mat-option *ngFor="let address of client?.addresses" [value]="address" >
-              {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <button mat-raised-button class="button" (click)="onSaveChangeAddress(dayOrder)" [disabled]="selectAddress?.id == dayOrder.address.id">Aceptar</button>
-      </div>
-
-
-      </mat-card-actions>
-
-  </mat-card>
-
+                <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
+                <mat-form-field appearance="fill">
+                  <mat-label>Cambiar dirección</mat-label>
+                  <mat-select [(value)]="selectAddress">
+                    <mat-option [value]="addressTakeAway"> <b>Retiro en local -  {{ addressTakeAway.street }} Nº {{ addressTakeAway.number }}</b></mat-option>
+                    <mat-option *ngFor="let address of client?.addresses" [value]="address" >
+                      {{ address.street }} Nº {{ address.number }} ({{ address.city.description }})
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <button mat-raised-button class="button" (click)="onSaveChangeAddress(dayOrder)" [disabled]="selectAddress?.id == dayOrder.address.id">Aceptar</button>
+              </div>
+              </mat-card-actions>
+        </mat-card>
+    </div>
+  </div>
 </div>

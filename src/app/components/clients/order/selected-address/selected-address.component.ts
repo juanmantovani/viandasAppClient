@@ -15,7 +15,7 @@ export class SelectedAddressComponent implements OnInit {
 
   @Input() order : Order;
   @Input() selectedAdress : Address;
-  @Input() daysOfMonth : Date[];
+  @Input() daysOrder : Date[];
   @Input() client : Client;
 
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
@@ -95,17 +95,5 @@ export class SelectedAddressComponent implements OnInit {
     }
   }
 
-  existOrderToday(date: Date) {
-    var exist = false;
-    for(let dayOrder of this.order.daysOrder){
-      if(dayOrder.dayFood.date.getTime() == date.getTime()){
-        if(dayOrder.cant > 0) {
-          exist = true;
-          break;
-        }
-      }
-    }
-    return exist;
-  }
 }
 
