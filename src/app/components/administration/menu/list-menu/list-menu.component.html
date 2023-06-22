@@ -15,12 +15,12 @@
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.id}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <ng-container matColumnDef="start">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Desde </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.dateStart | date: 'dd/MM/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.dateStart | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
@@ -31,13 +31,13 @@
 
     <ng-container matColumnDef="end">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Hasta </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}"> {{element.dateEnd | date: 'dd/MM/yyyy'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.dateEnd | date: 'dd/MM/yyyy'}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
-      <td mat-cell *matCellDef="let element" [ngClass]="{'isActive': element.isCurrent}" class="actions-button-container">
-        <button mat-stroked-button matTooltip="Eliminar menú" class="button" (click)="onClickDelete(element)">          
+      <td mat-cell *matCellDef="let element" class="actions-button-container">
+        <button mat-stroked-button *ngIf="element.dateEnd > today" matTooltip="Eliminar menú" class="button" (click)="onClickDelete(element)">          
           <mat-icon>delete</mat-icon>
         </button>
         <button mat-stroked-button matTooltip="Ver menú" class="button" (click)="onClickViewMenu(element)">

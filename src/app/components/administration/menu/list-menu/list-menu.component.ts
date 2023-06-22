@@ -13,6 +13,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service';
 })
 export class ListMenuComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'start', 'end', 'actions'];
+  today : Date = new Date();
 
   @Input() menu : Menu[];
   @Output() deleteMenu : EventEmitter <Menu> = new EventEmitter();

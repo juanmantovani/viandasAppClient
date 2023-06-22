@@ -53,40 +53,38 @@
 
                 </colgroup>
 
-                <ng-container matColumnDef="idOrden">
+                <ng-container matColumnDef="id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                </ng-container>
+                  </ng-container>
 
-                <ng-container matColumnDef="client">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Cliente </th>
-                    <td mat-cell *matCellDef="let element" class="hidden"> {{element.client.name}}
-                        {{element.client.lastName}}
+                <ng-container matColumnDef="clientName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Cliente </th>
+                    <td mat-cell *matCellDef="let element" > {{element.clientName}}
                     </td>
                 </ng-container>
 
 
-
                 <ng-container matColumnDef="date">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Fecha orden </th>
-                    <td mat-cell *matCellDef="let element" class="hidden"> {{element.date | date:'dd/MM/YYYY'}}
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Fecha orden </th>
+                    <td mat-cell *matCellDef="let element" > {{element.date | date:'dd/MM/YYYY'}}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="total">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Total </th>
-                    <td mat-cell *matCellDef="let element" class="hidden"> ${{element.total}}
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Total </th>
+                    <td mat-cell *matCellDef="let element" > ${{element.total}}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Estado </th>
-                    <td mat-cell *matCellDef="let element" class="hidden"> {{element.status.description }}
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Estado </th>
+                    <td mat-cell *matCellDef="let element" > {{element.status.description }}
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="paid">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Pago </th>
-                    <td mat-cell *matCellDef="let element" class="hidden"> {{element.paid ? 'Pagada' : 'Pendiente de pago'}}
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header > Pago </th>
+                    <td mat-cell *matCellDef="let element" > {{element.paid ? 'Pagada' : 'Pendiente de pago'}}
                     </td>
                 </ng-container>
 

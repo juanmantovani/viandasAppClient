@@ -42,7 +42,7 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
   public userProfile: KeycloakProfile | null;
   client: Client;
   selectAddress: Address | undefined;
-  showOrdersForAdmin: boolean;
+  changeAddress: boolean = true;
   addressTakeAway: Address;
   address: Address;
   cantFoods: number = 0;
@@ -62,7 +62,10 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
     this.changinAddress = new DayOrder(null);
     this.userProfile = await this.keycloak.loadUserProfile();
     if (this.clientSelected) {
-      this.showOrdersForAdmin = true;
+      this.changeAddress = false;
+    }
+    if (this.clientService.getClientPersonified()){
+      this.changeAddress = true
     }
 
   }

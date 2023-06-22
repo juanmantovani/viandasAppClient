@@ -68,9 +68,10 @@ export class ClientComponent implements OnInit {
     })
   }
   onSearch(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
   }
+  
   onClickShowOrders(client: Client) {
     this.clientSelected = client;
     this.viewOrdersClient = true;

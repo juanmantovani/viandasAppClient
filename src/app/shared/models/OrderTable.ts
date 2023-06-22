@@ -6,6 +6,7 @@ import { StatusOrder } from "./StatusOrder";
 export class OrderTable {
     id: number;
     client: Client;
+    clientName : string;
     observation: string;
     total: number;
     address: Address;
@@ -18,6 +19,7 @@ export class OrderTable {
         if (data) {
             this.id = data.id;
             this.client = new Client(data.client);
+            this.clientName = this.client.name + " " + this.client.lastName;
             this.observation = data.observation;
             this.total = data.total;
             this.paid = data.paid;
