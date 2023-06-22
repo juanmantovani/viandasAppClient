@@ -32,20 +32,20 @@ export class GlobalErrorHandler implements ErrorHandler {
       errorMessageLogg = this.getTextType('server') + errorMessageLogg + ' ' + errorMessageNotify.message + errorMessageNotify.error;
 
       if (errorStatusCode == 404 || errorStatusCode == 500 || errorStatusCode == 501 || errorStatusCode == 400)
-        this.notifier.showDanger(errorMessageNotify.error);
+        this.notifier.showDanger("Ocurrió un error en el servidor, vuelva a intentarlo. Cod:" + errorStatusCode) //this.notifier.showDanger(errorMessageNotify.error);
         else
-          this.notifier.showDanger(errorMessageNotify.message);
+        this.notifier.showDanger("Ocurrió un error  en el servidor, vuelva a intentarlo. Cod:" + errorStatusCode)//this.notifier.showDanger(errorMessageNotify.message);
     } else {
       // Client Error
       errorMessageNotify = errorService.getClientMessage(error);
-      errorMessageLogg = this.getTextType('client') + errorMessageLogg + ' ' + error.message + ' ' +  this.cortarStringPorRenglones(error.stack? error.stack : '') ;
+      errorMessageLogg = this.getTextType('client') + errorMessageLogg + ' ' + error.message + ' ' +  this.cutStringByLines(error.stack? error.stack : '' + errorMessageNotify) ;
 
-      this.notifier.showStandard("Ocurrió algo inesperado: " + errorMessageNotify);
+      //this.notifier.showStandard("Ocurrió algo inesperado: " + errorMessageNotify);
+      this.notifier.showStandard("Ocurrió algo inesperado, reintente nuevamente.");
       console.log(error);
 
     }
     // Always log errors
-
     this.discordErrorLogger.logError(errorMessageLogg);
 
 
@@ -65,7 +65,7 @@ export class GlobalErrorHandler implements ErrorHandler {
 
   }
 
-  cortarStringPorRenglones(texto: string): string {
+  cutStringByLines(texto: string): string {
     const lineas = texto.split('\n');
     const primerasCincoLineas = lineas.slice(0, 5);
     const resultado = primerasCincoLineas.join('\n');

@@ -37,7 +37,6 @@ export class SelectedAddressComponent implements OnInit {
     this.getAddressTakeAway();
     this.orderWithDefaultAddress = new Order(this.order);
     this.addressDefault = this.orderWithDefaultAddress.daysOrder[0].address;
-
   }
 
   getDay(date: Date): string{
@@ -96,4 +95,17 @@ export class SelectedAddressComponent implements OnInit {
     }
   }
 
+  existOrderToday(date: Date) {
+    var exist = false;
+    for(let dayOrder of this.order.daysOrder){
+      if(dayOrder.dayFood.date.getTime() == date.getTime()){
+        if(dayOrder.cant > 0) {
+          exist = true;
+          break;
+        }
+      }
+    }
+    return exist;
+  }
 }
+

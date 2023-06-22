@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { GetClientByIdUserResponse } from 'src/app/shared/dto/client/GetClientByIdUserResponse';
@@ -23,19 +23,19 @@ import { environment } from 'src/environments/environment';
   templateUrl: './list-food.component.html',
   styleUrls: ['./list-food.component.css']
 })
-export class OrderListFoodComponent implements OnInit {
+export class OrderListFoodComponent implements OnInit, OnChanges {
 
   URLAPI = environment.urlApi;
   value = 1;
-
 
   @Input() order: Order;
   @Input() editAddress: boolean;
   @Input() clientSelected: Client;
 
-
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
   @Output() canceledDayOrder: EventEmitter<number> = new EventEmitter();
+  @Output() disableNextButton: EventEmitter<boolean> = new EventEmitter();
+
 
   changinAddress: DayOrder;
 
@@ -45,6 +45,7 @@ export class OrderListFoodComponent implements OnInit {
   showOrdersForAdmin: boolean;
   addressTakeAway: Address;
   address: Address;
+  cantFoods: number = 0;
 
   constructor(
     private readonly keycloak: KeycloakService,
@@ -62,6 +63,29 @@ export class OrderListFoodComponent implements OnInit {
     this.userProfile = await this.keycloak.loadUserProfile();
     if (this.clientSelected) {
       this.showOrdersForAdmin = true;
+    }
+
+  }
+
+  ngOnChanges() {
+    this.cantFoods = 0;
+    setTimeout(() => {
+      this.countCantFoods();
+    })
+  }
+
+  countCantFoods(){
+    this.order.daysOrder?.forEach((dayOrder: DayOrder) => {
+      this.cantFoods += dayOrder.cant;
+    })
+    this.evaluateDisableNextButton();
+  }
+
+  evaluateDisableNextButton(){
+    if(this.cantFoods <= 0) {
+      this.disableNextButton.emit(true);
+    } else {
+      this.disableNextButton.emit(false);
     }
   }
 
@@ -108,12 +132,16 @@ export class OrderListFoodComponent implements OnInit {
 
   removeFood(dayOrder: DayOrder) {
     dayOrder.cant = dayOrder.cant - 1
-    this.order.total = this.order.total - dayOrder.dayFood.category.price;
+    this.cantFoods -=1;
+    this.evaluateDisableNextButton();
+    //this.order.total = this.order.total - dayOrder.dayFood.category.price;
   }
 
   addFood(dayOrder: DayOrder) {
     dayOrder.cant = dayOrder.cant + 1
-    this.order.total = this.order.total + dayOrder.dayFood.category.price;
+    this.cantFoods +=1;
+    this.evaluateDisableNextButton();
+    //this.order.total = this.order.total + dayOrder.dayFood.category.price;
   }
 
   async onCancelDayOrder(dayOrder: DayOrder, idOrder:number) {

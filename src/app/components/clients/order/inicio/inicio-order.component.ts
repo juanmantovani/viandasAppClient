@@ -257,9 +257,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   generateOrder(menu: Menu) {
+    this.order = new Order(null);//creo nuevamente la orden para que se actualice el @input del componente list-food
     this.order.daysOrder = [];
     var total = 0;
-    //var cantMenus = 0;
     this.daysOfMonth = [];
 
     menu.turns.forEach(turn => {
@@ -273,8 +273,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
           status: true
         }
         this.order.daysOrder.push(dayOrder)
-        //total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
-        //cantMenus += cantMenus;
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)) {//para evitar duplicados
           this.daysOfMonth.push(new Date(dayFood.date));
@@ -284,7 +282,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
       this.order.client = this.client;
       this.order.date = new Date();
       this.order.observation = "";
-      //this.order.total = total;
     });
 
   }
@@ -367,6 +364,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.finishButton = false;
     if (this.stepper.selectedIndex == 1)
       this.disableNextButton = false;
+      
+    if (this.stepper.selectedIndex == 2)
+      this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
   onStepComplete(steps: any) {
@@ -438,6 +438,10 @@ export class InicioOrderComponent implements OnInit, OnExit {
     }
 
     return request;
+  }
+
+  disableNextButtonByCant(event: boolean) {
+    this.disableNextButton = event; 
   }
 
 

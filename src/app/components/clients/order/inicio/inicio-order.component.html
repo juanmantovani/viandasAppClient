@@ -37,14 +37,14 @@
     </mat-step>
     <mat-step label="Verifica los platos y las cantidades">
       <h4>Repasá las viandas propuestas para cada día y personalizá la cantidad que queres</h4>
-      <app-list-food *ngIf="order" 
+      <app-list-food *ngIf="order.daysOrder.length > 0" 
         [order]="order"
-        [editAddress]="false">
+        [editAddress]="false"
+        (disableNextButton)="disableNextButtonByCant($event)">
       </app-list-food>
     </mat-step>
     <mat-step label="Dirección de entraga">
       <h4>Elegí la dirección donde querés que entregemos las viandas</h4>
-
       <app-selected-address *ngIf="viewOrderByDay"
         [order]="order"
         [client]="client"
