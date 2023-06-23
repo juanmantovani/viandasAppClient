@@ -36,8 +36,8 @@
                   <mat-icon> place</mat-icon> Se envía a:  {{ dayOrder.address.street }} Nº {{ dayOrder.address.number}}
                   <button *ngIf="changeAddress && order.status.id == 1" mat-raised-button class="button" (click)="onChangeAddress(dayOrder)">Cambiar</button>
                 </p>
-                <button *ngIf="!changeAddress && order.status.id == 1 && dayOrder.status" mat-raised-button class="button" (click)="onCancelDayOrder(dayOrder, order.id)">Cancelar</button>
-
+                <button [disabled]="dayOrder.dayFood.date < today" *ngIf="!changeAddress && order.status.id == 1 && dayOrder.status" mat-raised-button class="button" (click)="onCancelDayOrder(dayOrder, order.id)">Cancelar</button>
+                
                 <div *ngIf="changinAddress?.id == dayOrder.id" class="full-width">
                 <mat-form-field appearance="fill">
                   <mat-label>Cambiar dirección</mat-label>

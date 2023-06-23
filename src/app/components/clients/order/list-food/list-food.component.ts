@@ -27,12 +27,12 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
 
   URLAPI = environment.urlApi;
   value = 1;
+  today : Date = new Date();
 
   @Input() order: Order;
   @Input() editAddress: boolean;
   @Input() clientSelected: Client;
   @Input() daysOfMonth: Date[];
-
 
   @Output() getOrderDetails: EventEmitter<any> = new EventEmitter();
   @Output() canceledDayOrder: EventEmitter<number> = new EventEmitter();
@@ -68,7 +68,26 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
     if (this.clientService.getClientPersonified()){
       this.changeAddress = true
     }
+    if(!this.daysOfMonth) {
+      this.daysOfMonth = [];
+      this.inicialiceDaysOfMonth();
+    }
 
+  }
+
+  inicialiceDaysOfMonth(){
+    this.order.daysOrder.forEach(DayOrder => {
+      if (!this.existDate(this.daysOfMonth, DayOrder.dayFood.date)) {
+        this.daysOfMonth.push(new Date(DayOrder.dayFood.date));
+        this.daysOfMonth.sort((a,b)=>a.getTime()-b.getTime());
+      }
+    })
+  }
+
+  existDate(array: any, fecha: Date) {
+    return array.some((f: any) => {
+      return f.getTime() === fecha.getTime();
+    });
   }
 
   ngOnChanges() {
