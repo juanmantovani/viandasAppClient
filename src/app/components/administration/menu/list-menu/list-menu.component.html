@@ -37,11 +37,11 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Acciones </th>
       <td mat-cell *matCellDef="let element" class="actions-button-container">
-        <button mat-stroked-button *ngIf="element.dateEnd > today" matTooltip="Eliminar menú" class="button" (click)="onClickDelete(element)">          
-          <mat-icon>delete</mat-icon>
-        </button>
         <button mat-stroked-button matTooltip="Ver menú" class="button" (click)="onClickViewMenu(element)">
           <mat-icon>remove_red_eye</mat-icon>
+        </button>
+        <button mat-stroked-button [disabled]="element.dateEnd < today" matTooltip="Eliminar menú" class="button" (click)="onClickDelete(element)">          
+          <mat-icon>delete</mat-icon>
         </button>
       </td>
     </ng-container>

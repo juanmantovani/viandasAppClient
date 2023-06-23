@@ -95,7 +95,7 @@
                             <mat-icon>remove_red_eye</mat-icon>
                         </button>
                         <button mat-stroked-button class="button" (click)="onClickPaid(element)"
-                        matTooltip="Marcar como pagado" *ngIf="!element.paid">
+                        matTooltip="Marcar como pagado" [disabled]="element.paid">
                             <mat-icon>attach_money</mat-icon>
                         </button>
 

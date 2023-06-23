@@ -40,7 +40,7 @@ export class AvatarComponent implements OnInit {
 }
 
 private createInititals(): void {
-    this.initials = this.name.charAt(0) + this.lastName.charAt(0);
+    this.initials = this.name.charAt(0).toUpperCase() + this.lastName.charAt(0).toUpperCase();
 }
 
 }

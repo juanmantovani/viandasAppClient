@@ -30,7 +30,7 @@ export class MenuService {
   OPTION = {headers: {'Content-Type': 'application/json'}};
 
 
-  getMenuViewer(request: GetMenuViewerByRangeOfDateRequest): Observable<GetMenuResponse> {
+  getMenuViewer(request: GetMenuByCategoriesRequest): Observable<GetMenuResponse> {
     return this.http.post<GetMenuResponse>(ROUTES.API_ROUTES.MENU.GETMENUVIEWER, JSON.stringify(request), this.OPTION ).pipe(
     map((res: any) => {
      return new GetMenuResponse(res);

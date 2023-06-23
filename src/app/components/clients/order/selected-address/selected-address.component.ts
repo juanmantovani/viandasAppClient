@@ -15,7 +15,7 @@ export class SelectedAddressComponent implements OnInit {
 
   @Input() order : Order;
   @Input() selectedAdress : Address;
-  @Input() daysOfMonth : Date[];
+  @Input() daysOrder : Date[];
   @Input() client : Client;
 
   @Output() selectedAddressEmit: EventEmitter<Address> = new EventEmitter();
@@ -37,7 +37,6 @@ export class SelectedAddressComponent implements OnInit {
     this.getAddressTakeAway();
     this.orderWithDefaultAddress = new Order(this.order);
     this.addressDefault = this.orderWithDefaultAddress.daysOrder[0].address;
-
   }
 
   getDay(date: Date): string{
@@ -97,3 +96,4 @@ export class SelectedAddressComponent implements OnInit {
   }
 
 }
+

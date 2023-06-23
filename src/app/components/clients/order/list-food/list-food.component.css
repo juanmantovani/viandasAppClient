@@ -1,5 +1,6 @@
 .food-card {
   max-width: 450px;
+  min-width: 300px;
   margin-bottom: 10px;
   width: 100%;
 }
@@ -8,6 +9,13 @@ mat-card-title h4 {
   font-size: medium;
   padding-right: 5px;
   line-height: initial;
+}
+
+.day{
+  color: rgba(0,0,0,.87);
+  font-weight: 500;
+  margin-top: 15px;
+  text-align: center;
 }
 
 .descriptionSubtitle {
@@ -58,14 +66,14 @@ mat-card-title, mat-card-subtitle {
   width: 65%;
 }
 
-.formFood {
+/* .formFood {
   min-width: 150px;
   max-width: 500px;
   width: 70%;
   height: 60px;
   margin-right: 8px;
 
-}
+} */
 
 mat-icon  {
   vertical-align: middle;
@@ -73,9 +81,8 @@ mat-icon  {
 
 @media (min-width: 940px) {
   .food-card {
-    max-width: 550px;
     margin: 15px;
-    width: 100%;
+    width: 500px;
   }
 
 }

@@ -36,6 +36,7 @@ import { CategoryTable } from 'src/app/shared/models/CategoryTable';
 import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderResponse';
 import { OnExit } from 'src/app/auth/exit.guard';
 import { UrlService } from 'src/app/shared/services/url.service';
+import { DateRange } from '@angular/material/datepicker';
 
 
 @Component({
@@ -69,6 +70,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   cant: number = 1;
 
   daysOfMonth: Date[];
+  daysOrder: Date[];
   menu: Menu;
 
   ORDERS: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.ORDERS;
@@ -82,6 +84,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
   orderInProgress: boolean = true;
   orderSuccess: boolean;
 
+  selectedDateRange: DateRange<Date>;
+
+
   constructor(
     breakpointObserver: BreakpointObserver,
     private categoryService: CategoryService,
@@ -93,7 +98,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
     private dialogService: DialogService,
     private urlService : UrlService
   ) {
-    this.range = this.generateFormWeeks();
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
@@ -115,16 +119,21 @@ export class InicioOrderComponent implements OnInit, OnExit {
     }
   }
 
+  _onSelectedChange(date: Date): void {
+    if (this.selectedDateRange && this.selectedDateRange.start && date >= this.selectedDateRange.start && !this.selectedDateRange.end) {
+      this.selectedDateRange = new DateRange(this.selectedDateRange.start, date);
+
+    } else {
+      this.selectedDateRange = new DateRange(date, null);
+      this.disableNextButton = false;
+
+    }
+    this.firstStepCompleted = true;
+  }
+
   onExit() {
     const exit = this.orderSuccess ? true : this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
     return exit;
-  }
-
-  generateFormWeeks(): FormGroup {
-    return new FormGroup({
-      start: new FormControl(null, [this.requiredValidator, this.dateValidator]),
-      end: new FormControl(null, [this.requiredValidator, this.dateValidator]),
-    });
   }
 
   async ngOnInit() {
@@ -158,22 +167,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
     });
   }
 
-  dateValidator(formControl: any) {
-    const value = formControl.value;
-    if (value && (new Date() >= new Date(value)))
-      return {
-        mensaje: "Debe ingresar una fecha válida"
-      }
-    return null;
-  }
-
-  requiredValidator(formControl: any) {
-    const value = formControl.value;
-    if (Validators.required(formControl))
-      return { mensaje: "Este campo es requerido" };
-    return null;
-  }
-
   async getCategories() {
     await this.categoryService.getCategories().subscribe((res: GetCategoryResponse) => {
       this.categories = res.categories;
@@ -184,12 +177,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
         })
       })
     })
-  }
-
-  onDateChange(event: any) {
-    this.disableNextButton = event.target.valid;//ver xq no anda
-    this.firstStepCompleted = true;
-
   }
 
   async getClientByIdUser() {
@@ -232,8 +219,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.existDayFood = false;
     var request: GetMenuByCategoriesRequest = {
       idCategory: this.categories,
-      dateStart: this.range.getRawValue().start,
-      dateEnd: this.range.getRawValue().end
+      dateStart: this.selectedDateRange.start ? this.selectedDateRange.start : new Date(),
+      dateEnd: this.selectedDateRange.end ? this.selectedDateRange.end: this.selectedDateRange.start
     }
     await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
       if (res) {
@@ -260,8 +247,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
   async onGetMenu() {
     var request = {
       idCategory: this.selectedCategories,
-      dateStart: this.range.getRawValue().start,
-      dateEnd: this.range.getRawValue().end
+      dateStart: this.selectedDateRange.start,
+      dateEnd: this.selectedDateRange.end
     };
     var getMenuByCategoriesRequest = new GetMenuByCategoriesRequest(request)
     await this.menuService.getMenuByCategories(getMenuByCategoriesRequest).subscribe((res: getMenuByCategoriesResponse) => {
@@ -271,9 +258,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   generateOrder(menu: Menu) {
+    this.order = new Order(null);//creo nuevamente la orden para que se actualice el @input del componente list-food
     this.order.daysOrder = [];
     var total = 0;
-    //var cantMenus = 0;
     this.daysOfMonth = [];
 
     menu.turns.forEach(turn => {
@@ -287,18 +274,16 @@ export class InicioOrderComponent implements OnInit, OnExit {
           status: true
         }
         this.order.daysOrder.push(dayOrder)
-        //total = (dayOrder.dayFood.category.price * dayOrder.cant) + total;
-        //cantMenus += cantMenus;
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)) {//para evitar duplicados
           this.daysOfMonth.push(new Date(dayFood.date));
+          this.daysOfMonth.sort((a,b)=>a.getTime()-b.getTime());
         }
 
       })
       this.order.client = this.client;
       this.order.date = new Date();
       this.order.observation = "";
-      //this.order.total = total;
     });
 
   }
@@ -355,8 +340,28 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   onViewOrderByDay() {
+    this.daysOrder = [];
+    this.daysOfMonth.forEach(day => {
+      if(this.existOrderToday(day)){
+        this.daysOrder.push(day)
+      }
+    })
     this.viewOrderByDay = true;
   }
+
+  existOrderToday(date: Date) {
+    var exist = false;
+    for(let dayOrder of this.order.daysOrder){
+      if(dayOrder.dayFood.date.getTime() == date.getTime()){
+        if(dayOrder.cant > 0) {
+          exist = true;
+          break;
+        }
+      }
+    }
+    return exist;
+  }
+
   onGetTotal() {
     this.finishButton = true;
     this.disableNextButton = true;
@@ -381,6 +386,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.finishButton = false;
     if (this.stepper.selectedIndex == 1)
       this.disableNextButton = false;
+      
+    if (this.stepper.selectedIndex == 2)
+      this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
 
   onStepComplete(steps: any) {
@@ -452,6 +460,10 @@ export class InicioOrderComponent implements OnInit, OnExit {
     }
 
     return request;
+  }
+
+  disableNextButtonByCant(event: boolean) {
+    this.disableNextButton = event; 
   }
 
 
