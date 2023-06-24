@@ -109,6 +109,9 @@ export const API_ROUTES = {
         GETDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getDiscount`,
         GETADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getAddressTakeAway`,
         EDITADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editAddressTakeAway`
+    },
+    DELIVERY: {
+        GETDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getDeliveryByDeliveryDriver`
     }
 
 }

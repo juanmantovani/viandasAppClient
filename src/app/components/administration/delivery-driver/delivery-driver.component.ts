@@ -15,6 +15,9 @@ import { AddDeliveryDriverResponse } from 'src/app/shared/dto/deliveryDriver/Add
 import { EditDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/EditDeliveryDriverRequest';
 import { EditDeliveryDriverResponse } from 'src/app/shared/dto/deliveryDriver/EditDeliveryDriverResponse';
 import { DeleteDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/DeleteDeliveryDriverRequest';
+import { GetDeliveryRequest } from 'src/app/shared/dto/delivery/GetDeliveryRequest';
+import { DeliveryService } from 'src/app/shared/services/delivery.service';
+import { GetDeliveryResponse } from 'src/app/shared/dto/delivery/GetDeliveryResponse';
 
 @Component({
   selector: 'app-delivery-driver',
@@ -34,7 +37,8 @@ export class DeliveryDriverComponent implements OnInit {
   constructor(
     private deliveryDriverService: DeliveryDriverService,
     public dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private deliveryService : DeliveryService
   ) {
   }
 
@@ -146,6 +150,20 @@ export class DeliveryDriverComponent implements OnInit {
       return res;
     })
   }
+
+
+  async onClickReport(deliveryDriver: DeliveryDriver){
+    const request : GetDeliveryRequest = {
+      dateStart :  new Date('2023-06-24'),
+      dateEnd : new Date('2023-06-30')
+    }
+
+    console.log(request)
+
+    await this.deliveryService.getDelivery(request).subscribe((res: GetDeliveryResponse) => {
+      console.log(res);
+    })
+    }
 
 
 }

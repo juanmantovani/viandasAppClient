@@ -1,4 +1,5 @@
 import { Address } from "./Address";
+import { Delivery } from "./Delivery";
 import { Vehicle } from "./Vehicle";
 
 export class DeliveryDriver {
@@ -8,8 +9,9 @@ export class DeliveryDriver {
     lastName: string;
     phone: string;
     address: Address;
-    vehicle : Vehicle;
-    bornDate : Date
+    vehicle: Vehicle;
+    bornDate: Date;
+    delivery: Delivery[];
 
     constructor(data: any) {
         if (data) {
@@ -20,7 +22,9 @@ export class DeliveryDriver {
             this.phone = data.phone;
             this.address = new Address(data.address);
             this.vehicle = new Vehicle(data.vehicle);
-            this.bornDate = new Date(data.bornDate)
+            this.bornDate = new Date(data.bornDate);
+            if (data.delivery)
+                this.delivery = data.delivery.map((d: any) => new Delivery(d));
         }
     }
 }
