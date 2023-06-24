@@ -55,6 +55,14 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/environments/keycloak.config.ts",
+                  "with": "src/environments/keycloak.prod.ts"
+                },
+                {
+                  "replace": "src/environments/discordServer.ts",
+                  "with": "src/environments/discordServer.prod.ts"
                 }
               ],
               "outputHashing": "all"
