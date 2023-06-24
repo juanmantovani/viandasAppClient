@@ -1,0 +1,29 @@
+<div>
+    <mat-form-field appearance="fill">
+        <mat-label>Repartidor</mat-label>
+        <mat-select name="deliveryDriver" [(ngModel)]="idDeliveryDriverSelected">
+            <mat-option [value]="0"><b>Todos</b></mat-option>
+            <mat-option *ngFor="let deliveryDriver of listDeliveryDriver" [value]="deliveryDriver.id">
+                {{deliveryDriver.name}} {{deliveryDriver.lastName}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" (click)="picker.open()">
+        <mat-label>Ingrese el rango de fechas</mat-label>
+        <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+            <input matStartDate formControlName="start" placeholder="Desde">
+            <input matEndDate formControlName="end" placeholder="Hasta">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <button mat-raised-button 
+        [disabled]="!range.controls['start'].value || !range.controls['end'].value"
+        matTooltip="Generar"
+        class="button"
+        (click)="generateReport()">
+        Generar
+    </button>
+</div>

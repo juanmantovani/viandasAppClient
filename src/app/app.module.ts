@@ -120,6 +120,7 @@ import { MapComponent } from './components/clients/map/map.component';
 import { TakeAwayAddressComponent } from './components/administration/setting/take-away-address/take-away-address.component';
 import { DiscordErrorLogger } from './shared/discord-error-logger';
 import { WelcomeComponent } from './components/clients/welcome/welcome.component';
+import { DeliveryReportComponent } from './components/administration/delivery-report/delivery-report.component';
 
 
 @NgModule({
@@ -190,6 +191,7 @@ import { WelcomeComponent } from './components/clients/welcome/welcome.component
     ConfirmationComponent,
     TakeAwayAddressComponent,
     WelcomeComponent,
+    DeliveryReportComponent,
 
 
   ],

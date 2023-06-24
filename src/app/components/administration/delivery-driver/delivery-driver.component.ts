@@ -15,9 +15,6 @@ import { AddDeliveryDriverResponse } from 'src/app/shared/dto/deliveryDriver/Add
 import { EditDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/EditDeliveryDriverRequest';
 import { EditDeliveryDriverResponse } from 'src/app/shared/dto/deliveryDriver/EditDeliveryDriverResponse';
 import { DeleteDeliveryDriverRequest } from 'src/app/shared/dto/deliveryDriver/DeleteDeliveryDriverRequest';
-import { GetDeliveryRequest } from 'src/app/shared/dto/delivery/GetDeliveryRequest';
-import { DeliveryService } from 'src/app/shared/services/delivery.service';
-import { GetDeliveryResponse } from 'src/app/shared/dto/delivery/GetDeliveryResponse';
 
 @Component({
   selector: 'app-delivery-driver',
@@ -30,6 +27,8 @@ export class DeliveryDriverComponent implements OnInit {
   actionForm: string;
   listDeliveryDriver: DeliveryDriver[];
   dataSource: any;
+  viewList: boolean;
+  viewReport: boolean;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -38,13 +37,13 @@ export class DeliveryDriverComponent implements OnInit {
     private deliveryDriverService: DeliveryDriverService,
     public dialog: MatDialog,
     private dialogService: DialogService,
-    private deliveryService : DeliveryService
   ) {
   }
 
   ngOnInit() {
     this.getDeliveryDriver();
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+    this.viewList = true;
   }
 
   async getDeliveryDriver() {
@@ -151,19 +150,16 @@ export class DeliveryDriverComponent implements OnInit {
     })
   }
 
+  onClickList(){
+    this.viewReport = false;
+    this.viewList = true;
+  }
 
-  async onClickReport(deliveryDriver: DeliveryDriver){
-    const request : GetDeliveryRequest = {
-      dateStart :  new Date('2023-06-24'),
-      dateEnd : new Date('2023-06-30')
-    }
+  onClickReport() {
+    this.viewList = false;
+    this.viewReport = true;
+  }
 
-    console.log(request)
-
-    await this.deliveryService.getDelivery(request).subscribe((res: GetDeliveryResponse) => {
-      console.log(res);
-    })
-    }
-
+  
 
 }
