@@ -30,7 +30,7 @@ export class InicioClientComponent implements OnInit {
     private readonly keycloak: KeycloakService,
     private clientService: ClientService,
     private router: Router,
-    private urlService : UrlService
+    private urlService: UrlService
   ) {
 
   }
@@ -45,22 +45,22 @@ export class InicioClientComponent implements OnInit {
     if (this.userRoles.indexOf('admin') != -1) {
       if (!this.clientService.getClientPersonified())
         this.urlService.goToAdminPanel();
-      else
-        this.getClientByIdUser()
     }
+    else
+      this.getClientByIdUser()
   }
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       if (res.client == undefined) {
         //if (true) {
-          const dataForm: DataFormClient = {
-            actionForm: "Register",
-            client: new Client(null),
-            userProfile: this.userProfile!,
-            isAdmin: false
-          };
-          this.gestionateForm(dataForm);
+        const dataForm: DataFormClient = {
+          actionForm: "Register",
+          client: new Client(null),
+          userProfile: this.userProfile!,
+          isAdmin: false
+        };
+        this.gestionateForm(dataForm);
         //}
       }
     })

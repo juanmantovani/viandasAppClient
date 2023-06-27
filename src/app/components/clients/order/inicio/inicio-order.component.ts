@@ -96,7 +96,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
     private clientService: ClientService,
     private readonly keycloak: KeycloakService,
     private dialogService: DialogService,
-    private urlService : UrlService
+    private urlService: UrlService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -153,7 +153,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
         this.selectedAdress = new Address(this.client.addresses?.find(address => address.favourite));
       }
       else
-      this.urlService.goToAdminPanel();
+        this.urlService.goToAdminPanel();
     }
     else
       this.getClientByIdUser()
@@ -220,18 +220,16 @@ export class InicioOrderComponent implements OnInit, OnExit {
     var request: GetMenuByCategoriesRequest = {
       idCategory: this.categories,
       dateStart: this.selectedDateRange.start ? this.selectedDateRange.start : new Date(),
-      dateEnd: this.selectedDateRange.end ? this.selectedDateRange.end: this.selectedDateRange.start
+      dateEnd: this.selectedDateRange.end ? this.selectedDateRange.end : this.selectedDateRange.start
     }
     await this.menuService.getMenuViewer(request).subscribe((res: GetMenuResponse) => {
-      if (res) {
+      if (res.menuViewer) {
         this.menuViewer = Utils.orderMenuViewerByTurn(new MenuViewer(res.menuViewer));
-      }
-      if (this.menuViewer.turnsViewer?.length > 0) {
         this.existDayFood = true;
-      } else {
+      }
+      else {
         this.existDayFood = false;
       }
-
     })
   }
 
@@ -248,7 +246,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
     var request = {
       idCategory: this.selectedCategories,
       dateStart: this.selectedDateRange.start,
-      dateEnd: this.selectedDateRange.end
+      dateEnd: this.selectedDateRange.end ? this.selectedDateRange.end : this.selectedDateRange.start
     };
     var getMenuByCategoriesRequest = new GetMenuByCategoriesRequest(request)
     await this.menuService.getMenuByCategories(getMenuByCategoriesRequest).subscribe((res: getMenuByCategoriesResponse) => {
@@ -277,7 +275,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
         if (!this.existeFecha(this.daysOfMonth, dayOrder.dayFood.date)) {//para evitar duplicados
           this.daysOfMonth.push(new Date(dayFood.date));
-          this.daysOfMonth.sort((a,b)=>a.getTime()-b.getTime());
+          this.daysOfMonth.sort((a, b) => a.getTime() - b.getTime());
         }
 
       })
@@ -342,7 +340,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   onViewOrderByDay() {
     this.daysOrder = [];
     this.daysOfMonth.forEach(day => {
-      if(this.existOrderToday(day)){
+      if (this.existOrderToday(day)) {
         this.daysOrder.push(day)
       }
     })
@@ -351,9 +349,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
   existOrderToday(date: Date) {
     var exist = false;
-    for(let dayOrder of this.order.daysOrder){
-      if(dayOrder.dayFood.date.getTime() == date.getTime()){
-        if(dayOrder.cant > 0) {
+    for (let dayOrder of this.order.daysOrder) {
+      if (dayOrder.dayFood.date.getTime() == date.getTime()) {
+        if (dayOrder.cant > 0) {
           exist = true;
           break;
         }
@@ -386,7 +384,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
     this.finishButton = false;
     if (this.stepper.selectedIndex == 1)
       this.disableNextButton = false;
-      
+
     if (this.stepper.selectedIndex == 2)
       this.disableNextButton = this.selectedCategories.length < 1 ? true : false;
   }
@@ -463,9 +461,6 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   disableNextButtonByCant(event: boolean) {
-    this.disableNextButton = event; 
+    this.disableNextButton = event;
   }
-
-
-
 }
