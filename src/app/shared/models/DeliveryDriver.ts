@@ -11,7 +11,7 @@ export class DeliveryDriver {
     address: Address;
     vehicle: Vehicle;
     bornDate: Date;
-    delivery: Delivery[];
+    deliveries: Delivery[];
 
     constructor(data: any) {
         if (data) {
@@ -23,8 +23,7 @@ export class DeliveryDriver {
             this.address = new Address(data.address);
             this.vehicle = new Vehicle(data.vehicle);
             this.bornDate = new Date(data.bornDate);
-            if (data.delivery)
-                this.delivery = data.delivery.map((d: any) => new Delivery(d));
+            this.deliveries = data.deliveries?.map((d: any) => new Delivery(d.delivery));
         }
     }
 }

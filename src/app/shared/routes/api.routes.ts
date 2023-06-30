@@ -111,7 +111,9 @@ export const API_ROUTES = {
         EDITADDRESSTAKEAWAY: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editAddressTakeAway`
     },
     DELIVERY: {
-        GETDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getDeliveryByDeliveryDriver`
+        GETDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getDeliveryByDeliveryDriver`,
+        GETREPORTBYDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getReportDeliveriesByDriver`
+
     }
 
 }

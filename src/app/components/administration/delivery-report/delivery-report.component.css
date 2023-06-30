@@ -2,3 +2,36 @@
     width:300px;
     margin: 10px;
 }
+
+.table-width-delivery-report {
+    width: 100%;
+  }
+
+  .table-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    margin-top: 10px;
+
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  td.mat-column-star {
+    width: 50px;
+    padding-right: 8px;
+  }
+
+  .mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+  }
+
+  tr.mat-header-row{
+    height: 40px;
+  }
+  
+  th h4{
+    margin-bottom: 0px;
+  }

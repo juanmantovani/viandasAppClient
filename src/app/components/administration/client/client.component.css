@@ -14,7 +14,7 @@ table{
 
 .actions-button-container button {
   margin-right: 10px;
-  width: 20%;
+  max-width: 15%;
 }
 
 .mat-row:hover {

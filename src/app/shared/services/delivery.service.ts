@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import * as ROUTES from '../routes/index.routes'
 import { map, Observable, tap } from 'rxjs';
 import { GetDeliveryResponse } from '../dto/delivery/GetDeliveryResponse';
+import { GetReportByDeliveryResponse } from '../dto/delivery/GetReportByDeliveryResponse';
 
 
 
@@ -17,10 +18,21 @@ export class DeliveryService {
 
 
   getDelivery(request: GetDeliveryRequest) : Observable<GetDeliveryResponse> {
-    return this.http.post<any>(ROUTES.API_ROUTES.DELIVERY.GETDELIVERY,JSON.stringify(request), this.OPTION).pipe(
-      map((res: GetDeliveryResponse) => {
-        console.log(res)
-        return new GetDeliveryResponse(res);
+    return this.http.post<any>(ROUTES.API_ROUTES.DELIVERY.GETDELIVERY, JSON.stringify(request), this.OPTION).pipe(
+      map(res => {
+        return new GetDeliveryResponse(res.deliveryResponse);
+      })
+    )
+  }
+
+  getReportByDelivery(request: GetDeliveryRequest) : Observable<GetReportByDeliveryResponse> {
+    return this.http.post<any>(ROUTES.API_ROUTES.DELIVERY.GETREPORTBYDELIVERY, JSON.stringify(request), this.OPTION).pipe(
+      map(res => {
+        var response = new GetReportByDeliveryResponse(res);
+        if (!response.path){
+          response.message = "No fue posible descargar el reporte"
+        }
+        return new GetReportByDeliveryResponse(res);
       })
     )
   }

@@ -7,6 +7,6 @@ export class GetDeliveryResponse extends BaseResponse {
     constructor(data: any) {
         super(data);
         if (data)
-            this.deliveryDriver = data.map((d: any) => new DeliveryDriver(d));
+            this.deliveryDriver = data.map((d: any) => new DeliveryDriver(d.deliveryDriver));
     }
 }
