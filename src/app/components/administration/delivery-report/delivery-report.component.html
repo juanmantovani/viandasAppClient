@@ -41,7 +41,6 @@
             <col style="width:'15%'" /><!--Client Col-->
             <col style="width:'15%'" /><!--Address Col-->
             <col *ngFor="let day of days" [style]="{'width':(63/days.length)+'%'}"/><!--days Col-->
-
         </colgroup>
 
           <ng-container matColumnDef="header-row-first-group">
@@ -60,13 +59,13 @@
             <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Nº Orden </th>
             <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.idOrder}}</td>
             <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
+          </ng-container>
 
           <ng-container matColumnDef="client" sticky>
-              <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cliente </th>
-              <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}}
-                {{element.client.lastName}} </td>
-              <td mat-footer-cell *matFooterCellDef></td>
+            <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cliente </th>
+            <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}}
+              {{element.client.lastName}} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
           </ng-container>
 
           <ng-container matColumnDef="address" sticky>
@@ -98,3 +97,4 @@
     </section>
   </div>
 </div>
+<br/>

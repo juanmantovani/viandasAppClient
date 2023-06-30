@@ -87,3 +87,12 @@ table{
   background-color: #ffc1078a;
   color: rgb(55, 55, 55);
 }
+
+@media (min-width: 940px) {
+  .orders-card {
+    max-width: 100%;
+    width: 100%;
+  }
+
+
+}

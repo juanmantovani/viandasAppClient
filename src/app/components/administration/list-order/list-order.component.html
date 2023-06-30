@@ -137,7 +137,7 @@
                 </app-list-food>
             </mat-card-content>
             <mat-card-actions align="end">
-                <button mat-raised-button class="button" *ngIf="orderDetails.status.id == 1"
+                <button mat-raised-button class="button" [disabled]="orderDetails.status.id != 1"
                     (click)="onClickCancel(orderDetails.id)" class="button" matTooltip="Cancelar orden">Cancelar Orden</button>
 
             </mat-card-actions>
