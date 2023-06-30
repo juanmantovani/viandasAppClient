@@ -83,7 +83,7 @@
             </th>
             <td mat-cell *matCellDef="let element" style="text-align: center;">
                 <span *ngFor="let delivery of deliveriesDriver[getIndexOf(deliveryReportTable.idDeliveryDriver)].deliveries">
-                    <span *ngIf="(delivery.client.id == element.client.id) && (delivery.address.id == element.address.id) && (delivery.date.getTime() == day.date.getTime())">${{ delivery.price }} </span>
+                    <span *ngIf="(delivery.client.id == element.client.id) && (delivery.address.id == element.address.id) && (delivery.date.getTime() == day.date.getTime()) && (delivery.idOrder == element.idOrder)">${{ delivery.price }} </span>
                 </span>
             </td>
             <td mat-footer-cell *matFooterCellDef style="text-align: center;">

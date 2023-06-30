@@ -110,8 +110,9 @@ export class DeliveryReportComponent implements OnInit {
         // Verifica si el cliente y la address ya existe en el array clientAddressReportTable
         const existingClient = deliveryReportTable.clientAddressReportTable.find((item) => item.client.id === client.id);
         const existingAddress = deliveryReportTable.clientAddressReportTable.find((item) => item.address.id === address.id);
+        const existingOrder = deliveryReportTable.clientAddressReportTable.find((item) => item.idOrder === idOrder);
         // Agrega el cliente y dirección al array solo si no existen previamente
-        if (!existingClient || !existingAddress) {
+        if (!existingClient || !existingAddress || !existingOrder) {
           deliveryReportTable.clientAddressReportTable.push({ idOrder, client, address });
         }
       });
