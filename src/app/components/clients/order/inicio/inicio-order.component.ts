@@ -80,8 +80,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   public userProfile: KeycloakProfile | null;
   userRoles: string[] = [];
 
-
-  orderInProgress: boolean = true;
+  orderInProgress: boolean;
   orderSuccess: boolean;
 
   selectedDateRange: DateRange<Date>;
@@ -132,8 +131,11 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   onExit() {
-    const exit = this.orderSuccess ? true : this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
-    return exit;
+    if (this.orderInProgress){
+      const exit = this.orderSuccess ? true : this.generateConfirm("Si continúa se perdera el avance del pedido. ¿Desea salir?");
+      return exit;
+    }
+    return true
   }
 
   async ngOnInit() {
@@ -182,7 +184,17 @@ export class InicioOrderComponent implements OnInit, OnExit {
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
-      this.selectedAdress = new Address(this.client.addresses.find(address => address.favourite));
+      if (this.client.addresses.length > 0){ 
+          this.selectedAdress = new Address(this.client.addresses.find(address => address.favourite));
+          setTimeout(() => {//Para asegurar que terminó el .find
+            if(this.selectedAdress) {
+              this.selectedAdress = this.client.addresses[0];
+            }
+          });
+          this.orderInProgress = true;
+        } else {
+          this.orderInProgress = false;
+        }
     })
   }
 

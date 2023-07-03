@@ -15,6 +15,12 @@
                     (getClient)="getClientByIdUser()">
                 </app-address>
             </div>
+            <div *ngIf="!existAddresses">
+                <mat-error align="center">
+                  <h3>No se encontraron direcciones</h3>
+                  <h2>Para realizar un pedido tenes que tener al menos una dirección agregada</h2>
+                </mat-error>
+              </div>
 
     </mat-card>
 </div>

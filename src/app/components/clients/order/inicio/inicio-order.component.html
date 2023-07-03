@@ -1,4 +1,11 @@
 <h1 class="title-component">Realizar un pedido</h1>
+<br>
+<div *ngIf="!orderInProgress">
+  <mat-error align="center">
+    <h3>No se encontraron direcciones</h3>
+    <h2>Para realizar un pedido tenes que tener al menos una dirección agregada</h2>
+  </mat-error>
+</div>
 
  <div *ngIf="orderInProgress">
   <mat-stepper  linear #stepper
@@ -88,5 +95,5 @@
         <a href="{{'https://api.whatsapp.com/send?phone=5493434549868&text='+textWhatsAppSend}}"><button mat-raised-button class="button" >Enviar mensaje de WhatsApp</button></a>
       </mat-card-actions>
     </mat-card> 
-  <div>
+  </div>
 </div>

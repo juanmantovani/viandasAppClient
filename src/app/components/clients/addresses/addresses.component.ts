@@ -15,6 +15,7 @@ export class AddressesComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
   userRoles: string[] = [];
+  existAddresses: boolean;
 
   client: Client;
 
@@ -47,6 +48,11 @@ export class AddressesComponent implements OnInit {
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       this.client = res.client
+      if (this.client.addresses.length > 0){ 
+        this.existAddresses = true;
+      } else {
+        this.existAddresses = false;
+      }
     });
   }
 }

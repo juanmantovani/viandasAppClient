@@ -25,11 +25,17 @@ export class Client {
       this.phoneSecondary = data.phoneSecondary;
       this.email = data.email;
       this.bornDate = new Date(data.bornDate);
-      if (data.addresses)
+      if (data.addresses){
         this.addresses = data.addresses.map((a: any) => new Address(a))
+      } else { 
+        this. addresses = []
+      }
       this.observation = data.observation;
-      if (data.pathologies)
+      if (data.pathologies){
         this.pathologies = data.pathologies.map((p: any) => new Pathology(p));
+      } else {
+        this.pathologies = [];
+      }
       this.note = new Note(data.note);
       this.idUserKL = data.idUserKL
     }
