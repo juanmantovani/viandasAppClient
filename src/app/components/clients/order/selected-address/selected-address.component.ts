@@ -46,7 +46,6 @@ export class SelectedAddressComponent implements OnInit {
   getAddressTakeAway(){
     this.addressService.getAddressTakeAway().subscribe((res: GetAddressTakeAwayResponse) => {
       this.addressTakeAway = res.address;
-      this.order.client.addresses.push(res.address)
     })
   }
 

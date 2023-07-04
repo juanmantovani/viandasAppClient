@@ -200,8 +200,10 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
+      if(res.client){
       this.client = new Client(res.client);
       this.setFavouriteAddress();
+    }
     })
   }
 
