@@ -176,8 +176,8 @@ export class AddressComponent implements OnInit {
 
   private findFavouriteAddres(addresses: Address[]) {
     var address = addresses.find(a => a.favourite == true)
-
-    return address?.id!
+    
+    return address ? address.id! : null
   }
 
   onSelectAddress(address: Address) {

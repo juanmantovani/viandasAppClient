@@ -80,6 +80,7 @@ export class InicioOrderComponent implements OnInit, OnExit {
   public userProfile: KeycloakProfile | null;
   userRoles: string[] = [];
 
+  existAddresses: boolean = true;
   orderInProgress: boolean;
   orderSuccess: boolean;
 
@@ -152,13 +153,14 @@ export class InicioOrderComponent implements OnInit, OnExit {
     if (this.userRoles.indexOf('admin') != -1) {
       if (this.clientService.getClientPersonified()) {
         this.client = new Client(this.clientService.getClientPersonified())
-        this.selectedAdress = new Address(this.client.addresses?.find(address => address.favourite));
+        this.setFavouriteAddress();
       }
       else
         this.urlService.goToAdminPanel();
     }
     else
       this.getClientByIdUser()
+      
   }
 
   //Para que al hacer para tras no lleve a la URL anterior
@@ -181,20 +183,25 @@ export class InicioOrderComponent implements OnInit, OnExit {
     })
   }
 
+  setFavouriteAddress() {
+    if (this.client.addresses.length > 0){ 
+      this.selectedAdress = new Address(this.client.addresses.find(address => address.favourite));
+      setTimeout(() => {//Para asegurar que terminó el .find
+        if(this.selectedAdress) {
+          this.selectedAdress = this.client.addresses[0];
+        }
+      });
+      this.orderInProgress = true;
+    } else {
+      this.orderInProgress = false;
+      this.existAddresses = false;
+    }
+  }
+
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
       this.client = new Client(res.client);
-      if (this.client.addresses.length > 0){ 
-          this.selectedAdress = new Address(this.client.addresses.find(address => address.favourite));
-          setTimeout(() => {//Para asegurar que terminó el .find
-            if(this.selectedAdress) {
-              this.selectedAdress = this.client.addresses[0];
-            }
-          });
-          this.orderInProgress = true;
-        } else {
-          this.orderInProgress = false;
-        }
+      this.setFavouriteAddress();
     })
   }
 

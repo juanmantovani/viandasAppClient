@@ -1,6 +1,6 @@
 <h1 class="title-component">Realizar un pedido</h1>
 <br>
-<div *ngIf="!orderInProgress">
+<div *ngIf="!existAddresses && !orderInProgress">
   <mat-error align="center">
     <h3>No se encontraron direcciones</h3>
     <h2>Para realizar un pedido tenes que tener al menos una dirección agregada</h2>
