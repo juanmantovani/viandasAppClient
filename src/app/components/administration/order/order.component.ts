@@ -28,11 +28,11 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 })
 export class OrderComponent implements OnInit {
 
-  displayedColumns: string[] = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
+  displayedColumns: string[] = ['idOrder', 'client', 'pathologies', 'observation', 'notes', 'address'];
   listTandaTable: TandaTable[];
   listCategoryTable: CategoryTable[];
   date: Date;
-  actionFormNote:string;
+  actionFormNote: string;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -48,14 +48,14 @@ export class OrderComponent implements OnInit {
     this.getOrders(this.date);
   }
 
-  onClickOk(){
+  onClickOk() {
     this.listTandaTable = [];
     this.listCategoryTable = [];
-    this.getOrders(this.date) 
+    this.getOrders(this.date)
   }
 
-  async getOrders(date : Date) {
-    this.displayedColumns = ['idOrder', 'client', 'pathologies', 'observation','notes','address'];
+  async getOrders(date: Date) {
+    this.displayedColumns = ['idOrder', 'client', 'pathologies', 'observation', 'notes', 'address'];
     const request: GetOrdersRequest = {
       date: date
     }
@@ -68,9 +68,27 @@ export class OrderComponent implements OnInit {
 
   addColumToTable() {
     if (this.listCategoryTable)
-      this.listCategoryTable.forEach(c => {
-        this.displayedColumns.splice(2,0,c.category.title.toLowerCase())
-      })
+
+      var ordenCategorias: { [key: string]: number } = {
+        "proteico": 5,
+        "general": 4,
+        "liviano": 3,
+        "veggie": 2,
+        "adecuado": 1
+      };
+
+    this.listCategoryTable.sort(function (a, b) {
+      var categoriaA = a.category.title.toLowerCase();
+      var categoriaB = b.category.title.toLowerCase();
+      var ordenA = ordenCategorias[categoriaA];
+      var ordenB = ordenCategorias[categoriaB];
+
+      return ordenA - ordenB;
+    });
+
+    this.listCategoryTable.forEach(c => {
+      this.displayedColumns.splice(2, 0, c.category.title.toLowerCase())
+    })
   }
 
   getSubTotal(idCategory: number, tandaTable: TandaTable) {
@@ -84,19 +102,19 @@ export class OrderComponent implements OnInit {
 
   onClickNote(client: Client) {
     var dataForm = new DataFormNote();
-    if (client.note.id== 0) {
+    if (client.note.id == 0) {
       this.actionFormNote = "Add"
       dataForm = {
         actionForm: "Add",
         note: new Note(null),
-        client : client
+        client: client
       };
     } else {
       this.actionFormNote = "Edit"
       dataForm = {
         actionForm: "Edit",
         note: client.note,
-        client : client
+        client: client
       };
     }
     this.gestionateForm(dataForm);
@@ -114,7 +132,7 @@ export class OrderComponent implements OnInit {
         return false;
       }
 
-      var result: any = await this.onSubmitNote(data,dataForm.client);
+      var result: any = await this.onSubmitNote(data, dataForm.client);
       if (result) {
         return false;
       }
@@ -126,13 +144,13 @@ export class OrderComponent implements OnInit {
     })
   }
 
-  async onSubmitNote(note: Note, client : Client) {
-    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note,client) : await this.editNote(note);
+  async onSubmitNote(note: Note, client: Client) {
+    const resultOperation = this.actionFormNote == "Add" ? await this.addNote(note, client) : await this.editNote(note);
 
     return resultOperation;
   }
 
-  async addNote(note: Note, client : Client) {
+  async addNote(note: Note, client: Client) {
     const addNoteRequest: AddNoteRequest = {
       note: note,
       idClient: client.id
