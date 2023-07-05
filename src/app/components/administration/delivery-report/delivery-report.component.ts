@@ -23,7 +23,7 @@ export class DeliveryReportComponent implements OnInit {
   idDeliveryDriverSelected: number;
   range: FormGroup;
   showResults: boolean;
-  URLAPI = environment.url;
+  URLAPI = environment.urlApi;
   deliveriesDriver : DeliveryDriver[] = [];
   noResults: boolean;
   deliveryReportTable : DeliveryReportTable [] = [];

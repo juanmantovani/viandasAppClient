@@ -74,7 +74,7 @@ export class OrderComponent implements OnInit {
         "general": 4,
         "liviano": 3,
         "veggie": 2,
-        "adecuado": 1
+        "adecuado a patologías": 1
       };
 
     this.listCategoryTable.sort(function (a, b) {
