@@ -26,6 +26,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     var errorMessageNotify;
 
     if (error instanceof HttpErrorResponse) {
+      //console.log(error);
       // Server error
       let errorStatusCode = error.status;
       errorMessageNotify = errorService.getServerMessage(error);

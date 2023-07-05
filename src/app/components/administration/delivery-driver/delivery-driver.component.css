@@ -7,6 +7,10 @@ table{
     width: 20%;
 }
 
+.button {
+  margin-right: 10px;
+}
+
 .button-container {
     padding-bottom: 16px;
     margin-top: 10px;

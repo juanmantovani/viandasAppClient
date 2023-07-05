@@ -27,6 +27,8 @@ export class DeliveryDriverComponent implements OnInit {
   actionForm: string;
   listDeliveryDriver: DeliveryDriver[];
   dataSource: any;
+  viewList: boolean;
+  viewReport: boolean;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -34,13 +36,14 @@ export class DeliveryDriverComponent implements OnInit {
   constructor(
     private deliveryDriverService: DeliveryDriverService,
     public dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {
   }
 
   ngOnInit() {
     this.getDeliveryDriver();
     this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+    this.viewList = true;
   }
 
   async getDeliveryDriver() {
@@ -147,5 +150,16 @@ export class DeliveryDriverComponent implements OnInit {
     })
   }
 
+  onClickList(){
+    this.viewReport = false;
+    this.viewList = true;
+  }
+
+  onClickReport() {
+    this.viewList = false;
+    this.viewReport = true;
+  }
+
+  
 
 }

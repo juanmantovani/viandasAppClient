@@ -32,7 +32,7 @@ export class Utils {
 
   public static getDaysOfDate(dateStart: Date, dateEnd: Date) : any[] {
     const WEEKDAY = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"]; 
-    let daysOfMonth: any[] = new Array(null);
+    let daysOfMonth: any[] = [];
     let dateStartAux = new Date(dateStart);
     let dateEndAux = new Date(dateEnd);
     const CANTDAYS = (dateEndAux?.getTime() - dateStartAux?.getTime())/(1000*60*60*24)+1;

@@ -1,77 +1,91 @@
 <div class="container-fluid">
   <h1 class="title-component">Administrar Repartidores</h1>
+
   <div class="button-container">
     <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar repartidor" class="button">
       <mat-icon>add</mat-icon>Agregar Repartidor
     </button>
+    <button mat-raised-button (click)="onClickList()" matTooltip="Ver repartidores" class="button"> 
+      <mat-icon>list</mat-icon>Listado Repartidores
+  </button>
+    <button mat-raised-button class="button" (click)="onClickReport()" matTooltip="Generar reporte">
+      <mat-icon>contact_page</mat-icon>Generar reporte
+    </button>
   </div>
 
-  <mat-form-field appearance="standard">
-    <mat-label>Buscar</mat-label>
-    <input matInput (keyup)="onSearch($event)" placeholder="" #input>
-  </mat-form-field>
+  <div [hidden]="!viewList">
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="onSearch($event)" placeholder="" #input>
+    </mat-form-field>
 
-  <div class="table-width-delivery-driver">
+    <div class="table-width-delivery-driver">
 
-    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
-      <colgroup>
-        <col style="width:'10%'"/>
-        <col style="width:'15%'"/>
-        <col style="width:'15%'"/>
-        <col style="width:'20%'"/>
-        <col style="width:'20%'"/>
-        <col style="width:'20%'"/>
-      </colgroup>
+        <colgroup>
+          <col style="width:'10%'" />
+          <col style="width:'15%'" />
+          <col style="width:'15%'" />
+          <col style="width:'20%'" />
+          <col style="width:'20%'" />
+          <col style="width:'20%'" />
+        </colgroup>
 
-      <ng-container matColumnDef="dni">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
-        <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
-      </ng-container>
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> DNI </th>
+          <td mat-cell *matCellDef="let element"> {{element.dni}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nombre </th>
-        <td mat-cell *matCellDef="let element" class="hidden"> {{element.name}} </td>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Nombre </th>
+          <td mat-cell *matCellDef="let element" class="hidden"> {{element.name}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Apellido </th>
-        <td mat-cell *matCellDef="let element" class="hidden"> {{element.lastName}} </td>
-      </ng-container>
+        <ng-container matColumnDef="lastName">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Apellido </th>
+          <td mat-cell *matCellDef="let element" class="hidden"> {{element.lastName}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="address">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Dirección </th>
-        <td mat-cell *matCellDef="let element" class="hidden"> {{element.address.street}} {{element.address.number}}
-          {{element.address.floor}} {{element.address.departament}} </td>
-      </ng-container>
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Dirección </th>
+          <td mat-cell *matCellDef="let element" class="hidden"> {{element.address.street}} {{element.address.number}}
+            {{element.address.floor}} {{element.address.departament}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="vehicle">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Vehículo </th>
-        <td mat-cell *matCellDef="let element" class="hidden" > {{element.vehicle.brand}} {{element.vehicle.model}}
-          {{element.vehicle.year}} </td>
-      </ng-container>
+        <ng-container matColumnDef="vehicle">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Vehículo </th>
+          <td mat-cell *matCellDef="let element" class="hidden"> {{element.vehicle.brand}} {{element.vehicle.model}}
+            {{element.vehicle.year}} </td>
+        </ng-container>
 
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-        <td mat-cell *matCellDef="let element" class="actions-button-container">
-          <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar repartidor">          
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar repartidor">          
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="actions-button-container">
+            <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar repartidor">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar repartidor">
+              <mat-icon>delete</mat-icon>
+            </button>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </td>
+        </ng-container>
 
-      <tr class="mat-row" *matNoDataRow>
-        <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
-      </tr>
-    </table>
-    <br>
-    <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No se encontró información para "{{input.value}}"</td>
+        </tr>
+      </table>
+      <br>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+    </div>
   </div>
+
+<app-delivery-report *ngIf="viewReport" [listDeliveryDriver]="listDeliveryDriver"></app-delivery-report>
+
 </div>
+

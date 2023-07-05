@@ -15,14 +15,15 @@ export class AddressesComponent implements OnInit {
 
   userProfile: KeycloakProfile | null = null;
   userRoles: string[] = [];
+  existAddresses: boolean = true;
 
   client: Client;
 
   constructor(
     private readonly keycloak: KeycloakService,
     private clientService: ClientService,
-    private urlService : UrlService
-    ) { }
+    private urlService: UrlService
+  ) { }
 
   async ngOnInit() {
     this.userProfile = await this.keycloak.loadUserProfile();
@@ -35,18 +36,30 @@ export class AddressesComponent implements OnInit {
     if (this.userRoles.indexOf('admin') != -1) {
       if (this.clientService.getClientPersonified()) {
         this.client = new Client(this.clientService.getClientPersonified())
+        this.checkExistAddress();
       }
-      else{
-      this.urlService.goToAdminPanel();
-    }
+      else {
+        this.urlService.goToAdminPanel();
+      }
     }
     else
       this.getClientByIdUser()
   }
 
+  checkExistAddress() {
+    if (this.client.addresses.length > 0) {
+      this.existAddresses = true;
+    } else {
+      this.existAddresses = false;
+    }
+  }
+
   async getClientByIdUser() {
     await this.clientService.getClientByIdUser(this.userProfile?.id!).subscribe((res: GetClientByIdUserResponse) => {
-      this.client = res.client
+      if (res.client) {
+        this.client = res.client
+        this.checkExistAddress();
+      }
     });
   }
 }

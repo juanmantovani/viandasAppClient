@@ -187,11 +187,11 @@
 
     </mat-dialog-content>
 
-    <mat-dialog-actions align="center" *ngIf="data.actionForm != 'Register'">
+    <mat-dialog-actions align="center">
         <button *ngIf="data.actionForm != 'Register'" mat-button color="primary" (click)="onClickCancel()">
             <mat-icon>clear</mat-icon> CANCELAR
         </button>
-        <button mat-raised-button color="primary" *ngIf="data.actionForm == 'Add'" (click)="onClickSave()" class="btn-primary btn-azul"
+        <button mat-raised-button color="primary" *ngIf="data.actionForm != 'Edit' && validateAddress==true" (click)="onClickSave()" class="btn-primary btn-azul"
             [disabled]="form.status == 'INVALID'|| !validateAddress">
             <mat-icon>save</mat-icon> GUARDAR
         </button>
