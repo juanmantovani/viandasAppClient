@@ -32,9 +32,19 @@
 
         <mat-card-actions align="end">
           <button mat-raised-button class="button" (click)="onViewDetailsOrder(order.id)" *ngIf="orderDetails?.id != order.id">Ver detalles</button>
-          <button mat-raised-button class="button" (click)="onHideDetailsOrder(order.id)" *ngIf="orderDetails?.id === order.id">Ocultar detalles</button>
-          <button mat-raised-button class="button" (click)="onClickSendWhatsApp()" *ngIf="orderDetails?.id === order.id">Enviar mensaje de WhatsApp</button>
-
+          <div *ngIf="orderDetails?.id === order.id">
+            <button mat-raised-button class="button" (click)="onHideDetailsOrder(order.id)">Ocultar detalles</button>
+            <button mat-raised-button class="button" (click)="onClickSendWhatsApp()">Enviar mensaje de WhatsApp</button>
+            <button mat-raised-button class="button"
+              *ngIf="showOrdersForAdmin" 
+              [disabled]="order.status.id != 1" 
+              (click)="onClickCancel(order.id)" 
+              class="button" 
+              matTooltip="Cancelar orden"
+              color="warn">
+              Cancelar Orden
+            </button>
+          </div>
         </mat-card-actions>
       </mat-card>
     </div>

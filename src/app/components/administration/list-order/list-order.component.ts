@@ -126,10 +126,10 @@ export class ListOrderComponent implements OnInit {
     this.viewDetails = false
   }
 
-   async onCanceledDayOrder(idOrder: number){
-    await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
-      this.orderDetails = res.order;
-    })
+  async onCanceledDayOrder(idOrder: number){
+  await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
+    this.orderDetails = res.order;
+  })
   }
 
 }

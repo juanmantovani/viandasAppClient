@@ -48,6 +48,7 @@ table{
   margin-bottom: 10px;
   margin-top: 10px;
   width: 100%;
+  background: #eee;
 }
 
 .spacer {
@@ -71,13 +72,13 @@ table{
   background-color: #007f5f89;
   color: rgb(55, 55, 55);
 }
-.impaid-order{
+.cancel-order{
   background-color: #c700008d;
   color: rgb(55, 55, 55);
 }
-.cancel-order{
+.impaid-order{
   background-color: #cc3df48a;
-  color: rgb(55, 55, 55);
+color: rgb(55, 55, 55);
 }
 .active-order{
   background-color: #50b1ce96;
@@ -92,6 +93,7 @@ table{
   .orders-card {
     max-width: 100%;
     width: 100%;
+    background: #eee;
   }
 
 
