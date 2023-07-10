@@ -23,7 +23,7 @@ import { BaseResponse } from 'src/app/shared/dto/BaseResponse';
 export class InicioClientComponent implements OnInit {
   userProfile: KeycloakProfile | null = null;
   userRoles: string[] = [];
-  PROFILE: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.PROFILE;
+  WELCOME: string = ROUTES.INTERNAL_ROUTES.CLIENT + '/' + ROUTES.INTERNAL_ROUTES.WELCOME;
 
   constructor(
     public dialog: MatDialog,
@@ -99,7 +99,7 @@ export class InicioClientComponent implements OnInit {
 
     await this.clientService.registerClient(registerClientRequest).subscribe((res: BaseResponse) => {
       if (res) {
-        this.router.navigateByUrl(this.PROFILE);
+        this.router.navigateByUrl(this.WELCOME);
       };
     }
     );

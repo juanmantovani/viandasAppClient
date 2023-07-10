@@ -14,7 +14,12 @@ table{
 
 .actions-button-container button {
   margin-right: 10px;
-  max-width: 15%;
+  font-size: 20px;
+  min-width: 56px;
+}
+
+.actions-button-container {
+  width: 100%;
 }
 
 .mat-row:hover {
