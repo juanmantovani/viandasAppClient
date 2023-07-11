@@ -84,12 +84,11 @@ export class SelectedAddressComponent implements OnInit {
     this.selectedAddressEmit.emit(this.addressDefault)
   }
 
-  //busco el date recorriendo el array de daysOrder, cuando encuentro el date, asigno address y salto para no seguir en el for
+  //busco el date recorriendo el array de daysOrder, cuando encuentro el date, asigno address
   changeAddressOnDay(address: Address, date: Date){
     for (let dayOrder of this.order.daysOrder){
       if (dayOrder.dayFood.date.getTime() == date.getTime()){
         dayOrder.address = address; 
-        break;
       }
     }
   }

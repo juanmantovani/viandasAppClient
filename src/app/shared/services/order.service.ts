@@ -151,6 +151,7 @@ export class OrderService {
   cancelDayOrder(request: CancelDayOrderRequest): Observable<CancelDayOrderResponse> {
     let params = new HttpParams();
     params = params.set('idDayOrder', request.idDayOrder.toString());
+    params = params.set('cant', request.cant.toString());
     return this.http.get<CancelDayOrderResponse>(ROUTES.API_ROUTES.ORDER.CANCELDAYORDER, { params }).pipe(
       tap(res => new CancelDayOrderResponse(res))
     );

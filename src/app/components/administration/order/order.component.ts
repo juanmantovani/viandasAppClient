@@ -29,10 +29,11 @@ import { EditNoteResponse } from 'src/app/shared/dto/note/EditNoteResponse';
 export class OrderComponent implements OnInit {
 
   displayedColumns: string[] = ['idOrder', 'client', 'pathologies', 'observation', 'notes', 'address'];
-  listTandaTable: TandaTable[];
+  listTandaTable: TandaTable[] = [];
   listCategoryTable: CategoryTable[];
   date: Date;
   actionFormNote: string;
+  showResult: boolean;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -60,9 +61,14 @@ export class OrderComponent implements OnInit {
       date: date
     }
     await this.orderService.getOrders(request).subscribe((res: GetOrdersResponse) => {
-      this.listTandaTable = res.tandaTable;
-      this.listCategoryTable = res.categoryTable;
-      this.addColumToTable();
+      if (res.tandaTable && res.categoryTable) {
+        this.listTandaTable = res.tandaTable;
+        this.listCategoryTable = res.categoryTable;
+        this.addColumToTable();
+        this.showResult = true;
+      } else {
+        this.showResult = false;
+      }
     })
   }
 

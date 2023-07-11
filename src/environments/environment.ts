@@ -7,6 +7,7 @@ export const environment = {
   urlApi: 'http://localhost:8080/app',
   url: 'http://localhost:8080',
   urlDiscordLogg: '',
+  urlDiscordOrder: '',
   //urlApi: 'http://192.168.1.5:8080/app'
 };
 

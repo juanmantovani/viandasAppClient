@@ -11,6 +11,8 @@ import { KeycloakProfile } from 'keycloak-js';
 import { KeycloakService } from 'keycloak-angular';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { UrlService } from 'src/app/shared/services/url.service';
+import { DialogService } from 'src/app/shared/services/dialog.service';
+import { DeleteOrderRequest } from 'src/app/shared/dto/order/DeleteOrderRequest';
 
 @Component({
   selector: 'app-inicio-orders',
@@ -33,7 +35,9 @@ export class InicioOrdersComponent implements OnInit {
     public datepipe: DatePipe,
     private readonly keycloak: KeycloakService,
     private clientService: ClientService,
-    private urlService: UrlService
+    private urlService: UrlService,
+    private dialogService: DialogService,
+
   ) {
     this.orderDetails = new Order(null);
   }
@@ -71,7 +75,6 @@ export class InicioOrdersComponent implements OnInit {
     }
   }
 
-
   async onViewDetailsOrder(idOrder: number) {
     await this.orderService.getOrderById(idOrder).subscribe((res: GetOrderByIdResponse) => {
       this.orderDetails = res.order;
@@ -88,10 +91,31 @@ export class InicioOrdersComponent implements OnInit {
 
   }
 
-
   onClickSendWhatsApp() {
     window.open(this.textWhatsApp, '_blank');
 
+  }
+
+  async generateConfirm(msg: string) {
+    return await this.dialogService.openConfirmDialog(msg);
+  }
+
+  async onClickCancel(idOrder: number) {
+    if (await this.generateConfirm("Está a punto de cancelar la orden completa. ¿Está seguro de realizar esta operación?") === true) {
+      this.cancelOrder(idOrder);
+    }
+  }
+
+  async cancelOrder(idOrder: number) {
+    const request: DeleteOrderRequest = {
+      idOrder: idOrder
+    }
+    await this.orderService.cancelOrder(request).subscribe(() => {
+      this.evaluateUser();
+      this.onGetOrderDetails();
+      //this.viewDetails = false
+
+    });
   }
 
 }

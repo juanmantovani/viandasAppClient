@@ -72,7 +72,6 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
       this.daysOfMonth = [];
       this.inicialiceDaysOfMonth();
     }
-
   }
 
   inicialiceDaysOfMonth(){
@@ -167,17 +166,19 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
 
   async onCancelDayOrder(dayOrder: DayOrder, idOrder:number) {
     if (await this.generateConfirm("Está a punto de cancelar el pedido del día " + this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM') + ". ¿Está seguro de realizar esta operación?") === true) {
-      await this.cancelDayOrder(dayOrder.id, idOrder);
+      await this.cancelDayOrder(dayOrder, idOrder);
     }
   }
 
 
-  async cancelDayOrder(idDayOrder: number, idOrder: number) {
+  async cancelDayOrder(dayOrder: DayOrder, idOrder: number) {
     const request: CancelDayOrderRequest = {
-      idDayOrder: idDayOrder
+      idDayOrder: dayOrder.id,
+      cant: dayOrder.cant
     }
     await this.orderService.cancelDayOrder(request).subscribe(() => {
       this.canceledDayOrder.emit(idOrder);
+      this.getOrderDetails.emit();
     });
   }
 

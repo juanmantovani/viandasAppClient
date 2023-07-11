@@ -52,6 +52,31 @@ h4 {
   width: 50%;
 }
 
+.mat-standard-chip {
+  min-height: 18px !important;
+  margin-right: 0px !important;
+  font-size: smaller;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.inline {
+  display: -webkit-inline-box;
+  width: 100%;
+  display:flex;
+
+}
+
+.cancel-order{
+  background-color: #c700008d;
+  color: rgb(55, 55, 55);
+}
+.active-order{
+  background-color: #50b1ce96;
+  color: rgb(55, 55, 55);
+}
 
 mat-card-title, mat-card-subtitle {
   margin-bottom: 5px;

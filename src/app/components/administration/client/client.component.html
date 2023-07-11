@@ -84,16 +84,16 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element" class="actions-button-container">
-            <button mat-stroked-button class="button" (click)="onClickShowOrders(element)" matTooltip="Ver pedidos">
+            <button mat-stroked-button (click)="onClickShowOrders(element)" matTooltip="Ver pedidos">
               <mat-icon>list_alt</mat-icon>
             </button>
-            <button mat-stroked-button class="button" (click)="onClickNote(element)" matTooltip="Notas">
+            <button mat-stroked-button (click)="onClickNote(element)" matTooltip="Notas">
               <mat-icon>note_alt</mat-icon>
             </button>
-            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar cliente">          
+            <button mat-stroked-button (click)="onClickDelete(element)" matTooltip="Eliminar cliente">          
               <mat-icon>delete</mat-icon>
             </button>
-            <button mat-stroked-button class="button" (click)="personify(element)" matTooltip="Personificar">          
+            <button mat-stroked-button (click)="personify(element)" matTooltip="Personificar">          
               <mat-icon>person</mat-icon>
             </button>
             <!-- <button mat-stroked-button class="button" (click)="onViewProfile(element)" matTooltip="Ver perfil">

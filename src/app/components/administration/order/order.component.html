@@ -13,14 +13,105 @@
         <mat-icon>check</mat-icon> Ok
     </button>
 
-      <div *ngIf="!listTandaTable">
+    <div *ngIf="!showResult">
         <mat-error align="center"><h2>No hay ordenes para mostrar en la fecha indicada</h2></mat-error>
-      </div>
+    </div>
 
-    <div *ngFor="let tandaTable of listTandaTable">
-        <div *ngIf="tandaTable.categoryTable">
+    <div *ngIf="showResult">
+        <div *ngFor="let tandaTable of listTandaTable">
+            <div *ngIf="tandaTable.categoryTable">
 
-            <table mat-table [dataSource]="tandaTable.order" class="mat-elevation-z8">
+                <table mat-table [dataSource]="tandaTable.order" class="mat-elevation-z8">
+
+                    <colgroup>
+                        <col style="width:'4%'" /><!--ID Col-->
+                        <col style="width:'12%'" /><!--Name Col-->
+                        <col *ngFor="let cat of listCategoryTable" [style]="{'width':(25/listCategoryTable.length)+'%'}"/><!--Categoryes Col-->
+                        <col style="width:'10%'" /><!--Patologies Col-->
+                        <col style="width:'18%'" /><!--Observation Col-->
+                        <col style="width:'13%'" /><!--Note Col-->
+                        <col style="width:'18%'" /><!--Address Col-->
+
+                    </colgroup>
+
+                    <ng-container matColumnDef="header-row-first-group">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"
+                            [attr.colspan]="displayedColumns.length">
+                            <h4><strong>{{tandaTable.tanda.description}} ({{tandaTable.tanda.hourStart}}hs a
+                                    {{tandaTable.tanda.hourEnd}}hs) -
+                                    {{tandaTable.tanda.deliveryDriver.name}}
+                                    {{tandaTable.tanda.deliveryDriver.lastName}}</strong></h4>
+                        </th>
+                    </ng-container>
+
+                    <ng-container matColumnDef="idOrder">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
+                        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                        <td mat-footer-cell *matFooterCellDef></td>
+
+                    </ng-container>
+                    <ng-container matColumnDef="client">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cliente </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}}
+                            {{element.client.lastName}} </td>
+                        <td mat-footer-cell *matFooterCellDef><strong>SubTotal {{tandaTable.tanda.description}}</strong>
+                        </td>
+                    </ng-container>
+
+                    <ng-container *ngFor="let categoryTable of listCategoryTable"
+                        matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
+                        </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;">
+                            <span *ngFor="let catTable of element.categoryTable">
+                                <span *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span>
+                            </span>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef style="text-align: center;">
+                            <strong>{{getSubTotal(categoryTable.category.id,tandaTable)}}</strong>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="pathologies">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"><mat-icon
+                                *ngFor="let pat of element.client.pathologies"
+                                [style]="{'color': pat.color}" #tooltip="matTooltip"
+                                [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
+                        </td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="observation">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.observation}}</td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    <ng-container matColumnDef="notes">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" matTooltip="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="address">
+                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dirección </th>
+                        <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.address.street}}
+                            {{element.address.number}}
+                            {{element.address.floor}} {{element.address.departament}}</td>
+                        <td mat-footer-cell *matFooterCellDef> </td>
+                    </ng-container>
+                    
+                    <tr mat-header-row *matHeaderRowDef="['header-row-first-group']"></tr>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="listCategoryTable">
+
+            <table mat-table class="mat-elevation-z8 totales">
 
                 <colgroup>
                     <col style="width:'4%'" /><!--ID Col-->
@@ -36,148 +127,59 @@
                 <ng-container matColumnDef="header-row-first-group">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"
                         [attr.colspan]="displayedColumns.length">
-                        <h4><strong>{{tandaTable.tanda.description}} ({{tandaTable.tanda.hourStart}}hs a
-                                {{tandaTable.tanda.hourEnd}}hs) -
-                                {{tandaTable.tanda.deliveryDriver.name}}
-                                {{tandaTable.tanda.deliveryDriver.lastName}}</strong></h4>
+                        <h4><strong>Totales</strong></h4>
                     </th>
                 </ng-container>
 
                 <ng-container matColumnDef="idOrder">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> ID </th>
-                    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
                     <td mat-footer-cell *matFooterCellDef></td>
 
                 </ng-container>
                 <ng-container matColumnDef="client">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Cliente </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.client.name}}
-                        {{element.client.lastName}} </td>
-                    <td mat-footer-cell *matFooterCellDef><strong>SubTotal {{tandaTable.tanda.description}}</strong>
-                    </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
+                    <td mat-footer-cell *matFooterCellDef><strong>Totales</strong></td>
                 </ng-container>
 
                 <ng-container *ngFor="let categoryTable of listCategoryTable"
                     matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
                     <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
                     </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;">
-                        <span *ngFor="let catTable of element.categoryTable">
-                            <span *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span>
-                        </span>
-                    </td>
                     <td mat-footer-cell *matFooterCellDef style="text-align: center;">
-                        <strong>{{getSubTotal(categoryTable.category.id,tandaTable)}}</strong>
+                        <span><strong>{{categoryTable.cant}}</strong></span>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="pathologies">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Patologías </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"><mat-icon
-                            *ngFor="let pat of element.client.pathologies"
-                            [style]="{'color': pat.color}" #tooltip="matTooltip"
-                            [matTooltip]="pat.description" matTooltipPosition="below">fiber_manual_record</mat-icon>
-                    </td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="observation">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Observación </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.observation}}</td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
+                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
+
                 <ng-container matColumnDef="notes">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Notas </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> <div class="note">{{element.client.note.note}}</div><mat-icon class="icon icon-button" matTooltip="Editar nota" (click)="onClickNote(element.client)">edit</mat-icon></td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
+                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
 
                 <ng-container matColumnDef="address">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Dirección </th>
-                    <td mat-cell *matCellDef="let element" style="text-align: center;"> {{element.address.street}}
-                        {{element.address.number}}
-                        {{element.address.floor}} {{element.address.departament}}</td>
-                    <td mat-footer-cell *matFooterCellDef> </td>
+                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
+
+                    <td mat-footer-cell *matFooterCellDef></td>
                 </ng-container>
-                
+
                 <tr mat-header-row *matHeaderRowDef="['header-row-first-group']"></tr>
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
             </table>
         </div>
-    </div>
-
-    <div *ngIf="listCategoryTable">
-
-        <table mat-table class="mat-elevation-z8 totales">
-
-            <colgroup>
-                <col style="width:'4%'" /><!--ID Col-->
-                <col style="width:'12%'" /><!--Name Col-->
-                <col *ngFor="let cat of listCategoryTable" [style]="{'width':(25/listCategoryTable.length)+'%'}"/><!--Categoryes Col-->
-                <col style="width:'10%'" /><!--Patologies Col-->
-                <col style="width:'18%'" /><!--Observation Col-->
-                <col style="width:'13%'" /><!--Note Col-->
-                <col style="width:'18%'" /><!--Address Col-->
-
-            </colgroup>
-
-            <ng-container matColumnDef="header-row-first-group">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"
-                    [attr.colspan]="displayedColumns.length">
-                    <h4><strong>Totales</strong></h4>
-                </th>
-            </ng-container>
-
-            <ng-container matColumnDef="idOrder">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-
-                <td mat-footer-cell *matFooterCellDef></td>
-
-            </ng-container>
-            <ng-container matColumnDef="client">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-
-                <td mat-footer-cell *matFooterCellDef><strong>Totales</strong></td>
-            </ng-container>
-
-            <ng-container *ngFor="let categoryTable of listCategoryTable"
-                matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
-                </th>
-                <td mat-footer-cell *matFooterCellDef style="text-align: center;">
-                    <span><strong>{{categoryTable.cant}}</strong></span>
-                </td>
-            </ng-container>
-
-            <ng-container matColumnDef="pathologies">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-            <ng-container matColumnDef="observation">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-            <ng-container matColumnDef="notes">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-            <ng-container matColumnDef="address">
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;"> </th>
-
-                <td mat-footer-cell *matFooterCellDef></td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="['header-row-first-group']"></tr>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
-
-        </table>
     </div>
 </div>

@@ -121,6 +121,7 @@ import { TakeAwayAddressComponent } from './components/administration/setting/ta
 import { DiscordErrorLogger } from './shared/discord-error-logger';
 import { WelcomeComponent } from './components/clients/welcome/welcome.component';
 import { DeliveryReportComponent } from './components/administration/delivery-report/delivery-report.component';
+import { DiscordSendOrder } from './shared/discord-send-order';
 
 
 @NgModule({
@@ -247,6 +248,7 @@ import { DeliveryReportComponent } from './components/administration/delivery-re
     MatDatepickerModule,
     DatePipe,
     DiscordErrorLogger,
+    DiscordSendOrder,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },

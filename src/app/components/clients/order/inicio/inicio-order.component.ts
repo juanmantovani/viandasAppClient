@@ -37,6 +37,8 @@ import { GetTotalOrderResponse } from 'src/app/shared/dto/order/GetTotalOrderRes
 import { OnExit } from 'src/app/auth/exit.guard';
 import { UrlService } from 'src/app/shared/services/url.service';
 import { DateRange } from '@angular/material/datepicker';
+import * as moment from 'moment';
+import { DiscordSendOrder } from 'src/app/shared/discord-send-order';
 
 
 @Component({
@@ -96,7 +98,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
     private clientService: ClientService,
     private readonly keycloak: KeycloakService,
     private dialogService: DialogService,
-    private urlService: UrlService
+    private urlService: UrlService,
+    private discordSendOrder: DiscordSendOrder
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -323,21 +326,42 @@ export class InicioOrderComponent implements OnInit, OnExit {
   }
 
   async sendOrder() {
-
     if (await this.generateConfirm("Está a punto de realizar una order. ¿Está seguro de realizar esta operación?") === true) {
-
       var request = this.generateRequest();
-
       this.orderService.addOrder(request).subscribe((res: AddOrderResponse) => {
         if (res) {
           this.orderInProgress = false;
+          this.sendMessageDiscordWithOrder(res);
+          this.textWhatsAppShow = this.formatOrder(res);
           this.orderSuccess = true;
-          this.textWhatsAppShow = this.formatOrder(res)
         } else {
           return false;
         }
       });
     }
+  }
+
+  sendMessageDiscordWithOrder(res : AddOrderResponse) {
+    let result = '';
+    let textDiscord = '';
+    result += `Hola, mi nombre es ${this.order.client.name} ${this.order.client.lastName} y realicé el pedido N ${res.idOrder}\n`;
+    this.order.daysOrder.forEach(dayOrder => {
+      if(dayOrder.cant > 0) {
+        const dayFood = dayOrder.dayFood;
+        const categoryTitle = dayFood.category.title;
+        const day = moment(dayFood.date).format('DD/MM');
+        const foodTitle = dayFood.food.title;
+        const cant = dayOrder.cant;
+        const address = dayOrder.address.street + ' ' + dayOrder.address.number;
+       
+        result += `${day} (${cant}x${categoryTitle}) - ${foodTitle} - ${address}\n`;
+      }
+    });
+    result += '-----------------------------------\n';
+    result += `Total: ${this.order.total}\n`;
+    result += `Observaciones: ${this.order.observation}\n`;
+    
+    this.discordSendOrder.sendOrder(result);
   }
 
   formatOrder(res: AddOrderResponse): string {
