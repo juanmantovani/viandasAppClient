@@ -60,9 +60,9 @@
 
                     <ng-container *ngFor="let categoryTable of listCategoryTable"
                         matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
-                        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
+                        <th mat-header-cell *matHeaderCellDef [style]="{'text-align': 'center','background-color': categoryTable.category.color}"> {{categoryTable.category.title}}
                         </th>
-                        <td mat-cell *matCellDef="let element" style="text-align: center;">
+                        <td mat-cell *matCellDef="let element" [style]="{'text-align': 'center','background-color': categoryTable.category.color}">
                             <span *ngFor="let catTable of element.categoryTable">
                                 <span *ngIf="catTable.category.id == categoryTable.category.id ">{{catTable.cant}}</span>
                             </span>
@@ -145,9 +145,9 @@
 
                 <ng-container *ngFor="let categoryTable of listCategoryTable"
                     matColumnDef="{{categoryTable.category.title.toLowerCase()}}">
-                    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> {{categoryTable.category.title}}
+                    <th mat-header-cell *matHeaderCellDef [style]="{'text-align': 'center','background-color': categoryTable.category.color}"> {{categoryTable.category.title}}
                     </th>
-                    <td mat-footer-cell *matFooterCellDef style="text-align: center;">
+                    <td mat-footer-cell *matFooterCellDef [style]="{'text-align': 'center','background-color': categoryTable.category.color}">
                         <span><strong>{{categoryTable.cant}}</strong></span>
                     </td>
                 </ng-container>
