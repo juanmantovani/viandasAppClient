@@ -38,7 +38,10 @@
             <mat-icon>place</mat-icon> <div class="item">Mis direcciones</div>
         </mat-list-item>
         <mat-list-item class="nav-link" [routerLink]="[ORDER]" (click)="opened = !opened" routerLinkActive="active">
-            <mat-icon>assignment</mat-icon> <div class="item">Pedir</div>
+            <mat-icon>assignment</mat-icon> <div class="item">Pedir viandas</div>
+        </mat-list-item>
+        <mat-list-item class="nav-link" [routerLink]="[ORDER_PRODUCT]" (click)="opened = !opened" routerLinkActive="active">
+            <mat-icon>shopping_bag</mat-icon> <div class="item">Pedir productos</div>
         </mat-list-item>
         <mat-list-item class="nav-link" [routerLink]="[ORDERS]" (click)="opened = !opened" routerLinkActive="active">
             <mat-icon>list_alt</mat-icon> <div class="item">Mis ordenes</div>

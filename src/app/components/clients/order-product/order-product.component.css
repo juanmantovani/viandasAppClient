@@ -1,0 +1,147 @@
+.title-component {
+    text-align: center;
+    margin-bottom: 0px;
+    margin-top: 5px;
+}
+
+.stepper {
+    margin-bottom: 40px;
+}
+
+.mat-mdc-form-field {
+    margin-top: 16px;
+}
+
+.select-date {
+    height: min-content;
+}
+
+.inline-calendar-card {
+    width: 350px;
+}
+
+@media (max-width: 600px) {
+    .stepper {
+        margin-left: -20px;
+    }
+
+    .inline-calendar-card {
+        width: 100%;
+        height: auto;
+    }
+
+    .card-success {
+        max-width: 550px;
+    }
+}
+
+::ng-deep .mat-horizontal-stepper-header {
+    pointer-events: none !important;
+}
+
+::ng-deep .mat-vertical-stepper-header {
+    pointer-events: none !important;
+}
+
+.selected-date-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 16px;
+}
+
+.categories-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 16px 0;
+    max-width: 600px;
+}
+
+.category-card {
+    cursor: pointer;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover {
+    background-color: rgba(65, 65, 65, 0.05);
+}
+
+.category-card.selected {
+    background-color: #d3d3d33b;
+    box-shadow: 0 0 0 2px #1976d2;
+}
+
+.category-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.check-icon {
+    color: #1976d2;
+}
+
+.check-icon-empty {
+    color: #aaa;
+}
+
+.products-container {
+    padding: 16px 0;
+}
+
+.products-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.product-card {
+    width: 220px;
+    flex-shrink: 0;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 8px 0 4px 0;
+}
+
+.quantity-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
+.cant-display {
+    font-size: 18px;
+    font-weight: bold;
+    min-width: 32px;
+    text-align: center;
+}
+
+.order-summary {
+    margin-top: 16px;
+    padding: 12px 0;
+    font-size: 16px;
+}
+
+.empty-message {
+    text-align: center;
+    color: gray;
+    padding: 24px 0;
+}
+
+.cardSuccess {
+    max-width: 450px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+    .cardSuccess {
+        max-width: 550px;
+    }
+}

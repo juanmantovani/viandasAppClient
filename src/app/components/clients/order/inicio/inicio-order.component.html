@@ -62,11 +62,18 @@
         (selectedAddressEmit)="onChangeAddress($event)">
       </app-selected-address>
     </mat-step>
+    <mat-step label="¿Querés agregar algo más?">
+      <h4>Si querés, sumá productos extras a tu pedido (postres, ensaladas, etc.)</h4>
+      <app-order-products
+        [products]="availableProducts"
+        (productsSelected)="onProductsSelected($event)">
+      </app-order-products>
+    </mat-step>
     <mat-step label="Confirmación">
       <h4>Por último, confirmá tu pedido</h4>
       <app-confirmation [order]="order">
 
-      </app-confirmation> 
+      </app-confirmation>
     </mat-step>
   </mat-stepper>
 

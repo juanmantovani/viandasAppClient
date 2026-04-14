@@ -20,6 +20,7 @@ export class GlobalErrorHandler implements ErrorHandler {
     ) { }
   
   handleError(error: Error | HttpErrorResponse) {
+    if (!error) return;
     const errorService = this.injector.get(ErrorService);
     const moment = this.getCurrentFormatMoment();
     var errorMessageLogg = moment + ' ';

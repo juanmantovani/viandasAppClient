@@ -1,0 +1,112 @@
+<h1 class="title-component">Pedir productos</h1>
+<br>
+
+<div *ngIf="!orderSuccess">
+  <mat-stepper linear #stepper
+    class="stepper"
+    [orientation]="(stepperOrientation | async)!"
+    [linear]="true">
+
+    <!-- STEP 1: Fecha -->
+    <mat-step label="¿Para qué día querés pedir?" [completed]="firstStepCompleted">
+      <h4>Elegí el día para el que querés pedir</h4>
+      <div class="select-date">
+        <mat-card class="inline-calendar-card">
+          <mat-calendar
+            [selected]="selectedDate"
+            [minDate]="minDate"
+            (selectedChange)="onDateSelected($event)">
+          </mat-calendar>
+        </mat-card>
+      </div>
+      <div *ngIf="selectedDate" class="selected-date-info">
+        <mat-icon color="primary">event</mat-icon>
+        <span>Fecha seleccionada: <strong>{{ selectedDate | date:'dd/MM/yyyy' }}</strong></span>
+      </div>
+    </mat-step>
+
+    <!-- STEP 2: Categoría -->
+    <mat-step label="¿Qué categoría querés?" [completed]="secondStepCompleted">
+      <h4>Seleccioná la categoría de producto</h4>
+      <div class="categories-container">
+        <mat-card
+          *ngFor="let cat of categories"
+          class="category-card"
+          [class.selected]="isCategorySelected(cat)"
+          (click)="onSelectCategory(cat)">
+          <mat-card-header>
+            <div mat-card-avatar class="category-icon">
+              <mat-icon *ngIf="isCategorySelected(cat)" class="check-icon">check_circle</mat-icon>
+              <mat-icon *ngIf="!isCategorySelected(cat)" class="check-icon-empty">radio_button_unchecked</mat-icon>
+            </div>
+            <mat-card-title>{{cat.title}}</mat-card-title>
+            <mat-card-subtitle *ngIf="cat.description">{{cat.description}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+        <div *ngIf="categories.length === 0" class="empty-message">
+          <p>No hay categorías disponibles.</p>
+        </div>
+      </div>
+    </mat-step>
+
+    <!-- STEP 3: Productos -->
+    <mat-step label="¿Qué productos querés?">
+      <h4>Seleccioná los productos que querés agregar</h4>
+      <div class="products-container">
+        <div *ngIf="filteredProducts.length === 0" class="empty-message">
+          <p>No hay productos disponibles en esta categoría.</p>
+        </div>
+        <div class="products-grid" *ngIf="filteredProducts.length > 0">
+          <mat-card class="product-card" *ngFor="let po of productOrders">
+            <mat-card-header>
+              <mat-card-title>{{po.product.title}}</mat-card-title>
+              <mat-card-subtitle *ngIf="po.product.description">{{po.product.description}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <p class="price">${{po.product.price}}</p>
+            </mat-card-content>
+            <mat-card-actions class="quantity-actions">
+              <button mat-icon-button (click)="decrement(po)" [disabled]="po.cant === 0">
+                <mat-icon>remove_circle_outline</mat-icon>
+              </button>
+              <span class="cant-display">{{po.cant}}</span>
+              <button mat-icon-button (click)="increment(po)">
+                <mat-icon>add_circle_outline</mat-icon>
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+        <div *ngIf="hasSelection()" class="order-summary">
+          <hr>
+          <p><strong>Total seleccionado:</strong> {{selectedCount}} producto(s) — ${{totalPrice}}</p>
+        </div>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+
+  <!-- Los eventos van directo al componente; este llama stepper.next/previous internamente -->
+  <app-resume-order
+    [isDisabledNext]="disableNextButton"
+    [isDisabledBack]="disableBackButton"
+    [finishButton]="finishButton"
+    (stepComplete)="onStepComplete()"
+    (stepBack)="onClickBack()">
+  </app-resume-order>
+</div>
+
+<div *ngIf="orderSuccess">
+  <div class="container-fluid" align="center">
+    <mat-card class="cardSuccess">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <app-success
+          messaggeSuccess="Muchas gracias por tu pedido"
+          messaggeSuccess2="Nos pondremos en contacto para coordinar la entrega">
+        </app-success>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

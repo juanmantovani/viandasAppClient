@@ -39,6 +39,11 @@ import { UrlService } from 'src/app/shared/services/url.service';
 import { DateRange } from '@angular/material/datepicker';
 import * as moment from 'moment';
 import { DiscordSendOrder } from 'src/app/shared/discord-send-order';
+import { ProductService } from 'src/app/shared/services/product.service';
+import { Product } from 'src/app/shared/models/Product';
+import { GetProductResponse } from 'src/app/shared/dto/product/GetProductResponse';
+import { ProductOrder } from '../order-products/order-products.component';
+import { ProductOrderRequest } from 'src/app/shared/dto/product/ProductOrderRequest';
 
 
 @Component({
@@ -88,6 +93,9 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
   selectedDateRange: DateRange<Date>;
 
+  availableProducts: Product[] = [];
+  selectedProducts: ProductOrder[] = [];
+
 
   constructor(
     breakpointObserver: BreakpointObserver,
@@ -99,7 +107,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
     private readonly keycloak: KeycloakService,
     private dialogService: DialogService,
     private urlService: UrlService,
-    private discordSendOrder: DiscordSendOrder
+    private discordSendOrder: DiscordSendOrder,
+    private productService: ProductService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -443,28 +452,39 @@ export class InicioOrderComponent implements OnInit, OnExit {
         break;
       }
       case 1: {
-        //this.disableBackButton = false;
         this.onGetMenu();
         break;
       }
       case 2: {
-        this.onViewOrderByDay()
-        //this.onGenerateOrder();
+        this.onViewOrderByDay();
         break;
       }
       case 3: {
-        this.onGetTotal();
+        this.onLoadProducts();
         break;
       }
       case 4: {
+        this.onGetTotal();
+        break;
+      }
+      case 5: {
         this.sendOrder();
         break;
       }
       default: {
-        //statements; 
         break;
       }
     }
+  }
+
+  onLoadProducts() {
+    this.productService.getProducts().subscribe((res: GetProductResponse) => {
+      this.availableProducts = res.products.filter(p => p.available);
+    });
+  }
+
+  onProductsSelected(products: ProductOrder[]) {
+    this.selectedProducts = products;
   }
 
   onChangeAddress(address: any) {
@@ -494,12 +514,18 @@ export class InicioOrderComponent implements OnInit, OnExit {
       dayOrderRequestArray.push(dayOrderRequest);
     })
 
+    const productOrderRequestArray: ProductOrderRequest[] = this.selectedProducts.map(po => ({
+      idProduct: po.product.id,
+      cant: po.cant
+    }));
+
     const request: AddOrderRequest = {
       daysOrderRequest: dayOrderRequestArray,
       idClient: this.order.client.id,
       observation: this.order.observation,
       total: this.order.total,
-      date: this.order.date
+      date: this.order.date,
+      products: productOrderRequestArray
     }
 
     return request;

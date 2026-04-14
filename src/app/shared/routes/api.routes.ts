@@ -113,7 +113,12 @@ export const API_ROUTES = {
     DELIVERY: {
         GETDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getDeliveryByDeliveryDriver`,
         GETREPORTBYDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getReportDeliveriesByDriver`
-
+    },
+    PRODUCT: {
+        GETPRODUCTS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/getProducts`,
+        ADDPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/uploadProduct`,
+        EDITPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/editProduct`,
+        DELETEPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/deleteProduct`,
     }
 
 }

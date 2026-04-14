@@ -21,7 +21,9 @@ export const INTERNAL_ROUTES = {
     SETTING : 'setting',
     LISTORDER : 'listOrder',
     WELCOME : 'welcome',
-    DELIVERY : 'delivery'
+    DELIVERY : 'delivery',
+    PRODUCT : 'product',
+    ORDER_PRODUCT : 'orderProduct'
 
 
 

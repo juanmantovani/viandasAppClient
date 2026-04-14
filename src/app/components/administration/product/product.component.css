@@ -1,0 +1,75 @@
+.title-component {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+}
+
+.button {
+    margin-right: 8px;
+}
+
+.btn-azul {
+    background-color: #1976d2;
+    color: white;
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.date-row mat-form-field {
+    font-size: 14px;
+    width: 180px;
+}
+
+.orders-table {
+    width: 100%;
+    margin-top: 16px;
+    table-layout: fixed;
+    text-align: center;
+}
+
+tr.mat-header-row {
+    height: 40px;
+}
+
+tr.mat-row {
+    height: 30px;
+}
+
+tr.mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+}
+
+.summary-table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.table-width {
+    width: 100%;
+}
+
+.hidden {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+.actions-button-container button {
+    margin-right: 10px;
+}
+
+mat-form-field {
+    font-size: 14px;
+    width: 20%;
+}
