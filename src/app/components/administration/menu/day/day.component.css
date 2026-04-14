@@ -1,6 +1,28 @@
 mat-form-field {
-    width: 400px;
-}
+    width: 100%; /* 100% del contenedor */
+    max-width: 650px; /* Máximo ancho */
+  }
+  
+  mat-label {
+    font-size: 1.2em; /* Aumenta el tamaño de la etiqueta */
+  }
+  
+  mat-input-element {
+    font-size: 1.5em; /* Aumenta el tamaño del texto en el input */
+  }
+  
+  /* Responsive: */
+  @media (max-width: 768px) {
+    mat-form-field {
+      width: 90%; /* 90% del ancho para pantallas más pequeñas */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    mat-form-field {
+      width: 100%; /* 100% del ancho en pantallas móviles */
+    }
+  }
 
 .form-days {
     margin-bottom: 20px;

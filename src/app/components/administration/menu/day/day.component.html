@@ -1,31 +1,31 @@
-<div class="container-fluid">
+<div [formGroup]="form" class="form-days">
+  <div formArrayName="days">
+    <div *ngFor="let day of days.controls; let i = index" [formGroupName]="i">
+      <mat-form-field appearance="fill">
+        <mat-label>{{ daysOfMonth[i].day }} {{ daysOfMonth[i].date | date: 'dd/MM' }}</mat-label>
 
-<div [formGroup]="form" class="form-days" >
-  <div formArrayName="days"> 
-    <div *ngFor="let day of days.controls; let i = index">
-      <div [formGroupName]="i"> 
+        <!-- Input con autocompletado -->
+        <input type="text" matInput 
+        [formControl]="foodFilterCtrls[i]"
+          formControlName="food" 
+          [matAutocomplete]="auto"
+          placeholder="Buscar plato...">
 
-          <mat-form-field appearance="fill">
-            <mat-label>{{daysOfMonth[i].day}} {{daysOfMonth[i].date | date:'dd/MM'}}</mat-label>            
-            <mat-select formControlName="food" name="food">
-              <mat-option *ngFor="let food of selectedFood" [value]="food" class="test">
-                {{food.id}} - {{food.title}}
-              </mat-option>
-            </mat-select>
-   
-          </mat-form-field>
-
-        </div>
-    </div>
-    <div align="center">
-      <button *ngIf="!lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
-      Siguiente<mat-icon>chevron_right</mat-icon> 
-      </button>
-      <button *ngIf="lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
-        <mat-icon>save</mat-icon> GUARDAR
-      </button>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onFoodSelected($event.option.value, i)" [displayWith]="displayFood">
+          <mat-option *ngFor="let food of filteredFoods[i] | async" [value]="food">
+            {{ food.id }} - {{ food.title }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
     </div>
   </div>
+
+  <div align="center">
+    <button *ngIf="!lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+      Siguiente <mat-icon>chevron_right</mat-icon>
+    </button>
+    <button *ngIf="lastCategory" mat-raised-button color="primary" class="btn-primary btn-azul" (click)="onClickSave()" [disabled]="form.status == 'INVALID'">
+      <mat-icon>save</mat-icon> GUARDAR
+    </button>
+  </div>
 </div>
-</div>
- 
