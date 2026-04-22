@@ -12,17 +12,16 @@ import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/G
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { ProductService, ProductOrderRow } from 'src/app/shared/services/product.service';
+import { ProductService, ProductOrderRow, ProductOrderStatus } from 'src/app/shared/services/product.service';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
 import { Utils } from 'src/app/utils';
 import { ProductFormComponent } from '../product-form/product-form.component';
 
 export type ProductView = 'orders' | 'products' | 'categories';
 
-export interface ProductSummaryRow {
-  productCategoryTitle: string;
-  productTitle: string;
-  totalCant: number;
+export interface StatusOption {
+  value: ProductOrderStatus | null;
+  label: string;
 }
 
 @Component({
@@ -35,13 +34,31 @@ export class ProductComponent implements OnInit {
   currentView: ProductView = 'orders';
 
   // ── Pedidos ────────────────────────────────────────────────────────────────
-  date: Date = new Date();
+  date: Date | null = null;
   orderRows: ProductOrderRow[] = [];
-  summaryRows: ProductSummaryRow[] = [];
-  displayedOrderColumns: string[] = ['id', 'client', 'category', 'product', 'cant'];
-  displayedSummaryColumns: string[] = ['category', 'product', 'totalCant'];
+  displayedOrderColumns: string[] = ['id', 'date', 'client', 'category', 'product', 'cant', 'status'];
   ordersDataSource: MatTableDataSource<ProductOrderRow>;
   showOrders: boolean = false;
+
+  selectedStatus: ProductOrderStatus | null = 'pendiente';
+  clientSearch: string = '';
+
+  statusOptions: StatusOption[] = [
+    { value: null,          label: 'Todos' },
+    { value: 'pendiente',   label: 'Pendiente' },
+    { value: 'preparacion', label: 'En preparación' },
+    { value: 'terminado',   label: 'Terminado' },
+    { value: 'en_envio',    label: 'En envío' },
+    { value: 'entregado',   label: 'Entregado' },
+  ];
+
+  statusLabels: Record<ProductOrderStatus, string> = {
+    pendiente:   'Pendiente',
+    preparacion: 'En preparación',
+    terminado:   'Terminado',
+    en_envio:    'En envío',
+    entregado:   'Entregado',
+  };
 
   // ── ABM Productos ──────────────────────────────────────────────────────────
   displayedProductColumns: string[] = ['id', 'title', 'description', 'category', 'price', 'available', 'actions'];
@@ -49,8 +66,8 @@ export class ProductComponent implements OnInit {
   productDataSource: any;
   productCategories: ProductCategory[] = [];
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private productService: ProductService,
@@ -60,7 +77,6 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
     this.loadProductCategories();
     this.loadProductOrders();
   }
@@ -75,33 +91,54 @@ export class ProductComponent implements OnInit {
   // ── Pedidos ────────────────────────────────────────────────────────────────
 
   loadProductOrders() {
-    this.productService.getProductOrdersByDate(this.date).subscribe((rows: ProductOrderRow[]) => {
+    const obs = this.date
+      ? this.productService.getProductOrdersByDate(this.date)
+      : this.productService.getAllProductOrders();
+
+    obs.subscribe((rows: ProductOrderRow[]) => {
       this.orderRows = rows;
-      this.ordersDataSource = new MatTableDataSource(rows);
-      this.buildSummary(rows);
-      this.showOrders = rows.length > 0;
+      this.applyFilters();
     });
   }
 
-  onClickOk() {
+  onDateChange(event: any) {
+    this.date = event.value ?? null;
     this.loadProductOrders();
   }
 
-  buildSummary(rows: ProductOrderRow[]) {
-    const map = new Map<string, ProductSummaryRow>();
-    rows.forEach(r => {
-      const key = `${r.productCategoryTitle}|${r.productTitle}`;
-      if (map.has(key)) {
-        map.get(key)!.totalCant += r.cant;
-      } else {
-        map.set(key, {
-          productCategoryTitle: r.productCategoryTitle,
-          productTitle: r.productTitle,
-          totalCant: r.cant
-        });
-      }
+  clearDate() {
+    this.date = null;
+    this.loadProductOrders();
+  }
+
+  onStatusFilterChange() {
+    this.applyFilters();
+  }
+
+  applyFilters() {
+    let filtered = this.orderRows;
+    if (this.selectedStatus !== null) {
+      filtered = filtered.filter(r => r.status === this.selectedStatus);
+    }
+    if (this.clientSearch.trim()) {
+      const q = this.clientSearch.trim().toLowerCase();
+      filtered = filtered.filter(r =>
+        `${r.clientName} ${r.clientLastName}`.toLowerCase().includes(q)
+      );
+    }
+    this.ordersDataSource = new MatTableDataSource(filtered);
+    this.showOrders = this.orderRows.length > 0;
+  }
+
+  onClientSearchChange() {
+    this.applyFilters();
+  }
+
+  onOrderStatusChange(row: ProductOrderRow, newStatus: ProductOrderStatus) {
+    this.productService.updateOrderStatus(row.id, newStatus).subscribe(() => {
+      row.status = newStatus;
+      this.applyFilters();
     });
-    this.summaryRows = Array.from(map.values());
   }
 
   // ── ABM Categorías ─────────────────────────────────────────────────────────
@@ -117,8 +154,13 @@ export class ProductComponent implements OnInit {
   loadProducts() {
     this.productService.getProducts().subscribe((res: GetProductResponse) => {
       this.productDataSource = new MatTableDataSource(res.products);
-      this.productDataSource.paginator = this.paginator;
-      this.productDataSource.sort = this.sort;
+      if (this.paginator) {
+        this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
+        this.productDataSource.paginator = this.paginator;
+      }
+      if (this.sort) {
+        this.productDataSource.sort = this.sort;
+      }
     });
   }
 

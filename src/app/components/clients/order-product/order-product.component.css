@@ -12,22 +12,9 @@
     margin-top: 16px;
 }
 
-.select-date {
-    height: min-content;
-}
-
-.inline-calendar-card {
-    width: 350px;
-}
-
 @media (max-width: 600px) {
     .stepper {
         margin-left: -20px;
-    }
-
-    .inline-calendar-card {
-        width: 100%;
-        height: auto;
     }
 
     .card-success {
@@ -43,52 +30,38 @@
     pointer-events: none !important;
 }
 
-.selected-date-info {
+/* ── Step 1: Productos por categoría ─────────────────────────────────────── */
+
+.products-step {
+    padding: 8px 0 16px 0;
+}
+
+.category-group {
+    margin-bottom: 28px;
+}
+
+.category-title {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
-    font-size: 16px;
-}
-
-.categories-container {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin: 16px 0;
-    max-width: 600px;
-}
-
-.category-card {
-    cursor: pointer;
-    transition: background-color 0.2s, box-shadow 0.2s;
-}
-
-.category-card:hover {
-    background-color: rgba(65, 65, 65, 0.05);
-}
-
-.category-card.selected {
-    background-color: #d3d3d33b;
-    box-shadow: 0 0 0 2px #1976d2;
-}
-
-.category-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.check-icon {
+    font-size: 18px;
+    font-weight: 600;
     color: #1976d2;
+    margin-bottom: 4px;
+    border-bottom: 2px solid #e3f2fd;
+    padding-bottom: 6px;
 }
 
-.check-icon-empty {
-    color: #aaa;
+.category-icon-inline {
+    font-size: 20px;
+    height: 20px;
+    width: 20px;
 }
 
-.products-container {
-    padding: 16px 0;
+.category-description {
+    color: #666;
+    font-size: 13px;
+    margin: 0 0 12px 0;
 }
 
 .products-grid {
@@ -122,7 +95,7 @@
     text-align: center;
 }
 
-.order-summary {
+.selection-summary {
     margin-top: 16px;
     padding: 12px 0;
     font-size: 16px;
@@ -133,6 +106,62 @@
     color: gray;
     padding: 24px 0;
 }
+
+/* ── Step 2: Resumen ─────────────────────────────────────────────────────── */
+
+.summary-step {
+    padding: 8px 0 16px 0;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 15px;
+}
+
+.summary-table th,
+.summary-table td {
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summary-table thead tr {
+    background-color: #f5f5f5;
+    font-weight: 600;
+}
+
+.summary-table .cant-cell {
+    text-align: center;
+}
+
+.summary-table tfoot .total-row {
+    background-color: #e3f2fd;
+    font-size: 16px;
+}
+
+.summary-table tfoot .total-row td {
+    border-top: 2px solid #1976d2;
+    border-bottom: none;
+}
+
+@media (max-width: 600px) {
+    .product-card {
+        width: 100%;
+    }
+
+    .summary-table {
+        font-size: 13px;
+    }
+
+    .summary-table th,
+    .summary-table td {
+        padding: 8px 8px;
+    }
+}
+
+/* ── Success ─────────────────────────────────────────────────────────────── */
 
 .cardSuccess {
     max-width: 450px;

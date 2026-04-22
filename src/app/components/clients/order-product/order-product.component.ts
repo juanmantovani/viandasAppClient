@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { Product } from 'src/app/shared/models/Product';
@@ -15,6 +15,11 @@ export interface ProductOrderItem {
   cant: number;
 }
 
+export interface CategoryGroup {
+  category: ProductCategory;
+  items: ProductOrderItem[];
+}
+
 @Component({
   selector: 'app-order-product',
   templateUrl: './order-product.component.html',
@@ -25,22 +30,13 @@ export class OrderProductComponent implements OnInit {
   stepperOrientation: Observable<StepperOrientation>;
   @ViewChild('stepper') stepper!: MatStepper;
 
-  selectedDate: Date | null = null;
-  minDate: Date;
+  categoryGroups: CategoryGroup[] = [];
+  orderSuccess: boolean = false;
+
   firstStepCompleted: boolean = false;
-
-  categories: ProductCategory[] = [];
-  selectedCategory: ProductCategory | null = null;
-  secondStepCompleted: boolean = false;
-
-  allProducts: Product[] = [];
-  filteredProducts: Product[] = [];
-  productOrders: ProductOrderItem[] = [];
-
   disableNextButton: boolean = true;
   disableBackButton: boolean = true;
   finishButton: boolean = false;
-  orderSuccess: boolean = false;
 
   constructor(
     breakpointObserver: BreakpointObserver,
@@ -50,80 +46,69 @@ export class OrderProductComponent implements OnInit {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
-
-    this.minDate = new Date();
-    this.minDate.setDate(this.minDate.getDate() + 1);
   }
 
   ngOnInit(): void {
-    this.loadCategories();
-    this.loadProducts();
-  }
-
-  loadCategories() {
-    this.productCategoryService.getProductCategories().subscribe((res: GetProductCategoryResponse) => {
-      this.categories = res.productCategories;
+    forkJoin({
+      cats: this.productCategoryService.getProductCategories(),
+      prods: this.productService.getProducts()
+    }).subscribe(({ cats, prods }: { cats: GetProductCategoryResponse; prods: GetProductResponse }) => {
+      const available = prods.products.filter(p => p.available);
+      this.categoryGroups = (cats.productCategories as ProductCategory[])
+        .map(cat => ({
+          category: cat,
+          items: available
+            .filter(p => p.productCategoryId === cat.id)
+            .map(p => ({ product: p, cant: 0 }))
+        }))
+        .filter(g => g.items.length > 0);
     });
   }
 
-  loadProducts() {
-    this.productService.getProducts().subscribe((res: GetProductResponse) => {
-      this.allProducts = res.products.filter(p => p.available);
-    });
+  increment(item: ProductOrderItem): void {
+    item.cant++;
+    this.disableNextButton = !this.hasSelection();
   }
 
-  onDateSelected(date: Date): void {
-    this.selectedDate = date;
-    this.firstStepCompleted = true;
-    this.disableNextButton = false;
-  }
-
-  onSelectCategory(category: ProductCategory): void {
-    this.selectedCategory = category;
-    this.secondStepCompleted = true;
-    this.disableNextButton = false;
-  }
-
-  isCategorySelected(category: ProductCategory): boolean {
-    return this.selectedCategory?.id === category.id;
-  }
-
-  filterProductsByCategory(): void {
-    if (this.selectedCategory) {
-      this.filteredProducts = this.allProducts.filter(
-        p => p.productCategoryId === this.selectedCategory!.id
-      );
-      this.productOrders = this.filteredProducts.map(p => ({ product: p, cant: 0 }));
+  decrement(item: ProductOrderItem): void {
+    if (item.cant > 0) {
+      item.cant--;
+      this.disableNextButton = !this.hasSelection();
     }
   }
 
-  increment(po: ProductOrderItem): void {
-    po.cant++;
-  }
-
-  decrement(po: ProductOrderItem): void {
-    if (po.cant > 0) po.cant--;
-  }
-
   hasSelection(): boolean {
-    return this.productOrders.some(po => po.cant > 0);
+    return this.categoryGroups.some(g => g.items.some(i => i.cant > 0));
   }
 
-  // El componente accede directamente al stepper via @ViewChild
+  get selectedItems(): ProductOrderItem[] {
+    return this.categoryGroups.flatMap(g => g.items).filter(i => i.cant > 0);
+  }
+
+  get selectedCount(): number {
+    return this.categoryGroups.flatMap(g => g.items).reduce((sum, i) => sum + i.cant, 0);
+  }
+
+  get totalPrice(): number {
+    return this.categoryGroups.flatMap(g => g.items).reduce((sum, i) => sum + i.cant * i.product.price, 0);
+  }
+
+  getCategoryName(productCategoryId: number): string {
+    const group = this.categoryGroups.find(g => g.category.id === productCategoryId);
+    return group ? group.category.title : '-';
+  }
+
   onStepComplete(): void {
     const idx = this.stepper.selectedIndex;
     switch (idx) {
       case 0:
+        // Paso 1 → Paso 2 (resumen)
         this.disableBackButton = false;
-        this.disableNextButton = !this.selectedCategory;
-        this.finishButton = false;
-        break;
-      case 1:
-        this.filterProductsByCategory();
         this.disableNextButton = false;
         this.finishButton = true;
         break;
-      case 2:
+      case 1:
+        // Finalizar pedido
         this.orderSuccess = true;
         break;
     }
@@ -132,18 +117,11 @@ export class OrderProductComponent implements OnInit {
 
   onClickBack(): void {
     const idx = this.stepper.selectedIndex;
-    this.disableBackButton = idx <= 1;
-    this.finishButton = false;
-    if (idx === 1) this.disableNextButton = !this.firstStepCompleted;
-    if (idx === 2) this.disableNextButton = !this.selectedCategory;
+    if (idx === 1) {
+      this.disableBackButton = true;
+      this.finishButton = false;
+      this.disableNextButton = !this.hasSelection();
+    }
     this.stepper.previous();
-  }
-
-  get selectedCount(): number {
-    return this.productOrders.reduce((sum, po) => sum + po.cant, 0);
-  }
-
-  get totalPrice(): number {
-    return this.productOrders.reduce((sum, po) => sum + po.cant * po.product.price, 0);
   }
 }

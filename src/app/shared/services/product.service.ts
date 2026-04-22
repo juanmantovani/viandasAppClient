@@ -10,6 +10,7 @@ import { EditProductResponse } from '../dto/product/EditProductResponse';
 import { GetProductResponse } from '../dto/product/GetProductResponse';
 
 const STORAGE_KEY = 'mock_products';
+const ORDERS_KEY = 'mock_product_orders';
 
 const DEFAULT_PRODUCTS = [
   { id: 1, title: 'Flan casero', description: 'Flan con dulce de leche', price: 350, available: true, productCategoryId: 1 },
@@ -18,7 +19,9 @@ const DEFAULT_PRODUCTS = [
   { id: 4, title: 'Tiramisú', description: 'Postre italiano clásico', price: 420, available: true, productCategoryId: 1 },
 ];
 
-// ── Mock de pedidos de productos ───────────────────────────────────────────────
+// ── Estados de pedido ──────────────────────────────────────────────────────────
+export type ProductOrderStatus = 'pendiente' | 'preparacion' | 'terminado' | 'en_envio' | 'entregado';
+
 export interface ProductOrderRow {
   id: number;
   clientName: string;
@@ -26,31 +29,34 @@ export interface ProductOrderRow {
   productCategoryTitle: string;
   productTitle: string;
   cant: number;
-  date: Date;
+  date: string; // ISO string para serialización en localStorage
+  status: ProductOrderStatus;
 }
 
-function todayPlus(days: number): Date {
+function todayPlus(days: number): string {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
   d.setDate(d.getDate() + days);
-  return d;
+  return d.toISOString();
 }
 
-const MOCK_ORDERS: ProductOrderRow[] = [
-  { id: 1, clientName: 'Juan',   clientLastName: 'Pérez',    productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 2, date: todayPlus(0) },
-  { id: 2, clientName: 'María',  clientLastName: 'González', productCategoryTitle: 'Ensaladas', productTitle: 'Ensalada César', cant: 1, date: todayPlus(0) },
-  { id: 3, clientName: 'Carlos', clientLastName: 'López',    productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 3, date: todayPlus(0) },
-  { id: 4, clientName: 'Laura',  clientLastName: 'Martínez', productCategoryTitle: 'Postres',   productTitle: 'Tiramisú',       cant: 1, date: todayPlus(0) },
-  { id: 5, clientName: 'Ana',    clientLastName: 'Rodríguez',productCategoryTitle: 'Bebidas',   productTitle: 'Agua mineral',   cant: 4, date: todayPlus(1) },
-  { id: 6, clientName: 'Juan',   clientLastName: 'Pérez',    productCategoryTitle: 'Postres',   productTitle: 'Tiramisú',       cant: 2, date: todayPlus(1) },
-  { id: 7, clientName: 'Pedro',  clientLastName: 'Suárez',   productCategoryTitle: 'Ensaladas', productTitle: 'Ensalada César', cant: 2, date: todayPlus(1) },
-  { id: 8, clientName: 'María',  clientLastName: 'González', productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 1, date: todayPlus(-1) },
+const DEFAULT_ORDERS: ProductOrderRow[] = [
+  { id: 1, clientName: 'Juan',   clientLastName: 'Pérez',    productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 2, date: todayPlus(0),  status: 'pendiente' },
+  { id: 2, clientName: 'María',  clientLastName: 'González', productCategoryTitle: 'Ensaladas', productTitle: 'Ensalada César', cant: 1, date: todayPlus(0),  status: 'pendiente' },
+  { id: 3, clientName: 'Carlos', clientLastName: 'López',    productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 3, date: todayPlus(0),  status: 'preparacion' },
+  { id: 4, clientName: 'Laura',  clientLastName: 'Martínez', productCategoryTitle: 'Postres',   productTitle: 'Tiramisú',       cant: 1, date: todayPlus(0),  status: 'terminado' },
+  { id: 5, clientName: 'Ana',    clientLastName: 'Rodríguez',productCategoryTitle: 'Bebidas',   productTitle: 'Agua mineral',   cant: 4, date: todayPlus(1),  status: 'pendiente' },
+  { id: 6, clientName: 'Juan',   clientLastName: 'Pérez',    productCategoryTitle: 'Postres',   productTitle: 'Tiramisú',       cant: 2, date: todayPlus(1),  status: 'en_envio' },
+  { id: 7, clientName: 'Pedro',  clientLastName: 'Suárez',   productCategoryTitle: 'Ensaladas', productTitle: 'Ensalada César', cant: 2, date: todayPlus(1),  status: 'entregado' },
+  { id: 8, clientName: 'María',  clientLastName: 'González', productCategoryTitle: 'Postres',   productTitle: 'Flan casero',    cant: 1, date: todayPlus(-1), status: 'entregado' },
 ];
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+
+  // ── Productos ──────────────────────────────────────────────────────────────
 
   private loadFromStorage(): Product[] {
     const stored = localStorage.getItem(STORAGE_KEY);
@@ -97,10 +103,43 @@ export class ProductService {
     return of(new DeleteProductResponse({}));
   }
 
+  // ── Pedidos ────────────────────────────────────────────────────────────────
+
+  private loadOrders(): ProductOrderRow[] {
+    const stored = localStorage.getItem(ORDERS_KEY);
+    if (stored) {
+      return JSON.parse(stored) as ProductOrderRow[];
+    }
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(DEFAULT_ORDERS));
+    return DEFAULT_ORDERS;
+  }
+
+  private saveOrders(orders: ProductOrderRow[]): void {
+    localStorage.setItem(ORDERS_KEY, JSON.stringify(orders));
+  }
+
+  getAllProductOrders(): Observable<ProductOrderRow[]> {
+    return of(this.loadOrders());
+  }
+
   getProductOrdersByDate(date: Date): Observable<ProductOrderRow[]> {
-    const filtered = MOCK_ORDERS.filter(o =>
-      o.date.toDateString() === new Date(date).toDateString()
-    );
+    const target = new Date(date);
+    target.setHours(0, 0, 0, 0);
+    const filtered = this.loadOrders().filter(o => {
+      const d = new Date(o.date);
+      d.setHours(0, 0, 0, 0);
+      return d.toDateString() === target.toDateString();
+    });
     return of(filtered);
+  }
+
+  updateOrderStatus(id: number, status: ProductOrderStatus): Observable<void> {
+    const orders = this.loadOrders();
+    const order = orders.find(o => o.id === id);
+    if (order) {
+      order.status = status;
+      this.saveOrders(orders);
+    }
+    return of(undefined);
   }
 }

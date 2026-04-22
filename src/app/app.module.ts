@@ -51,6 +51,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatRippleModule} from '@angular/material/core';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -251,7 +253,9 @@ import { OrderProductComponent } from './components/clients/order-product/order-
     MatSlideToggleModule,
     MatRadioModule,
     GoogleMapsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatDividerModule
   ],
   providers: [
     MatNotificationComponent,
