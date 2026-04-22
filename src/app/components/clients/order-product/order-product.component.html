@@ -22,25 +22,23 @@
           </h3>
           <p *ngIf="group.category.description" class="category-description">{{ group.category.description }}</p>
 
-          <div class="products-grid">
-            <mat-card class="product-card" *ngFor="let item of group.items">
-              <mat-card-header>
-                <mat-card-title>{{ item.product.title }}</mat-card-title>
-                <mat-card-subtitle *ngIf="item.product.description">{{ item.product.description }}</mat-card-subtitle>
-              </mat-card-header>
-              <mat-card-content>
-                <p class="price">${{ item.product.price }}</p>
-              </mat-card-content>
-              <mat-card-actions class="quantity-actions">
+          <div class="products-list">
+            <div class="product-row" *ngFor="let item of group.items">
+              <div class="product-info">
+                <span class="product-name">{{ item.product.title }}</span>
+                <span *ngIf="item.product.description" class="product-desc">{{ item.product.description }}</span>
+              </div>
+              <span class="product-price">${{ item.product.price }}</span>
+              <div class="quantity-actions">
                 <button mat-icon-button (click)="decrement(item)" [disabled]="item.cant === 0">
                   <mat-icon>remove_circle_outline</mat-icon>
                 </button>
-                <span class="cant-display">{{ item.cant }}</span>
+                <span class="cant-display" [class.cant-active]="item.cant > 0">{{ item.cant }}</span>
                 <button mat-icon-button (click)="increment(item)">
                   <mat-icon>add_circle_outline</mat-icon>
                 </button>
-              </mat-card-actions>
-            </mat-card>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -61,24 +59,24 @@
             <tr>
               <th>Producto</th>
               <th>Categoría</th>
-              <th>Precio unit.</th>
-              <th>Cantidad</th>
-              <th>Subtotal</th>
+              <th class="col-price">Precio unit.</th>
+              <th class="col-cant">Cantidad</th>
+              <th class="col-subtotal">Subtotal</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of selectedItems">
               <td>{{ item.product.title }}</td>
               <td>{{ getCategoryName(item.product.productCategoryId) }}</td>
-              <td>${{ item.product.price }}</td>
-              <td class="cant-cell">{{ item.cant }}</td>
-              <td><strong>${{ item.cant * item.product.price }}</strong></td>
+              <td class="col-price">${{ item.product.price }}</td>
+              <td class="col-cant">{{ item.cant }}</td>
+              <td class="col-subtotal"><strong>${{ item.cant * item.product.price }}</strong></td>
             </tr>
           </tbody>
           <tfoot>
             <tr class="total-row">
               <td colspan="4"><strong>Total</strong></td>
-              <td><strong>${{ totalPrice }}</strong></td>
+              <td class="col-subtotal"><strong>${{ totalPrice }}</strong></td>
             </tr>
           </tfoot>
         </table>
@@ -102,9 +100,21 @@
       <mat-card-content>
         <app-success
           messaggeSuccess="Muchas gracias por tu pedido"
-          messaggeSuccess2="Nos pondremos en contacto para coordinar la entrega">
+          messaggeSuccess2="A continuación, envianos el mensaje de WhatsApp para coordinar la entrega">
         </app-success>
       </mat-card-content>
+      <div class="whatsapp-message" align="start">
+        <p class="message-label">Mensaje:</p>
+        <p class="message-text" style="white-space: pre-line">{{ whatsappText }}</p>
+      </div>
+      <mat-card-actions>
+        <a href="{{ 'https://api.whatsapp.com/send?phone=5493434549868&text=' + whatsappSend }}" target="_blank">
+          <button mat-raised-button color="primary" class="whatsapp-button">
+            <mat-icon>chat</mat-icon>
+            Enviar mensaje de WhatsApp
+          </button>
+        </a>
+      </mat-card-actions>
     </mat-card>
   </div>
 </div>

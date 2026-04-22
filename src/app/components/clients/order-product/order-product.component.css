@@ -37,14 +37,14 @@
 }
 
 .category-group {
-    margin-bottom: 28px;
+    margin-bottom: 24px;
 }
 
 .category-title {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: #1976d2;
     margin-bottom: 4px;
@@ -61,44 +61,83 @@
 .category-description {
     color: #666;
     font-size: 13px;
-    margin: 0 0 12px 0;
+    margin: 0 0 8px 0;
 }
 
-.products-grid {
+/* Compact product rows */
+.products-list {
+    background: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    overflow: hidden;
+}
+
+.product-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background 0.15s;
 }
 
-.product-card {
-    width: 220px;
-    flex-shrink: 0;
+.product-row:last-child {
+    border-bottom: none;
 }
 
-.price {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 8px 0 4px 0;
+.product-row:hover {
+    background: #fafafa;
+}
+
+.product-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.product-name {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.product-desc {
+    display: block;
+    color: #777;
+    font-size: 13px;
+    margin-top: 1px;
+}
+
+.product-price {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1976d2;
+    min-width: 64px;
+    text-align: right;
+    white-space: nowrap;
 }
 
 .quantity-actions {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 8px;
+    gap: 2px;
 }
 
 .cant-display {
-    font-size: 18px;
-    font-weight: bold;
-    min-width: 32px;
+    font-size: 16px;
+    font-weight: 600;
+    min-width: 28px;
     text-align: center;
+    color: #999;
+}
+
+.cant-display.cant-active {
+    color: #1976d2;
 }
 
 .selection-summary {
     margin-top: 16px;
     padding: 12px 0;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .empty-message {
@@ -132,8 +171,19 @@
     font-weight: 600;
 }
 
-.summary-table .cant-cell {
+.summary-table .col-cant {
     text-align: center;
+    width: 90px;
+}
+
+.summary-table .col-price {
+    text-align: right;
+    width: 110px;
+}
+
+.summary-table .col-subtotal {
+    text-align: right;
+    width: 110px;
 }
 
 .summary-table tfoot .total-row {
@@ -147,8 +197,9 @@
 }
 
 @media (max-width: 600px) {
-    .product-card {
-        width: 100%;
+    .product-row {
+        padding: 10px 10px;
+        gap: 8px;
     }
 
     .summary-table {
@@ -161,12 +212,42 @@
     }
 }
 
-/* ── Success ─────────────────────────────────────────────────────────────── */
+/* ── Success / WhatsApp ──────────────────────────────────────────────────── */
 
 .cardSuccess {
-    max-width: 450px;
+    max-width: 480px;
     width: 100%;
     margin-top: 20px;
+}
+
+.whatsapp-message {
+    padding: 0 16px 8px 16px;
+}
+
+.message-label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #555;
+}
+
+.message-text {
+    background: #f5f5f5;
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+}
+
+.whatsapp-button {
+    margin: 8px 16px 16px 16px;
+    background-color: #25d366 !important;
+    color: #fff !important;
+}
+
+.whatsapp-button mat-icon {
+    margin-right: 6px;
+    vertical-align: middle;
 }
 
 @media (max-width: 600px) {

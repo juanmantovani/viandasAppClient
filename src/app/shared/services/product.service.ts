@@ -142,4 +142,12 @@ export class ProductService {
     }
     return of(undefined);
   }
+
+  addProductOrders(rows: Omit<ProductOrderRow, 'id'>[]): Observable<ProductOrderRow[]> {
+    const orders = this.loadOrders();
+    const nextId = orders.length > 0 ? Math.max(...orders.map(o => o.id)) + 1 : 1;
+    const newRows = rows.map((r, i) => ({ ...r, id: nextId + i }));
+    this.saveOrders([...orders, ...newRows]);
+    return of(newRows);
+  }
 }

@@ -6,9 +6,11 @@ import { map } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
-import { ProductService } from 'src/app/shared/services/product.service';
+import { ProductService, ProductOrderRow } from 'src/app/shared/services/product.service';
 import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/GetProductCategoryResponse';
 import { GetProductResponse } from 'src/app/shared/dto/product/GetProductResponse';
+import { KeycloakService } from 'keycloak-angular';
+import { KeycloakProfile } from 'keycloak-js';
 
 export interface ProductOrderItem {
   product: Product;
@@ -38,10 +40,15 @@ export class OrderProductComponent implements OnInit {
   disableBackButton: boolean = true;
   finishButton: boolean = false;
 
+  userProfile: KeycloakProfile | null = null;
+  whatsappText: string = '';
+  whatsappSend: string = '';
+
   constructor(
     breakpointObserver: BreakpointObserver,
     private productCategoryService: ProductCategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private readonly keycloak: KeycloakService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -49,6 +56,10 @@ export class OrderProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.keycloak.loadUserProfile().then(profile => {
+      this.userProfile = profile;
+    });
+
     forkJoin({
       cats: this.productCategoryService.getProductCategories(),
       prods: this.productService.getProducts()
@@ -98,17 +109,46 @@ export class OrderProductComponent implements OnInit {
     return group ? group.category.title : '-';
   }
 
+  formatWhatsappMessage(): void {
+    const name = this.userProfile?.firstName ?? '';
+    const lastName = this.userProfile?.lastName ?? '';
+    let text = `Hola, mi nombre es ${name} ${lastName} y quisiera hacer el siguiente pedido:\n`;
+    this.selectedItems.forEach(item => {
+      text += `- ${item.cant}x ${item.product.title} ($${item.cant * item.product.price})\n`;
+    });
+    text += '-----------------------------------\n';
+    text += `Total: $${this.totalPrice}`;
+    this.whatsappText = text;
+    this.whatsappSend = text.replace(/[\n]/g, '%0a');
+  }
+
+  saveOrderToMock(): void {
+    const name = this.userProfile?.firstName ?? '';
+    const lastName = this.userProfile?.lastName ?? '';
+    const date = new Date().toISOString();
+    const rows: Omit<ProductOrderRow, 'id'>[] = this.selectedItems.map(item => ({
+      clientName: name,
+      clientLastName: lastName,
+      productCategoryTitle: this.getCategoryName(item.product.productCategoryId),
+      productTitle: item.product.title,
+      cant: item.cant,
+      date,
+      status: 'pendiente'
+    }));
+    this.productService.addProductOrders(rows).subscribe();
+  }
+
   onStepComplete(): void {
     const idx = this.stepper.selectedIndex;
     switch (idx) {
       case 0:
-        // Paso 1 → Paso 2 (resumen)
         this.disableBackButton = false;
         this.disableNextButton = false;
         this.finishButton = true;
         break;
       case 1:
-        // Finalizar pedido
+        this.saveOrderToMock();
+        this.formatWhatsappMessage();
         this.orderSuccess = true;
         break;
     }

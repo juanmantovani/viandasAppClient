@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm start:*)",
-      "Bash(npx ng *)"
+      "Bash(npx ng *)",
+      "Bash(xargs grep *)"
     ]
   }
 }
