@@ -23,6 +23,8 @@ export const INTERNAL_ROUTES = {
     WELCOME : 'welcome',
     DELIVERY : 'delivery',
     PRODUCT : 'product',
+    PRODUCT_CATEGORY : 'productCategory',
+    PRODUCT_ORDER : 'productOrder',
     ORDER_PRODUCT : 'orderProduct'
 
 

@@ -119,6 +119,17 @@ export const API_ROUTES = {
         ADDPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/uploadProduct`,
         EDITPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/editProduct`,
         DELETEPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/deleteProduct`,
-    }
-
+    },
+    PRODUCT_CATEGORY: {
+        GETPRODUCTCATEGORIES: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/getProductCategories`,
+        ADDPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/uploadProductCategory`,
+        EDITPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/editProductCategory`,
+        DELETEPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/deleteProductCategory`,
+    },
+    PRODUCT_ORDER: {
+        GETALLPRODUCTORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/getAllProductOrders`,
+        GETPRODUCTORDERSBYDATE: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/getProductOrdersByDate`,
+        ADDPRODUCTORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/addProductOrders`,
+        UPDATEPRODUCTORDERSTATUS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/updateOrderStatus`,
+    },
 }

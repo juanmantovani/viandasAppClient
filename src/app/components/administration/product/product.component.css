@@ -109,40 +109,19 @@ mat-form-field {
     font-size: 14px;
 }
 
-.status-select {
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 16px;
     font-size: 13px;
-    min-width: 140px;
-}
-
-/* Colores de estado en el select */
-.status-pendiente .mat-mdc-select-value-text,
-.status-pendiente .mat-select-value-text {
-    color: #e65100;
     font-weight: 600;
 }
 
-.status-preparacion .mat-mdc-select-value-text,
-.status-preparacion .mat-select-value-text {
-    color: #1565c0;
-    font-weight: 600;
-}
-
-.status-terminado .mat-mdc-select-value-text,
-.status-terminado .mat-select-value-text {
-    color: #6a1b9a;
-    font-weight: 600;
-}
-
-.status-en_envio .mat-mdc-select-value-text,
-.status-en_envio .mat-select-value-text {
-    color: #f57f17;
-    font-weight: 600;
-}
-
-.status-entregado .mat-mdc-select-value-text,
-.status-entregado .mat-select-value-text {
+.status-entregado {
+    background-color: #e8f5e9;
     color: #2e7d32;
-    font-weight: 600;
 }
 
 .no-results-filter {

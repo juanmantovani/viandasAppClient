@@ -40,24 +40,17 @@ export class ProductComponent implements OnInit {
   ordersDataSource: MatTableDataSource<ProductOrderRow>;
   showOrders: boolean = false;
 
-  selectedStatus: ProductOrderStatus | null = 'pendiente';
+  selectedStatus: ProductOrderStatus | null = null;
   clientSearch: string = '';
 
   statusOptions: StatusOption[] = [
-    { value: null,          label: 'Todos' },
-    { value: 'pendiente',   label: 'Pendiente' },
-    { value: 'preparacion', label: 'En preparación' },
-    { value: 'terminado',   label: 'Terminado' },
-    { value: 'en_envio',    label: 'En envío' },
-    { value: 'entregado',   label: 'Entregado' },
+    { value: null,        label: 'Todos' },
+    { value: 'entregado', label: 'Entregados' },
   ];
 
   statusLabels: Record<ProductOrderStatus, string> = {
-    pendiente:   'Pendiente',
-    preparacion: 'En preparación',
-    terminado:   'Terminado',
-    en_envio:    'En envío',
-    entregado:   'Entregado',
+    pendiente: 'Pendiente',
+    entregado: 'Entregado',
   };
 
   // ── ABM Productos ──────────────────────────────────────────────────────────
@@ -126,6 +119,7 @@ export class ProductComponent implements OnInit {
         `${r.clientName} ${r.clientLastName}`.toLowerCase().includes(q)
       );
     }
+    filtered = [...filtered].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     this.ordersDataSource = new MatTableDataSource(filtered);
     this.showOrders = this.orderRows.length > 0;
   }

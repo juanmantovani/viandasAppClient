@@ -18,6 +18,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { SpinnerComponent } from './shared/components/spinner/spinner.component';
 import { SpinnerInterceptor } from './shared/interceptors/spinner.interceptor';
 import { ServerErrorInterceptor } from './shared/interceptors/server-error.interceptor';
+import { MockProductInterceptor } from './shared/interceptors/mock-product.interceptor';
 import { GlobalErrorHandler } from './shared/global-error-handler';
 import { CarrouselFormComponent } from './components/administration/carrousel-form/carrousel-form.component'; 
 import { CategoriesCardsComponent } from './components/categories-cards/categories-cards.component'
@@ -264,6 +265,7 @@ import { OrderProductComponent } from './components/clients/order-product/order-
     DiscordErrorLogger,
     DiscordSendOrder,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: MockProductInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },

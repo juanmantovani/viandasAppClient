@@ -1,74 +1,46 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { ProductCategory } from '../models/ProductCategory';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AddProductCategoryRequest } from '../dto/productCategory/AddProductCategoryRequest';
 import { AddProductCategoryResponse } from '../dto/productCategory/AddProductCategoryResponse';
-import { EditProductCategoryRequest } from '../dto/productCategory/EditProductCategoryRequest';
-import { EditProductCategoryResponse } from '../dto/productCategory/EditProductCategoryResponse';
 import { DeleteProductCategoryRequest } from '../dto/productCategory/DeleteProductCategoryRequest';
 import { DeleteProductCategoryResponse } from '../dto/productCategory/DeleteProductCategoryResponse';
+import { EditProductCategoryRequest } from '../dto/productCategory/EditProductCategoryRequest';
+import { EditProductCategoryResponse } from '../dto/productCategory/EditProductCategoryResponse';
 import { GetProductCategoryResponse } from '../dto/productCategory/GetProductCategoryResponse';
-
-const STORAGE_KEY = 'mock_product_categories';
-
-const DEFAULT_CATEGORIES = [
-  { id: 1, title: 'Postres', description: 'Postres y dulces' },
-  { id: 2, title: 'Ensaladas', description: 'Ensaladas frescas' },
-  { id: 3, title: 'Bebidas', description: 'Bebidas frías y calientes' },
-];
+import * as ROUTES from '../routes/index.routes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductCategoryService {
 
-  private loadFromStorage(): ProductCategory[] {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      return JSON.parse(stored).map((c: any) => new ProductCategory(c));
-    }
-    const defaults = DEFAULT_CATEGORIES.map(c => new ProductCategory(c));
-    this.saveToStorage(defaults);
-    return defaults;
-  }
-
-  private saveToStorage(items: ProductCategory[]): void {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }
-
-  private nextId(items: ProductCategory[]): number {
-    return items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
-  }
+  constructor(private http: HttpClient) {}
+  OPTION = { headers: { 'Content-Type': 'application/json' } };
 
   getProductCategories(): Observable<GetProductCategoryResponse> {
-    const productCategories = this.loadFromStorage();
-    return of(new GetProductCategoryResponse({ productCategories }));
+    return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_CATEGORY.GETPRODUCTCATEGORIES).pipe(
+      map(res => new GetProductCategoryResponse(res))
+    );
   }
 
   addProductCategory(request: AddProductCategoryRequest): Observable<AddProductCategoryResponse> {
-    const items = this.loadFromStorage();
-    const newItem = new ProductCategory({
-      ...request.productCategory,
-      id: this.nextId(items)
-    });
-    items.push(newItem);
-    this.saveToStorage(items);
-    return of(new AddProductCategoryResponse({ productCategory: newItem }));
+    return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT_CATEGORY.ADDPRODUCTCATEGORY, JSON.stringify(request), this.OPTION).pipe(
+      map(res => new AddProductCategoryResponse(res))
+    );
   }
 
   editProductCategory(request: EditProductCategoryRequest): Observable<EditProductCategoryResponse> {
-    const items = this.loadFromStorage();
-    const index = items.findIndex(i => i.id === request.productCategory.id);
-    if (index !== -1) {
-      items[index] = new ProductCategory(request.productCategory);
-    }
-    this.saveToStorage(items);
-    return of(new EditProductCategoryResponse({ productCategory: request.productCategory }));
+    return this.http.put<any>(ROUTES.API_ROUTES.PRODUCT_CATEGORY.EDITPRODUCTCATEGORY, JSON.stringify(request), this.OPTION).pipe(
+      map(res => new EditProductCategoryResponse(res))
+    );
   }
 
   deleteProductCategory(request: DeleteProductCategoryRequest): Observable<DeleteProductCategoryResponse> {
-    const items = this.loadFromStorage().filter(i => i.id !== request.idProductCategory);
-    this.saveToStorage(items);
-    return of(new DeleteProductCategoryResponse({}));
+    const params = new HttpParams().set('idProductCategory', request.idProductCategory.toString());
+    return this.http.delete<any>(ROUTES.API_ROUTES.PRODUCT_CATEGORY.DELETEPRODUCTCATEGORY, { params }).pipe(
+      map(res => new DeleteProductCategoryResponse(res))
+    );
   }
 }
