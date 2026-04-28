@@ -12,7 +12,8 @@
       "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/db/productOrder/**)",
       "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/**)",
       "Bash(go build *)",
-      "Bash(echo \"EXIT:$?\")"
+      "Bash(echo \"EXIT:$?\")",
+      "Bash(npx tsc *)"
     ]
   }
 }

@@ -132,11 +132,26 @@ mat-form-field {
 }
 
 .product-line {
-    padding: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
     font-size: 13px;
+}
+
+.product-info {
+    flex: 1;
 }
 
 .product-category {
     color: #888;
     font-size: 12px;
+}
+
+.item-deliver-btn {
+    flex-shrink: 0;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 0 8px;
 }

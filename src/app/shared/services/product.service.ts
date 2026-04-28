@@ -14,9 +14,11 @@ import * as ROUTES from '../routes/index.routes';
 export type ProductOrderStatus = 'pendiente' | 'entregado';
 
 export interface ProductOrderItem {
+  id?: number;
   productTitle: string;
   productCategoryTitle: string;
   cant: number;
+  status: ProductOrderStatus;
 }
 
 export interface ProductOrder {
@@ -24,7 +26,6 @@ export interface ProductOrder {
   clientName: string;
   clientLastName: string;
   date: string;
-  status: ProductOrderStatus;
   products: ProductOrderItem[];
 }
 
@@ -80,11 +81,11 @@ export class ProductService {
     );
   }
 
-  updateOrderStatus(id: number, status: ProductOrderStatus): Observable<void> {
+  updateOrderItemStatus(idItem: number, status: ProductOrderStatus): Observable<void> {
     const params = new HttpParams()
-      .set('idProductOrder', id.toString())
+      .set('idProductOrderItem', idItem.toString())
       .set('status', status);
-    return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.UPDATEPRODUCTORDERSTATUS, { params }).pipe(
+    return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.UPDATEPRODUCTORDERITEMSTATUS, { params }).pipe(
       map(() => undefined)
     );
   }

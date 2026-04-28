@@ -136,17 +136,17 @@ export class OrderProductComponent implements OnInit {
     this.whatsappSend = text.replace(/[\n]/g, '%0a');
   }
 
-  saveOrderToMock(): void {
+  saveOrder(): void {
     const { name, lastName } = this.getClientName();
     const order: Omit<ProductOrder, 'id'> = {
       clientName: name,
       clientLastName: lastName,
       date: new Date().toISOString(),
-      status: 'pendiente',
       products: this.selectedItems.map(item => ({
         productTitle: item.product.title,
         productCategoryTitle: this.getCategoryName(item.product.productCategoryId),
-        cant: item.cant
+        cant: item.cant,
+        status: 'pendiente'
       }))
     };
     this.productService.addProductOrder(order).subscribe();
@@ -161,7 +161,7 @@ export class OrderProductComponent implements OnInit {
         this.finishButton = true;
         break;
       case 1:
-        this.saveOrderToMock();
+        this.saveOrder();
         this.formatWhatsappMessage();
         this.orderSuccess = true;
         break;

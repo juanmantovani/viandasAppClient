@@ -12,7 +12,7 @@ import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/G
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { ProductService, ProductOrder, ProductOrderStatus } from 'src/app/shared/services/product.service';
+import { ProductService, ProductOrder, ProductOrderItem, ProductOrderStatus } from 'src/app/shared/services/product.service';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
 import { Utils } from 'src/app/utils';
 import { ProductFormComponent } from '../product-form/product-form.component';
@@ -36,7 +36,7 @@ export class ProductComponent implements OnInit {
   // ── Pedidos ────────────────────────────────────────────────────────────────
   date: Date | null = null;
   orderRows: ProductOrder[] = [];
-  displayedOrderColumns: string[] = ['id', 'date', 'client', 'products', 'status'];
+  displayedOrderColumns: string[] = ['id', 'date', 'client', 'products'];
   ordersDataSource: MatTableDataSource<ProductOrder>;
   showOrders: boolean = false;
 
@@ -111,7 +111,7 @@ export class ProductComponent implements OnInit {
   applyFilters() {
     let filtered = this.orderRows;
     if (this.selectedStatus !== null) {
-      filtered = filtered.filter(r => r.status === this.selectedStatus);
+      filtered = filtered.filter(r => r.products.every(p => p.status === this.selectedStatus));
     }
     if (this.clientSearch.trim()) {
       const q = this.clientSearch.trim().toLowerCase();
@@ -128,9 +128,10 @@ export class ProductComponent implements OnInit {
     this.applyFilters();
   }
 
-  onOrderStatusChange(row: ProductOrder, newStatus: ProductOrderStatus) {
-    this.productService.updateOrderStatus(row.id, newStatus).subscribe(() => {
-      row.status = newStatus;
+  onOrderItemStatusChange(order: ProductOrder, item: ProductOrderItem, newStatus: ProductOrderStatus) {
+    if (!item.id) return;
+    this.productService.updateOrderItemStatus(item.id, newStatus).subscribe(() => {
+      item.status = newStatus;
       this.applyFilters();
     });
   }
