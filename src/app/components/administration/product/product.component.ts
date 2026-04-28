@@ -12,7 +12,7 @@ import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/G
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { DialogService } from 'src/app/shared/services/dialog.service';
-import { ProductService, ProductOrderRow, ProductOrderStatus } from 'src/app/shared/services/product.service';
+import { ProductService, ProductOrder, ProductOrderStatus } from 'src/app/shared/services/product.service';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
 import { Utils } from 'src/app/utils';
 import { ProductFormComponent } from '../product-form/product-form.component';
@@ -35,9 +35,9 @@ export class ProductComponent implements OnInit {
 
   // ── Pedidos ────────────────────────────────────────────────────────────────
   date: Date | null = null;
-  orderRows: ProductOrderRow[] = [];
-  displayedOrderColumns: string[] = ['id', 'date', 'client', 'category', 'product', 'cant', 'status'];
-  ordersDataSource: MatTableDataSource<ProductOrderRow>;
+  orderRows: ProductOrder[] = [];
+  displayedOrderColumns: string[] = ['id', 'date', 'client', 'products', 'status'];
+  ordersDataSource: MatTableDataSource<ProductOrder>;
   showOrders: boolean = false;
 
   selectedStatus: ProductOrderStatus | null = null;
@@ -88,7 +88,7 @@ export class ProductComponent implements OnInit {
       ? this.productService.getProductOrdersByDate(this.date)
       : this.productService.getAllProductOrders();
 
-    obs.subscribe((rows: ProductOrderRow[]) => {
+    obs.subscribe((rows: ProductOrder[]) => {
       this.orderRows = rows;
       this.applyFilters();
     });
@@ -128,7 +128,7 @@ export class ProductComponent implements OnInit {
     this.applyFilters();
   }
 
-  onOrderStatusChange(row: ProductOrderRow, newStatus: ProductOrderStatus) {
+  onOrderStatusChange(row: ProductOrder, newStatus: ProductOrderStatus) {
     this.productService.updateOrderStatus(row.id, newStatus).subscribe(() => {
       row.status = newStatus;
       this.applyFilters();
@@ -196,7 +196,6 @@ export class ProductComponent implements OnInit {
       if (!data) { dialogRef.close(); return false; }
       await this.onSubmit(data);
       dialogRef.close();
-      this.loadProducts();
       return true;
     });
   }
@@ -204,10 +203,10 @@ export class ProductComponent implements OnInit {
   async onSubmit(product: Product) {
     if (this.actionForm === 'Add') {
       const request: AddProductRequest = { product };
-      await this.productService.addProduct(request).subscribe();
+      await this.productService.addProduct(request).subscribe(() => this.loadProducts());
     } else {
       const request: EditProductRequest = { product };
-      await this.productService.editProduct(request).subscribe();
+      await this.productService.editProduct(request).subscribe(() => this.loadProducts());
     }
   }
 }

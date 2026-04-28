@@ -6,11 +6,13 @@ import { map } from 'rxjs/operators';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
-import { ProductService, ProductOrderRow } from 'src/app/shared/services/product.service';
+import { ProductService, ProductOrder } from 'src/app/shared/services/product.service';
 import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/GetProductCategoryResponse';
 import { GetProductResponse } from 'src/app/shared/dto/product/GetProductResponse';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
+import { ClientService } from 'src/app/shared/services/client.service';
+import { Client } from 'src/app/shared/models/Client';
 
 export interface ProductOrderItem {
   product: Product;
@@ -41,6 +43,7 @@ export class OrderProductComponent implements OnInit {
   finishButton: boolean = false;
 
   userProfile: KeycloakProfile | null = null;
+  clientPersonified: Client | null = null;
   whatsappText: string = '';
   whatsappSend: string = '';
 
@@ -48,7 +51,8 @@ export class OrderProductComponent implements OnInit {
     breakpointObserver: BreakpointObserver,
     private productCategoryService: ProductCategoryService,
     private productService: ProductService,
-    private readonly keycloak: KeycloakService
+    private readonly keycloak: KeycloakService,
+    private clientService: ClientService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -59,6 +63,10 @@ export class OrderProductComponent implements OnInit {
     this.keycloak.loadUserProfile().then(profile => {
       this.userProfile = profile;
     });
+    const personified = this.clientService.getClientPersonified();
+    if (personified) {
+      this.clientPersonified = new Client(personified);
+    }
 
     forkJoin({
       cats: this.productCategoryService.getProductCategories(),
@@ -109,9 +117,15 @@ export class OrderProductComponent implements OnInit {
     return group ? group.category.title : '-';
   }
 
+  private getClientName(): { name: string; lastName: string } {
+    if (this.clientPersonified) {
+      return { name: this.clientPersonified.name, lastName: this.clientPersonified.lastName };
+    }
+    return { name: this.userProfile?.firstName ?? '', lastName: this.userProfile?.lastName ?? '' };
+  }
+
   formatWhatsappMessage(): void {
-    const name = this.userProfile?.firstName ?? '';
-    const lastName = this.userProfile?.lastName ?? '';
+    const { name, lastName } = this.getClientName();
     let text = `Hola, mi nombre es ${name} ${lastName} y quisiera hacer el siguiente pedido:\n`;
     this.selectedItems.forEach(item => {
       text += `- ${item.cant}x ${item.product.title} ($${item.cant * item.product.price})\n`;
@@ -123,19 +137,19 @@ export class OrderProductComponent implements OnInit {
   }
 
   saveOrderToMock(): void {
-    const name = this.userProfile?.firstName ?? '';
-    const lastName = this.userProfile?.lastName ?? '';
-    const date = new Date().toISOString();
-    const rows: Omit<ProductOrderRow, 'id'>[] = this.selectedItems.map(item => ({
+    const { name, lastName } = this.getClientName();
+    const order: Omit<ProductOrder, 'id'> = {
       clientName: name,
       clientLastName: lastName,
-      productCategoryTitle: this.getCategoryName(item.product.productCategoryId),
-      productTitle: item.product.title,
-      cant: item.cant,
-      date,
-      status: 'pendiente'
-    }));
-    this.productService.addProductOrders(rows).subscribe();
+      date: new Date().toISOString(),
+      status: 'pendiente',
+      products: this.selectedItems.map(item => ({
+        productTitle: item.product.title,
+        productCategoryTitle: this.getCategoryName(item.product.productCategoryId),
+        cant: item.cant
+      }))
+    };
+    this.productService.addProductOrder(order).subscribe();
   }
 
   onStepComplete(): void {

@@ -54,8 +54,10 @@ tr.mat-row:hover {
     padding-right: 10px;
 }
 
-.actions-button-container button {
-    margin-right: 10px;
+.actions-button-container {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 mat-form-field {
@@ -127,4 +129,14 @@ mat-form-field {
 .no-results-filter {
     text-align: center;
     margin-top: 16px;
+}
+
+.product-line {
+    padding: 2px 0;
+    font-size: 13px;
+}
+
+.product-category {
+    color: #888;
+    font-size: 12px;
 }

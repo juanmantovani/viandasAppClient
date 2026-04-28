@@ -13,15 +13,19 @@ import * as ROUTES from '../routes/index.routes';
 
 export type ProductOrderStatus = 'pendiente' | 'entregado';
 
-export interface ProductOrderRow {
+export interface ProductOrderItem {
+  productTitle: string;
+  productCategoryTitle: string;
+  cant: number;
+}
+
+export interface ProductOrder {
   id: number;
   clientName: string;
   clientLastName: string;
-  productCategoryTitle: string;
-  productTitle: string;
-  cant: number;
   date: string;
   status: ProductOrderStatus;
+  products: ProductOrderItem[];
 }
 
 @Injectable({
@@ -61,18 +65,18 @@ export class ProductService {
 
   // ── Pedidos ────────────────────────────────────────────────────────────────
 
-  getAllProductOrders(): Observable<ProductOrderRow[]> {
+  getAllProductOrders(): Observable<ProductOrder[]> {
     return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.GETALLPRODUCTORDERS).pipe(
-      map(res => res.productOrders as ProductOrderRow[])
+      map(res => res.productOrders as ProductOrder[])
     );
   }
 
-  getProductOrdersByDate(date: Date): Observable<ProductOrderRow[]> {
+  getProductOrdersByDate(date: Date): Observable<ProductOrder[]> {
     const d = new Date(date);
     d.setHours(0, 0, 0, 0);
     const params = new HttpParams().set('date', d.toISOString());
     return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.GETPRODUCTORDERSBYDATE, { params }).pipe(
-      map(res => res.productOrders as ProductOrderRow[])
+      map(res => res.productOrders as ProductOrder[])
     );
   }
 
@@ -85,9 +89,9 @@ export class ProductService {
     );
   }
 
-  addProductOrders(rows: Omit<ProductOrderRow, 'id'>[]): Observable<ProductOrderRow[]> {
-    return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.ADDPRODUCTORDERS, JSON.stringify(rows), this.OPTION).pipe(
-      map(res => res.productOrders as ProductOrderRow[])
+  addProductOrder(order: Omit<ProductOrder, 'id'>): Observable<ProductOrder> {
+    return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.ADDPRODUCTORDER, JSON.stringify(order), this.OPTION).pipe(
+      map(res => res.productOrder as ProductOrder)
     );
   }
 }

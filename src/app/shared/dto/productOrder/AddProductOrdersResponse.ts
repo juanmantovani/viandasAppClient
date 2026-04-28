@@ -1,9 +1,9 @@
-import { ProductOrderRow } from '../../services/product.service';
+import { ProductOrder } from '../../services/product.service';
 
-export class AddProductOrdersResponse {
-  productOrders: ProductOrderRow[];
+export class AddProductOrderResponse {
+  productOrder: ProductOrder;
 
   constructor(data: any) {
-    this.productOrders = data?.productOrders ?? [];
+    this.productOrder = data?.productOrder;
   }
 }

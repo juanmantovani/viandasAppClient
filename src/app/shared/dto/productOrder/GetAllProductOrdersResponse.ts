@@ -1,7 +1,7 @@
-import { ProductOrderRow } from '../../services/product.service';
+import { ProductOrder } from '../../services/product.service';
 
 export class GetAllProductOrdersResponse {
-  productOrders: ProductOrderRow[];
+  productOrders: ProductOrder[];
 
   constructor(data: any) {
     this.productOrders = data?.productOrders ?? [];

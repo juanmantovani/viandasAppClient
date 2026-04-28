@@ -3,7 +3,16 @@
     "allow": [
       "Bash(npm start:*)",
       "Bash(npx ng *)",
-      "Bash(xargs grep *)"
+      "Bash(xargs grep *)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/handlers/product/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/handlers/productCategory/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/handlers/productOrder/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/db/product/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/db/productCategory/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/db/productOrder/**)",
+      "Read(//c/Users/Usuario/Documents/viandas/viandasAppServer/**)",
+      "Bash(go build *)",
+      "Bash(echo \"EXIT:$?\")"
     ]
   }
 }

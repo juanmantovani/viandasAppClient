@@ -81,19 +81,14 @@
           <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.clientName}} {{r.clientLastName}} </td>
         </ng-container>
 
-        <ng-container matColumnDef="category">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Categoría </th>
-          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.productCategoryTitle}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="product">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Producto </th>
-          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.productTitle}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="cant">
-          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Cantidad </th>
-          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.cant}} </td>
+        <ng-container matColumnDef="products">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Productos </th>
+          <td mat-cell *matCellDef="let r">
+            <div *ngFor="let p of r.products" class="product-line">
+              <strong>{{p.cant}}x</strong> {{p.productTitle}}
+              <span class="product-category">({{p.productCategoryTitle}})</span>
+            </div>
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="status">
@@ -185,10 +180,10 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element" class="actions-button-container">
-            <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar">
+            <button mat-icon-button color="primary" (click)="onClickEdit(element)" matTooltip="Editar">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar">
+            <button mat-icon-button color="warn" (click)="onClickDelete(element)" matTooltip="Eliminar">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

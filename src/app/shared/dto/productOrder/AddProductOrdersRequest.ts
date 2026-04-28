@@ -1,5 +1,5 @@
-import { ProductOrderRow } from '../../services/product.service';
+import { ProductOrder } from '../../services/product.service';
 
-export interface AddProductOrdersRequest {
-  orders: Omit<ProductOrderRow, 'id'>[];
+export interface AddProductOrderRequest {
+  order: Omit<ProductOrder, 'id'>;
 }
