@@ -45,3 +45,4 @@ src/environments/*
 src/environments/environment.prod.ts
 src/environments/keycloak.config.ts
 src/environments/environment.ts
+.claude/settings.local.json

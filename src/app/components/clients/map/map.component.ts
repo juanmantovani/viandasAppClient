@@ -78,7 +78,7 @@ export class MapComponent implements OnInit {
   }
 
   async getIdZone(){
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
     const isInZone = google.maps.geometry.poly.containsLocation(
       this.selectAddress,
       new google.maps.Polygon({ paths:this.zonesMap[i]})
