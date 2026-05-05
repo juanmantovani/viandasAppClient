@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { AddProductRequest } from '../dto/product/AddProductRequest';
 import { AddProductResponse } from '../dto/product/AddProductResponse';
 import { DeleteProductRequest } from '../dto/product/DeleteProductRequest';
@@ -45,6 +45,12 @@ export class ProductService {
     );
   }
 
+  getProductsAdmin(): Observable<GetProductResponse> {
+    return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT.GETPRODUCTSADMIN).pipe(
+      map(res => new GetProductResponse(res))
+    );
+  }
+
   addProduct(request: AddProductRequest): Observable<AddProductResponse> {
     return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT.ADDPRODUCT, JSON.stringify(request), this.OPTION).pipe(
       map(res => new AddProductResponse(res))
@@ -77,7 +83,8 @@ export class ProductService {
     d.setHours(0, 0, 0, 0);
     const params = new HttpParams().set('date', d.toISOString());
     return this.http.get<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.GETPRODUCTORDERSBYDATE, { params }).pipe(
-      map(res => res.productOrders as ProductOrder[])
+      map(res => res.productOrders as ProductOrder[]),
+      catchError(err => err.status === 404 ? of([]) : throwError(() => err))
     );
   }
 

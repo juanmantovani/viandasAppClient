@@ -46,6 +46,13 @@
         </mat-form-field>
       </div>
 
+    </div>
+
+    <div *ngIf="!showOrders">
+      <mat-error align="center"><h2>{{ date ? 'No hay pedidos de productos para la fecha indicada' : 'No hay pedidos de productos' }}</h2></mat-error>
+    </div>
+
+    <div *ngIf="showOrders">
       <div class="status-filter-row">
         <mat-button-toggle-group
           [(ngModel)]="selectedStatus"
@@ -56,13 +63,6 @@
           </mat-button-toggle>
         </mat-button-toggle-group>
       </div>
-    </div>
-
-    <div *ngIf="!showOrders">
-      <mat-error align="center"><h3>No hay pedidos de productos</h3></mat-error>
-    </div>
-
-    <div *ngIf="showOrders">
       <!-- Tabla de pedidos -->
       <table mat-table [dataSource]="ordersDataSource" class="mat-elevation-z8 orders-table">
 
@@ -95,9 +95,9 @@
                 </button>
               </ng-container>
               <ng-container *ngIf="p.status === 'entregado'">
-                <span class="status-chip status-entregado">
-                  <mat-icon style="font-size:16px;vertical-align:middle">check_circle</mat-icon> Entregado
-                </span>
+                <button mat-stroked-button class="item-deliver-btn" (click)="onOrderItemStatusChange(r, p, 'pendiente')">
+                  <mat-icon>undo</mat-icon> Volver a pendiente
+                </button>
               </ng-container>
             </div>
           </td>
@@ -130,13 +130,13 @@
     <div class="table-width">
       <table mat-table [dataSource]="productDataSource" matSort class="mat-elevation-z8">
         <colgroup>
-          <col style="width:6%"/>
+          <col style="width:5%"/>
+          <col style="width:18%"/>
+          <col style="width:18%"/>
+          <col style="width:18%"/>
+          <col style="width:12%"/>
+          <col style="width:9%"/>
           <col style="width:20%"/>
-          <col style="width:20%"/>
-          <col style="width:20%"/>
-          <col style="width:14%"/>
-          <col style="width:10%"/>
-          <col style="width:10%"/>
         </colgroup>
 
         <ng-container matColumnDef="id">
@@ -176,10 +176,10 @@
         <ng-container matColumnDef="actions">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let element" class="actions-button-container">
-            <button mat-icon-button color="primary" (click)="onClickEdit(element)" matTooltip="Editar">
+            <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar">
               <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="onClickDelete(element)" matTooltip="Eliminar">
+            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar">
               <mat-icon>delete</mat-icon>
             </button>
           </td>

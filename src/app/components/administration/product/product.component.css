@@ -47,6 +47,12 @@ tr.mat-row:hover {
     width: 100%;
 }
 
+.table-width table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
 .hidden {
     overflow: hidden;
     white-space: nowrap;
@@ -54,10 +60,10 @@ tr.mat-row:hover {
     padding-right: 10px;
 }
 
-.actions-button-container {
-    display: flex;
-    align-items: center;
-    gap: 4px;
+.actions-button-container button {
+    margin-right: 8px;
+    min-width: 48px;
+    padding: 0;
 }
 
 mat-form-field {

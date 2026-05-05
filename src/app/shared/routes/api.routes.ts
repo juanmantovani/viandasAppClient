@@ -116,6 +116,7 @@ export const API_ROUTES = {
     },
     PRODUCT: {
         GETPRODUCTS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/getProducts`,
+        GETPRODUCTSADMIN: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/getProductsAdmin`,
         ADDPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/uploadProduct`,
         EDITPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/editProduct`,
         DELETEPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/deleteProduct`,

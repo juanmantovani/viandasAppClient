@@ -12,6 +12,7 @@ import { GetProductCategoryResponse } from 'src/app/shared/dto/productCategory/G
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { ProductService, ProductOrder, ProductOrderItem, ProductOrderStatus } from 'src/app/shared/services/product.service';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
 import { Utils } from 'src/app/utils';
@@ -20,7 +21,7 @@ import { ProductFormComponent } from '../product-form/product-form.component';
 export type ProductView = 'orders' | 'products' | 'categories';
 
 export interface StatusOption {
-  value: ProductOrderStatus | null;
+  value: ProductOrderStatus | 'all';
   label: string;
 }
 
@@ -40,11 +41,12 @@ export class ProductComponent implements OnInit {
   ordersDataSource: MatTableDataSource<ProductOrder>;
   showOrders: boolean = false;
 
-  selectedStatus: ProductOrderStatus | null = null;
+  selectedStatus: ProductOrderStatus | 'all' = 'all';
   clientSearch: string = '';
 
   statusOptions: StatusOption[] = [
-    { value: null,        label: 'Todos' },
+    { value: 'all',       label: 'Todos' },
+    { value: 'pendiente', label: 'Pendientes' },
     { value: 'entregado', label: 'Entregados' },
   ];
 
@@ -66,7 +68,8 @@ export class ProductComponent implements OnInit {
     private productService: ProductService,
     private productCategoryService: ProductCategoryService,
     public dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -84,13 +87,22 @@ export class ProductComponent implements OnInit {
   // ── Pedidos ────────────────────────────────────────────────────────────────
 
   loadProductOrders() {
+    this.orderRows = [];
+    this.showOrders = false;
+
     const obs = this.date
       ? this.productService.getProductOrdersByDate(this.date)
       : this.productService.getAllProductOrders();
 
-    obs.subscribe((rows: ProductOrder[]) => {
-      this.orderRows = rows;
-      this.applyFilters();
+    obs.subscribe({
+      next: (rows: ProductOrder[]) => {
+        this.orderRows = rows;
+        this.applyFilters();
+      },
+      error: () => {
+        this.orderRows = [];
+        this.showOrders = false;
+      }
     });
   }
 
@@ -110,7 +122,7 @@ export class ProductComponent implements OnInit {
 
   applyFilters() {
     let filtered = this.orderRows;
-    if (this.selectedStatus !== null) {
+    if (this.selectedStatus !== 'all') {
       filtered = filtered.filter(r => r.products.every(p => p.status === this.selectedStatus));
     }
     if (this.clientSearch.trim()) {
@@ -147,7 +159,7 @@ export class ProductComponent implements OnInit {
   // ── ABM Productos ──────────────────────────────────────────────────────────
 
   loadProducts() {
-    this.productService.getProducts().subscribe((res: GetProductResponse) => {
+    this.productService.getProductsAdmin().subscribe((res: GetProductResponse) => {
       this.productDataSource = new MatTableDataSource(res.products);
       if (this.paginator) {
         this.paginator._intl.itemsPerPageLabel = 'Ítems por página';
@@ -171,8 +183,11 @@ export class ProductComponent implements OnInit {
 
   onClickAdd() {
     this.actionForm = 'Add';
-    const dataForm: DataFormProduct = { actionForm: 'Add', product: new Product(null) };
-    this.gestionateForm(dataForm);
+    this.productCategoryService.getProductCategories().subscribe((res: GetProductCategoryResponse) => {
+      this.productCategories = res.productCategories;
+      const dataForm: DataFormProduct = { actionForm: 'Add', product: new Product(null) };
+      this.gestionateForm(dataForm);
+    });
   }
 
   onClickEdit(product: Product) {
@@ -182,6 +197,12 @@ export class ProductComponent implements OnInit {
   }
 
   async onClickDelete(product: Product) {
+    const orders = await this.productService.getAllProductOrders().toPromise();
+    const hasOrders = orders?.some(o => o.products.some(p => p.productTitle === product.title)) ?? false;
+    if (hasOrders) {
+      this.notificationService.show('No esposible eliminar el producto ya que posee pedidos asociados.', { classname: 'bg-danger text-light', delay: 4000 });
+      return;
+    }
     if (await this.dialogService.openConfirmDialog('Está a punto de eliminar un registro. ¿Está seguro?') === true) {
       const request: DeleteProductRequest = { idProduct: product.id };
       await this.productService.deleteProduct(request).subscribe(() => this.loadProducts());

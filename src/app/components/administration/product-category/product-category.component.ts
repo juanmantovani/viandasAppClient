@@ -5,7 +5,9 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
 import { ProductCategoryService } from 'src/app/shared/services/product-category.service';
+import { ProductService } from 'src/app/shared/services/product.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { Utils } from 'src/app/utils';
 import { DataFormProductCategory } from 'src/app/shared/dto/productCategory/DataFormProductCategory';
 import { ProductCategoryFormComponent } from '../product-category-form/product-category-form.component';
@@ -30,8 +32,10 @@ export class ProductCategoryComponent implements OnInit {
 
   constructor(
     private productCategoryService: ProductCategoryService,
+    private productService: ProductService,
     public dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -71,6 +75,12 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   async onClickDelete(productCategory: ProductCategory) {
+    const res = await this.productService.getProducts().toPromise();
+    const hasProducts = res?.products?.some(p => p.productCategoryId === productCategory.id) ?? false;
+    if (hasProducts) {
+      this.notificationService.show('No es posible eliminar la categoría ya que posee productos asociados.', { classname: 'bg-danger text-light', delay: 4000 });
+      return;
+    }
     if (await this.generateConfirm('Está a punto de eliminar un registro. ¿Está seguro de realizar esta operación?') === true) {
       await this.deleteProductCategory(productCategory);
     }
