@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from 'src/app/shared/models/Product';
 import { ProductCategory } from 'src/app/shared/models/ProductCategory';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-product-form',
@@ -14,11 +13,6 @@ export class ProductFormComponent implements OnInit {
 
   result: Product;
   form: FormGroup;
-  image: File;
-  nameImage?: string | null;
-  urlImage: string;
-  URLAPI = environment.urlApi;
-  changeImage: boolean;
   productCategories: ProductCategory[] = [];
 
   @Output() onSubmit: EventEmitter<Product | null>;
@@ -32,8 +26,6 @@ export class ProductFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.urlImage = this.data.product?.urlImage || null;
-    this.nameImage = this.data.product?.urlImage || null;
     this.productCategories = this.data.productCategories || [];
   }
 
@@ -54,24 +46,6 @@ export class ProductFormComponent implements OnInit {
 
   onClickSave() {
     this.result = this.form.getRawValue();
-    if (this.nameImage != null)
-      this.result.image = this.image;
-
     this.onSubmit.emit(this.result);
-  }
-
-  onSelect(event: any) {
-    this.image = event.addedFiles[0];
-    this.nameImage = event.addedFiles[0].name;
-  }
-
-  onRemove(event: any) {
-    this.nameImage = null;
-  }
-
-  onChangeImagen() {
-    this.changeImage = true;
-    this.nameImage = null;
-    return false;
   }
 }

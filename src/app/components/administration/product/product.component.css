@@ -132,6 +132,11 @@ mat-form-field {
     color: #2e7d32;
 }
 
+.status-pendiente {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
 .no-results-filter {
     text-align: center;
     margin-top: 16px;
