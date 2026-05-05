@@ -1,0 +1,120 @@
+<h1 class="title-component">Pedir productos</h1>
+<br>
+
+<div *ngIf="!orderSuccess">
+  <mat-stepper linear #stepper
+    class="stepper"
+    [orientation]="(stepperOrientation | async)!"
+    [linear]="true">
+
+    <!-- STEP 1: Selección de productos -->
+    <mat-step label="Elegí tus productos" [completed]="hasSelection()">
+      <div class="products-step">
+
+        <div *ngIf="categoryGroups.length === 0" class="empty-message">
+          <p>No hay productos disponibles.</p>
+        </div>
+
+        <div *ngFor="let group of categoryGroups" class="category-group">
+          <h3 class="category-title">
+            <mat-icon class="category-icon-inline">label</mat-icon>
+            {{ group.category.title }}
+          </h3>
+          <p *ngIf="group.category.description" class="category-description">{{ group.category.description }}</p>
+
+          <div class="products-list">
+            <div class="product-row" *ngFor="let item of group.items">
+              <div class="product-info">
+                <span class="product-name">{{ item.product.title }}</span>
+                <span *ngIf="item.product.description" class="product-desc">{{ item.product.description }}</span>
+              </div>
+              <span class="product-price">${{ item.product.price }}</span>
+              <div class="quantity-actions">
+                <button mat-icon-button (click)="decrement(item)" [disabled]="item.cant === 0">
+                  <mat-icon>remove_circle_outline</mat-icon>
+                </button>
+                <span class="cant-display" [class.cant-active]="item.cant > 0">{{ item.cant }}</span>
+                <button mat-icon-button (click)="increment(item)">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="hasSelection()" class="selection-summary">
+          <mat-divider></mat-divider>
+          <p><strong>Seleccionados:</strong> {{ selectedCount }} producto(s) — <strong>${{ totalPrice }}</strong></p>
+        </div>
+      </div>
+    </mat-step>
+
+    <!-- STEP 2: Resumen del pedido -->
+    <mat-step label="Resumen del pedido">
+      <div class="summary-step">
+        <h4>Revisá tu pedido antes de confirmar</h4>
+
+        <table class="summary-table">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Categoría</th>
+              <th class="col-price">Precio unit.</th>
+              <th class="col-cant">Cantidad</th>
+              <th class="col-subtotal">Subtotal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of selectedItems">
+              <td>{{ item.product.title }}</td>
+              <td>{{ getCategoryName(item.product.productCategoryId) }}</td>
+              <td class="col-price">${{ item.product.price }}</td>
+              <td class="col-cant">{{ item.cant }}</td>
+              <td class="col-subtotal"><strong>${{ item.cant * item.product.price }}</strong></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="4"><strong>Total</strong></td>
+              <td class="col-subtotal"><strong>${{ totalPrice }}</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </mat-step>
+
+  </mat-stepper>
+
+  <app-resume-order
+    [isDisabledNext]="disableNextButton"
+    [isDisabledBack]="disableBackButton"
+    [finishButton]="finishButton"
+    (stepComplete)="onStepComplete()"
+    (stepBack)="onClickBack()">
+  </app-resume-order>
+</div>
+
+<div *ngIf="orderSuccess">
+  <div class="container-fluid" align="center">
+    <mat-card class="cardSuccess">
+      <mat-card-content>
+        <app-success
+          messaggeSuccess="Muchas gracias por tu pedido"
+          messaggeSuccess2="A continuación, envianos el mensaje de WhatsApp para coordinar la entrega">
+        </app-success>
+      </mat-card-content>
+      <div class="whatsapp-message" align="start">
+        <p class="message-label">Mensaje:</p>
+        <p class="message-text" style="white-space: pre-line">{{ whatsappText }}</p>
+      </div>
+      <mat-card-actions>
+        <a href="{{ 'https://api.whatsapp.com/send?phone=5493434549868&text=' + whatsappSend }}" target="_blank">
+          <button mat-raised-button color="primary" class="whatsapp-button">
+            <mat-icon>chat</mat-icon>
+            Enviar mensaje de WhatsApp
+          </button>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -23,6 +23,8 @@ import { InicioSettingComponent } from './components/administration/setting/inic
 import { ListOrderComponent } from './components/administration/list-order/list-order.component';
 import { ExitGuard } from './auth/exit.guard';
 import { WelcomeComponent } from './components/clients/welcome/welcome.component';
+import { ProductComponent } from './components/administration/product/product.component';
+import { OrderProductComponent } from './components/clients/order-product/order-product.component';
 
 
 
@@ -52,7 +54,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.CLIENT, component: ClientComponent},
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: OrderComponent },
       {path: ROUTES.INTERNAL_ROUTES.SETTING, component: InicioSettingComponent },
-      {path: ROUTES.INTERNAL_ROUTES.LISTORDER, component: ListOrderComponent },    
+      {path: ROUTES.INTERNAL_ROUTES.LISTORDER, component: ListOrderComponent },
+      {path: ROUTES.INTERNAL_ROUTES.PRODUCT, component: ProductComponent },
     ],
     
     canActivate: [ AuthGuard ]
@@ -65,7 +68,8 @@ const routes: Routes = [
       {path: ROUTES.INTERNAL_ROUTES.PROFILE, component: ProfileComponent },
       {path: ROUTES.INTERNAL_ROUTES.ORDER, component: InicioOrderComponent, canDeactivate: [ ExitGuard ] },
       {path: ROUTES.INTERNAL_ROUTES.ORDERS, component: InicioOrdersComponent },
-      {path: ROUTES.INTERNAL_ROUTES.ADDRESSES, component: AddressesComponent }
+      {path: ROUTES.INTERNAL_ROUTES.ADDRESSES, component: AddressesComponent },
+      {path: ROUTES.INTERNAL_ROUTES.ORDER_PRODUCT, component: OrderProductComponent }
     ],
     canActivate: [ AuthGuard ]
   },

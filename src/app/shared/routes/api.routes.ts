@@ -113,7 +113,24 @@ export const API_ROUTES = {
     DELIVERY: {
         GETDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getDeliveryByDeliveryDriver`,
         GETREPORTBYDELIVERY: `${ENV.urlApi}/${INTERNAL_ROUTES.DELIVERY}/getReportDeliveriesByDriver`
-
-    }
-
+    },
+    PRODUCT: {
+        GETPRODUCTS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/getProducts`,
+        GETPRODUCTSADMIN: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/getProductsAdmin`,
+        ADDPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/uploadProduct`,
+        EDITPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/editProduct`,
+        DELETEPRODUCT: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT}/deleteProduct`,
+    },
+    PRODUCT_CATEGORY: {
+        GETPRODUCTCATEGORIES: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/getProductCategories`,
+        ADDPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/uploadProductCategory`,
+        EDITPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/editProductCategory`,
+        DELETEPRODUCTCATEGORY: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_CATEGORY}/deleteProductCategory`,
+    },
+    PRODUCT_ORDER: {
+        GETALLPRODUCTORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/getAllProductOrders`,
+        GETPRODUCTORDERSBYDATE: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/getProductOrdersByDate`,
+        ADDPRODUCTORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/addProductOrder`,
+        UPDATEPRODUCTORDERITEMSTATUS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/updateOrderItemStatus`,
+    },
 }

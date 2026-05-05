@@ -1,0 +1,217 @@
+<div class="container-fluid">
+  <h1 class="title-component">Administrar Productos</h1>
+
+  <!-- Botones de navegación -->
+  <div class="button-container">
+    <button mat-raised-button
+      [color]="currentView === 'orders' ? 'primary' : ''"
+      [class.btn-azul]="currentView === 'orders'"
+      (click)="showView('orders')" class="button">
+      <mat-icon>list_alt</mat-icon> Pedidos
+    </button>
+    <button mat-raised-button
+      [color]="currentView === 'products' ? 'primary' : ''"
+      [class.btn-azul]="currentView === 'products'"
+      (click)="showView('products')" class="button">
+      <mat-icon>shopping_bag</mat-icon> Productos
+    </button>
+    <button mat-raised-button
+      [color]="currentView === 'categories' ? 'primary' : ''"
+      [class.btn-azul]="currentView === 'categories'"
+      (click)="showView('categories')" class="button">
+      <mat-icon>category</mat-icon> Categorías
+    </button>
+  </div>
+
+  <!-- ── Vista: Pedidos ── -->
+  <div *ngIf="currentView === 'orders'">
+
+    <!-- Filtros -->
+    <div class="filters-row">
+      <div class="date-row">
+        <span>Buscar por día: </span>
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="date" (dateChange)="onDateChange($event)">
+          <button *ngIf="date" matSuffix mat-icon-button (click)="clearDate()" matTooltip="Ver todos los pedidos">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="client-search-field">
+          <mat-label>Buscar cliente</mat-label>
+          <input matInput [(ngModel)]="clientSearch" (ngModelChange)="onClientSearchChange()" placeholder="Nombre o apellido">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div *ngIf="!showOrders">
+      <mat-error align="center"><h2>{{ date ? 'No hay pedidos de productos para la fecha indicada' : 'No hay pedidos de productos' }}</h2></mat-error>
+    </div>
+
+    <div *ngIf="showOrders">
+      <div class="status-filter-row">
+        <mat-button-toggle-group
+          [(ngModel)]="selectedStatus"
+          (change)="onStatusFilterChange()"
+          aria-label="Filtrar por estado">
+          <mat-button-toggle *ngFor="let opt of statusOptions" [value]="opt.value">
+            {{ opt.label }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <!-- Tabla de pedidos -->
+      <table mat-table [dataSource]="ordersDataSource" class="mat-elevation-z8 orders-table">
+
+        <colgroup>
+          <col style="width:5%"/>
+          <col style="width:15%"/>
+          <col style="width:20%"/>
+          <col style="width:60%"/>
+        </colgroup>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> ID </th>
+          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Fecha </th>
+          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.date | date:'dd/MM/yyyy'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Cliente </th>
+          <td mat-cell *matCellDef="let r" style="text-align:center"> {{r.clientName}} {{r.clientLastName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="products">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Productos </th>
+          <td mat-cell *matCellDef="let r">
+            <div *ngFor="let p of r.products" class="product-line">
+              <span class="product-info">
+                <strong>{{p.cant}}x</strong> {{p.productTitle}}
+                <span class="product-category">({{p.productCategoryTitle}})</span>
+              </span>
+              <span class="status-chip" [ngClass]="p.status === 'entregado' ? 'status-entregado' : 'status-pendiente'">
+                <mat-icon style="font-size:14px;height:14px;width:14px;vertical-align:middle">
+                  {{ p.status === 'entregado' ? 'check_circle' : 'hourglass_empty' }}
+                </mat-icon>
+                {{ p.status === 'entregado' ? 'Entregado' : 'Pendiente' }}
+              </span>
+              <ng-container *ngIf="p.status !== 'entregado'">
+                <button mat-stroked-button color="primary" class="item-deliver-btn" (click)="onOrderItemStatusChange(r, p, 'entregado')" matTooltip="Entregar">
+                  <mat-icon>check_circle</mat-icon>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="p.status === 'entregado'">
+                <button mat-stroked-button class="item-deliver-btn" (click)="onOrderItemStatusChange(r, p, 'pendiente')" matTooltip="Volver a pendiente">
+                  <mat-icon>undo</mat-icon>
+                </button>
+              </ng-container>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedOrderColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedOrderColumns;"></tr>
+      </table>
+
+      <div *ngIf="ordersDataSource && ordersDataSource.data.length === 0 && showOrders" class="no-results-filter">
+        <mat-error>No hay pedidos que coincidan con los filtros seleccionados.</mat-error>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Vista: ABM Productos ── -->
+  <div *ngIf="currentView === 'products'">
+    <div class="button-container">
+      <button mat-raised-button (click)="onClickAdd()" matTooltip="Agregar producto" class="button">
+        <mat-icon>add</mat-icon>Agregar Producto
+      </button>
+    </div>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Buscar</mat-label>
+      <input matInput (keyup)="onSearch($event)" placeholder="" #input>
+    </mat-form-field>
+
+    <div class="table-width">
+      <table mat-table [dataSource]="productDataSource" matSort class="mat-elevation-z8">
+        <colgroup>
+          <col style="width:5%"/>
+          <col style="width:18%"/>
+          <col style="width:18%"/>
+          <col style="width:18%"/>
+          <col style="width:12%"/>
+          <col style="width:9%"/>
+          <col style="width:20%"/>
+        </colgroup>
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Título </th>
+          <td mat-cell *matCellDef="let element" class="hidden" [matTooltip]="element.title"> {{element.title}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header class="hidden"> Descripción </th>
+          <td mat-cell *matCellDef="let element" class="hidden" [matTooltip]="element.description"> {{element.description}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Categoría </th>
+          <td mat-cell *matCellDef="let element"> {{getCategoryName(element.productCategoryId)}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio </th>
+          <td mat-cell *matCellDef="let element"> ${{element.price}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="available">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Disponible </th>
+          <td mat-cell *matCellDef="let element">
+            <mat-icon [style.color]="element.available ? 'green' : 'gray'">
+              {{element.available ? 'check_circle' : 'cancel'}}
+            </mat-icon>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element" class="actions-button-container">
+            <button mat-stroked-button class="button" (click)="onClickEdit(element)" matTooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-stroked-button class="button" (click)="onClickDelete(element)" matTooltip="Eliminar">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedProductColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedProductColumns;"></tr>
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="7">No se encontró información para "{{input.value}}"</td>
+        </tr>
+      </table>
+      <br>
+      <mat-paginator [pageSizeOptions]="[10, 20, 30, 50]" showFirstLastButtons></mat-paginator>
+    </div>
+  </div>
+
+  <!-- ── Vista: ABM Categorías ── -->
+  <div *ngIf="currentView === 'categories'">
+    <app-product-category></app-product-category>
+  </div>
+
+</div>

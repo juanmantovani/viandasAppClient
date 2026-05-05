@@ -1,0 +1,40 @@
+.products-container {
+  padding: 16px 0;
+}
+
+.products-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.product-card {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 8px 0 4px 0;
+}
+
+.quantity-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.cant-display {
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 32px;
+  text-align: center;
+}
+
+.empty-message {
+  text-align: center;
+  color: gray;
+  padding: 24px 0;
+}

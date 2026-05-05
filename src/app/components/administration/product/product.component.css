@@ -1,0 +1,168 @@
+.title-component {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.button-container {
+    padding-bottom: 16px;
+    margin-top: 10px;
+}
+
+.button {
+    margin-right: 8px;
+}
+
+.btn-azul {
+    background-color: #1976d2;
+    color: white;
+}
+
+
+.orders-table {
+    width: 100%;
+    margin-top: 16px;
+    table-layout: fixed;
+    text-align: center;
+}
+
+tr.mat-header-row {
+    height: 48px;
+}
+
+tr.mat-row {
+    height: 52px;
+    font-size: 15px;
+}
+
+tr.mat-row:hover {
+    background-color: rgba(65, 65, 65, 0.07);
+}
+
+.summary-table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.table-width {
+    width: 100%;
+}
+
+.table-width table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+.hidden {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+.actions-button-container button {
+    margin-right: 8px;
+    min-width: 48px;
+    padding: 0;
+}
+
+mat-form-field {
+    font-size: 14px;
+    width: 20%;
+}
+
+.filters-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.date-row mat-form-field {
+    font-size: 14px;
+    width: 180px;
+}
+
+.client-search-field {
+    width: 400px !important;
+    font-size: 14px;
+}
+
+.status-filter-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+}
+
+.filter-label {
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.status-toggle-group {
+    flex-wrap: wrap;
+}
+
+::ng-deep .status-toggle-group .mat-button-toggle {
+    font-size: 14px;
+}
+
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-entregado {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-pendiente {
+    background-color: #fff3e0;
+    color: #e65100;
+}
+
+.no-results-filter {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.product-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 0;
+    font-size: 13px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-category {
+    color: #888;
+    font-size: 12px;
+}
+
+.item-deliver-btn {
+    flex-shrink: 0;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+    padding: 0 8px;
+}

@@ -1,0 +1,30 @@
+<div class="products-container">
+  <div *ngIf="productOrders.length === 0" class="empty-message">
+    <p>No hay productos disponibles por el momento.</p>
+  </div>
+
+  <div class="products-grid" *ngIf="productOrders.length > 0">
+    <mat-card class="product-card" *ngFor="let po of productOrders">
+      <mat-card-header>
+        <mat-card-title>{{po.product.title}}</mat-card-title>
+        <mat-card-subtitle *ngIf="po.product.description">{{po.product.description}}</mat-card-subtitle>
+      </mat-card-header>
+
+      <img mat-card-image *ngIf="po.product.urlImage" [src]="po.product.urlImage" [alt]="po.product.title">
+
+      <mat-card-content>
+        <p class="price">${{po.product.price}}</p>
+      </mat-card-content>
+
+      <mat-card-actions class="quantity-actions">
+        <button mat-icon-button (click)="decrement(po)" [disabled]="po.cant === 0">
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+        <span class="cant-display">{{po.cant}}</span>
+        <button mat-icon-button (click)="increment(po)">
+          <mat-icon>add_circle_outline</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

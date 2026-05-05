@@ -51,6 +51,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatRippleModule} from '@angular/material/core';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -122,6 +124,12 @@ import { DiscordErrorLogger } from './shared/discord-error-logger';
 import { WelcomeComponent } from './components/clients/welcome/welcome.component';
 import { DeliveryReportComponent } from './components/administration/delivery-report/delivery-report.component';
 import { DiscordSendOrder } from './shared/discord-send-order';
+import { ProductComponent } from './components/administration/product/product.component';
+import { ProductFormComponent } from './components/administration/product-form/product-form.component';
+import { ProductCategoryComponent } from './components/administration/product-category/product-category.component';
+import { ProductCategoryFormComponent } from './components/administration/product-category-form/product-category-form.component';
+import { OrderProductsComponent } from './components/clients/order/order-products/order-products.component';
+import { OrderProductComponent } from './components/clients/order-product/order-product.component';
 
 
 @NgModule({
@@ -193,8 +201,12 @@ import { DiscordSendOrder } from './shared/discord-send-order';
     TakeAwayAddressComponent,
     WelcomeComponent,
     DeliveryReportComponent,
-
-
+    ProductComponent,
+    ProductFormComponent,
+    ProductCategoryComponent,
+    ProductCategoryFormComponent,
+    OrderProductsComponent,
+    OrderProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -241,7 +253,9 @@ import { DiscordSendOrder } from './shared/discord-send-order';
     MatSlideToggleModule,
     MatRadioModule,
     GoogleMapsModule,
-    MatRippleModule
+    MatRippleModule,
+    MatButtonToggleModule,
+    MatDividerModule
   ],
   providers: [
     MatNotificationComponent,
@@ -250,7 +264,7 @@ import { DiscordSendOrder } from './shared/discord-send-order';
     DiscordErrorLogger,
     DiscordSendOrder,
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
-    { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+{ provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ServerErrorInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'es-AR' },
     {

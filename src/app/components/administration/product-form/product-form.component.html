@@ -1,0 +1,56 @@
+<h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nuevo' : 'Editando'}} producto</h1>
+
+<mat-dialog-content>
+    <form [formGroup]="form" id="productForm">
+        <input type="hidden" formControlName="id" />
+
+        <mat-form-field appearance="fill">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="productCategoryId" required>
+                <mat-option *ngFor="let cat of productCategories" [value]="cat.id">
+                    {{cat.title}}
+                </mat-option>
+            </mat-select>
+            <mat-hint *ngIf="form.controls['productCategoryId'].touched && form.controls['productCategoryId'].invalid" class="error-input">
+                Este campo es requerido
+            </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Título</mat-label>
+            <input type="text" matInput formControlName="title" placeholder="Ingrese un título" required />
+            <mat-hint *ngIf="form.controls['title'].touched && form.controls['title'].invalid" class="error-input">
+                Este campo es requerido
+            </mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Descripción</mat-label>
+            <textarea matInput formControlName="description" placeholder="Ingrese una descripción" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Precio</mat-label>
+            <input type="number" matInput formControlName="price" placeholder="0" min="0" required />
+            <span matPrefix>$&nbsp;</span>
+            <mat-hint *ngIf="form.controls['price'].touched && form.controls['price'].invalid" class="error-input">
+                Ingrese un precio válido
+            </mat-hint>
+        </mat-form-field>
+
+        <div class="available-toggle">
+            <mat-slide-toggle formControlName="available">Disponible para clientes</mat-slide-toggle>
+        </div>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-button color="primary" (click)="onClickCancel()">
+        <mat-icon>clear</mat-icon> CANCELAR
+    </button>
+    <button mat-raised-button color="primary" (click)="onClickSave()" class="btn-primary btn-azul"
+        [disabled]="form.status == 'INVALID'">
+        <mat-icon>save</mat-icon> GUARDAR
+    </button>
+</mat-dialog-actions>

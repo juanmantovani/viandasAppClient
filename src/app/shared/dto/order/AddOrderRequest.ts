@@ -1,4 +1,5 @@
 import { DayOrderRequest } from "./DayOrderRequest";
+import { ProductOrderRequest } from "../product/ProductOrderRequest";
 
 export class AddOrderRequest {
     idClient : number;
@@ -6,6 +7,5 @@ export class AddOrderRequest {
     observation : string;
     total : number;
     date: Date;
-
-
+    products: ProductOrderRequest[];
 }
