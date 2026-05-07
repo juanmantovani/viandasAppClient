@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>{{data.actionForm === 'Add' ? 'Nuevo' : 'Editando'}} producto</h1>
 
 <mat-dialog-content>
-    <form [formGroup]="form" id="productForm">
+    <form [formGroup]="form" id="productForm" #f="ngForm">
         <input type="hidden" formControlName="id" />
 
         <mat-form-field appearance="fill">
@@ -41,6 +41,20 @@
         <div class="available-toggle">
             <mat-slide-toggle formControlName="available">Disponible para clientes</mat-slide-toggle>
         </div>
+
+        <div *ngIf="urlImage != null && !changeImage">
+            <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
+        </div>
+
+        <button mat-raised-button (click)="onChangeImagen()" *ngIf="urlImage != null && !changeImage" class="button changeImage">
+            Cambiar Imagen
+        </button>
+
+        <ngx-dropzone (change)="onSelect($event)" [accept]="'image/*'" *ngIf="urlImage == null || changeImage">
+            <ngx-dropzone-label>Subir imagen</ngx-dropzone-label>
+            <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngIf="nameImage != null" [file]="image" [removable]="true" (removed)="onRemove(f)">
+            </ngx-dropzone-image-preview>
+        </ngx-dropzone>
 
     </form>
 </mat-dialog-content>
