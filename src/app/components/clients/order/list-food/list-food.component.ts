@@ -25,7 +25,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderListFoodComponent implements OnInit, OnChanges {
 
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   value = 1;
   today : Date = new Date();
 

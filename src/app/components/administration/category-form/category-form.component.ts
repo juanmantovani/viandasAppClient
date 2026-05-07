@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class CategoryFormComponent implements OnInit {
   result: Category;
   form: FormGroup;
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   image: File;
   urlImage: string;
   nameImage?: string | null;

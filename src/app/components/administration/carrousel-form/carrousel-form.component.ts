@@ -23,7 +23,7 @@ export class CarrouselFormComponent implements OnInit {
   image: File;
   nameImage?: string | null;
   urlImage: string;
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   changeImage: boolean;
 
   @Output() onSubmit: EventEmitter<Banner | null>;

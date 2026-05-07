@@ -20,7 +20,7 @@ export class MenuByCategoryComponent implements OnInit {
   @Input() category : Category;
 
   menuViewer : MenuViewer;
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   images : FoodViewer[] = [];
   showMenu : boolean;
   showGalleryImages : boolean;

@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
   CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT+'/'+ROUTES.INTERNAL_ROUTES.WELCOME;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
 
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   viewMenuByCategory : boolean = false;
   category : Category;
   categories : Category[] = [];

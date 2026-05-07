@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class GalleryImagesComponent implements OnInit {
   @Input() imagesCategory : any []; 
   images: GalleryItem[] = [];
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlApi.replace(/\/app$/, '');
   
   galleryId = 'foodGallery';
 
