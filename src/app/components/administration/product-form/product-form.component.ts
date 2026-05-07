@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+﻿import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Product } from 'src/app/shared/models/Product';
@@ -19,7 +19,7 @@ export class ProductFormComponent implements OnInit {
   nameImage?: string | null;
   urlImage: string;
   changeImage: boolean;
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
 
   @Output() onSubmit: EventEmitter<Product | null>;
 

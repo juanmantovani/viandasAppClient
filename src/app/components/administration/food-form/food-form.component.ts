@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   OnInit,
   Inject,
@@ -24,7 +24,7 @@ export class FoodFormComponent implements OnInit {
   nameImage?: string | null;
   listCategories: Category[];
   urlImage: string;
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
   changeImage: boolean;
   messageError = "";
 
@@ -62,7 +62,7 @@ export class FoodFormComponent implements OnInit {
   onClickSave() {
     const categoriesSelected = this.listCategories.filter(c => c.checked);
     if (categoriesSelected.length < 1) {
-      this.messageError = "Debe seleccionar al menos una categoría";
+      this.messageError = "Debe seleccionar al menos una categorÃ­a";
       return null;
     }
     this.result = this.form.getRawValue();

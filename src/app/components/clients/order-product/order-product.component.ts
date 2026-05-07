@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable, forkJoin } from 'rxjs';
@@ -32,7 +32,7 @@ export interface CategoryGroup {
 })
 export class OrderProductComponent implements OnInit {
 
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
 
   stepperOrientation: Observable<StepperOrientation>;
   @ViewChild('stepper') stepper!: MatStepper;
