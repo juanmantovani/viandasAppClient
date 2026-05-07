@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+﻿import { DatePipe } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
@@ -25,7 +25,7 @@ import { environment } from 'src/environments/environment';
 })
 export class OrderListFoodComponent implements OnInit, OnChanges {
 
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
   value = 1;
   today : Date = new Date();
 
@@ -135,7 +135,7 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
   }
 
   async onSaveChangeAddress(dayOrder: DayOrder) {
-    if (await this.generateConfirm("Está a punto de cambiar el domicilio de envío. ¿Está seguro de realizar esta operación?") === true) {
+    if (await this.generateConfirm("EstÃ¡ a punto de cambiar el domicilio de envÃ­o. Â¿EstÃ¡ seguro de realizar esta operaciÃ³n?") === true) {
       var request: EditDayOrderAddressRequest = {
         idAddress: this.selectAddress ? this.selectAddress.id : 0,
         idDayOrder: dayOrder.id
@@ -165,7 +165,7 @@ export class OrderListFoodComponent implements OnInit, OnChanges {
   }
 
   async onCancelDayOrder(dayOrder: DayOrder, idOrder:number) {
-    if (await this.generateConfirm("Está a punto de cancelar el pedido del día " + this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM') + ". ¿Está seguro de realizar esta operación?") === true) {
+    if (await this.generateConfirm("EstÃ¡ a punto de cancelar el pedido del dÃ­a " + this.datepipe.transform(dayOrder.dayFood.date, 'dd/MM') + ". Â¿EstÃ¡ seguro de realizar esta operaciÃ³n?") === true) {
       await this.cancelDayOrder(dayOrder, idOrder);
     }
   }

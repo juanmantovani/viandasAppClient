@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { GetImageByCategoryRequest } from 'src/app/shared/dto/food/GetImageByCategoryRequest';
 import { GetImageByCategoryResponse } from 'src/app/shared/dto/food/GetImageByCategoryResponse';
 import { GetMenuResponse } from 'src/app/shared/dto/menu/getMenuResponse';
@@ -20,7 +20,7 @@ export class MenuByCategoryComponent implements OnInit {
   @Input() category : Category;
 
   menuViewer : MenuViewer;
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
   images : FoodViewer[] = [];
   showMenu : boolean;
   showGalleryImages : boolean;

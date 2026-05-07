@@ -8,7 +8,8 @@ export const environment = {
  // url: 'http://localhost:8080',
   urlDiscordLogg: '',
   urlDiscordOrder: '',
-  urlApi: 'http://localhost:8080/app'
+  urlApi: 'http://localhost:8080/app',
+  urlStatic: 'http://localhost:8080'
 };
 
 /*

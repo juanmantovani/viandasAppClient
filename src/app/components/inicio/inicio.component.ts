@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
+﻿import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
@@ -28,7 +28,7 @@ export class InicioComponent implements OnInit {
   CLIENT = ROUTES.INTERNAL_ROUTES.CLIENT+'/'+ROUTES.INTERNAL_ROUTES.WELCOME;
   INICIO = ROUTES.INTERNAL_ROUTES.INICIO;
 
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlStatic;
   viewMenuByCategory : boolean = false;
   category : Category;
   categories : Category[] = [];
