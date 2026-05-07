@@ -24,7 +24,7 @@ export class FoodFormComponent implements OnInit {
   nameImage?: string | null;
   listCategories: Category[];
   urlImage: string;
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlApi;
   changeImage: boolean;
   messageError = "";
 

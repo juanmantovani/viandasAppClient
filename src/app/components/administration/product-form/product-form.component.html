@@ -43,7 +43,7 @@
         </div>
 
         <div *ngIf="urlImage != null && !changeImage">
-            <img src="{{URLAPI}}/{{urlImage}}" alt="" class="preview-image">
+            <img src="{{URLAPI}}{{urlImage}}" alt="" class="preview-image">
         </div>
 
         <button mat-raised-button (click)="onChangeImagen()" *ngIf="urlImage != null && !changeImage" class="button changeImage">

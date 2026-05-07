@@ -19,7 +19,7 @@ export class ProductFormComponent implements OnInit {
   nameImage?: string | null;
   urlImage: string;
   changeImage: boolean;
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlApi;
 
   @Output() onSubmit: EventEmitter<Product | null>;
 

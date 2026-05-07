@@ -32,7 +32,7 @@ export interface CategoryGroup {
 })
 export class OrderProductComponent implements OnInit {
 
-  URLAPI = environment.urlApi.replace(/\/app$/, '');
+  URLAPI = environment.urlApi;
 
   stepperOrientation: Observable<StepperOrientation>;
   @ViewChild('stepper') stepper!: MatStepper;
