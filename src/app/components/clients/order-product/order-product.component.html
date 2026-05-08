@@ -24,6 +24,8 @@
 
           <div class="products-list">
             <div class="product-row" *ngFor="let item of group.items">
+              <img *ngIf="item.product.urlImage" [src]="URLAPI + item.product.urlImage" [alt]="item.product.title" class="product-img">
+              <img *ngIf="!item.product.urlImage" src="assets/meal2.png" [alt]="item.product.title" class="product-img">
               <div class="product-info">
                 <span class="product-name">{{ item.product.title }}</span>
                 <span *ngIf="item.product.description" class="product-desc">{{ item.product.description }}</span>

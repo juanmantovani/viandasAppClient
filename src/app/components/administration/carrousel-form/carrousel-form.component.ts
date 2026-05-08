@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component,
   OnInit,
   ChangeDetectorRef,
@@ -23,7 +23,7 @@ export class CarrouselFormComponent implements OnInit {
   image: File;
   nameImage?: string | null;
   urlImage: string;
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlStatic;
   changeImage: boolean;
 
   @Output() onSubmit: EventEmitter<Banner | null>;
