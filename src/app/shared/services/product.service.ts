@@ -52,13 +52,34 @@ export class ProductService {
   }
 
   addProduct(request: AddProductRequest): Observable<AddProductResponse> {
-    return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT.ADDPRODUCT, JSON.stringify(request), this.OPTION).pipe(
+    const formData = new FormData();
+    if (request.product.image)
+      formData.append('image', request.product.image);
+    formData.append('title', request.product.title);
+    if (request.product.description != null)
+      formData.append('description', request.product.description);
+    formData.append('price', request.product.price.toString());
+    formData.append('available', request.product.available.toString());
+    formData.append('productCategoryId', request.product.productCategoryId.toString());
+
+    return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT.ADDPRODUCT, formData).pipe(
       map(res => new AddProductResponse(res))
     );
   }
 
   editProduct(request: EditProductRequest): Observable<EditProductResponse> {
-    return this.http.put<any>(ROUTES.API_ROUTES.PRODUCT.EDITPRODUCT, JSON.stringify(request), this.OPTION).pipe(
+    const formData = new FormData();
+    formData.append('id', request.product.id.toString());
+    if (request.product.image)
+      formData.append('image', request.product.image);
+    formData.append('title', request.product.title);
+    if (request.product.description != null)
+      formData.append('description', request.product.description);
+    formData.append('price', request.product.price.toString());
+    formData.append('available', request.product.available.toString());
+    formData.append('productCategoryId', request.product.productCategoryId.toString());
+
+    return this.http.put<any>(ROUTES.API_ROUTES.PRODUCT.EDITPRODUCT, formData).pipe(
       map(res => new EditProductResponse(res))
     );
   }

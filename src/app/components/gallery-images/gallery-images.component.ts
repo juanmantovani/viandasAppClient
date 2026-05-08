@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+﻿import { Component, OnInit, Input } from '@angular/core';
 import { GalleryItem, ImageItem, Gallery, GalleryRef } from 'ng-gallery';
 import { environment } from 'src/environments/environment';
 
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class GalleryImagesComponent implements OnInit {
   @Input() imagesCategory : any []; 
   images: GalleryItem[] = [];
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlStatic;
   
   galleryId = 'foodGallery';
 

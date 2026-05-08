@@ -4,7 +4,7 @@ export class Product {
     description: string;
     price: number;
     available: boolean;
-    image: Blob;
+    image: File;
     urlImage: string;
     productCategoryId: number;
 

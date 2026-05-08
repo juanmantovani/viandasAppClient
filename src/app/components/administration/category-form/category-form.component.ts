@@ -1,4 +1,4 @@
-import { Component, OnInit, Output,EventEmitter,Inject } from '@angular/core';
+﻿import { Component, OnInit, Output,EventEmitter,Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Category } from 'src/app/shared/models/Category';
@@ -12,7 +12,7 @@ import { environment } from 'src/environments/environment';
 export class CategoryFormComponent implements OnInit {
   result: Category;
   form: FormGroup;
-  URLAPI = environment.urlApi;
+  URLAPI = environment.urlStatic;
   image: File;
   urlImage: string;
   nameImage?: string | null;

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+﻿import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable, forkJoin } from 'rxjs';
@@ -13,6 +13,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { KeycloakProfile } from 'keycloak-js';
 import { ClientService } from 'src/app/shared/services/client.service';
 import { Client } from 'src/app/shared/models/Client';
+import { environment } from 'src/environments/environment';
 
 export interface ProductOrderItem {
   product: Product;
@@ -30,6 +31,8 @@ export interface CategoryGroup {
   styleUrls: ['./order-product.component.css']
 })
 export class OrderProductComponent implements OnInit {
+
+  URLAPI = environment.urlStatic;
 
   stepperOrientation: Observable<StepperOrientation>;
   @ViewChild('stepper') stepper!: MatStepper;
