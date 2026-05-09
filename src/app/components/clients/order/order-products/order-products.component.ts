@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Product } from 'src/app/shared/models/Product';
 
 export interface ProductOrder {
@@ -13,6 +14,7 @@ export interface ProductOrder {
 })
 export class OrderProductsComponent implements OnChanges {
 
+  URLAPI = environment.urlStatic;
   @Input() products: Product[] = [];
   @Output() productsSelected = new EventEmitter<ProductOrder[]>();
 

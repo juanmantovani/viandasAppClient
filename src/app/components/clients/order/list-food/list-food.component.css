@@ -86,8 +86,6 @@ h4 {
 }
 
 .cancelled-content {
-  text-decoration: line-through;
-  color: #888;
 }
 .active-order{
   background-color: #50b1ce96;

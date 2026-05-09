@@ -460,14 +460,10 @@ export class InicioOrderComponent implements OnInit, OnExit {
         break;
       }
       case 3: {
-        this.onLoadProducts();
-        break;
-      }
-      case 4: {
         this.onGetTotal();
         break;
       }
-      case 5: {
+      case 4: {
         this.sendOrder();
         break;
       }
