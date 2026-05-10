@@ -10,7 +10,7 @@
         <mat-card-subtitle *ngIf="po.product.description">{{po.product.description}}</mat-card-subtitle>
       </mat-card-header>
 
-      <img mat-card-image *ngIf="po.product.urlImage" [src]="po.product.urlImage" [alt]="po.product.title">
+      <img mat-card-image *ngIf="po.product.urlImage" src="{{URLAPI}}{{po.product.urlImage}}" [alt]="po.product.title">
 
       <mat-card-content>
         <p class="price">${{po.product.price}}</p>

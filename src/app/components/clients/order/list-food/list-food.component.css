@@ -73,6 +73,20 @@ h4 {
   background-color: #c700008d;
   color: rgb(55, 55, 55);
 }
+
+.cancelled-day-order {
+  opacity: 0.55;
+  background-color: #f0f0f0;
+}
+
+.cancelled-header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 4px;
+}
+
+.cancelled-content {
+}
 .active-order{
   background-color: #50b1ce96;
   color: rgb(55, 55, 55);
