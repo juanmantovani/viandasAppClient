@@ -1,10 +1,8 @@
-
-import { KeycloakConfig } from "keycloak-js";
+import { KeycloakConfig } from 'keycloak-js';
+import { environment } from './environment';
 
 export const keycloakConfig: KeycloakConfig = {
-  //url : 'http://192.168.1.5:9000/auth',
-   url : 'http://localhost:9000/auth',
-  //url: 'https://backend.integralviandas.com.ar/auth',
+  url: environment.keycloakUrl,
   realm: 'viandas',
-  clientId: 'viandas'
-}
+  clientId: 'viandas',
+};
