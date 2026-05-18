@@ -37,7 +37,7 @@ export class ProductComponent implements OnInit {
   // ── Pedidos ────────────────────────────────────────────────────────────────
   date: Date | null = null;
   orderRows: ProductOrder[] = [];
-  displayedOrderColumns: string[] = ['id', 'date', 'client', 'products'];
+  displayedOrderColumns: string[] = ['id', 'date', 'client', 'products', 'actions'];
   ordersDataSource: MatTableDataSource<ProductOrder>;
   showOrders: boolean = false;
 
@@ -46,12 +46,12 @@ export class ProductComponent implements OnInit {
 
   statusOptions: StatusOption[] = [
     { value: 'all',       label: 'Todos' },
-    { value: 'pendiente', label: 'Pendientes' },
+    { value: 'pending',   label: 'Pendientes' },
     { value: 'entregado', label: 'Entregados' },
   ];
 
   statusLabels: Record<ProductOrderStatus, string> = {
-    pendiente: 'Pendiente',
+    pending:   'Pendiente',
     entregado: 'Entregado',
   };
 
@@ -122,8 +122,10 @@ export class ProductComponent implements OnInit {
 
   applyFilters() {
     let filtered = this.orderRows;
-    if (this.selectedStatus !== 'all') {
-      filtered = filtered.filter(r => r.products.every(p => p.status === this.selectedStatus));
+    if (this.selectedStatus === 'pending') {
+      filtered = filtered.filter(r => r.products.some(p => p.status === 'pending'));
+    } else if (this.selectedStatus === 'entregado') {
+      filtered = filtered.filter(r => r.products.every(p => p.status === 'entregado'));
     }
     if (this.clientSearch.trim()) {
       const q = this.clientSearch.trim().toLowerCase();
@@ -138,6 +140,12 @@ export class ProductComponent implements OnInit {
 
   onClientSearchChange() {
     this.applyFilters();
+  }
+
+  async onClickDeleteOrder(order: ProductOrder) {
+    if (await this.dialogService.openConfirmDialog('Está a punto de eliminar el pedido. ¿Está seguro?') === true) {
+      this.productService.deleteProductOrder(order.id).subscribe(() => this.loadProductOrders());
+    }
   }
 
   onOrderItemStatusChange(order: ProductOrder, item: ProductOrderItem, newStatus: ProductOrderStatus) {

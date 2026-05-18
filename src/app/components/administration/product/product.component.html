@@ -68,9 +68,10 @@
 
         <colgroup>
           <col style="width:5%"/>
-          <col style="width:15%"/>
-          <col style="width:20%"/>
-          <col style="width:60%"/>
+          <col style="width:13%"/>
+          <col style="width:18%"/>
+          <col style="width:56%"/>
+          <col style="width:8%"/>
         </colgroup>
 
         <ng-container matColumnDef="id">
@@ -108,11 +109,20 @@
                 </button>
               </ng-container>
               <ng-container *ngIf="p.status === 'entregado'">
-                <button mat-stroked-button class="item-deliver-btn" (click)="onOrderItemStatusChange(r, p, 'pendiente')" matTooltip="Volver a pendiente">
+                <button mat-stroked-button class="item-deliver-btn" (click)="onOrderItemStatusChange(r, p, 'pending')" matTooltip="Volver a pendiente">
                   <mat-icon>undo</mat-icon>
                 </button>
               </ng-container>
             </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef style="text-align:center"> Acciones </th>
+          <td mat-cell *matCellDef="let r" style="text-align:center">
+            <button mat-stroked-button class="order-delete-btn" (click)="onClickDeleteOrder(r)" matTooltip="Eliminar pedido">
+              <mat-icon>delete</mat-icon>
+            </button>
           </td>
         </ng-container>
 
