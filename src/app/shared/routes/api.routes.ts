@@ -132,5 +132,6 @@ export const API_ROUTES = {
         GETPRODUCTORDERSBYDATE: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/getProductOrdersByDate`,
         ADDPRODUCTORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/addProductOrder`,
         UPDATEPRODUCTORDERITEMSTATUS: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/updateOrderItemStatus`,
+        DELETEPRODUCTORDER: `${ENV.urlApi}/${INTERNAL_ROUTES.PRODUCT_ORDER}/deleteProductOrder`,
     },
 }
