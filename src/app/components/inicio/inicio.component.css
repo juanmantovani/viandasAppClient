@@ -83,32 +83,11 @@
     
   }
 
-  .coso{
-    color: rgba(0, 0, 0, 0.68);
-    height: 40px;
-    width: fit-content;
-    font-size: 15px;
-    border-radius: 12px;
-    border: 2px solid rgba(128, 128, 128, 0.68);
-    padding: 10px;
-    margin-bottom: 10px;
-    
-  }
-
   .step-description{
     width: 70%;
     font-size: larger;
     text-align: center;
     line-height: 1.6;
-  }
-
-   .map{
-    margin-bottom: 20px;
-
-  } 
-  .map-responsive{
-    height: 450px;
-    width: 100%;
   }
 
   .questions {
