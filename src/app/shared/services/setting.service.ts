@@ -19,6 +19,7 @@ import { DeleteDiscountRequest } from '../dto/setting/DeleteDiscountRequest';
 import { EditAddressTakeAwayRequest } from '../dto/setting/EditAddressTakeAwayRequest';
 import { EditAddressTakeAwayResponse } from '../dto/setting/EditAddressTakeAwayResponse';
 import { GetAddressTakeAwayResponse } from '../dto/setting/GetAddressTakeAwayResponse';
+import { GetZonePolygonsResponse } from '../dto/setting/GetZonePolygonsResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,14 @@ export class SettingService {
     return this.http.get<GetZoneResponse>(ROUTES.API_ROUTES.SETTING.GETZONE).pipe(
       map((res:any) => {
         return new GetZoneResponse(res.zone);
+      })
+    )
+  }
+
+  getZonePolygons(): Observable<GetZonePolygonsResponse>{
+    return this.http.get<GetZonePolygonsResponse>(ROUTES.API_ROUTES.SETTING.GETZONEPOLYGONS).pipe(
+      map((res:any) => {
+        return new GetZonePolygonsResponse(res.zones);
       })
     )
   }
