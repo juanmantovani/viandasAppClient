@@ -197,12 +197,8 @@ export class InicioOrderComponent implements OnInit, OnExit {
 
   setFavouriteAddress() {
     if (this.client.addresses.length > 0){ 
-      this.selectedAdress = new Address(this.client.addresses.find(address => address.favourite));
-      setTimeout(() => {//Para asegurar que terminó el .find
-        if(this.selectedAdress) {
-          this.selectedAdress = this.client.addresses[0];
-        }
-      });
+      const favouriteAddress = this.client.addresses.find(address => address.favourite);
+      this.selectedAdress = favouriteAddress ? favouriteAddress : this.client.addresses[0];
       this.orderInProgress = true;
     } else {
       this.orderInProgress = false;

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Utils } from '../../../utils';
 import { MapGeocoder } from '@angular/google-maps';
+import { SettingService } from 'src/app/shared/services/setting.service';
+import { GetZonePolygonsResponse } from 'src/app/shared/dto/setting/GetZonePolygonsResponse';
+import { ZonePolygon } from 'src/app/shared/models/ZonePolygon';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class MapComponent implements OnInit {
   notGeocoding: string = '';
 
   display: any;
-  zonesMap: any = [];
+  zonesMap: ZonePolygon[] = [];
   selectAddress: google.maps.LatLng = new google.maps.LatLng(0,0);
   center: google.maps.LatLng = new google.maps.LatLng(0,0);
   zoom = 18;
@@ -31,17 +33,13 @@ export class MapComponent implements OnInit {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
   }
 
-  polygonOptions = {
-    visible: false
-  }
-
   markerOptions: google.maps.MarkerOptions = {
     draggable: true
   };
   markerPositions: google.maps.LatLngLiteral[] = [];
 
 
-  constructor(private geocoder: MapGeocoder) {
+  constructor(private geocoder: MapGeocoder, private settingService: SettingService) {
 
   }
 
@@ -49,9 +47,16 @@ export class MapComponent implements OnInit {
     if(window.screen.height < 800){
       this.heightMap = '300';
     }
-    this.zonesMap = Utils.getZones();
-      this.geocodingStreet();
-    
+    this.getZonePolygons();
+    this.geocodingStreet();
+
+  }
+
+  //Los polígonos de las zonas los define el back, que también recalcula la zona al guardar
+  getZonePolygons() {
+    this.settingService.getZonePolygons().subscribe((res: GetZonePolygonsResponse) => {
+      this.zonesMap = res.zones;
+    })
   }
 
   geocodingStreet(){
@@ -78,13 +83,13 @@ export class MapComponent implements OnInit {
   }
 
   async getIdZone(){
-    for (let i = 0; i < 2; i++) {
+    for (let zone of this.zonesMap) {
     const isInZone = google.maps.geometry.poly.containsLocation(
       this.selectAddress,
-      new google.maps.Polygon({ paths:this.zonesMap[i]})
+      new google.maps.Polygon({ paths: zone.paths })
     );
     if (isInZone)
-      return i+1
+      return zone.idZone
     }
   }
 
