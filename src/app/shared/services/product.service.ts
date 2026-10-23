@@ -11,7 +11,7 @@ import { EditProductResponse } from '../dto/product/EditProductResponse';
 import { GetProductResponse } from '../dto/product/GetProductResponse';
 import * as ROUTES from '../routes/index.routes';
 
-export type ProductOrderStatus = 'pendiente' | 'entregado';
+export type ProductOrderStatus = 'pending' | 'entregado';
 
 export interface ProductOrderItem {
   id?: number;
@@ -121,6 +121,13 @@ export class ProductService {
   addProductOrder(order: Omit<ProductOrder, 'id'>): Observable<ProductOrder> {
     return this.http.post<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.ADDPRODUCTORDER, JSON.stringify(order), this.OPTION).pipe(
       map(res => res.productOrder as ProductOrder)
+    );
+  }
+
+  deleteProductOrder(id: number): Observable<void> {
+    const params = new HttpParams().set('idProductOrder', id.toString());
+    return this.http.delete<any>(ROUTES.API_ROUTES.PRODUCT_ORDER.DELETEPRODUCTORDER, { params }).pipe(
+      map(() => undefined)
     );
   }
 }

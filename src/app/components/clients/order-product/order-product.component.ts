@@ -149,7 +149,7 @@ export class OrderProductComponent implements OnInit {
         productTitle: item.product.title,
         productCategoryTitle: this.getCategoryName(item.product.productCategoryId),
         cant: item.cant,
-        status: 'pendiente'
+        status: 'pending'
       }))
     };
     this.productService.addProductOrder(order).subscribe();
