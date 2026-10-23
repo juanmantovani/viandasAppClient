@@ -8,8 +8,11 @@ import { DeleteZoneRequest } from 'src/app/shared/dto/setting/DeleteZoneRequest'
 import { EditZoneRequest } from 'src/app/shared/dto/setting/EditZoneRequest';
 import { EditZoneResponse } from 'src/app/shared/dto/setting/EditZoneResponse';
 import { GetZoneResponse } from 'src/app/shared/dto/setting/GetZoneResponse';
+import { UpdateZoneAddressResponse } from 'src/app/shared/dto/address/UpdateZoneAddressResponse';
 import { Zone } from 'src/app/shared/models/Zone';
+import { AddressService } from 'src/app/shared/services/address.service';
 import { DialogService } from 'src/app/shared/services/dialog.service';
+import { NotificationService } from 'src/app/shared/services/notification.service';
 import { SettingService } from 'src/app/shared/services/setting.service';
 import { Utils } from 'src/app/utils';
 import { ZoneFormComponent } from '../zone-form/zone-form.component';
@@ -29,7 +32,9 @@ export class ZoneComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private settingService: SettingService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private addressService: AddressService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -41,6 +46,28 @@ export class ZoneComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res.zones);
     })
 
+  }
+
+  //Primero se consulta sin aplicar (dryRun) para mostrar cuántas direcciones cambian
+  onClickUpdateZoneAddress() {
+    this.addressService.updateZoneAddress(true).subscribe(async (res: UpdateZoneAddressResponse) => {
+      if (res.changed.length == 0) {
+        this.notificationService.show('Todas las direcciones ya tienen la zona correcta.', { classname: 'bg-success text-light', delay: 4000 });
+        return;
+      }
+      const changesByZone = new Map<string, number>();
+      res.changed.forEach(c => {
+        const key = `zona ${c.oldIdZone} → ${c.newIdZone}`;
+        changesByZone.set(key, (changesByZone.get(key) || 0) + 1);
+      });
+      const detail = Array.from(changesByZone, ([key, cant]) => `${key}: ${cant}`).join(', ');
+      var msg = `Se va a actualizar la zona de ${res.changed.length} de ${res.total} direcciones (${detail}).`;
+      if (res.withoutZone.length > 0)
+        msg += ` ${res.withoutZone.length} sin coordenadas o fuera de las zonas quedan como están.`;
+      if (await this.generateConfirm(msg + " ¿Desea continuar?") === true) {
+        this.addressService.updateZoneAddress(false).subscribe();
+      }
+    });
   }
 
   onClickZone(zone?: Zone){

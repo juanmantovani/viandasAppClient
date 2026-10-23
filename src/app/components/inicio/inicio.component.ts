@@ -10,9 +10,6 @@ import { CategoryService } from 'src/app/shared/services/category.service';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
 import  * as ROUTES  from '../../shared/routes/index.routes'
-import { SettingService } from 'src/app/shared/services/setting.service';
-import { GetZoneResponse } from 'src/app/shared/dto/setting/GetZoneResponse';
-import { Zone } from 'src/app/shared/models/Zone';
 
 @Component({
   selector: 'app-inicio',
@@ -37,7 +34,6 @@ export class InicioComponent implements OnInit {
   public isLoggedIn = false;
   public userRoles: string [] = [];
   public userProfile: KeycloakProfile | null = null;
-  zones: Zone[] = [];
 
   constructor(config: NgbCarouselConfig, 
     private carrouselService : CarrouselService,
@@ -45,7 +41,6 @@ export class InicioComponent implements OnInit {
     private categoryService: CategoryService,
     private readonly keycloak: KeycloakService,
     private router: Router,
-    private settingSerice: SettingService,
 
     ) {
     config.interval = 6000;
@@ -80,7 +75,6 @@ export class InicioComponent implements OnInit {
     this.overrideBackButton();
     this.getBannersIndex();
     await this.getCategories();
-    await this.getZone();
 
     this.isLoggedIn = await this.keycloak.isLoggedIn();
 
@@ -90,13 +84,6 @@ export class InicioComponent implements OnInit {
     }
   }
 
-  async getZone() {
-    await this.settingSerice.getZone().subscribe((res: GetZoneResponse) => {
-      this.zones = res.zones;
-    })
-
-  }
-  
   async getBannersIndex() {
     await this.carrouselService.getBannersIndex().subscribe((res: GetBannerIndexResponse) => {
       this.listUrlImage = res.urlImage;
