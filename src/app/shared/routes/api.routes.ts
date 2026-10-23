@@ -65,6 +65,7 @@ export const API_ROUTES = {
         EDITADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/editAddress`,
         DELETEADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/deleteAddress`,
         SETFAVOURITEADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/setFavouriteAddress`,
+        UPDATEZONEADDRESS: `${ENV.urlApi}/${INTERNAL_ROUTES.ADDRESS}/updateZoneAddress`,
     },
     ORDER: {
         GETORDERS: `${ENV.urlApi}/${INTERNAL_ROUTES.ORDER}/getOrders`,
@@ -103,6 +104,7 @@ export const API_ROUTES = {
         EDITZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editZone`,
         DELETEZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteZone`,
         GETZONE: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getZone`,
+        GETZONEPOLYGONS: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/getZonePolygons`,
         ADDDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/addDiscount`,
         EDITDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/editDiscount`,
         DELETEDISCOUNT: `${ENV.urlApi}/${INTERNAL_ROUTES.SETTING}/deleteDiscount`,

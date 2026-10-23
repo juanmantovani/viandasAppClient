@@ -11,6 +11,7 @@ import { DeleteAddressResponse } from '../dto/address/DeleteAddressResponse';
 import { SetFavouriteAddressRequest } from '../dto/address/SetFavouriteAddressRequest';
 import { SetFavouriteAddressResponse } from '../dto/address/SetFavouriteAddressResponse';
 import { GetAddressTakeAwayResponse } from '../dto/setting/GetAddressTakeAwayResponse';
+import { UpdateZoneAddressResponse } from '../dto/address/UpdateZoneAddressResponse';
 
 
 
@@ -44,6 +45,15 @@ export class AddressService {
   setFavouriteAddress(request: SetFavouriteAddressRequest): Observable<SetFavouriteAddressResponse>{
     return this.http.post<SetFavouriteAddressResponse>(ROUTES.API_ROUTES.ADDRESS.SETFAVOURITEADDRESS, JSON.stringify(request), this.OPTION ).pipe(
       map (res => new SetFavouriteAddressResponse(res)))
+  }
+
+  //Recalcula la zona de todas las direcciones; con dryRun solo informa los cambios
+  updateZoneAddress(dryRun: boolean): Observable<UpdateZoneAddressResponse> {
+    let params = new HttpParams();
+    params = params.set('dryRun', dryRun.toString());
+
+    return this.http.post<UpdateZoneAddressResponse>(ROUTES.API_ROUTES.ADDRESS.UPDATEZONEADDRESS, null, {params}).pipe(
+      map (res => new UpdateZoneAddressResponse(res)))
   }
 
   getAddressTakeAway():Observable<GetAddressTakeAwayResponse>{
