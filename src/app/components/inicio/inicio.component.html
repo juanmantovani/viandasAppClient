@@ -96,33 +96,6 @@
     </div>
   </div>
 
-  <div class="container" id="map">
-    <div class="row gray">
-      <div class="m-0 justify-content-center align-items-center title-map">
-        <h1 class="col-auto text-center">Zonas y costos de envío</h1>
-      </div>
-      <div class="col-md">
-        <div class="step">
-          <mat-icon>location_on</mat-icon>
-          <h2>Paraná</h2>
-          <div align="center">
-            <p class="step-description">
-              A continuación, verificá nuestras zonas de envíos en Paraná - Entre Ríos y los costos de los mismos
-            </p>
-            <div class="coso" *ngFor="let zone of zones"><p >> {{zone.description}}: ${{zone.price}}</p></div>
-          </div>
-
-        </div>
-      </div>
-      <div class="col-md map">
-        <iframe src="https://www.google.com/maps/d/embed?mid=1mdPmMt16mEVEgkrhwIpQPuAwjgbsY8c&ehbc=2E312F" 
-        class="map-responsive" style="border:0;" allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-      </div>
-    </div>
-  </div>
-
   <div class="green-about responsive" align="center" id="about">
     <div class="container">
       <div class="m-0 justify-content-center align-items-center title-about title">
